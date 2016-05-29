@@ -146,7 +146,6 @@ Redirecting output of a command
 
 * to another command
     * `du -sh * | sort -h` calculate size of files/folders, display size in human-readable format which is then sorted
-    * `ls -t *.txt | head -1 | xargs gvim` open most recently created/modified .txt file with `gvim`
     * `history | awk '{ print $2}' | sort | uniq -c | sort -nr` sort commands in your history by number of times used
 * to a file (instead of displaying on terminal)
     * `ls *.txt > text_files.list` writes/overwrites to file
@@ -172,3 +171,11 @@ Substituting output of command in a string
 
 * `sed -r -i "s/(.*)/$(pwd | xargs basename) \1/" *.txt` the current directory name is inserted at start of every line
     * Note the use of double quotes
+
+**stdin, stdout and stderr**
+
+* `<` or `0<` is stdin filehandle
+* `>` or `1>` is stdout filehandle
+* `2>` is stderr filehandle
+* [read more](http://stackoverflow.com/questions/3385201/confused-about-stdin-stdout-and-stderr)
+
