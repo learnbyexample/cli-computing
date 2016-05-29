@@ -49,6 +49,7 @@ Apart from knowing your current working directory, often used to copy the absolu
 * `-R` recursively display sub-directories
 * `-S` sort by file size
     * directory is treated as file and doesn’t display actual size used by directory, use `du` command if directory size is also needed
+* `-d` list directory entries instead of contents
 * `-F` Append a character to each file name indicating the file type (other than regular files)
     * `/` for directories
     * `*` for executable files
