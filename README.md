@@ -11,6 +11,7 @@ Introduction to Linux commands and Shell scripting
 * [Command Line Introduction](./Command_Line_Introduction.md)
 * [Files and Directories](./Files_and_Directories.md)
 * [Working with Files and Directories](./Working_with_Files_and_Directories.md)
+* [Text Processing](./Text_Processing.md)
 * More chapters coming soon...
  
 # <a name="ebook"></a>ebook
