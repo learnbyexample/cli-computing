@@ -35,6 +35,8 @@ In this chapter, we will see how to display contents of a file, search within fi
 * `cat sample.txt` display the contents of file sample.txt
 * `cat power.log timing.log area.log > report.log` concatenate the contents of all three files and save to report.log
 * `tac sample.txt` display the lines of file sample.txt in reversed order
+* [cat Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/cat?sort=votes&pageSize=15)
+* [cat Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/cat?sort=votes&pageSize=15)
 
 ```
 $ cat > sample.txt
@@ -76,6 +78,7 @@ This is an example of adding text to a new file using cat command.
 * `less -s large_filename` display contents of file large_filename using less command, consecutive blank lines are squeezed as single blank line
 * `less` command is an [improved version](https://unix.stackexchange.com/questions/604/isnt-less-just-more) of `more` command
 * [differences between most, more and less](https://unix.stackexchange.com/questions/81129/what-are-the-differences-between-most-more-and-less)
+* [less Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/less?sort=votes&pageSize=15)
 
 <br>
 ### <a name="tail"></a>tail
@@ -90,6 +93,8 @@ This is an example of adding text to a new file using cat command.
 * `tail power.log timing.log` display last 10 lines of both files preceded by filename header
 * `tail -q power.log timing.log > result.log` save last 10 lines of both files without filename header to result.log
 * `tail -n +3 report.log` display all lines starting from third line (i.e all lines except first two lines)
+* [tail Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/tail?sort=votes&pageSize=15)
+* [tail Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/tail?sort=votes&pageSize=15)
 
 <br>
 ### <a name="head"></a>head
@@ -102,6 +107,7 @@ This is an example of adding text to a new file using cat command.
 * `head -20 report.log | tail report.log` display lines 11 to 20
 * `tail -30 report.log | head -5 report.log` display 5 lines prior to last 25 lines of file
 * `head -n -2 report.log` display all but last 2 lines
+* [head Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/head?sort=votes&pageSize=15)
 
 <br>
 ### <a name="text-editors"></a>Text Editors
@@ -223,7 +229,7 @@ Paraphrasing from `info grep`
 * `grep -P '\d' report.log` will print all lines having atleast one number
 * `grep -P '(Th|)is' short_story.txt` match This or is
 * `man pcrepattern` syntax and semantics of the regular expressions that are supported by PCRE
-* [look-around assertions example](http://unix.stackexchange.com/questions/13466/can-grep-output-only-specified-groupings-that-match)
+* [look-around assertions example](https://unix.stackexchange.com/questions/13466/can-grep-output-only-specified-groupings-that-match)
 
 **Further Reading**
 
@@ -231,7 +237,7 @@ Paraphrasing from `info grep`
 * [why GNU grep is fast](https://lists.freebsd.org/pipermail/freebsd-current/2010-August/019310.html)
 * [grep tutorial](http://www.panix.com/~elflord/unix/grep.html)
 * [grep examples](http://alvinalexander.com/unix/edu/examples/grep.shtml)
-* [Difference between grep, egrep and fgrep](http://unix.stackexchange.com/questions/17949/what-is-the-difference-between-grep-egrep-and-fgrep)
+* [Difference between grep, egrep and fgrep](https://unix.stackexchange.com/questions/17949/what-is-the-difference-between-grep-egrep-and-fgrep)
 * [grep Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/grep?sort=votes&pageSize=15)
 * [grep Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/grep?sort=votes&pageSize=15)
 * [ucg](https://github.com/gvansickle/ucg) - UniversalCodeGrep (ucg) is an extremely fast grep-like tool specialized for searching large bodies of source code
@@ -280,8 +286,9 @@ Passing filtered files as input to other commands
 
 * [using find](http://mywiki.wooledge.org/UsingFind)
 * [Collection of find examples](http://alvinalexander.com/unix/edu/examples/find.shtml)
-* [find Q&A on unix stackexchange](http://unix.stackexchange.com/questions/tagged/find?sort=votes&pageSize=15)
-* [find and tar example](http://unix.stackexchange.com/questions/282762/find-mtime-1-print-xargs-tar-archives-all-files-from-directory-ignoring-t/282885#282885)
+* [find Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/find?sort=votes&pageSize=15)
+* [find and tar example](https://unix.stackexchange.com/questions/282762/find-mtime-1-print-xargs-tar-archives-all-files-from-directory-ignoring-t/282885#282885)
+* [find Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/find?sort=votes&pageSize=15)
 
 <br>
 ### <a name="locate"></a>locate
@@ -314,6 +321,8 @@ Faster alternative to `find` command when searching for a file by its name. It i
 * `wc -c power.log` outputs no. of characters followed by filename
 * `wc -l < power.log` output only the number of lines
 * `wc -L power.log` length of longest line followed by filename
+* [wc Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/wc?sort=votes&pageSize=15)
+* [wc Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/wc?sort=votes&pageSize=15)
 
 <br>
 ### <a name="du"></a>du
@@ -332,6 +341,8 @@ Faster alternative to `find` command when searching for a file by its name. It i
 * `du -sm * | sort -n` sort files and folders of current directory, numbers displayed are in Megabytes
     * use `sort -nr` to reverse sort order, i.e largest at top
 * `du -sh * | sort -h` sort files and folders of current directory, output displayed in human-readable format
+* [du Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/disk-usage?sort=votes&pageSize=15)
+* [du Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/du?sort=votes&pageSize=15)
 
 <br>
 ### <a name="df"></a>df
@@ -342,6 +353,7 @@ Faster alternative to `find` command when searching for a file by its name. It i
 
 * `df -h` display usage statistics of all available file systems
 * `df -h .` display usage of only the file system where the current working directory is located
+* [df Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/df?sort=votes&pageSize=15)
 
 <br>
 ### <a name="touch"></a>touch
@@ -357,6 +369,7 @@ Used to change file time stamps. But if file doesn't exist, the command will cre
 
 * `touch new_file.txt` create an empty file if it doesn't exist in current directory
 * `touch report.log` change the time stamp of report.log to current time (assuming report.log already exists in current directory)
+* [touch Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/touch?sort=votes&pageSize=15)
 
 <br>
 ### <a name="file"></a>file
@@ -633,3 +646,5 @@ rm: cannot remove ‘linux_tutorial/report/power.log’: Permission denied
 
 * [permissions primer](http://www.catchlinux.com/permissions-primer/) - comprehensive tutorial, includes discussion on `/etc/passwd` , group permissions and more
 * [Linux File Permissions](https://danielmiessler.com/study/unixlinux_permissions/)
+* [chmod Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/chmod?sort=votes&pageSize=15)
+* [chmod Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/chmod?sort=votes&pageSize=15)
