@@ -142,11 +142,12 @@ $ echo "$SHELL"
 
 **Command Network**
 
+More detailed discussion in [Shell](./Shell.md) chapter
+
 Redirecting output of a command
 
 * to another command
     * `du -sh * | sort -h` calculate size of files/folders, display size in human-readable format which is then sorted
-    * `history | awk '{ print $2}' | sort | uniq -c | sort -nr` sort commands in your history by number of times used
 * to a file (instead of displaying on terminal)
     * `ls *.txt > text_files.list` writes/overwrites to file
     * `ls *.txt >> text_files.list` appends to file
@@ -157,7 +158,7 @@ Redirecting input
 
 Redirecting error
 
-* `xyz 2> /dev/null` assuming a non-existent command `xyz`, it would give an error. In this case, it is redirected to null device which just discards all contents written to it
+* `xyz 2> cmderror.log` assuming a non-existent command `xyz`, it would give an error and gets redirected to specified file
 
 Redirecting output of command as input file
 
@@ -169,7 +170,7 @@ Combining output of several commands
 
 Substituting output of command in a string
 
-* `sed -r -i "s/(.*)/$(pwd | xargs basename) \1/" *.txt` the current directory name is inserted at start of every line
+* `sed -i -r "s/(.*)/$(basename $PWD)\/\1/" dir_list.txt` add current directory name and forward-slash character at the start of every line
     * Note the use of double quotes
 
 **stdin, stdout and stderr**
