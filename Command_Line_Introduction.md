@@ -79,6 +79,7 @@ Shell and Terminal are sometimes interchangeably used to mean the same thing - a
 	* `help help` help page on `help` command
 	* `help -m cd` display usage in pseudo-manpage format for `cd` command
 	* `help -d compgen` use -d option to output short description for each topic
+	* `help` display all shell commands that are defined internally
 * `whatis` display one-line manual page descriptions
     * `whatis grep` print lines matching a pattern
 * `whereis` locate the binary, source, and manual page files for a command
