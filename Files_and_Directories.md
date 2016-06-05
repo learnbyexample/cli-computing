@@ -66,6 +66,8 @@ Apart from knowing your current working directory, often used to copy the absolu
 * `ls /home` list contents of directory home present under the root directory (absolute path specified)
 * `ls ../` list contents of directory one hierarchy above (relative path specified)
 * `ls -ltr` list files of current directory with details sorted such that latest created/modified file is displayed last
+* [ls Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/ls?sort=votes&pageSize=15)
+* [ls Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/ls?sort=votes&pageSize=15)
 
 <br>
 ### <a name="cd"></a>cd
@@ -89,6 +91,8 @@ cd - Change the shell working directory.
     * as specified by `HOME` environment variable
 * `cd ..` go one hierarchy back (relative path specified)
 * `cd ../..` two hierarchy back (relative path specified)
+* [cd Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/cd-command?sort=votes&pageSize=15)
+* [cd Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/cd?sort=votes&pageSize=15)
 
 <br>
 ### <a name="mkdir"></a>mkdir
@@ -102,6 +106,8 @@ cd - Change the shell working directory.
 * `mkdir -p project_adder/report` create both project_adder and report directories in one shot
     * if project_adder already exists, it won't be affected
 * `mkdir /home/guest1` add a home directory for user guest1
+* [mkdir Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/mkdir?sort=votes&pageSize=15)
+* [mkdir Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/mkdir?sort=votes&pageSize=15)
 
 <br>
 ### <a name="touch"></a>touch
@@ -112,6 +118,7 @@ When a filename is passed as argument to `touch` command that doesn't exist, it 
 More info on this command is covered in a later chapter
 
 * `touch error.log` creates an empty file error.log in current directory if it doesn't exist
+* [touch Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/touch?sort=votes&pageSize=15)
 
 <br>
 ### <a name="rm"></a>rm
@@ -133,9 +140,11 @@ More info on this command is covered in a later chapter
     * `rmdir project_tmp` can also be used
 * If available, use `gvfs-trash` command to send items to trash instead of permanent deletion
 * Files removed using `rm` can still be recovered with time/skill. Use `shred` command to overwrite files
-    * [recover deleted files](http://unix.stackexchange.com/questions/80270/unix-linux-undelete-recover-deleted-files)
-    * [recovering accidentally deleted files](http://unix.stackexchange.com/questions/2677/recovering-accidentally-deleted-files)
+    * [recover deleted files](https://unix.stackexchange.com/questions/80270/unix-linux-undelete-recover-deleted-files)
+    * [recovering accidentally deleted files](https://unix.stackexchange.com/questions/2677/recovering-accidentally-deleted-files)
     * [Securely wipe disk](https://wiki.archlinux.org/index.php/Securely_wipe_disk)
+* [rm Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/rm?sort=votes&pageSize=15)
+* [rm Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/rm?sort=votes&pageSize=15)
 
 <br>
 ### <a name="cp"></a>cp
@@ -156,11 +165,15 @@ The destination path is always specified as the last argument. More than one sou
     * `.` represents current directory and `..` represents one hierarchy above
 * `cp -r /home/guest1/proj_matlab ~/proj_matlab_bug_test` copy proj_matlab to your home directory as proj_matlab_bug_test
 * `cp report/output.log report/timing.log .` copy files output.log and timing.log to current directory
+* [cp Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/cp?sort=votes&pageSize=15)
+* [cp Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/cp?sort=votes&pageSize=15)
 
 Also check out
 
 * `rsync` a fast, versatile, remote (and local) file-copying tool
 * [rsync examples](http://ubtutorials.com/tutorial/1136/ubuntu-15-examples-backup-using-rsync-command)
+* [rsync Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/rsync?sort=votes&pageSize=15)
+* [rsync Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/rsync?sort=votes&pageSize=15)
 
 <br>
 ### <a name="mv"></a>mv
@@ -178,6 +191,8 @@ The destination path is always specified as the last argument. More than one sou
 
 * `mv project_adder project_lowpower_adder` rename file or folder
 * `mv power.log timing.log area.log project_multiplier/result/` move the specified files to result directory
+* [mv Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/mv?sort=votes&pageSize=15)
+* [mv Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/mv?sort=votes&pageSize=15)
 
 <br>
 ### <a name="rename"></a>rename
@@ -193,6 +208,7 @@ The destination path is always specified as the last argument. More than one sou
 
 * `rename 's/\.JPG$/.jpg/' *JPG` change the file extension from '.JPG' to '.jpg'
 * `rename 's/ /_/g' *` replace all 'space' characters in filenames with '_'
+* [rename Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/rename?sort=votes&pageSize=15)
 
 <br>
 ### <a name="ln"></a>ln
@@ -207,6 +223,8 @@ Create hard or soft link of file or folder. Soft link is similar to short-cuts c
 * `ln results/report.log report.log` create a hard link of report.log from results folder to current directory, will not lose content even if results/report.log file is deleted
 * `unlink report.log` delete link
     * `rm report.log` can also be used
+* [ln Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/ln?sort=votes&pageSize=15)
+* [ln Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/ln?sort=votes&pageSize=15)
 
 <br>
 ### <a name="tar-and-gzip"></a>tar and gzip
@@ -234,3 +252,8 @@ z commands
 * `zcat story.txt.gz` display file contents of compressed file on standard output
 * `zless story.txt.gz` display file contents of compressed file one screenful at a time
 * There are other commands as well like `zgrep`, `zdiff`, `zcmp` etc to work on compressed files
+
+**Further Reading**
+
+* [tar Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/tar?sort=votes&pageSize=15)
+* [tar Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/tar?sort=votes&pageSize=15)
