@@ -49,7 +49,7 @@ $ echo "${dec2bin[255]}"
 * Section 'Shell Variables' in `info bash`
 * [Difference between shell and environment variables](https://stackoverflow.com/questions/3341372/differnce-between-the-shell-and-environment-variable-in-bash)
 * [Variable behavior varies with different type of shells](http://sc.tamu.edu/help/general/unix/vars.html)
-* [How to correctly modify PATH variable](http://unix.stackexchange.com/questions/26047/how-to-correctly-add-a-path-to-path)
+* [How to correctly modify PATH variable](https://unix.stackexchange.com/questions/26047/how-to-correctly-add-a-path-to-path)
 * [Read more on the dec2bin brace expansion example](https://twitter.com/climagic/status/593842202314420224)
 * [Parameter expansion](http://wiki.bash-hackers.org/syntax/pe#simple_usage) - from simple ways to get Variable values to complicated manipulations
 
@@ -156,14 +156,14 @@ Before creating an alias or function, use `type alias_name` to check if an exist
 * [shell config files](http://blog.sanctum.geek.nz/shell-config-subfiles/)
 * [command line navigation](http://cupfullofcode.com/blog/2013/07/03/efficient-command-line-navigation/index.html)
 * [difference between bashrc and bash_profile](http://superuser.com/questions/183870/difference-between-bashrc-and-bash-profile/183980#183980)
-* [when to use alias, functions and scripts](http://unix.stackexchange.com/questions/30925/in-bash-when-to-alias-when-to-script-and-when-to-write-a-function/30964#30964)
-* [what does rc in bashrc stand for](http://unix.stackexchange.com/questions/3467/what-does-rc-in-bashrc-stand-for)
+* [when to use alias, functions and scripts](https://unix.stackexchange.com/questions/30925/in-bash-when-to-alias-when-to-script-and-when-to-write-a-function/30964#30964)
+* [what does rc in bashrc stand for](https://unix.stackexchange.com/questions/3467/what-does-rc-in-bashrc-stand-for)
 
 <br>
 ### <a name="emac-mode-readline-shortcuts"></a>Emac mode Readline shortcuts
 
 * `Ctrl+c` sends SIGINT signal, requesting the current running process to terminate
-    * [how Ctrl+c works](http://stackoverflow.com/questions/6108953/how-does-ctrl-c-terminate-a-child-process)
+    * [how Ctrl+c works](https://stackoverflow.com/questions/6108953/how-does-ctrl-c-terminate-a-child-process)
 * `Ctrl+c` can also be used to abort the currently typed command and give fresh command prompt
 * `Ctrl+z` suspends the current running process
 * `Tab` the tab key completes the command (even aliases) or filename if it is unique, double Tab gives list of possible matches if it is not unique

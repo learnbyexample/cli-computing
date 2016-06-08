@@ -132,7 +132,7 @@ If there is a difference, it prints all the differences, which might not be desi
 * `diff -s report.log bkp/mar10/` no need to specify second filename if names are same
 * `diff -qr report/ bkp/mar10/report/` recursively compare files between report and bkp/mar10/report directories, filenames not matching are also specified in output
     * see [this link](https://stackoverflow.com/questions/6217628/diff-to-output-only-the-file-names) for detailed analysis and corner cases
-* `diff -r report/ bkp/mar10/report/ | grep -w 'diff'` useful trick to get only names of mismatching files (provided no mismatching lines contain the whole word diff)
+* `diff report/ bkp/mar10/report/ | grep -w '^diff'` useful trick to get only names of mismatching files (provided no mismatches contain the whole word diff at start of line)
 
 **Further Reading**
 
@@ -368,7 +368,7 @@ $ pr sample.txt
 
 
 This is an example of adding text to a new file using cat command.
-Press Ctrl+c on a newline to save and quit.
+Press Ctrl+d on a newline to save and quit.
 Adding a line of text at end of file
 ```
 

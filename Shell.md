@@ -155,7 +155,7 @@ By default all results of a command are displayed on the terminal, which is the 
     * `1>&2` redirect stdout to stderr
     * `2>&1` redirect stderr to stdout
 * [difference between 2>&1 >foo and >foo 2>&1](http://mywiki.wooledge.org/BashFAQ/055)
-* [redirect and append both stdout and stderr to a file](http://stackoverflow.com/questions/876239/how-can-i-redirect-and-append-both-stdout-and-stderr-to-a-file-with-bash)
+* [redirect and append both stdout and stderr to a file](https://stackoverflow.com/questions/876239/how-can-i-redirect-and-append-both-stdout-and-stderr-to-a-file-with-bash)
 
 **Redirecting input**
 
@@ -195,8 +195,8 @@ By default all results of a command are displayed on the terminal, which is the 
 * First column indicates the process id (PID)
 * `-e` select all processes
 * `-f` full-format listing
-* [ps Q&A on unix stackexchange](http://unix.stackexchange.com/questions/tagged/ps?sort=votes&pageSize=15)
-* [ps Q&A on stackoverflow](http://stackoverflow.com/questions/tagged/ps?sort=votes&pageSize=15)
+* [ps Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/ps?sort=votes&pageSize=15)
+* [ps Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/ps?sort=votes&pageSize=15)
 * [ps tutorial](https://linuxjourney.com/lesson/monitor-processes-ps-command)
 
 **kill**
@@ -205,10 +205,10 @@ By default all results of a command are displayed on the terminal, which is the 
 
 * `kill -l` list signal names
 * `kill PID` send default 'SIGTERM' signal to a process (specified by the PID) asking the process to terminate
-* [gracefully shutdown processes](http://stackoverflow.com/questions/690415/in-what-order-should-i-send-signals-to-gracefully-shutdown-processes/690631#690631)
-* [why kill -9 should be avoided](http://unix.stackexchange.com/questions/8916/when-should-i-not-kill-9-a-process)
-* [kill Q&A on unix stackexchange](http://unix.stackexchange.com/questions/tagged/kill?sort=votes&pageSize=15)
-* [kill Q&A on stackoverflow](http://stackoverflow.com/questions/tagged/kill?sort=votes&pageSize=15)
+* [gracefully shutdown processes](https://stackoverflow.com/questions/690415/in-what-order-should-i-send-signals-to-gracefully-shutdown-processes/690631#690631)
+* [why kill -9 should be avoided](https://unix.stackexchange.com/questions/8916/when-should-i-not-kill-9-a-process)
+* [kill Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/kill?sort=votes&pageSize=15)
+* [kill Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/kill?sort=votes&pageSize=15)
 * See also `pkill` and `killall` commands
 
 **top**
@@ -220,7 +220,7 @@ By default all results of a command are displayed on the terminal, which is the 
 * Press `W` (uppercase) to write your favorite view of top command to `~/.toprc` file and quit immediately, so that next time you use top command, it will display in the format you like
 * [htop](https://www.reddit.com/r/linux/comments/3ih6n9/why_do_people_seem_to_prefer_htop_over_top/) is better/prettier alternative to top
     * install instructions [here](http://ccm.net/faq/41400-linux-how-to-install-htop)
-* [top Q&A on unix stackexchange](http://unix.stackexchange.com/questions/tagged/top?sort=votes&pageSize=15)
+* [top Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/top?sort=votes&pageSize=15)
 
 **free**
 

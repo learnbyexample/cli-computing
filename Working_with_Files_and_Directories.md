@@ -31,7 +31,8 @@ In this chapter, we will see how to display contents of a file, search within fi
 
 **Examples**
 
-* `cat > sample.txt` create a new file for writing, use `Ctrl+c` on a newline to save the file and quit
+* `cat > sample.txt` create a new file for writing, use `Ctrl+d` on a newline to save the file and quit
+    * [difference between Ctrl+c and Ctrl+d to signal end of stdin input in bash](https://unix.stackexchange.com/questions/16333/how-to-signal-the-end-of-stdin-input-in-bash)
 * `cat sample.txt` display the contents of file sample.txt
 * `cat power.log timing.log area.log > report.log` concatenate the contents of all three files and save to report.log
 * `tac sample.txt` display the lines of file sample.txt in reversed order
@@ -41,18 +42,18 @@ In this chapter, we will see how to display contents of a file, search within fi
 ```
 $ cat > sample.txt
 This is an example of adding text to a new file using cat command.
-Press Ctrl+c on a newline to save and quit.
+Press Ctrl+d on a newline to save and quit.
 ^C
 
 $ cat sample.txt 
 This is an example of adding text to a new file using cat command.
-Press Ctrl+c on a newline to save and quit.
+Press Ctrl+d on a newline to save and quit.
 
 $ wc sample.txt 
   2  23 111 sample.txt
 
 $ tac sample.txt 
-Press Ctrl+c on a newline to save and quit.
+Press Ctrl+d on a newline to save and quit.
 This is an example of adding text to a new file using cat command.
 ```
 
@@ -486,7 +487,7 @@ Hello World
 $ #Read permission
 $ cat sample.txt 
 This is an example of adding text to a new file using cat command.
-Press Ctrl+c on a newline to save and quit.
+Press Ctrl+d on a newline to save and quit.
 $ chmod -r sample.txt
 $ ls -lF sample.txt 
 --w--w---- 1 learnbyexample learnbyexample 111 May 25 14:47 sample.txt
@@ -504,7 +505,7 @@ $ ls -lF sample.txt
 -rw-rw-r-- 1 learnbyexample learnbyexample 148 May 29 11:00 sample.txt
 $ cat sample.txt 
 This is an example of adding text to a new file using cat command.
-Press Ctrl+c on a newline to save and quit.
+Press Ctrl+d on a newline to save and quit.
 Adding a line of text at end of file
 $ chmod -w sample.txt 
 $ ls -lF sample.txt 
