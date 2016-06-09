@@ -40,7 +40,7 @@ Quoting [wikipedia](https://en.wikipedia.org/wiki/Path_%28computing%29#Absolute_
 
 * `/home/learnbyexample` absolute path
 * `../design` relative path
-* [~/Documents is a relative or an absolute path?](http://unix.stackexchange.com/questions/221970/is-documents-a-relative-or-an-absolute-path)
+* [~/Documents is a relative or an absolute path?](https://unix.stackexchange.com/questions/221970/is-documents-a-relative-or-an-absolute-path)
 
 **Further Reading**
 
@@ -53,7 +53,7 @@ Quoting [wikipedia](https://en.wikipedia.org/wiki/Path_%28computing%29#Absolute_
 Command Line Interface (CLI) allows us interact with computer using text commands  
 For example, opening a Terminal, typing `ls` and pressing **Enter** key - the `ls` command lists the contents of a directory. To do the same thing in GUI, you double-click on the directory to view its content
 
-Shell and Terminal are sometimes interchangeably used to mean the same thing - a prompt where user enters and executes commands. They are [quite different](http://unix.stackexchange.com/questions/4126/what-is-the-exact-difference-between-a-terminal-a-shell-a-tty-and-a-con)
+Shell and Terminal are sometimes interchangeably used to mean the same thing - a prompt where user enters and executes commands. They are [quite different](https://unix.stackexchange.com/questions/4126/what-is-the-exact-difference-between-a-terminal-a-shell-a-tty-and-a-con)
 
 * **Shell** command line interpreter
 * **Terminal** text input/output environment 
@@ -88,7 +88,7 @@ Shell and Terminal are sometimes interchangeably used to mean the same thing - a
 * [explainshell](http://explainshell.com/) write down a command-line to see the help text that matches each argument
     * example: [find . -type f -print0](http://explainshell.com/explain?cmd=find%20.%20-type%20f%20-print0)
 
-Excellent resource: [How do I use man pages to learn how to use commands?](http://unix.stackexchange.com/questions/193815/how-do-i-use-man-pages-to-learn-how-to-use-commands)
+Excellent resource: [How do I use man pages to learn how to use commands?](https://unix.stackexchange.com/questions/193815/how-do-i-use-man-pages-to-learn-how-to-use-commands)
 
 <br>
 ### <a name="do-one-thing-well"></a>Do one thing and do it well
@@ -130,7 +130,7 @@ single quotes vs double quotes
 
 * **single quotes** preserves the literal value of each character within the quotes
 * **double quotes** preserves the literal value of all characters within the quotes, with the exception of '$', '`', '\', and, when history expansion is enabled, '!'
-* [Difference between single and double quotes](http://stackoverflow.com/questions/6697753/difference-between-single-and-double-quotes-in-bash)
+* [Difference between single and double quotes](https://stackoverflow.com/questions/6697753/difference-between-single-and-double-quotes-in-bash)
 
 Example:
 
@@ -142,8 +142,6 @@ $ echo "$SHELL"
 ```
 
 **Command Network**
-
-More detailed discussion in [Shell](./Shell.md) chapter
 
 Redirecting output of a command
 
@@ -174,10 +172,12 @@ Substituting output of command in a string
 * `sed -i -r "s/(.*)/$(basename $PWD)\/\1/" dir_list.txt` add current directory name and forward-slash character at the start of every line
     * Note the use of double quotes
 
+More detailed discussion in [Shell](./Shell.md) chapter
+
 **stdin, stdout and stderr**
 
 * `<` or `0<` is stdin filehandle
 * `>` or `1>` is stdout filehandle
 * `2>` is stderr filehandle
-* [read more](http://stackoverflow.com/questions/3385201/confused-about-stdin-stdout-and-stderr)
+* [read more](https://stackoverflow.com/questions/3385201/confused-about-stdin-stdout-and-stderr)
 
