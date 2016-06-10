@@ -15,12 +15,13 @@ Introduction to Linux commands and Shell scripting
 * [Text Processing](./Text_Processing.md)
 * [Shell](./Shell.md)
 * [Shell Customization](./Shell_Customization.md)
-* Shell Scripting - coming soon...
+* [Shell Scripting](./Shell_Scripting.md)
 
 <br>
 # <a name="ebook"></a>ebook
 
-* Once all the chapters are done...
+* Read as ebook on [gitbook](https://learnbyexample.gitbooks.io/linux-command-line/content/index.html)
+* Download ebook for offline reading - [link](https://www.gitbook.com/book/learnbyexample/linux-command-line/details)
 
 <br>
 # <a name="credits"></a>Credits
