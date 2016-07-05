@@ -34,7 +34,7 @@ Like any indispensible software, Shell has undergone transformation from the day
 * `ksh` Korn shell
 * `zsh` Z shell (bourne shell with improvements, including features from bash, tcsh, ksh)
 * `cat /etc/shells` displays list of login shells available in the current Linux distro
-* `echo $SHELL` list of login shells on the system
+* `echo $SHELL` path of current user's login shell
     * The material presented here is primarily for interactive shell
     * [difference between login shell and non-login shell](https://unix.stackexchange.com/questions/38175/difference-between-login-shell-and-non-login-shell)
 
