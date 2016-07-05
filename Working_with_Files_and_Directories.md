@@ -43,7 +43,6 @@ In this chapter, we will see how to display contents of a file, search within fi
 $ cat > sample.txt
 This is an example of adding text to a new file using cat command.
 Press Ctrl+d on a newline to save and quit.
-^C
 
 $ cat sample.txt 
 This is an example of adding text to a new file using cat command.
