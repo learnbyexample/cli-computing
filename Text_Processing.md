@@ -297,6 +297,7 @@ By default, `sed` acts on all of input contents. This can be refined to specific
 **Further Reading**
 
 * [awk basics](http://code.snipcademy.com/tutorials/shell-scripting/awk/introduction)
+* [Gawk: Effective AWK Programming](https://www.gnu.org/software/gawk/manual/)
 * [awk detailed tutorial](http://www.grymoire.com/Unix/Awk.html)
 * [basic tutorials for grep, awk, sed](https://unix.stackexchange.com/questions/2434/is-there-a-basic-tutorial-for-grep-awk-and-sed)
 * [awk one-liners explained](http://www.catonmat.net/series/awk-one-liners-explained)
