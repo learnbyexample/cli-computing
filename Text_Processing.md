@@ -214,7 +214,7 @@ By default, `sed` acts on all of input contents. This can be refined to specific
 **Examples for selective printing(p)**
 
 * `sed -n '5p' story.txt` print 5th line, `-n` option overrides default print behavior of sed
-	* use `sed -n '5q;d' story.txt` on large files. [Read more](https://stackoverflow.com/questions/191364/quick-unix-command-to-display-specific-lines-in-the-middle-of-a-file/17367226#17367226)
+	* use `sed '5q;d' story.txt` on large files. [Read more](https://stackoverflow.com/questions/191364/quick-unix-command-to-display-specific-lines-in-the-middle-of-a-file/17367226#17367226)
 * `sed -n '/cat/p' story.txt` print every line containing the text cat
 	* equivalent to `sed '/cat/!d' story.txt`
 * `sed -n '4,8!p' story.txt` print all lines except lines 4 to 8
