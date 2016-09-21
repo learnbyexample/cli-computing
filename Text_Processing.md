@@ -357,7 +357,7 @@ Descriptions adapted from [perldoc - Special Variables](http://perldoc.perl.org/
 
 **Simple Perl program**
 
-```
+```bash
 $ perl -e 'print "Hello!\nTesting Perl one-liner\n"'
 Hello!
 Testing Perl one-liner
@@ -367,7 +367,7 @@ Testing Perl one-liner
 
 **Example input file**
 
-```
+```bash
 $ cat test.txt 
 abc  : 123 : xyz
 3    : 32  : foo
@@ -378,7 +378,7 @@ abc  : 123 : xyz
 
 * Search and replace
 
-```
+```bash
 $ perl -pe 's/3/#/' test.txt 
 abc  : 12# : xyz
 #    : 32  : foo
@@ -417,7 +417,7 @@ abc  : 12% : xyz
 
 The `\Q` and `q()` constructs are helpful to nullify regex meta characters
 
-```
+```bash
 $ # if not properly escaped or quoted, it can lead to errors
 $ echo '*.^[}' | perl -pe 's/*.^[}/abc/'
 Quantifier follows nothing in regex; marked by <-- HERE in m/* <-- HERE .^[}/ at -e line 1.
@@ -439,7 +439,7 @@ $abc$
 
 * Print lines based on line number or pattern
 
-```
+```bash
 $ perl -ne 'print if /a/' test.txt 
 abc  : 123 : xyz
 -2.3 : bar : bar
@@ -468,7 +468,7 @@ $ seq 8 13 | perl -lne 'print if length $_ == 1'
 
 * Print range of lines based on line number or pattern
 
-```
+```bash
 $ seq 123 135 | perl -ne 'print if $. >= 3 && $. <= 5'
 125
 126
@@ -513,7 +513,7 @@ $ seq 2 8 | perl -ne 'print if !(/4/../6/)'
 
 * `..` vs `...`
 
-```
+```bash
 $ echo -e '10\n11\n10' | perl -ne 'print if /10/../10/'
 10
 10
@@ -528,7 +528,7 @@ $ echo -e '10\n11\n10' | perl -ne 'print if /10/.../10/'
 
 * Column manipulations
 
-```
+```bash
 $ echo -e "1 3 4\na b c" | perl -ale 'print $F[1]'
 3
 b
@@ -569,7 +569,7 @@ abc  : 123 : xyz
 
 * Multiline processing
 
-```
+```bash
 $ # save previous lines to make it easier for multiline matching
 $ perl -ne 'print if /3/ && $p =~ /abc/; $p = $_' test.txt 
 3    : 32  : foo
@@ -608,7 +608,7 @@ abc  : 123 : xyz
 
 * Using modules
 
-```
+```bash
 $ echo 'a,b,a,c,d,1,d,c,2,3,1,b' | perl -MList::MoreUtils=uniq -F, -le 'print join ",",uniq(@F)'
 a,b,c,d,1,2,3
 
@@ -633,7 +633,7 @@ abc,xyz
 
 * In place editing
 
-```
+```bash
 $ perl -i -pe 's/\d/*/g' test.txt 
 $ cat test.txt 
 abc  : *** : xyz
