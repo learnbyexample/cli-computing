@@ -379,16 +379,16 @@ abc  : 123 : xyz
 * Search and replace
 
 ```bash
-$ perl -pe 's/3/#/' test.txt 
-abc  : 12# : xyz
-#    : 32  : foo
--2.# : bar : bar
+$ perl -pe 's/3/%/' test.txt
+abc  : 12% : xyz
+%    : 32  : foo
+-2.% : bar : bar
 
 $ # use g flag to replace all occurrences, not just first match in line
-$ perl -pe 's/3/#/g' test.txt 
-abc  : 12# : xyz
-#    : #2  : foo
--2.# : bar : bar
+$ perl -pe 's/3/%/g' test.txt
+abc  : 12% : xyz
+%    : %2  : foo
+-2.% : bar : bar
 
 $ # conditional replacement
 $ perl -pe 's/3/@/g if /foo/' test.txt 
@@ -563,6 +563,32 @@ bar,bar
 $ perl -F: -e 'print if (grep {/\d/} @F) < 2' test.txt 
 abc  : 123 : xyz
 -2.3 : bar : bar
+```
+
+<br>
+
+* Dealing with duplicates
+
+```bash
+$ cat duplicates.txt 
+abc 123 ijk
+foo 567 xyz
+abc 123 ijk
+bar 090 pqr
+tst 567 zzz
+
+$ # whole line
+$ perl -ne 'print if !$seen{$_}++' duplicates.txt 
+abc 123 ijk
+foo 567 xyz
+bar 090 pqr
+tst 567 zzz
+
+$ # particular column
+$ perl -ae 'print if !$seen{$F[1]}++' duplicates.txt 
+abc 123 ijk
+foo 567 xyz
+bar 090 pqr
 ```
 
 <br>
