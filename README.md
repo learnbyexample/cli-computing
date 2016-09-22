@@ -17,7 +17,7 @@ Introduction to Linux commands and Shell scripting
 * [Working with Files and Directories](./Working_with_Files_and_Directories.md)
   * cat, less, tail, head, Text Editors, grep, find, locate, wc, du, df, touch, file, identify, basename, chmod
 * [Text Processing](./Text_Processing.md)
-  * sort, uniq, comm, cmp, diff, tr, sed, awk, cut, paste, column, pr
+  * sort, uniq, comm, cmp, diff, tr, sed, awk, perl, cut, paste, column, pr
 * [Shell](./Shell.md)
   * What is Shell?, Popular Shells, Wildcards, Redirection, Process Control, Running jobs in background
 * [Shell Customization](./Shell_Customization.md)
