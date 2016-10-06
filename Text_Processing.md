@@ -327,8 +327,8 @@ Descriptions adapted from [perldoc - command switches](http://perldoc.perl.org/p
 | -n | iterate over input files in a loop, lines are NOT printed by default |
 | -p | iterate over input files in a loop, lines are printed by default |
 | -l | chomp input line, $\ gets value of $/ if no argument given |
-| -a | autosplit input lines on space, implicitly sets -n |
-| -F | specifies the pattern to split input lines, implicitly sets -a and -n |
+| -a | autosplit input lines on space, implicitly sets -n for Perl version 5.20.0 and above |
+| -F | specifies the pattern to split input lines, implicitly sets -a and -n for Perl version 5.20.0 and above |
 | -i | edit files in place, if extension provided make a backup copy |
 | -0777 | slurp entire file as single string, not advisable for large input files |
 
@@ -529,38 +529,38 @@ $ echo -e '10\n11\n10' | perl -ne 'print if /10/.../10/'
 * Column manipulations
 
 ```bash
-$ echo -e "1 3 4\na b c" | perl -ale 'print $F[1]'
+$ echo -e "1 3 4\na b c" | perl -nale 'print $F[1]'
 3
 b
 
-$ echo -e "1,3,4,8\na,b,c,d" | perl -F, -le 'print $F[$#F]'
+$ echo -e "1,3,4,8\na,b,c,d" | perl -F, -lane 'print $F[$#F]'
 8
 d
 
-$ perl -F: -le 'print "$F[0] $F[2]"' test.txt 
+$ perl -F: -lane 'print "$F[0] $F[2]"' test.txt 
 abc    xyz
 3      foo
 -2.3   bar
 
-$ perl -F: -le '$sum+=$F[1]; END{print $sum}' test.txt 
+$ perl -F: -lane '$sum+=$F[1]; END{print $sum}' test.txt 
 155
 
-$ perl -F: -le '$F[2] =~ s/\w(?=\w)/$&,/g; print join ":", @F' test.txt 
+$ perl -F: -lane '$F[2] =~ s/\w(?=\w)/$&,/g; print join ":", @F' test.txt 
 abc  : 123 : x,y,z
 3    : 32  : f,o,o
 -2.3 : bar : b,a,r
 
-$ perl -F'/:\s*[a-z]+/i' -le 'print $F[0]' test.txt 
+$ perl -F'/:\s*[a-z]+/i' -lane 'print $F[0]' test.txt 
 abc  : 123 
 3    : 32  
 -2.3 
 
-$ perl -F'\s*:\s*' -le 'print join ",", grep {/[a-z]/i} @F' test.txt 
+$ perl -F'\s*:\s*' -lane 'print join ",", grep {/[a-z]/i} @F' test.txt 
 abc,xyz
 foo
 bar,bar
 
-$ perl -F: -e 'print if (grep {/\d/} @F) < 2' test.txt 
+$ perl -F: -ane 'print if (grep {/\d/} @F) < 2' test.txt 
 abc  : 123 : xyz
 -2.3 : bar : bar
 ```
@@ -585,7 +585,7 @@ bar 090 pqr
 tst 567 zzz
 
 $ # particular column
-$ perl -ae 'print if !$seen{$F[1]}++' duplicates.txt 
+$ perl -ane 'print if !$seen{$F[1]}++' duplicates.txt 
 abc 123 ijk
 foo 567 xyz
 bar 090 pqr
@@ -635,7 +635,7 @@ abc  : 123 : xyz
 * Using modules
 
 ```bash
-$ echo 'a,b,a,c,d,1,d,c,2,3,1,b' | perl -MList::MoreUtils=uniq -F, -le 'print join ",",uniq(@F)'
+$ echo 'a,b,a,c,d,1,d,c,2,3,1,b' | perl -MList::MoreUtils=uniq -F, -lane 'print join ",",uniq(@F)'
 a,b,c,d,1,2,3
 
 $ base64 test.txt 
@@ -649,7 +649,7 @@ abc  : 123 : xyz
 3    : 32  : foo
 -2.3 : bar : bar
 
-$ perl -MList::MoreUtils=indexes -ale '@i = indexes { /[a-z]/i } @F if $. == 1; print join ",", @F[@i]' test.txt 
+$ perl -MList::MoreUtils=indexes -nale '@i = indexes { /[a-z]/i } @F if $. == 1; print join ",", @F[@i]' test.txt 
 abc,xyz
 3,foo
 -2.3,bar
