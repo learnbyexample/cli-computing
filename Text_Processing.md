@@ -757,3 +757,34 @@ Adding a line of text at end of file
 
 * Options include converting text files for printing with header, footer, page numbers, double space a file, combine multiple files column wise, etc
 * More examples [here](http://docstore.mik.ua/orelly/unix3/upt/ch21_15.htm)
+
+```bash
+$ # single column to multiple column, split vertically
+$ # for example, in command below, output of seq is split into two
+$ seq 5 | pr -2t
+1				    4
+2				    5
+3
+
+$ # different output delimiter can be used by passing string to -s option
+$ seq 5 | pr -2ts' '
+1 4
+2 5
+3
+
+$ # use -a option to split across
+$ seq 5 | pr -2ats' : '
+1 : 2
+3 : 4
+5
+
+$ # use $ to expand characters denoted by escape characters like \t for tab
+$ seq 5 | pr -3ts$'\t'
+1	3	5
+2	4
+
+$ # or leave the argument to -s empty as tab is default
+$ seq 5 | pr -3ts
+1	3	5
+2	4
+```
