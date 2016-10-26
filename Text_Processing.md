@@ -717,6 +717,29 @@ For columns operations with well defined delimiters, `cut` command is handy
 * `paste -d':' list1.txt list2.txt list3.txt > combined_list.txt` the entries are separated by : character instead of TAB
 * [paste Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/paste?sort=votes&pageSize=15)
 
+```bash
+$ # one column to multiple column, denoted by number of -
+$ seq 5 | paste - -
+1	2
+3	4
+5	
+
+$ # specifying different output delimiter, default is tab
+$ seq 5 | paste -d, - -
+1,2
+3,4
+5,
+
+$ # if number of columns to specify is large, use the printf trick
+$ seq 5 | paste $(printf -- "- %.s" {1..3})
+1	2	3
+4	5	
+
+$ # paste is quite useful to combine all input lines into single line
+$ seq 10 | paste -sd,
+1,2,3,4,5,6,7,8,9,10
+```
+
 <br>
 ### <a name="column"></a>column
 
@@ -787,4 +810,29 @@ $ # or leave the argument to -s empty as tab is default
 $ seq 5 | pr -3ts
 1	3	5
 2	4
+```
+
+<br>
+We can use a combination of different commands for complicated operations. For example, transposing a table
+
+```bash
+$ tr ' ' '\n' < dishes.txt | pr -$(wc -l < dishes.txt)t
+North		  South		    West	      East
+alootikki	  appam		    dhokla	      handoguri
+baati		  bisibelebath  khakhra	      litti
+khichdi		  dosa		    modak	      momo
+makkiroti	  koottu	    shiro	      rosgulla
+poha		  sevai		    vadapav	      shondesh
+```
+
+Notice how `pr` neatly arranges the columns. If spacing is too much, we can use `column`
+
+```bash
+$ tr ' ' '\n' < dishes.txt | pr -$(wc -l < dishes.txt)ts | column -t
+North      South         West     East
+alootikki  appam         dhokla   handoguri
+baati      bisibelebath  khakhra  litti
+khichdi    dosa          modak    momo
+makkiroti  koottu        shiro    rosgulla
+poha       sevai         vadapav  shondesh
 ```
