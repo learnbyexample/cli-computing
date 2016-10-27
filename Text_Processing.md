@@ -33,6 +33,7 @@ As the name implies, this command is used to sort files. How about alphabetic so
 * `-k` sort via key
 * `-u` sort uniquely
 * `-b` ignore leading white-spaces of a line while sorting
+* `-t` use SEP instead of non-blank to blank transition
 
 **Examples**
 
@@ -41,6 +42,37 @@ As the name implies, this command is used to sort files. How about alphabetic so
 * `sort -R crypto_keys.txt -o crypto_keys_random.txt` sort randomly and write to new file
 	* `shuf crypto_keys.txt -o crypto_keys_random.txt` can also be used
 * `du -sh * | sort -h` sort file/directory sizes in current directory in human readable format
+
+<br>
+```bash
+$ cat ip.txt 
+6.2  : 897 : bar
+3.1  : 32  : foo
+2.3  : 012 : bar
+1.2  : 123 : xyz
+
+$ # -k3,3 means from 3rd column onwards to 3rd column
+$ # for ex: to sort from 2nd column till end, use -k2
+$ sort -t: -k3,3 ip.txt 
+2.3  : 012 : bar
+6.2  : 897 : bar
+3.1  : 32  : foo
+1.2  : 123 : xyz
+
+$ # -n option for numeric sort, check out what happens when -n is not used
+$ sort -t: -k2,2n ip.txt 
+2.3  : 012 : bar
+3.1  : 32  : foo
+1.2  : 123 : xyz
+6.2  : 897 : bar
+
+$ # more than one rule can be specified to resolve same values
+$ sort -t: -k3,3 -k1,1rn ip.txt 
+6.2  : 897 : bar
+2.3  : 012 : bar
+3.1  : 32  : foo
+1.2  : 123 : xyz
+```
 
 **Further Reading**
 
