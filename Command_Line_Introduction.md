@@ -10,10 +10,14 @@ For any thing that is repetitive or programmable, there likely is a relevant com
 
 Starting trouble with command line (for those accustomed to GUI) is the sudden trouble of interacting with the computer using just text commands. After using for a week or so, things will seem very systematic and GUI feels ill suited for frequent tasks. With continuous use, recalling various commands becomes easier. Short-cuts, history, aliases and tab-completion help in the process
 
+If you've used a scientific calculator, you'd know that it is handy with too many functionalities cramped into tiny screen and plethora of multi-purpose buttons. Commands and short-cuts pack much more punch than that on a terminal.
+
 * Commands presented here are GNU/Linux specific and generally behave similarly across distros
 * Commands in GNU/Linux usually have a few different options and syntax than [POSIX](http://en.wikipedia.org/wiki/POSIX) specification
-    * check the `man` page of a command to see if it supports POSIX options
+    * `man` and `info` pages of commands come in handy
 * If any command is not found in a particular distro, either it has to be manually installed or not available for that distro
+* The **bash** shell version 4+ is used throughout this material
+    * [rough overview of changes to Bash over time](http://wiki.bash-hackers.org/scripting/bashchanges)
 
 <br>
 ### <a name="file-system"></a>File System
@@ -51,7 +55,7 @@ Quoting [wikipedia](https://en.wikipedia.org/wiki/Path_%28computing%29#Absolute_
 ### <a name="command-line-interface"></a>Command Line Interface
 
 Command Line Interface (CLI) allows us interact with computer using text commands  
-For example, opening a Terminal, typing `ls` and pressing **Enter** key - the `ls` command lists the contents of a directory. To do the same thing in GUI, you double-click on the directory to view its content
+For example: opening a Terminal, typing `ls` and pressing **Enter** key - the `ls` command lists the contents of a directory. To do the same thing in GUI, you double-click on the directory to view its content
 
 Shell and Terminal are sometimes interchangeably used to mean the same thing - a prompt where user enters and executes commands. They are [quite different](https://unix.stackexchange.com/questions/4126/what-is-the-exact-difference-between-a-terminal-a-shell-a-tty-and-a-con)
 
@@ -59,14 +63,13 @@ Shell and Terminal are sometimes interchangeably used to mean the same thing - a
 * **Terminal** text input/output environment 
 * `cat /etc/shells` to know which shells are available
 * `echo "$SHELL"` to know which is your login-shell
-* The **bash** shell is used throughout this material, which is usually the default shell on most distros
 
 <br>
 ### <a name="command-help"></a>Command Help
 
 * `man man` get help about manual pages
 	* usually displayed using `less` command, press `q` key to quit the man page and `h` key to get help
-	* for GNU/Linux commands, use the `info` command to get more detailed manual
+	* for GNU/Linux commands, the `info` command has more detailed documentation
 * `man bash` manual page for `bash`
 	* `gvim <(man bash)` open the manual page in text editor instead of displaying in terminal
 * `man -k printf` search manual pages for `printf`
@@ -75,7 +78,7 @@ Shell and Terminal are sometimes interchangeably used to mean the same thing - a
 	* `type cd` cd is a shell builtin
 	* `type sed` sed is /bin/sed
 	* `type ls` ls is aliased to `ls --color=auto`
-* Use `help` for builtin commands instead of `man`
+* Use `help` for builtin commands
 	* `help help` help page on `help` command
 	* `help -m cd` display usage in pseudo-manpage format for `cd` command
 	* `help -d compgen` use -d option to output short description for each topic
@@ -85,10 +88,14 @@ Shell and Terminal are sometimes interchangeably used to mean the same thing - a
 * `whereis` locate the binary, source, and manual page files for a command
     * `whereis awk` awk: /usr/bin/awk /usr/bin/X11/awk /usr/share/awk /usr/share/man/man1/awk.1.gz
 * `history` Display or manipulate the history list
-* [explainshell](http://explainshell.com/) write down a command-line to see the help text that matches each argument
-    * example: [find . -type f -print0](http://explainshell.com/explain?cmd=find%20.%20-type%20f%20-print0)
 
-Excellent resource: [How do I use man pages to learn how to use commands?](https://unix.stackexchange.com/questions/193815/how-do-i-use-man-pages-to-learn-how-to-use-commands)
+**Further Reading**
+
+* Excellent resource: [How do I use man pages to learn how to use commands?](https://unix.stackexchange.com/questions/193815/how-do-i-use-man-pages-to-learn-how-to-use-commands)
+* [explainshell](http://explainshell.com/) write down a command line to see the help text that matches each argument
+    * example: [find . -type f -print0](http://explainshell.com/explain?cmd=find%20.%20-type%20f%20-print0)
+    * [ch](https://github.com/learnbyexample/command_help) similar functionality from command line, doesn't have all features of explainshell though
+* [which, whatis, whereis examples](http://www.thegeekstuff.com/2013/04/linux-which-whatis-whereis/)
 
 <br>
 ### <a name="do-one-thing-well"></a>Do one thing and do it well
@@ -134,7 +141,7 @@ single quotes vs double quotes
 
 Example:
 
-```
+```bash
 $ echo '$SHELL'
 $SHELL
 $ echo "$SHELL"
@@ -148,8 +155,8 @@ Redirecting output of a command
 * to another command
     * `du -sh * | sort -h` calculate size of files/folders, display size in human-readable format which is then sorted
 * to a file (instead of displaying on terminal)
-    * `ls *.txt > text_files.list` writes/overwrites to file
-    * `ls *.txt >> text_files.list` appends to file
+    * `grep -i 'pass' *.log > pass_list.txt` writes/overwrites to file
+    * `grep -i 'error' *.log >> errors.txt` appends to file
 
 Redirecting input
 
@@ -167,17 +174,17 @@ Combining output of several commands
 
 * `(head -5 ~/.vimrc ; tail -5 ~/.vimrc) > vimrc_snippet.txt` multiple commands can be grouped in `()` and redirected as if single command output
 
-Substituting output of command in a string
+Command substitution
 
-* `sed -i -r "s/(.*)/$(basename $PWD)\/\1/" dir_list.txt` add current directory name and forward-slash character at the start of every line
+* `sed -i "s|^|$(basename $PWD)/|" dir_list.txt` add current directory path and forward-slash character at the start of every line
     * Note the use of double quotes
 
-More detailed discussion in [Shell](./Shell.md) chapter
-
-**stdin, stdout and stderr**
+stdin, stdout and stderr
 
 * `<` or `0<` is stdin filehandle
 * `>` or `1>` is stdout filehandle
 * `2>` is stderr filehandle
 * [read more](https://stackoverflow.com/questions/3385201/confused-about-stdin-stdout-and-stderr)
+
+More detailed discussion in [Shell](./Shell.md) chapter
 

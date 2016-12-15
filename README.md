@@ -15,7 +15,7 @@ Introduction to Linux commands and Shell scripting
 * [Files and Directories](./Files_and_Directories.md)
   * pwd, clear, ls, cd, mkdir, touch, rm, cp, mv, rename, ln, tar and gzip
 * [Working with Files and Directories](./Working_with_Files_and_Directories.md)
-  * cat, less, tail, head, Text Editors, grep, find, locate, wc, du, df, touch, file, identify, basename, chmod
+  * cat, less, tail, head, Text Editors, grep, find, locate, wc, du, df, touch, file, identify, basename, dirname, chmod
 * [Text Processing](./Text_Processing.md)
   * sort, uniq, comm, cmp, diff, tr, sed, awk, perl, cut, paste, column, pr
 * [Shell](./Shell.md)

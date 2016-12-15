@@ -15,6 +15,7 @@
 * [file](#file)
 * [identify](#identify)
 * [basename](#basename)
+* [dirname](#dirname)
 * [chmod](#chmod)
 
 In this chapter, we will see how to display contents of a file, search within files, search for files, get file properties and information, what are the permissions for files/directories and how to change them to our requirements
@@ -28,6 +29,8 @@ In this chapter, we will see how to display contents of a file, search within fi
 
 * `-n` number output lines
 * `-s` squeeze repeated empty lines into single empty line
+* `-e` show non-printing characters and end of line
+* `-A` in addition to `-e`, also shows tab characters
 
 **Examples**
 
@@ -39,7 +42,7 @@ In this chapter, we will see how to display contents of a file, search within fi
 * [cat Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/cat?sort=votes&pageSize=15)
 * [cat Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/cat?sort=votes&pageSize=15)
 
-```
+```bash
 $ cat > sample.txt
 This is an example of adding text to a new file using cat command.
 Press Ctrl+d on a newline to save and quit.
@@ -68,9 +71,10 @@ This is an example of adding text to a new file using cat command.
 * `g` go to start of file
 * `G` go to end of file
 * `q` quit
-* `/pattern` search for the given pattern
-* `n` go to next pattern in forward direction
-* `N` go to next pattern in backward direction
+* `/pattern` search for the given pattern in forward direction
+* `?pattern` search for the given pattern in backward direction
+* `n` go to next pattern
+* `N` go to previous pattern
 * `h` help
 
 **Example and Further Reading**
@@ -133,36 +137,44 @@ Powerful text editors
 
 >print lines matching a pattern
 
-`grep` stands for **Global Regular Expression Print**. Used to search for a pattern in given files - whether a particular word or pattern is present (or not present), name of files containing the pattern, etc. By default, matching is performed any part of a line, options and regular expressions can be used to match only the desired part
+`grep` stands for **Global Regular Expression Print**. Used to search for a pattern in given files - whether a particular word or pattern is present (or not present), name of files containing the pattern, etc. By default, matching is performed in any part of a line, options and regular expressions can be used to match only the desired part
 
 **Options**
 
-* `--color=auto` display the matched pattern, file names, line numbers etc with color
+* `--color=auto` display the matched pattern, file names, line numbers etc with color distinction
 * `-i` ignore case while matching
 * `-v` print non-matching lines, i.e it inverts the selection
-* `-r` recursively search all files in specified folders
 * `-n` print also line numbers of matched pattern
 * `-c` display only the count of number of lines matching the pattern
 * `-l` print only the filenames with matching pattern
 * `-L` print filenames NOT matching the pattern
 * `-w` match pattern against whole word
 * `-x` match pattern against whole line
+* `-F` interpret pattern to search as fixed string (i.e not a regular expression). Faster as well
 * `-o` print only matching parts
 * `-A number` print matching line and 'number' of lines after the matched line
 * `-B number` print matching line and 'number' of lines before the matched line
 * `-C number` print matching line and 'number' of lines before and after the matched line
 * `-m number` restrict printing to upper limit of matched lines specified by 'number'
+* `-q` no standard output, quit immediately if match found. Useful in scripts to check if a file contains search pattern or not
+* `-s` suppress error messages if file doesn't exist or not readable. Again, more useful in scripts
+* `-r` recursively search all files in specified folders
+* `-h` do not prefix filename for matching lines (default behavior for single file search)
+* `-H` prefix filename for matching lines (default behavior for multiple file search)
 
 **Examples**
 
 * `grep 'area' report.log` will print all lines containing the word area in report.log
 * `grep 'adder power' report.log` will print lines containing adder power
 * `man grep | grep -i -A 5 'exit status'` will print matched line and 5 lines after containing the words 'exit status' independent of case
+    * See **Context Line Control** topic in `info grep` for related options like `--no-group-separator`
 * `grep -m 5 'error' report.log` will print maximum of 5 lines containing the word error
 * `grep "$HOME" /etc/passwd` will print lines matching the value of environment variable HOME
     * Note the use of double quotes for variable substitution
 * `grep -w 'or' story.txt` match whole word or, not part of word like for, thorn etc
 * `grep -x 'power' test_list.txt` match whole line containing the pattern power
+
+*Note:* All of the above examples would be suited for `-F` option as these do not use regular expressions and will be faster with `-F` option
 
 **Regular Expressions**
 
@@ -216,18 +228,19 @@ Paraphrasing from `info grep`
 
 **Examples**
 
-* `grep -i '[a-z]' report.log` will print all lines having atleast one alphabet
+* `grep -i '[a-z]' report.log` will print all lines having atleast one alphabet character
 * `grep '[0-9]' report.log` will print all lines having atleast one number
 * `grep 'area\|power' report.log` will match lines containing area or power
 * `grep -E 'area|power' report.log` will match lines containing area or power
 * `grep -E 'hand(y|ful)' short_story.txt` match handy or handful
-* `grep -E '(Th|)is' short_story.txt` match This or is
-* `grep -iE '([a-z])\1' short_story.txt` match same alphabet appearing consecutively like 'aa', 'oo', 'EE'  etc
+* `grep -E '(Th)?is' short_story.txt` match This or is
+* `grep -iE '([a-z])\1' short_story.txt` match same alphabet appearing consecutively like 'aa', 'FF', 'Ee'  etc
 
 **Perl Compatible Regular Expression**
 
 * `grep -P '\d' report.log` will print all lines having atleast one number
-* `grep -P '(Th|)is' short_story.txt` match This or is
+* `grep -P '(Th)?is' short_story.txt` match This or is
+* `grep -oP 'file\K\d+' report.log` print only digits that are preceded by the string 'file'
 * `man pcrepattern` syntax and semantics of the regular expressions that are supported by PCRE
 * [look-around assertions example](https://unix.stackexchange.com/questions/13466/can-grep-output-only-specified-groupings-that-match)
 
@@ -264,10 +277,21 @@ Filtering based on file type
 * `find /home/guest1/proj -type d` print path of all directories found in specified directory
 * `find /home/guest1/proj -type f -name '.*'` print path of all hidden files
 
+Filtering based on depth
+
+The relative path `.` is considered as depth 0 directory, files and folders immediately contained in a directory are at depth 1 and so on
+
+* `find -maxdepth 1 -type f` all regular files (including hidden ones) from current directory (without going to sub-directories)
+* `find -maxdepth 1 -type f -name '[!.]*'` all regular files (but not hidden ones) from current directory (without going to sub-directories)
+    * `-not -name '.*'` can be also used
+* `find -mindepth 1 -maxdepth 1 -type d` all directories (including hidden ones) in current directory (without going to sub-directories)
+
 Filtering based on file properties
 
 * `find -mtime -2` print files that were modified within last two days in current directory
+    * Note that day here means 24 hours
 * `find -mtime +7` print files that were modified more than seven days back in current directory
+* `find -daystart -type f -mtime -1` files that were modified from beginning of day (not past 24 hours)
 * `find -size +10k` print files with size greater than 10 kilobytes in current directory
 * `find -size -1M` print files with size less than 1 megabytes in current directory
 * `find -size 2G` print files of size 2 gigabytes in current directory
@@ -280,22 +304,27 @@ Passing filtered files as input to other commands
 * `find report -name '*log*' -delete` delete all filenames containing log in report folder and its sub-folders
 * `find -name '*.txt' -exec wc {} +` list of files ending with txt are all passed together as argument to `wc` command instead of executing wc command for every file
     * no need to use escape the `+` character in this case
-* `find -name '*.log' -exec mv {} ../log/ \;` move files ending with .log to log directory present in one hierarchy above
+    * also note that number of invocations of command specified is not necessarily once if number of files found is too large
+* `find -name '*.log' -exec mv {} ../log/ \;` move files ending with .log to log directory present in one hierarchy above. `mv` is executed once per each filtered file
+* `find -name '*.log' -exec mv -t ../log/ {} +` the `-t` option allows to specify target directory and then provide multiple files to be moved as argument
+    * Similarly, one can use `-t` for `cp` command
 
 **Further Reading**
 
 * [using find](http://mywiki.wooledge.org/UsingFind)
+* [find examples on SO](https://stackoverflow.com/documentation/bash/566/find#t=201612140534548263961)
 * [Collection of find examples](http://alvinalexander.com/unix/edu/examples/find.shtml)
 * [find Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/find?sort=votes&pageSize=15)
 * [find and tar example](https://unix.stackexchange.com/questions/282762/find-mtime-1-print-xargs-tar-archives-all-files-from-directory-ignoring-t/282885#282885)
 * [find Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/find?sort=votes&pageSize=15)
+* [Why is looping over find's output bad practice?](https://unix.stackexchange.com/questions/321697/why-is-looping-over-finds-output-bad-practice)
 
 <br>
 ### <a name="locate"></a>locate
 
 >find files by name
 
-Faster alternative to `find` command when searching for a file by its name. It is based on a database (usually by `updatedb(8)`), which gets updated by a `cron` job. So, newer files may be not present in results. Use this command if it is available in your distro and you remember some part of filename created a day or more ago. Very useful if one has to search entire filesystem in which case `find` command might take a very long time compared to `locate`
+Faster alternative to `find` command when searching for a file by its name. It is based on a database, which gets updated by a `cron` job. So, newer files may be not present in results. Use this command if it is available in your distro and you remember some part of filename. Very useful if one has to search entire filesystem in which case `find` command might take a very long time compared to `locate`
 
 **Examples**
 
@@ -329,7 +358,7 @@ Faster alternative to `find` command when searching for a file by its name. It i
 
 >estimate file space usage
 
-* du command is useful for small folders, not for large ones or file systems.
+* du command is useful to get size of files and folders, not for file systems
 
 **Examples**
 
@@ -368,7 +397,11 @@ Used to change file time stamps. But if file doesn't exist, the command will cre
 **Examples**
 
 * `touch new_file.txt` create an empty file if it doesn't exist in current directory
+    * use `-c` if new file shouldn't be created
+    * use `-a` option to change only access time and `-m` to change only modification time
 * `touch report.log` change the time stamp of report.log to current time (assuming report.log already exists in current directory)
+* `touch -r power.log report.log` use time stamp of power.log instead of current time to change that of report.log
+    * use `-d` to provide time stamp from a string instead of file
 * [touch Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/touch?sort=votes&pageSize=15)
 
 <br>
@@ -378,7 +411,7 @@ Used to change file time stamps. But if file doesn't exist, the command will cre
 
 **Examples**
 
-```
+```bash
 $ file sample.txt 
 sample.txt: ASCII text
 
@@ -400,7 +433,7 @@ perl.png: PNG image data, 32 x 32, 8-bit/color RGBA, non-interlaced
 
 Although file command can also give information like pixel dimensions and image type, identify is more reliable command for images and gives complete format information
 
-```
+```bash
 $ identify sunset.jpg
 sunset.jpg JPEG 740x740 740x740+0+0 8-bit DirectClass 110KB 0.000u 0:00.030
 
@@ -413,7 +446,7 @@ perl.png PNG 32x32 32x32+0+0 8-bit DirectClass 838B 0.000u 0:00.000
 
 >strip directory and suffix from filenames
 
-```
+```bash
 $ pwd
 /home/learnbyexample
 
@@ -429,11 +462,27 @@ power
 ```
 
 <br>
+### <a name="dirname"></a>dirname
+
+>strip last component from file name
+
+```bash
+$ pwd
+/home/learnbyexample
+
+$ dirname $PWD
+/home
+
+$ dirname '/home/learnbyexample/proj_adder/power.log'
+/home/learnbyexample/proj_adder
+```
+
+<br>
 ### <a name="chmod"></a>chmod
 
 >change file mode bits
 
-```
+```bash
 $ ls -l sample.txt 
 -rw-rw-r-- 1 learnbyexample learnbyexample 111 May 25 14:47 sample.txt
 ```
@@ -466,7 +515,7 @@ We'll be seeing only `rwx` file properties in this section, for other types of p
 
 **File Permissions**
 
-```
+```bash
 $ pwd
 /home/learnbyexample/linux_tutorial
 $ ls -lF
@@ -515,7 +564,7 @@ bash: sample.txt: Permission denied
 
 **Directory Permissions**
 
-```
+```bash
 $ ls -ld linux_tutorial/
 drwxrwxr-x 2 learnbyexample learnbyexample 4096 May 29 10:59 linux_tutorial/
 
@@ -555,7 +604,7 @@ hello_world.pl  new_file.txt  sample.txt
 
 **Changing multiple permissions at once**
 
-```
+```bash
 $ # r(4) + w(2) + 0 = 6
 $ # r(4) + 0 + 0 = 4
 $ chmod 664 sample.txt 
@@ -575,7 +624,7 @@ drwxrwxr-x 2 learnbyexample learnbyexample 4096 May 29 14:01 report/
 
 **Changing single permission selectively**
 
-```
+```bash
 $ chmod o-r sample.txt 
 $ ls -lF sample.txt 
 -rw-rw---- 1 learnbyexample learnbyexample 148 May 29 11:00 sample.txt
@@ -591,7 +640,7 @@ $ ls -lF hello_world.pl
 
 **Recursively changing permission for directory**
 
-```
+```bash
 $ ls -lR linux_tutorial/
 linux_tutorial/:
 total 12

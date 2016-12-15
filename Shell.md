@@ -116,14 +116,14 @@ By default all results of a command are displayed on the terminal, which is the 
 
 **Redirecting output of a command to another command**
 
-* `ls -l | grep '^d'` the 'pipe' operator redirects standard output of `ls` command to `grep` command as standard input
+* `ls -q | wc -l` the 'pipe' operator redirects stdout of `ls` command to `wc` command as stdin
 * `du -sh * | sort -h` calculate size of files/folders, display size in human-readable format which is then sorted
 * `./script.sh | tee output.log` the `tee` command displays standard output on terminal as well as writes to file
 
 **Combining output of several commands**
 
 * `(head -5 ~/.vimrc ; tail -5 ~/.vimrc) > vimrc_snippet.txt` multiple commands can be grouped in `()` and redirected as if single command output
-    * commands grouped in () gets executed in a subshell environment
+    * commands grouped in `()` gets executed in a subshell environment
 * `{ head -5 ~/.vimrc ; tail -5 ~/.vimrc ; } > vimrc_snippet.txt` gets executed in current shell context
 * [Command grouping](http://www.gnu.org/software/bash/manual/bashref.html#Command-Grouping)
 
@@ -148,22 +148,28 @@ By default all results of a command are displayed on the terminal, which is the 
 
 **Combining stdout and stderr**
 
-* `grep 'test' report.log test_list.txt &> grep_test.txt` redirect both stdout and stderr to a file
-* `./script.sh &> /dev/null` discard output and error messages
-* `grep 'test' report.log test_list.txt &>> grep_test.txt` append both stdout and stderr to a file
-* [redirect a stream to another file descriptor using >&](https://stackoverflow.com/questions/818255/in-the-shell-what-does-21-mean)
-    * `1>&2` redirect stdout to stderr
-    * `2>&1` redirect stderr to stdout
-* [difference between 2>&1 >foo and >foo 2>&1](http://mywiki.wooledge.org/BashFAQ/055)
-* [redirect and append both stdout and stderr to a file](https://stackoverflow.com/questions/876239/how-can-i-redirect-and-append-both-stdout-and-stderr-to-a-file-with-bash)
+Assume that the file 'report.log' exists containing the text 'test' and non-existing file 'xyz.txt'
+
+Bash version 4+:
+
+* `grep 'test' report.log xyz.txt &> cmb_out.txt` redirect both stdout and stderr to a file
+* `grep 'test' report.log xyz.txt &>> cmb_out.txt` append both stdout and stderr to a file
+* `ls report.log xyz.txt |& grep '[st]'` redirect both stdout and stderr as stdin
+
+Earlier versions:
+
+* `grep 'test' report.log xyz.txt > cmb_out.txt 2>&1` redirect both stdout and stderr to a file
+* `grep 'test' report.log xyz.txt 2> cmb_out.txt 1>&2` redirect both stdout and stderr to a file
+* `grep 'test' report.log xyz.txt >> cmb_out.txt 2>&1` append both stdout and stderr to a file
+* `ls report.log xyz.txt 2>&1 | grep '[st]'` redirect both stdout and stderr as stdin
 
 **Redirecting input**
 
-* `tr a-z A-Z < test_list.txt` convert lowercase to uppercase, `tr` command only reads from `stdin` and doesn't have the ability to read from a file directly 
-    * `cat test_list.txt | tr a-z A-Z` can also be used
-* `wc < report.log` fancy way to avoid filename in `wc` output
+* `tr a-z A-Z < test_list.txt` convert lowercase to uppercase, `tr` command only reads from stdin and doesn't have the ability to read from a file directly 
+* `wc < report.log` useful to avoid filename in `wc` output
+* `< report.log grep 'test'` useful to easily modify previous command for different command options, search patterns, etc
 * `grep 'test' report.log | diff - test_list.txt` output of `grep` as one of the input file for `diff` command
-* [difference between << , <<< and < <](http://askubuntu.com/questions/678915/whats-the-difference-between-and-in-bash)
+* [difference between << , <<< and < <](https://askubuntu.com/questions/678915/whats-the-difference-between-and-in-bash)
 
 **Using xargs to redirect output of command as input to another command**
 
@@ -178,6 +184,9 @@ By default all results of a command are displayed on the terminal, which is the 
 * [stdin, stdout and stderr](https://stackoverflow.com/questions/3385201/confused-about-stdin-stdout-and-stderr)
 * [Illustrated Redirection Tutorial](http://wiki.bash-hackers.org/howto/redirection_tutorial)
 * [short introduction](http://mywiki.wooledge.org/BashGuide/InputAndOutput#Redirection)
+* [redirect a stream to another file descriptor using >&](https://stackoverflow.com/questions/818255/in-the-shell-what-does-21-mean)
+* [difference between 2>&1 >foo and >foo 2>&1](http://mywiki.wooledge.org/BashFAQ/055)
+* [redirect and append both stdout and stderr to a file](https://stackoverflow.com/questions/876239/how-can-i-redirect-and-append-both-stdout-and-stderr-to-a-file-with-bash)
 * [Redirections explained](http://www.catonmat.net/blog/bash-one-liners-explained-part-three/)
 
 <br>

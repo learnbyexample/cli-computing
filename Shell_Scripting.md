@@ -66,7 +66,7 @@ Single quotes vs Double quotes
 * `-E` explicitly suppress interpretation of backslash escapes
 * [echo Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/echo?sort=votes&pageSize=15)
 
-```
+```bash
 $ chmod +x hello_script.sh
 $ ./hello_world.sh 
 Hello learnbyexample
@@ -94,7 +94,7 @@ echo "No of lines in '$2' is $(wc -l < "$2")"
     * [why does my shell script choke on whitespace or other special characters?](https://unix.stackexchange.com/questions/131766/why-does-my-shell-script-choke-on-whitespace-or-other-special-characters)
 * [bash special parameters reference](https://stackoverflow.com/questions/5163144/what-are-the-special-dollar-sign-shell-variables/5163260#5163260)
 
-```
+```bash
 $ ./command_line_arguments.sh hello_script.sh test\ file.txt 
 No of lines in 'hello_script.sh' is 9
 No of lines in 'test file.txt' is 5
@@ -145,7 +145,7 @@ echo 'Thank you for using the script, Have a nice day :)'
 * `-s` do not echo input coming from a terminal
 * [More examples with read and getting input from stdin](http://ryanstutorials.net/bash-scripting-tutorial/bash-input.php)
 
-```
+```bash
 $ ./user_input.sh 
 Hi there! This script returns the sum of two numbers
 Enter two numbers separated by spaces: 7 42
@@ -189,7 +189,7 @@ fi
 * [Control Operators && and ||](http://mywiki.wooledge.org/BashGuide/TestsAndConditionals#Control_Operators_.28.26.26_and_.7C.7C.29)
 * [More examples for if conditional block](http://mywiki.wooledge.org/BashGuide/TestsAndConditionals#Conditional_Blocks_.28if.2C_test_and_.5B.5B.29)
 
-```
+```bash
 $ ./if_then_else.sh 
 Error!! Please provide two file names
 $ echo $?
@@ -243,7 +243,7 @@ echo "Total Number of lines = $total_lines"
 * This form of `for` loop is useful if we need only element of an array, without having to iterate over length of an array and using an index for each iteration to get array elements
 * In this example we use the control operator `||` to stop the script if `wc` fails i.e 'exit status' other than `0`
 
-```
+```bash
 $ ./for_loop.sh 
 Error!! Please provide atleast one file name
 $ echo $?
@@ -297,7 +297,7 @@ done
 
 * Use `while` when you need to execute commands according to a specified condition
 
-```
+```bash
 $ ./while_loop.sh 
 5
 4
@@ -313,7 +313,7 @@ $ ./while_loop.sh
 * `-v` verbose option, print shell input lines as they are read
 * `set -xv` use this command to enable debugging from within script itself
 
-```
+```bash
 $ bash -x hello_script.sh 
 + echo 'Hello learnbyexample'
 Hello learnbyexample
@@ -324,7 +324,7 @@ Today is Friday
 Have a nice day
 ```
 
-```
+```bash
 $ bash -xv hello_script.sh 
 #!/bin/bash
 

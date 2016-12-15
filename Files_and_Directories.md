@@ -41,6 +41,7 @@ Apart from knowing your current working directory, often used to copy the absolu
 **Options**
 
 * `-a` list hidden files also
+* `-A` like `-a` but excluding `.` and `..`
 * `-1` list in single column (number one, not lowercase of letter L)
 * `-l` list contents with extra details about the files (lowercase of letter L, not number one)
 * `-h` display file sizes in human readable format
@@ -50,6 +51,7 @@ Apart from knowing your current working directory, often used to copy the absolu
 * `-S` sort by file size
     * directory is treated as file and doesn’t display actual size used by directory, use `du` command if directory size is also needed
 * `-d` list directory entries instead of contents
+* `-q` prints ? instead of non-graphic characters like `\n` (Linux file names can use any character other than `/` and null character)
 * `-F` Append a character to each file name indicating the file type (other than regular files)
     * `/` for directories
     * `*` for executable files
@@ -68,13 +70,15 @@ Apart from knowing your current working directory, often used to copy the absolu
 * `ls -ltr` list files of current directory with details sorted such that latest created/modified file is displayed last
 * [ls Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/ls?sort=votes&pageSize=15)
 * [ls Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/ls?sort=votes&pageSize=15)
+* [avoid parsing output of ls](http://mywiki.wooledge.org/ParsingLs)
+* [why not parse ls?](https://unix.stackexchange.com/questions/128985/why-not-parse-ls)
 
 <br>
 ### <a name="cd"></a>cd
 
 >Change the shell working directory
 
-```
+```bash
 $ whatis cd
 cd: nothing appropriate.
 $ type cd
@@ -157,6 +161,7 @@ The destination path is always specified as the last argument. More than one sou
 
 * `-r` copy recursively, used for copying directories
 * `-i` prompt before overwriting
+* `-u` copy files only if newer than existing file in destination location or if file doesn't exist in destination
 
 **Examples**
 
@@ -199,10 +204,12 @@ The destination path is always specified as the last argument. More than one sou
 
 >renames multiple files
 
+Note: The `perl` based `rename` is presented here and different from [util-linux-ng version](https://linux.die.net/man/1/rename). Check `man rename` for details
+
 **Options**
 
 * `-f` overwrite existing files
-* `-n` show matching input files without actually renaming them
+* `-n` dry run without actually renaming files
 
 **Examples**
 
@@ -215,7 +222,7 @@ The destination path is always specified as the last argument. More than one sou
 
 >make links between files
 
-Create hard or soft link of file or folder. Soft link is similar to short-cuts created in Windows. Hard link is like same file with different name, same timestamp and permissions of original file. Hard links can be moved to another directory after creation, will still have content even when original file is deleted. On the other hand, soft links have their own timestamps and permissions, it cannot be moved to another folder unless the link creation was done using full path and of course becomes a dead link when original file is deleted. More differences [here](http://askubuntu.com/questions/108771/what-is-the-difference-between-a-hard-link-and-a-symbolic-link)
+Create hard or soft link of file or folder. Soft link is similar to short-cuts created in Windows. Hard link is like same file with different name, same timestamp and permissions of original file. Hard links can be moved to another directory after creation, will still have content even when original file is deleted. On the other hand, soft links have their own timestamps and permissions, it cannot be moved to another folder unless the link creation was done using full path and of course becomes a dead link when original file is deleted. More differences [here](https://askubuntu.com/questions/108771/what-is-the-difference-between-a-hard-link-and-a-symbolic-link)
 
 **Examples**
 

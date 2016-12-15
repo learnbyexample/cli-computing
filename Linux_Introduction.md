@@ -11,7 +11,7 @@
 
 Quoting from [Wikipedia](https://en.wikipedia.org/wiki/Linux)
 
-> Linux is a Unix-like and mostly POSIX-compliant computer operating system (OS) assembled under the model of free and open-source software development and distribution. The defining component of Linux is the Linux kernel an operating system kernel first released on 5 October 1991 by Linus Torvalds. The Free Software Foundation uses the name GNU/Linux to describe the operating system
+> Linux is a Unix-like and mostly POSIX-compliant computer operating system (OS) assembled under the model of free and open-source software development and distribution. The defining component of Linux is the Linux kernel an operating system kernel first released on 5 October 1991 by Linus Torvalds. The Free Software Foundation uses the name **GNU/Linux** to describe the operating system
 
 <br>
 ### <a name="why-use-linux?"></a>Why use Linux?

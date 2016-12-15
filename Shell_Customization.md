@@ -22,6 +22,7 @@ Some example Variables:
 * `HOME` The home directory of the current user; the default argument for the `cd` builtin command. The value of this variable is also used when performing tilde expansion
 * `SHELL` The full pathname to the shell is kept in this environment variable. If it is not set when the shell starts, bash assigns to it the full pathname of the current user's login shell
 * `PATH` The search path for commands. It is a colon-separated list of directories in which the shell looks for commands. A common value is `/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin`
+* `PWD` and `OLDPWD` full path of current working directory and previous working directory
 * `HISTFILESIZE,HISTSIZE,HISTCONTROL,HISTFILE` command history related variables
 * `PS1` The value of this parameter is expanded and used as the primary prompt string. The default value is `\s-\v\$ `
 * `printenv` command to display names and values of Environment variables
@@ -33,7 +34,7 @@ Some example Variables:
 User can define variables as well - for temporary use, in shell script, etc.  
 Using lowercase is preferred to avoid potential conflict with shell or environment variables
 
-```
+```bash
 $ #array of 8-bit binary numbers in ascending order
 $ dec2bin=({0..1}{0..1}{0..1}{0..1}{0..1}{0..1}{0..1}{0..1})
 $ echo "${dec2bin[2]}"
@@ -141,8 +142,8 @@ Before creating an alias or function, use `type alias_name` to check if an exist
 * `ch() { man $1 | sed -n "/^\s*$2/,/^$/p" ; }` simple command help (ch) function to get information on a command option
     * for example: `ch ls -F` , `ch grep -o` , etc
 	* `ch() { whatis $1; man $1 | sed -n "/^\s*$2/,/^$/p" ; }` also prints description of command
-	* [explain](http://www.tecmint.com/explain-shell-commands-in-the-linux-shell/) command does a much better job
-	* [explainshell](http://explainshell.com/) does similarly online
+	* [ch](https://github.com/learnbyexample/command_help) does a much better job with capability to handle multiple options, multiple arguments, builtin commands, etc
+	* [explainshell](http://explainshell.com/) does even better
 * `o() { gnome-open "$@" &> /dev/null ; }` open files with their default applications, discards output and error messages
     * for example: `o bashguide.pdf`
     * `$1` first positional argument

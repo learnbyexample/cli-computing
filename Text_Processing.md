@@ -133,11 +133,9 @@ Useful to compare binary files. If the two files are same, no output is displaye
 If there is a difference, it prints the first difference - line number and byte location (exit status 1)  
 Option `-s` allows to suppress the output, useful in scripts
 
-```
+```bash
 $ cmp /bin/grep /bin/fgrep
 /bin/grep /bin/fgrep differ: byte 25, line 1
-
-$ # note: some distros might have same binary for grep/egrep/fgrep
 ```
 
 * More examples [here](http://www.sanfoundry.com/5-cmp-command-usage-examples-linux/)
@@ -777,7 +775,7 @@ $ seq 10 | paste -sd,
 
 >columnate lists
 
-```
+```bash
 $ cat dishes.txt 
 North alootikki baati khichdi makkiroti poha 
 South appam bisibelebath dosa koottu sevai 
@@ -798,7 +796,7 @@ East   handoguri  litti         momo     rosgulla   shondesh
 
 >convert text files for printing
 
-```
+```bash
 $ pr sample.txt 
 
 
