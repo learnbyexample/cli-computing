@@ -109,8 +109,8 @@ By default all results of a command are displayed on the terminal, which is the 
 
 **Redirecting output of a command to a file**
 
-* `grep -i error report/*.log > error.log` create new file, overwrite if file already exists
-* `grep -i fail test_results_20mar2015.log >> all_fail_tests.log` creates new file if file doesn’t exist, otherwise append the result to existing file
+* `grep -i 'error' report/*.log > error.log` create new file, overwrite if file already exists
+* `grep -i 'fail' test_results_20mar2015.log >> all_fail_tests.log` creates new file if file doesn’t exist, otherwise append the result to existing file
 * `./script.sh > /dev/null` redirect output to a special file `/dev/null` that just discards everything written to it, whatever may be the size
 * [explicitly override the setting of noclobber with the >| redirection operator](https://unix.stackexchange.com/questions/45201/bash-what-does-do/45203#45203)
 
@@ -127,15 +127,14 @@ By default all results of a command are displayed on the terminal, which is the 
 * `{ head -5 ~/.vimrc ; tail -5 ~/.vimrc ; } > vimrc_snippet.txt` gets executed in current shell context
 * [Command grouping](http://www.gnu.org/software/bash/manual/bashref.html#Command-Grouping)
 
-**Substituting output of command**
+**Command substitution**
 
-* `sed -i -r "s/(.*)/$(basename $PWD)\/\1/" dir_list.txt` add current directory name and forward-slash character at the start of every line
+* `sed -i "s|^|$(basename $PWD)/|" dir_list.txt` add current directory path and forward-slash character at the start of every line
     * Note the use of double quotes to perform command substitution
-* `rm -r $(cat remove_files.txt)` remove all files/folders mentioned in remove_files.txt
 * `gvim "$(ls -t *.txt | head -1)"` open the latest modified file ending with txt in current directory
 * [Command Substitution](http://mywiki.wooledge.org/CommandSubstitution)
 
-**Process Substitution - redirecting output of command as file**
+**Process Substitution**
 
 * `comm -23 <(sort file1.txt) <(sort file2.txt)` allows to create named pipes, effectively avoiding need to create temporary files
 * [Process Substitution](http://wiki.bash-hackers.org/syntax/expansion/proc_subst)
@@ -173,8 +172,8 @@ Earlier versions:
 
 **Using xargs to redirect output of command as input to another command**
 
-* `cat dir_list.txt | xargs mkdir` create directories listed in dir_list.txt file
-    * enclose directory name in single quotes if it contains special characters like space
+* `grep -rlZ 'pattern' | xargs -0 sed -i 's/pattern/replace/'` search and replace only those files matching the required pattern (Note: search pattern could be different for `grep` and `sed` as per requirement)
+    * the `-Z` option would print filename separated by **ASCII NUL character** which is in turn understood by `xargs` via the `-0` option. This ensures the command won't break on filenames containing characters like spaces, newlines, etc
 * [When to use xargs](https://unix.stackexchange.com/questions/24954/when-is-xargs-needed)
     * has a good example for [parallel processing jobs with xargs](https://unix.stackexchange.com/questions/24954/when-is-xargs-needed/24979#24979)
 
