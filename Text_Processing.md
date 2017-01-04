@@ -748,7 +748,24 @@ For columns operations with well defined delimiters, `cut` command is handy
 * [paste Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/paste?sort=votes&pageSize=15)
 
 ```bash
-$ # one column to multiple column, denoted by number of -
+$ # joining multiple files
+$ paste -d, <(seq 5) <(seq 6 10)
+1,6
+2,7
+3,8
+4,9
+5,10
+
+$ paste -d, <(seq 3) <(seq 4 6) <(seq 7 10)
+1,4,7
+2,5,8
+3,6,9
+,,10
+```
+
+* Single column to multiple columns
+
+```bash
 $ seq 5 | paste - -
 1	2
 3	4
@@ -764,10 +781,17 @@ $ # if number of columns to specify is large, use the printf trick
 $ seq 5 | paste $(printf -- "- %.s" {1..3})
 1	2	3
 4	5	
+```
 
-$ # paste is quite useful to combine all input lines into single line
+* Combine all lines to single line
+
+```bash
 $ seq 10 | paste -sd,
 1,2,3,4,5,6,7,8,9,10
+
+$ # for multiple character delimiter, perl can be used
+$ seq 10 | perl -pe 's/\n/ : / if(!eof)'
+1 : 2 : 3 : 4 : 5 : 6 : 7 : 8 : 9 : 10
 ```
 
 <br>
@@ -825,11 +849,21 @@ $ seq 5 | pr -2ts' '
 2 5
 3
 
+$ seq 15 | pr -5ts,
+1,4,7,10,13
+2,5,8,11,14
+3,6,9,12,15
+
 $ # use -a option to split across
 $ seq 5 | pr -2ats' : '
 1 : 2
 3 : 4
 5
+
+$ seq 15 | pr -5ats,
+1,2,3,4,5
+6,7,8,9,10
+11,12,13,14,15
 
 $ # use $ to expand characters denoted by escape characters like \t for tab
 $ seq 5 | pr -3ts$'\t'
@@ -840,6 +874,31 @@ $ # or leave the argument to -s empty as tab is default
 $ seq 5 | pr -3ts
 1	3	5
 2	4
+```
+
+* The default PAGE_WIDTH is 72
+* The formula `(col-1)*len(delimiter) + col` seems to work in determining minimum PAGE_WIDTH required for multiple column output
+* The `-J` option will help in turning off line truncation
+
+```bash
+$ seq 74 | pr -36ats,
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36
+37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72
+73,74
+$ seq 74 | pr -37ats,
+pr: page width too narrow
+
+$ # (37-1)*1 + 37 = 73
+$ seq 74 | pr -Jw 73 -37ats,
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37
+38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74
+
+$ # (3-1)*4 + 3 = 11
+$ seq 6 | pr -Jw 10 -3ats'::::'
+pr: page width too narrow
+$ seq 6 | pr -Jw 11 -3ats'::::'
+1::::2::::3
+4::::5::::6
 ```
 
 <br>
