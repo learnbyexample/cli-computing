@@ -745,6 +745,7 @@ For columns operations with well defined delimiters, `cut` command is handy
 
 * `paste list1.txt list2.txt list3.txt > combined_list.txt` combines the three files column-wise into single file, the entries separated by TAB character
 * `paste -d':' list1.txt list2.txt list3.txt > combined_list.txt` the entries are separated by : character instead of TAB
+    * See [pr](#pr) command for multiple character delimiter
 * [paste Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/paste?sort=votes&pageSize=15)
 
 ```bash
@@ -853,8 +854,11 @@ $ seq 15 | pr -5ts,
 1,4,7,10,13
 2,5,8,11,14
 3,6,9,12,15
+```
 
-$ # use -a option to split across
+* Use `-a` option to split across
+
+```bash
 $ seq 5 | pr -2ats' : '
 1 : 2
 3 : 4
@@ -899,6 +903,15 @@ pr: page width too narrow
 $ seq 6 | pr -Jw 11 -3ats'::::'
 1::::2::::3
 4::::5::::6
+```
+
+* Use `-m` option to combine multiple files in parallel
+
+```bash
+$ pr -mts', ' <(seq 3) <(seq 4 6) <(seq 7 9)
+1, 4, 7
+2, 5, 8
+3, 6, 9
 ```
 
 <br>
