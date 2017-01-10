@@ -34,7 +34,7 @@ Introduction to Linux commands and Shell scripting
 <br>
 # <a name="acknowledgements"></a>Acknowledgements
 
-* [unix.stackexchange](http://unix.stackexchange.com/) and [stackoverflow](https://stackoverflow.com/) - for getting answers to pertinent questions as well as sharpening skills by understanding and answering questions
+* [unix.stackexchange](https://unix.stackexchange.com/) and [stackoverflow](https://stackoverflow.com/) - for getting answers to pertinent questions as well as sharpening skills by understanding and answering questions
 * [Devs and Hackers](http://slack.devup.in/) - helpful slack group
 * [Weekly Coders, Hackers & All Tech related thread](https://www.reddit.com/r/india/search?q=Weekly+Coders%2C+Hackers+%26+All+Tech+related+thread+author%3Aavinassh&amp;restrict_sr=on&amp;sort=new&amp;t=all) - for suggestions and critique
 
