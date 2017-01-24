@@ -29,6 +29,7 @@ As the name implies, this command is used to sort files. How about alphabetic so
 * `-r` reverse the sort order
 * `-o` redirect sorted result to specified filename, very useful to sort a file inplace
 * `-n` sort numerically
+* `-V` version sort, aware of numbers within text
 * `-h` sort human readable numbers like 4K, 3M, etc
 * `-k` sort via key
 * `-u` sort uniquely
@@ -274,6 +275,81 @@ By default, `sed` acts on all of input contents. This can be refined to specific
     * Since the value of '$HOME' itself contains forward-slash characters, we cannot use `/` as delimiter
     * Any character other than backslash or newline can be used as delimiter, for example `| # ^` [see this link for more info](https://stackoverflow.com/questions/33914360/what-delimiters-can-you-use-in-sed)
     * `\0` back-reference contains entire matched string
+
+<br>
+**Example input file**
+
+```bash
+$ cat mem_test.txt 
+mreg2 = 1200 # starting address
+mreg4 = 2180 # ending address
+
+dreg5 = get(mreg2) + get(mreg4)
+print dreg5
+```
+
+* replace all **reg** with **register**
+
+```bash
+$ sed 's/reg/register/g' mem_test.txt 
+mregister2 = 1200 # starting address
+mregister4 = 2180 # ending address
+
+dregister5 = get(mregister2) + get(mregister4)
+print dregister5
+```
+
+* change start and end address
+
+```bash
+$ sed 's/1200/1530/; s/2180/1870/' mem_test.txt 
+mreg2 = 1530 # starting address
+mreg4 = 1870 # ending address
+
+dreg5 = get(mreg2) + get(mreg4)
+print dreg5
+
+$ # to make changes only on mreg initializations, use
+$ # sed '/mreg[0-9] *=/ s/1200/1530/; s/2180/1870/' mem_test.txt
+```
+
+* Using `bash` variables
+
+```bash
+$ s_add='1760'; e_add='2500'
+$ sed "s/1200/$s_add/; s/2180/$e_add/" mem_test.txt 
+mreg2 = 1760 # starting address
+mreg4 = 2500 # ending address
+
+dreg5 = get(mreg2) + get(mreg4)
+print dreg5
+```
+
+* split inline commented code to comment + code
+
+```bash
+$ sed -E 's/^([^#]+)(#.*)/\2\n\1/' mem_test.txt 
+# starting address
+mreg2 = 1200 
+# ending address
+mreg4 = 2180 
+
+dreg5 = get(mreg2) + get(mreg4)
+print dreg5
+```
+
+* range of lines matching pattern
+
+```bash
+$ seq 20 | sed -n '/3/,/5/p'
+3
+4
+5
+13
+14
+15
+
+```
 
 **Further Reading**
 
