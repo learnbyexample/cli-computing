@@ -198,7 +198,7 @@ If there is a difference, it prints all the differences, which might not be desi
 **Options**
 
 * `-n` suppress automatic printing of pattern space
-* `-i` edit files in place (makes backup if SUFFIX supplied)
+* `-i` edit files inplace (makes backup if SUFFIX supplied)
 * `-r` use extended regular expressions
 * `-e` add the script to the commands to be executed
 * `-f` add the contents of script-file to the commands to be executed
@@ -240,7 +240,7 @@ By default, `sed` acts on all of input contents. This can be refined to specific
 * `sed '/cat/!d' story.txt` delete every line NOT containing cat
 * `sed '$d' story.txt` delete last line of the file
 * `sed '2,5d' story.txt` delete lines 2,3,4,5 of the file
-* `sed '1,/test/d' dir_list.txt` delete all lines from beginning of file to first occurence of line containing test (the matched line is also deleted)
+* `sed '1,/test/d' dir_list.txt` delete all lines from beginning of file to first occurrence of line containing test (the matched line is also deleted)
 * `sed '/test/,$d' dir_list.txt` delete all lines from line containing test to end of file
 
 **Examples for selective printing(p)**
@@ -258,14 +258,14 @@ By default, `sed` acts on all of input contents. This can be refined to specific
 
 **Examples for search and replace(s)**
 
-* `sed -i 's/cat/dog/g' story.txt` search and replace every occurence of cat with dog in story.txt
+* `sed -i 's/cat/dog/g' story.txt` search and replace every occurrence of cat with dog in story.txt
 * `sed -i.bkp 's/cat/dog/g' story.txt` in addition to inplace file editing, create backup file story.txt.bkp, so that if a mistake happens, original file can be restored
     * `sed -i.bkp 's/cat/dog/g' *.txt` to perform operation on all files ending with .txt in current directory
-* `sed -i '5,10s/cat/dog/gI' story.txt` search and replace every occurence of cat (case insensitive due to modifier I) with dog in story.txt only in line numbers 5 to 10
+* `sed -i '5,10s/cat/dog/gI' story.txt` search and replace every occurrence of cat (case insensitive due to modifier I) with dog in story.txt only in line numbers 5 to 10
 * `sed '/cat/ s/animal/mammal/g' story.txt` replace animal with mammal in all lines containing cat
     * Since `-i` option is not used, output is displayed on standard output and story.txt is not changed
     * spacing between range and command is optional, `sed '/cat/s/animal/mammal/g' story.txt` can also be used
-* `sed -i -e 's/cat/dog/g' -e 's/lion/tiger/g' story.txt` search and replace every occurence of cat with dog and lion with tiger
+* `sed -i -e 's/cat/dog/g' -e 's/lion/tiger/g' story.txt` search and replace every occurrence of cat with dog and lion with tiger
     * any number of `-e` option can be used
 	* `sed -i 's/cat/dog/g ; s/lion/tiger/g' story.txt` alternative syntax, spacing around ; is optional
 * `sed -r 's/(.*)/abc: \1 :xyz/' list.txt` add prefix 'abc: ' and suffix ' :xyz' to every line of list.txt
@@ -351,6 +351,21 @@ $ seq 20 | sed -n '/3/,/5/p'
 
 ```
 
+* inplace editing
+
+```bash
+$ sed -i -E 's/([md]r)eg/\1/g' mem_test.txt
+$ cat mem_test.txt
+mr2 = 1200 # starting address
+mr4 = 2180 # ending address
+
+dr5 = get(mr2) + get(mr4)
+print dr5
+
+$ # more than one input files can be given
+$ # use glob pattern if files share commonality, ex: *.txt
+```
+
 **Further Reading**
 
 * [sed basics](http://code.snipcademy.com/tutorials/shell-scripting/sed/introduction)
@@ -372,9 +387,9 @@ $ seq 20 | sed -n '/3/,/5/p'
 
 **syntax**
 
-* `awk 'BEGIN {initialize} /pattern1/ {stmts} /pattern2/ {stmts}... END {finish}'`
+* `awk 'BEGIN {initialize} condition1 {stmts} condition2 {stmts}... END {finish}'`
 	* `BEGIN {initialize}` used to initialize variables (could be user defined or awk variables or both), executed once - optional block
-	* `/pattern1/ {stmts} /pattern2/ {stmts}...` action performed for every line of input, pattern is optional, more than one block {} can be used with/without pattern
+	* `condition1 {stmts} condition2 {stmts}...` action performed for every line of input, condition is optional, more than one block {} can be used with/without condition
 	* `END {finish}` perform action once at end of program - optional block
 * commands can be written in a file and passed using the `-f` option instead of writing it all on command line
     * for examples and details, refer to links given below
@@ -400,6 +415,239 @@ $ seq 20 | sed -n '/3/,/5/p'
     * by default, initial value of variable is 0, so at start total=0
     * for every line, number in column 5 gets added to total 
     * after processing all the lines, the statement in END block is executed, in this case prints value of total variable
+
+<br>
+**Example input file**
+
+```bash
+$ cat test.txt 
+abc  : 123 : xyz
+3    : 32  : foo
+-2.3 : bar : bar
+```
+
+* Just printing something, no input
+
+```bash
+$ awk 'BEGIN{print "Hello!\nTesting awk one-liner"}'
+Hello!
+Testing awk one-liner
+```
+
+* search and replace
+* when the `{stmts}` portion of `condition {stmts}` is not specified, by default `{print $0}` is executed if the `condition` evaluates to true
+    * `1` is a generally used `awk` idiom to print contents of `$0` after performing some processing
+    * `print` statement without argument will print the content of `$0`
+
+```bash
+$ # sub will replace only first occurrence
+$ # third argument to sub specifies variable to change, defaults to $0
+$ awk '{sub("3", "%")} 1' test.txt 
+abc  : 12% : xyz
+%    : 32  : foo
+-2.% : bar : bar
+
+$ # gsub will replace all occurrences
+$ awk '{gsub("3", "%")} 1' test.txt 
+abc  : 12% : xyz
+%    : %2  : foo
+-2.% : bar : bar
+
+$ # add a condition to restrict processing only to those records
+$ awk '/foo/{gsub("3", "%")} 1' test.txt 
+abc  : 123 : xyz
+%    : %2  : foo
+-2.3 : bar : bar
+
+$ # using shell variables
+$ r="@"
+$ awk -v r_str="$r" '{sub("3", r_str)} 1' test.txt 
+abc  : 12@ : xyz
+@    : 32  : foo
+-2.@ : bar : bar
+
+$ # bash environment variables like PWD, HOME is also accessible via ENVIRON
+$ s="%" awk '{sub("3", ENVIRON["s"])} 1' test.txt 
+abc  : 12% : xyz
+%    : 32  : foo
+-2.% : bar : bar
+```
+
+* filtering content
+
+```bash
+$ # regex pattern, by default tested against $0
+$ awk '/a/' test.txt 
+abc  : 123 : xyz
+-2.3 : bar : bar
+
+$ # use ! to invert condition
+$ awk '!/abc/' test.txt 
+3    : 32  : foo
+-2.3 : bar : bar
+
+$ seq 30 | awk 'END{print}'
+30
+
+$ # generic, length(var) - default is $0
+$ seq 8 13 | awk 'length==1'
+8
+9
+```
+
+* selecting based on line numbers
+* `NR` is record number
+
+```bash
+$ seq 123 135 | awk 'NR==7'
+129
+
+$ seq 123 135 | awk 'NR>=3 && NR<=5'
+125
+126
+127
+
+$ seq 5 | awk 'NR>=3'
+3
+4
+5
+
+$ # for large input, use exit to avoid unnecessary record processing
+$ seq 14323 14563435 | awk 'NR==234{print; exit}'
+14556
+```
+
+* selecting based on start and end condition
+* for following examples
+    * numbers 1 to 20 is input
+    * regex pattern `/4/` is start condition
+    * regex pattern `/6/` is end condition
+* `f` is idiomatically used to represent a flag variable
+
+```bash
+$ # records between start and end
+$ seq 20 | awk '/4/{f=1; next} /6/{f=0} f'
+5
+15
+
+$ # records between start and end and also includes start
+$ seq 20 | awk '/4/{f=1} /6/{f=0} f'
+4
+5
+14
+15
+
+$ # records between start and end and also includes end
+$ seq 20 | awk '/4/{f=1; next} f; /6/{f=0}'
+5
+6
+15
+16
+
+$ # records from start to end
+$ seq 20 | awk '/4/{f=1} f{print} /6/{f=0}'
+4
+5
+6
+14
+15
+16
+
+$ # records excluding start to end
+$ seq 10 | awk '/4/{f=1} !f; /6/{f=0}'
+1
+2
+3
+7
+8
+9
+10
+```
+
+* column manipulations
+* by default, one or more consecutive spaces/tabs are considered as field separators
+
+```bash
+$ echo -e "1 3 4\na b c"
+1 3 4
+a b c
+
+$ # second column
+$ echo -e "1 3 4\na b c" | awk '{print $2}'
+3
+b
+
+$ # last column
+$ echo -e "1 3 4\na b c" | awk '{print $NF}'
+4
+c
+
+$ # default output field separator is single space character
+$ echo -e "1 3 4\na b c" | awk '{print $1, $3}'
+1 4
+a c
+
+$ # condition for specific field
+$ echo -e "1 3 4\na b c" | awk '$2 ~ /[0-9]/'
+1 3 4
+```
+
+* specifying a different input/output field separator
+* can be string alone or regex, multiple separators can be specified using `|` in regex pattern
+
+```bash
+$ awk -F' *: *' '$1 == "3"' test.txt 
+3    : 32  : foo
+
+$ awk -F' *: *' '{print $1 "," $2}' test.txt 
+abc,123
+3,32
+-2.3,bar
+
+$ awk -F' *: *' -v OFS="::" '{print $1, $2}' test.txt 
+abc::123
+3::32
+-2.3::bar
+
+$ awk -F: -v OFS="\t" '{print $1 OFS $2}' test.txt 
+abc  	 123 
+3    	 32  
+-2.3 	 bar 
+```
+
+* dealing with duplicates, line/field wise
+
+```bash
+$ cat duplicates.txt 
+abc 123 ijk
+foo 567 xyz
+abc 123 ijk
+bar 090 pqr
+tst 567 zzz
+
+$ # whole line
+$ awk '!seen[$0]++' duplicates.txt 
+abc 123 ijk
+foo 567 xyz
+bar 090 pqr
+tst 567 zzz
+
+$ # particular column
+$ awk '!seen[$2]++' duplicates.txt 
+abc 123 ijk
+foo 567 xyz
+bar 090 pqr
+```
+
+* inplace editing
+
+```bash
+$ awk -i inplace '{print NR ") " $0}' test.txt
+$ cat test.txt
+1) abc  : 123 : xyz
+2) 3    : 32  : foo
+3) -2.3 : bar : bar
+```
 
 **Further Reading**
 
@@ -435,7 +683,7 @@ Descriptions adapted from [perldoc - command switches](http://perldoc.perl.org/p
 | -l | chomp input line, $\ gets value of $/ if no argument given |
 | -a | autosplit input lines on space, implicitly sets -n for Perl version 5.20.0 and above |
 | -F | specifies the pattern to split input lines, implicitly sets -a and -n for Perl version 5.20.0 and above |
-| -i | edit files in place, if extension provided make a backup copy |
+| -i | edit files inplace, if extension provided make a backup copy |
 | -0777 | slurp entire file as single string, not advisable for large input files |
 
 <br>
