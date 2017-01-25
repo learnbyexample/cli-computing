@@ -104,6 +104,37 @@ This command is more specific to recognizing duplicates. Usually requires a sort
 * `uniq -u sorted_list.txt` print only unique lines, repeated lines are ignored
 * [uniq Q&A on unix stackexchange](http://unix.stackexchange.com/questions/tagged/uniq?sort=votes&pageSize=15)
 
+```bash
+$ echo -e 'Blue\nRed\nGreen\nBlue\nRed\nBlack\nRed' > colors.txt 
+$ uniq colors.txt 
+Blue
+Red
+Green
+Blue
+Red
+Black
+Red
+
+$ echo -e 'Blue\nRed\nGreen\nBlue\nRed\nBlack\nRed' | sort > sorted_colors.txt 
+$ uniq sorted_colors.txt
+Black
+Blue
+Green
+Red
+
+$ uniq -d sorted_colors.txt 
+Blue
+Red
+
+$ uniq -cd sorted_colors.txt 
+      2 Blue
+      3 Red
+      
+$ uniq -u sorted_colors.txt 
+Black
+Green
+```
+
 <br>
 ### <a name="comm"></a>comm
 
@@ -124,6 +155,54 @@ Without any options, it prints output in three columns - lines unique to file1, 
 * `comm -13 sorted_file1.txt sorted_file2.txt` print lines unique to sorted_file2.txt
 * `comm -12 sorted_file1.txt sorted_file2.txt` print lines common to both files
 * [comm Q&A on unix stackexchange](http://unix.stackexchange.com/questions/tagged/comm?sort=votes&pageSize=15)
+
+```bash
+$ echo -e 'Brown\nRed\nPurple\nBlue\nTeal\nYellow' | sort > colors_1.txt 
+$ echo -e 'Red\nGreen\nBlue\nBlack\nWhite' | sort > colors_2.txt 
+
+$ # the input files viewed side by side
+$ paste colors_1.txt colors_2.txt
+Blue    Black
+Brown   Blue
+Purple  Green
+Red     Red
+Teal    White
+Yellow  
+```
+
+* examples
+
+```bash
+$ # 3 column output - unique to file1, file2 and common
+$ comm colors_1.txt colors_2.txt
+        Black
+                Blue
+Brown
+        Green
+Purple
+                Red
+Teal
+        White
+Yellow 
+
+$ # suppress 1 and 2 column, gives only common lines
+$ comm -12 colors_1.txt colors_2.txt
+Blue
+Red
+
+$ # suppress 1 and 3 column, gives lines unique to file2
+$ comm -13 colors_1.txt colors_2.txt
+Black
+Green
+White
+
+$ # suppress 2 and 3 column, gives lines unique to file1
+$ comm -23 colors_1.txt colors_2.txt
+Brown
+Purple
+Teal
+Yellow
+```
 
 <br>
 ### <a name="cmp"></a>cmp
@@ -146,8 +225,8 @@ $ cmp /bin/grep /bin/fgrep
 
 >compare files line by line
 
-Useful to compare text files. If the two files are same, no output is displayed (exit status 0)  
-If there is a difference, it prints all the differences, which might not be desirable if files are too long
+Useful to compare old and new versions of text files  
+All the differences are printed, which might not be desirable if files are too long
 
 **Options**
 
@@ -1243,12 +1322,12 @@ We can use a combination of different commands for complicated operations. For e
 
 ```bash
 $ tr ' ' '\n' < dishes.txt | pr -$(wc -l < dishes.txt)t
-North		  South		    West	      East
-alootikki	  appam		    dhokla	      handoguri
-baati		  bisibelebath  khakhra	      litti
-khichdi		  dosa		    modak	      momo
-makkiroti	  koottu	    shiro	      rosgulla
-poha		  sevai		    vadapav	      shondesh
+North               South               West                East
+alootikki           appam               dhokla              handoguri
+baati               bisibelebath        khakhra             litti
+khichdi             dosa                modak               momo
+makkiroti           koottu              shiro               rosgulla
+poha                sevai               vadapav             shondesh
 ```
 
 Notice how `pr` neatly arranges the columns. If spacing is too much, we can use `column`
