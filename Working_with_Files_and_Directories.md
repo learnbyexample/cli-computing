@@ -244,6 +244,84 @@ Paraphrasing from `info grep`
 * `man pcrepattern` syntax and semantics of the regular expressions that are supported by PCRE
 * [look-around assertions example](https://unix.stackexchange.com/questions/13466/can-grep-output-only-specified-groupings-that-match)
 
+**Example input files**
+```bash
+$ cat ip.txt 
+Roses are red,
+Violets are blue,
+Sugar is sweet,
+And so are you.
+
+$ echo -e 'Red\nGreen\nBlue\nBlack\nWhite' > colors.txt 
+$ cat colors.txt 
+Red
+Green
+Blue
+Black
+White
+```
+
+* string search, use `-F` for faster results
+
+```bash
+$ grep -F 'are' ip.txt 
+Roses are red,
+Violets are blue,
+And so are you.
+
+$ grep -Fv 'are' ip.txt 
+Sugar is sweet,
+
+$ grep -Fc 'are' ip.txt 
+3
+
+$ grep -F -m2 'are' ip.txt 
+Roses are red,
+Violets are blue,
+
+$ grep -F 'rose' ip.txt 
+$ grep -Fi 'rose' ip.txt 
+Roses are red,
+```
+
+* regular expression, cannot use `-F`
+
+```bash
+$ # lines with words starting with s or S
+$ grep -iE '\bs' ip.txt 
+Sugar is sweet,
+And so are you.
+
+$ # get only the words starting with s or S
+$ grep -ioE '\bs[a-z]+' ip.txt 
+Sugar
+sweet
+so
+```
+
+* using file input to specify search terms
+
+```bash
+$ grep -Fif colors.txt ip.txt 
+Roses are red,
+Violets are blue,
+
+$ echo -e 'Brown\nRed\nGreen\nBlue\nYellow\nBlack\nWhite' > more_colors.txt 
+
+$ # get common lines between two files
+$ grep -Fxf colors.txt more_colors.txt 
+Red
+Green
+Blue
+Black
+White
+
+$ # get lines present in more_colors.txt but not colors.txt
+$ grep -Fxvf colors.txt more_colors.txt 
+Brown
+Yellow
+```
+
 **Further Reading**
 
 * [how grep command was born](https://medium.com/@rualthanzauva/grep-was-a-private-command-of-mine-for-quite-a-while-before-i-made-it-public-ken-thompson-a40e24a5ef48)
