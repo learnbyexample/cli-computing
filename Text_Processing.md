@@ -474,28 +474,6 @@ $ # use glob pattern if files share commonality, ex: *.txt
     * for examples and details, refer to links given below
 
 <br>
-**Examples**
-
-* `ls -l | awk '{print $1}'` print first column of results of `ls -l` command
-    * `$1`, `$2` etc refer to 1st, 2nd field, etc
-    * `$0` contains entire line
-* `ls -l | awk '{print $1" "$NF}'` print first and last column of results of `ls -l` command separated by space character
-    * `$NF` pre-defined variable holds last field
-* `ls -l | awk 'NF > 2 {print $1" "$NF}'` print file permission and filename in two columns separated by space, provided a line has more than 2 fields (to exclude the first line of `ls -l` which has only two fields)
-* `awk -F":" '{print $1}' /etc/passwd` prints first column of /etc/passwd file
-    * `-F` option is used to specify the field separator, by default white-space is separator
-* `awk 'BEGIN {FS = ":"} {print $1}' /etc/passwd` prints first column of /etc/passwd file
-    * `FS` is field separator variable, by default white-space is separator
-* `awk '{print "abc: " $0 " :xyz"}' list.txt` add prefix 'abc: ' and suffix ' :xyz' to every line of list.txt
-* `awk '{print FNR ": " $0}' dir_list.txt` prefix line number and ': ' to all lines of file dir_list.txt
-    * `FNR` pre-defined variable contains input record number in the current input file
-* `ls -l | awk '/^d/ {print $0}'` filter output of `ls -l` for directories
-* `awk '{total += $5} END {print total}' table.txt` print sum of all numbers in column 5 of file table.txt
-    * by default, initial value of variable is 0, so at start total=0
-    * for every line, number in column 5 gets added to total 
-    * after processing all the lines, the statement in END block is executed, in this case prints value of total variable
-
-<br>
 **Example input file**
 
 ```bash
