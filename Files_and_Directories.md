@@ -176,7 +176,7 @@ The destination path is always specified as the last argument. More than one sou
 Also check out
 
 * `rsync` a fast, versatile, remote (and local) file-copying tool
-* [rsync examples](http://ubtutorials.com/tutorial/1136/ubuntu-15-examples-backup-using-rsync-command)
+* [rsync examples](http://www.tutorialspoint.com/articles/rsync-command-examples-on-linux)
 * [rsync Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/rsync?sort=votes&pageSize=15)
 * [rsync Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/rsync?sort=votes&pageSize=15)
 
