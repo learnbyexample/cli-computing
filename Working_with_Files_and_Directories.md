@@ -771,7 +771,7 @@ rm: cannot remove ‘linux_tutorial/report/power.log’: Permission denied
 
 **Further Reading**
 
-* [permissions primer](http://www.catchlinux.com/permissions-primer/) - comprehensive tutorial, includes discussion on `/etc/passwd` , group permissions and more
-* [Linux File Permissions](https://danielmiessler.com/study/unixlinux_permissions/)
+* [Linux File Permissions](https://www.linux.com/learn/getting-know-linux-file-permissions)
+* [Linux Permissions Primer](https://danielmiessler.com/study/unixlinux_permissions/)
 * [chmod Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/chmod?sort=votes&pageSize=15)
 * [chmod Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/chmod?sort=votes&pageSize=15)
