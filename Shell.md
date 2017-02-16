@@ -189,7 +189,7 @@ By default all results of a command are displayed on the terminal, which is the 
 
 * `sed -i "s|^|$(basename $PWD)/|" dir_list.txt` add current directory path and forward-slash character at the start of every line
     * Note the use of double quotes to perform command substitution
-* `gvim "$(ls -t *.txt | head -1)"` open the latest modified file ending with txt in current directory
+* `file_count=$(ls -q | wc -l)` save command output to a variable
 * [Command Substitution](http://mywiki.wooledge.org/CommandSubstitution)
 
 **Process Substitution**
@@ -223,7 +223,7 @@ Earlier versions:
 **Redirecting input**
 
 * `tr a-z A-Z < test_list.txt` convert lowercase to uppercase, `tr` command only reads from stdin and doesn't have the ability to read from a file directly 
-* `wc < report.log` useful to avoid filename in `wc` output
+* `wc -l < report.log` useful to avoid filename in `wc` output
 * `< report.log grep 'test'` useful to easily modify previous command for different command options, search patterns, etc
 * `grep 'test' report.log | diff - test_list.txt` output of `grep` as one of the input file for `diff` command
 * [difference between << , <<< and < <](https://askubuntu.com/questions/678915/whats-the-difference-between-and-in-bash)
