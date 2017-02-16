@@ -53,9 +53,7 @@ Like any indispensible software, Shell has undergone transformation from the day
 <br>
 ### <a name="wildcards"></a>Wildcards
 
-It is easy to specify complete filenames as command arguments when they are few in number. But suppose, one has to delete hundreds of log files, spread across different sub-directories? Wildcards, or also known as globbing patterns help in such cases, provided the filenames have a commonality to exploit. We have already seen regular expressions used in commands like `grep` and `sed`. Shell wildcards are similar
-
-**wildcards**
+It is easy to specify complete filenames as command arguments when they are few in number. But suppose, one has to delete hundreds of log files, spread across different sub-directories? Wildcards, or also known as globbing patterns help in such cases, provided the filenames have a commonality to exploit. We have already seen regular expressions used in commands like `grep` and `sed`. Shell wildcards are similar but has fundamental and syntactical differences
 
 * `*` match any character, 0 or more times
     * as a special case, `*` won't match the starting `.` of hidden files and has to be explicity specified
@@ -90,6 +88,66 @@ It is easy to specify complete filenames as command arguments when they are few 
 * `touch file_{x..z}.txt` same as `touch file_x.txt file_y.txt file_z.txt`
 * `rm file{1..4}.txt` same as `rm file1.txt file2.txt file3.txt file4.txt`
 * `echo story.txt{,.bkp}` displays the expanded version 'story.txt story.txt.bkp' , useful to dry run before executing actual command
+
+**Extended globs**
+
+From `info bash`, where `pattern-list` is a list of one or more patterns separated by a `|`
+
+* `?(pattern-list)` Matches zero or one occurrence of the given patterns
+* `*(pattern-list)` Matches zero or more occurrences of the given patterns
+* `+(pattern-list)` Matches one or more occurrences of the given patterns
+* `@(pattern-list)` Matches one of the given patterns
+* `!(pattern-list)` Matches anything except one of the given patterns
+
+To check if `extglob` is enabled or to enable/disable:
+
+```bash
+$ shopt extglob 
+extglob        	on
+
+$ # unset extglob
+$ shopt -u extglob 
+$ shopt extglob 
+extglob        	off
+
+$ # set extglob
+$ shopt -s extglob 
+$ shopt extglob 
+extglob        	on
+```
+
+Examples
+
+```bash
+$ ls
+123.txt  main.c  math.h  power.log
+
+$ echo +([0-9]).txt
+123.txt
+
+$ ls @(*.c|*.h)
+main.c  math.h
+
+$ ls !(*.txt)
+main.c  math.h  power.log
+$ ls !(*.c|*.h)
+123.txt  power.log
+```
+
+**Recursively search current directory and its sub-folders**
+
+Set `globstar` and prefix pattern with `**/` to search recursively
+
+```bash
+$ find -name '*.txt'
+./song_list.txt
+./bar/f1.txt
+./bar/baz/f2.txt
+
+$ shopt -s globstar
+$ ls **/*.txt
+bar/baz/f2.txt  bar/f1.txt  song_list.txt
+```
 
 **Further Reading**
 
