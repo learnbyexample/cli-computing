@@ -186,6 +186,7 @@ fi
 * Default `exit` value is `0` , so need not be explicitly written for successful script completion
 * Use `elif` if you need to test more conditions after `if`
 * The operator `&&` is used to execute a command only when the preceding one successfully finishes
+* To redirect error message to stderr, use `echo "Error!! Please provide two file names" 1>&2` and so on
 * [Control Operators && and ||](http://mywiki.wooledge.org/BashGuide/TestsAndConditionals#Control_Operators_.28.26.26_and_.7C.7C.29)
 * [More examples for if conditional block](http://mywiki.wooledge.org/BashGuide/TestsAndConditionals#Conditional_Blocks_.28if.2C_test_and_.5B.5B.29)
 
@@ -211,6 +212,45 @@ No of lines in 'hello_script.sh' is 9
 No of lines in 'test file.txt' is 5
 $ echo $?
 0
+```
+
+**Combining if with exit status of command executed**
+
+Sometimes one needs to know if intended command operation was successful or not and then take action depending on outcome. Exit status of `0` is considered as successful condition when used with `if` statement. When avaiable, use appropriate options to suppress stdout/stderr of command being used, otherwise redirection might be needed to avoid cluttering output on terminal
+
+```bash
+$ grep 'echo' hello_script.sh 
+echo "Hello $USER"
+echo "Today is $(date -u +%A)"
+echo 'Have a nice day'
+
+$ # do not write anything to standard output
+$ grep -q 'echo' hello_script.sh 
+$ echo $?
+0
+
+$ grep -q 'echo' xyz.txt
+grep: xyz.txt: No such file or directory
+$ echo $?
+2
+$ # Suppress error messages about nonexistent or unreadable files
+$ grep -qs 'echo' xyz.txt
+$ echo $?
+2
+```
+
+Example
+
+```bash
+#!/bin/bash
+
+if grep -q 'echo' hello_script.sh ; then
+    # do something
+    echo "string found"
+else
+    # do something else
+    echo "string not found"
+fi
 ```
 
 <br>
