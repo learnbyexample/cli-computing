@@ -318,6 +318,29 @@ do
 done
 ```
 
+**Iterating over used defined array**
+
+```bash
+$ files=('report.log' 'pass_list.txt')
+$ for f in "${files[@]}"; do echo "$f"; done
+report.log
+pass_list.txt
+```
+
+**Files specified by glob pattern**
+
+A common mistake is to use output of `ls` command which is error prone and needless. Instead, the arguments can be directly used.
+
+```bash
+$ ls
+pass_list.txt  power.log  report.txt
+
+$ for f in power.log *.txt; do echo "$f"; done
+power.log
+pass_list.txt
+report.txt
+```
+
 * [more examples and use of continue/break](http://ryanstutorials.net/bash-scripting-tutorial/bash-loops.php)
 
 <br>
