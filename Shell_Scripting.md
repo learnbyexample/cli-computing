@@ -8,6 +8,7 @@
 * [if then else](#if-then-else)
 * [for loop](#for-loop)
 * [while loop](#while-loop)
+* [Reading a file](#reading-file)
 * [Debugging](#debugging)
 * [Resource lists](#resource-lists)
 
@@ -370,6 +371,77 @@ $ ./while_loop.sh
 ```
 
 <br>
+### <a name="reading-file"></a>Reading a file
+
+Reading line by line
+
+```bash
+#!/bin/bash
+
+while IFS= read -r line; do
+    # do something with each line
+    echo "$line"
+done < 'files.txt'
+```
+
+* `IFS` is used to specify field separator which is by default whitespace. `IFS=` will clear the default value and prevent stripping of leading and trailing whitespace of lines
+* The `-r` option for `read` will prevent interpreting `\` escapes
+* Last line from input won't be read if not properly terminated by newline character
+
+```bash
+$ cat files.txt 
+hello_script.sh
+if_then_else.sh
+$ ./while_read_file.sh 
+hello_script.sh
+if_then_else.sh
+```
+
+Reading line as different fields
+
+* By default, whitespace is delimiter
+* Specify a different one by setting `IFS`
+
+```bash
+$ cat read_file_field.sh
+#!/bin/bash
+
+while IFS=: read -r genre name; do
+    echo -e "$genre\t:: $name"
+done < 'books.txt'
+$ cat books.txt 
+fantasy:Harry Potter
+sci-fi:The Martian
+mystery:Sherlock Holmes
+
+$ ./read_file_field.sh 
+fantasy :: Harry Potter
+sci-fi  :: The Martian
+mystery :: Sherlock Holmes
+```
+
+Reading 'n' characters at a time
+
+```bash
+$ while read -n1 char; do echo "Character read is: $char"; done <<< "\word"
+Character read is: w
+Character read is: o
+Character read is: r
+Character read is: d
+Character read is: 
+
+$ # if ending newline character is not desirable
+$ while read -n1 char; do echo "Character read is: $char"; done < <(echo -n "hi")
+Character read is: h
+Character read is: i
+
+$ while read -r -n2 chars; do echo "Characters read: $chars"; done <<< "\word"
+Characters read: \w
+Characters read: or
+Characters read: d
+```
+
+<br>
 ### <a name="debugging"></a>Debugging
 
 * `-x` Print commands and their arguments as they are executed
@@ -428,6 +500,7 @@ The material in this chapter is only a basic introduction
 
 * [using source command to execute bash script](https://askubuntu.com/questions/661577/difference-between-and-for-running-a-script-application)
 * [functions](http://ryanstutorials.net/bash-scripting-tutorial/bash-functions.php)
+* [Reading file](http://mywiki.wooledge.org/BashFAQ/001)
 * [arrays](http://mywiki.wooledge.org/BashGuide/Arrays)
 * [nameref](https://unix.stackexchange.com/questions/288886/bash-array-values-like-variables-inside-loop/288894#288894)
     * also see this [FAQ](http://mywiki.wooledge.org/BashFAQ/006)
