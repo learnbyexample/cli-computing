@@ -13,6 +13,7 @@
 * [Resource lists](#resource-lists)
 
 <br>
+
 ### <a name="need-for-scripting"></a>Need for scripting
 
 * Automate repetitive manual tasks
@@ -25,6 +26,7 @@ Note:
 * Material presented here is for `GNU bash, version 4.3.11(1)-release`
 
 <br>
+
 ### <a name="hello-script"></a>Hello script
 
 ```bash
@@ -76,6 +78,7 @@ Have a nice day
 ```
 
 <br>
+
 ### <a name="command-line-arguments"></a>Command Line Arguments
 
 ```bash
@@ -102,6 +105,7 @@ No of lines in 'test file.txt' is 5
 ```
 
 <br>
+
 ### <a name="variables-and-comparisons"></a>Variables and Comparisons
 
 * `dir_path=/home/guest` space has special meaning in bash, cannot be used around = in variables
@@ -127,6 +131,7 @@ No of lines in 'test file.txt' is 5
 * [Parameter expansion](http://mywiki.wooledge.org/BashFAQ/073) - substitute a variable or special parameter for its value
 
 <br>
+
 ### <a name="accepting-user-input-interactively"></a>Accepting User Input interactively
 
 ```bash
@@ -156,6 +161,7 @@ Thank you for using the script, Have a nice day :)
 ```
 
 <br>
+
 ### <a name="if-then-else"></a>if then else
 
 ```bash
@@ -255,6 +261,7 @@ fi
 ```
 
 <br>
+
 ### <a name="for-loop"></a>for loop
 
 ```bash
@@ -345,6 +352,7 @@ report.txt
 * [more examples and use of continue/break](http://ryanstutorials.net/bash-scripting-tutorial/bash-loops.php)
 
 <br>
+
 ### <a name="while-loop"></a>while loop
 
 ```bash
@@ -371,6 +379,7 @@ $ ./while_loop.sh
 ```
 
 <br>
+
 ### <a name="reading-file"></a>Reading a file
 
 Reading line by line
@@ -442,6 +451,7 @@ Characters read: d
 ```
 
 <br>
+
 ### <a name="debugging"></a>Debugging
 
 * `-x` Print commands and their arguments as they are executed
@@ -481,6 +491,7 @@ Have a nice day
 ```
 
 <br>
+
 ### <a name="resource-lists"></a>Resource lists
 
 The material in this chapter is only a basic introduction

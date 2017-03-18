@@ -20,6 +20,7 @@ If you've used a scientific calculator, you'd know that it is handy with too man
     * [rough overview of changes to Bash over time](http://wiki.bash-hackers.org/scripting/bashchanges)
 
 <br>
+
 ### <a name="file-system"></a>File System
 
 Before we dive into ocean of commands, lets get a brief on Linux file system. If you've used Windows, you would be familiar with `C:` `D:` etc.  
@@ -52,6 +53,7 @@ Quoting [wikipedia](https://en.wikipedia.org/wiki/Path_%28computing%29#Absolute_
 * [Overview of file system](http://tldp.org/LDP/intro-linux/html/sect_03_01.html)
 
 <br>
+
 ### <a name="command-line-interface"></a>Command Line Interface
 
 Command Line Interface (CLI) allows us interact with computer using text commands  
@@ -65,6 +67,7 @@ Shell and Terminal are sometimes interchangeably used to mean the same thing - a
 * `echo "$SHELL"` to know which is your login-shell
 
 <br>
+
 ### <a name="command-help"></a>Command Help
 
 * `man man` get help about manual pages
@@ -98,6 +101,7 @@ Shell and Terminal are sometimes interchangeably used to mean the same thing - a
 * [which, whatis, whereis examples](http://www.thegeekstuff.com/2013/04/linux-which-whatis-whereis/)
 
 <br>
+
 ### <a name="do-one-thing-well"></a>Do one thing and do it well
 
 [Unix Philosophy](https://en.wikipedia.org/wiki/Unix_philosophy)

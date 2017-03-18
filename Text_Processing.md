@@ -17,6 +17,7 @@
 The rich set of text processing commands is comprehensive and time saving. Knowing even their existence is enough to avoid the need of writing yet another script (which takes time and effort plus debugging) – a trap which many beginners fall into. An extensive list of text processing commands and examples can be found [here](http://tldp.org/LDP/abs/html/textproc.html)
 
 <br>
+
 ### <a name="sort"></a>sort
 
 >sort lines of text files
@@ -45,6 +46,7 @@ As the name implies, this command is used to sort files. How about alphabetic so
 * `du -sh * | sort -h` sort file/directory sizes in current directory in human readable format
 
 <br>
+
 ```bash
 $ cat ip.txt 
 6.2  : 897 : bar
@@ -82,6 +84,7 @@ $ sort -t: -k3,3 -k1,1rn ip.txt
 * [sort on multiple columns using -k option](https://unix.stackexchange.com/questions/249452/unix-multiple-column-sort-issue)
 
 <br>
+
 ### <a name="uniq"></a>uniq
 
 >report or omit repeated lines
@@ -136,6 +139,7 @@ Green
 ```
 
 <br>
+
 ### <a name="comm"></a>comm
 
 >compare two sorted files line by line
@@ -205,6 +209,7 @@ Yellow
 ```
 
 <br>
+
 ### <a name="cmp"></a>cmp
 
 >compare two files byte by byte
@@ -221,6 +226,7 @@ $ cmp /bin/grep /bin/fgrep
 * More examples [here](http://www.sanfoundry.com/5-cmp-command-usage-examples-linux/)
 
 <br>
+
 ### <a name="diff"></a>diff
 
 >compare files line by line
@@ -252,6 +258,7 @@ All the differences are printed, which might not be desirable if files are too l
 * [GUI diff and merge tools](http://askubuntu.com/questions/2946/what-are-some-good-gui-diff-and-merge-applications-available-for-ubuntu)
 
 <br>
+
 ### <a name="tr"></a>tr
 
 >translate or delete characters
@@ -270,6 +277,7 @@ All the differences are printed, which might not be desirable if files are too l
 * [tr Q&A on unix stackexchange](http://unix.stackexchange.com/questions/tagged/tr?sort=votes&pageSize=15)
 
 <br>
+
 ### <a name="sed"></a>sed
 
 >stream editor for filtering and transforming text
@@ -356,6 +364,7 @@ By default, `sed` acts on all of input contents. This can be refined to specific
     * `\0` back-reference contains entire matched string
 
 <br>
+
 **Example input file**
 
 ```bash
@@ -458,6 +467,7 @@ $ # use glob pattern if files share commonality, ex: *.txt
 * [sed Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/sed?sort=votes&pageSize=15)
 
 <br>
+
 ### <a name="awk"></a>awk
 
 >pattern scanning and text processing language
@@ -474,6 +484,7 @@ $ # use glob pattern if files share commonality, ex: *.txt
     * for examples and details, refer to links given below
 
 <br>
+
 **Example input file**
 
 ```bash
@@ -720,6 +731,7 @@ $ cat test.txt
 * [awk Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/awk?sort=votes&pageSize=15)
 
 <br>
+
 ### <a name="perl"></a>perl
 
 >The Perl 5 language interpreter
@@ -1101,6 +1113,7 @@ abc  : *** : xyz
 * [Env](http://perldoc.perl.org/Env.html)
 
 <br>
+
 ### <a name="cut"></a>cut
 
 >remove sections from each line of files
@@ -1118,6 +1131,7 @@ For columns operations with well defined delimiters, `cut` command is handy
 * [cut Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/cut?sort=votes&pageSize=15)
 
 <br>
+
 ### <a name="paste"></a>paste
 
 >merge lines of files
@@ -1177,6 +1191,7 @@ $ seq 10 | perl -pe 's/\n/ : / if(!eof)'
 ```
 
 <br>
+
 ### <a name="column"></a>column
 
 >columnate lists
@@ -1198,6 +1213,7 @@ East   handoguri  litti         momo     rosgulla   shondesh
 * More examples [here](http://www.commandlinefu.com/commands/using/column/sort-by-votes)
 
 <br>
+
 ### <a name="pr"></a>pr
 
 >convert text files for printing
@@ -1296,6 +1312,7 @@ $ pr -mts', ' <(seq 3) <(seq 4 6) <(seq 7 9)
 ```
 
 <br>
+
 We can use a combination of different commands for complicated operations. For example, transposing a table
 
 ```bash

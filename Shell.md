@@ -8,6 +8,7 @@
 * [Running jobs in background](#running-jobs-in-background)
 
 <br>
+
 ### <a name="what-is-shell"></a>What is Shell?
 
 Quoting from [wikipedia](https://en.wikipedia.org/wiki/Unix_shell)
@@ -23,6 +24,7 @@ Quoting from [wikipedia](https://en.wikipedia.org/wiki/Unix_shell)
 * [Difference between shell, tty and console](https://www.reddit.com/r/programming/comments/41u5hw/what_is_the_exact_difference_between_a_terminal_a/)
 
 <br>
+
 ### <a name="popular-shells"></a>Popular Shells
 
 Like any indispensible software, Shell has undergone transformation from the days of basic `sh` shell that was used in 1970s Unix. While `bash` is default shell in most distros and most commonly used, powerful and feature rich shells are still being developed and released
@@ -51,6 +53,7 @@ Like any indispensible software, Shell has undergone transformation from the day
 * [Shell, choosing shell and changing default shells](https://wiki.ubuntu.com/ChangingShells)
 
 <br>
+
 ### <a name="wildcards"></a>Wildcards
 
 It is easy to specify complete filenames as command arguments when they are few in number. But suppose, one has to delete hundreds of log files, spread across different sub-directories? Wildcards, or also known as globbing patterns help in such cases, provided the filenames have a commonality to exploit. We have already seen regular expressions used in commands like `grep` and `sed`. Shell wildcards are similar but has fundamental and syntactical differences
@@ -157,6 +160,7 @@ bar/baz/f2.txt  bar/f1.txt  song_list.txt
 * [when to use brace expansion](https://unix.stackexchange.com/questions/6035/when-do-you-use-brace-expansion)
 
 <br>
+
 ### <a name="redirection"></a>Redirection
 
 By default all results of a command are displayed on the terminal, which is the default destination for **standard output**. But often, one might want to save or discard them or send as input to another command. Similarly, inputs to a command can be given from files or from another command. Errors are special outputs generated on a wrong usage of command or command name
@@ -247,6 +251,7 @@ Earlier versions:
 * [Redirections explained](http://www.catonmat.net/blog/bash-one-liners-explained-part-three/)
 
 <br>
+
 ### <a name="process-control"></a>Process Control
 
 * `Process` is any running program
@@ -304,6 +309,7 @@ Earlier versions:
 * `pgrep -nl chrom` most recently started process matching chrom
 
 <br>
+
 **Further Reading**
 
 * [Process Management](http://ryanstutorials.net/linuxtutorial/processes.php)
@@ -314,6 +320,7 @@ Earlier versions:
 * [Useful examples for top command](http://www.thegeekstuff.com/2010/01/15-practical-unix-linux-top-command-examples/#more-2515)
 
 <br>
+
 ### <a name="running-jobs-in-background"></a>Running jobs in background
 
 Often commands and scripts can take more than few minutes to complete, but user might still need to continue using the shell. Opening a new shell might not serve the purpose if local shell variable settings are needed too. Shell provides the `&` operator to push the commad (or script) execution to background and return the command prompt to the user. However, the standard outputs and errors would still get displayed on the terminal unless appropriately redirected

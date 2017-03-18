@@ -5,6 +5,7 @@
 * [Emac mode Readline shortcuts](#emac-mode-readline-shortcuts)
 
 <br>
+
 ### <a name="variables"></a>Variables
 
 Quoting from [article on BASH Environment & Shell Variables](http://www.tricksofthetrades.net/2015/06/14/notes-bash-env-variables/)
@@ -55,6 +56,7 @@ $ echo "${dec2bin[255]}"
 * [Parameter expansion](http://wiki.bash-hackers.org/syntax/pe#simple_usage) - from simple ways to get Variable values to complicated manipulations
 
 <br>
+
 ### <a name="config-files"></a>Config files
 
 Through use of aliases, functions, shell variables, etc one can customize the shell as per their needs
@@ -161,6 +163,7 @@ Before creating an alias or function, use `type alias_name` to check if an exist
 * [what does rc in bashrc stand for](https://unix.stackexchange.com/questions/3467/what-does-rc-in-bashrc-stand-for)
 
 <br>
+
 ### <a name="emac-mode-readline-shortcuts"></a>Emac mode Readline shortcuts
 
 * `Ctrl+c` sends SIGINT signal, requesting the current running process to terminate

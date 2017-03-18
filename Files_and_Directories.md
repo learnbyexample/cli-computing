@@ -20,6 +20,7 @@ Make it a habit to use `man` command to read about a new command - for example `
 Short descriptions shown for a command are taken from `whatis` or `help -d`
 
 <br>
+
 ### <a name="pwd"></a>pwd
 
 >print name of current/working directory
@@ -27,6 +28,7 @@ Short descriptions shown for a command are taken from `whatis` or `help -d`
 Apart from knowing your current working directory, often used to copy the absolute path to be pasted elsewhere, like in a script
 
 <br>
+
 ### <a name="clear"></a>clear
 
 >clear the terminal screen
@@ -34,6 +36,7 @@ Apart from knowing your current working directory, often used to copy the absolu
 * Use `Ctrl+l` to clear the terminal screen and retain already typed text (if any) on command prompt
 
 <br>
+
 ### <a name="ls"></a>ls
 
 >list directory contents
@@ -74,6 +77,7 @@ Apart from knowing your current working directory, often used to copy the absolu
 * [why not parse ls?](https://unix.stackexchange.com/questions/128985/why-not-parse-ls)
 
 <br>
+
 ### <a name="cd"></a>cd
 
 >Change the shell working directory
@@ -99,6 +103,7 @@ cd - Change the shell working directory.
 * [cd Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/cd?sort=votes&pageSize=15)
 
 <br>
+
 ### <a name="mkdir"></a>mkdir
 
 >make directories
@@ -114,6 +119,7 @@ cd - Change the shell working directory.
 * [mkdir Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/mkdir?sort=votes&pageSize=15)
 
 <br>
+
 ### <a name="touch"></a>touch
 
 >change file timestamps
@@ -125,6 +131,7 @@ More info on this command is covered in a later chapter
 * [touch Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/touch?sort=votes&pageSize=15)
 
 <br>
+
 ### <a name="rm"></a>rm
 
 >remove files and directories
@@ -151,6 +158,7 @@ More info on this command is covered in a later chapter
 * [rm Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/rm?sort=votes&pageSize=15)
 
 <br>
+
 ### <a name="cp"></a>cp
 
 >copy files and directories
@@ -181,6 +189,7 @@ Also check out
 * [rsync Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/rsync?sort=votes&pageSize=15)
 
 <br>
+
 ### <a name="mv"></a>mv
 
 >move (rename) files
@@ -200,6 +209,7 @@ The destination path is always specified as the last argument. More than one sou
 * [mv Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/mv?sort=votes&pageSize=15)
 
 <br>
+
 ### <a name="rename"></a>rename
 
 >renames multiple files
@@ -218,6 +228,7 @@ Note: The `perl` based `rename` is presented here and different from [util-linux
 * [rename Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/rename?sort=votes&pageSize=15)
 
 <br>
+
 ### <a name="ln"></a>ln
 
 >make links between files
@@ -234,6 +245,7 @@ Create hard or soft link of file or folder. Soft link is similar to short-cuts c
 * [ln Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/ln?sort=votes&pageSize=15)
 
 <br>
+
 ### <a name="tar-and-gzip"></a>tar and gzip
 
 `tar` is archiving utility. The archived file is same size as combined sizes of archived files  

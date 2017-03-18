@@ -7,6 +7,7 @@
 * [Linux resource lists](#linux-resource-lists)
 
 <br>
+
 ### <a name="what-is-linux?"></a>What is Linux?
 
 Quoting from [Wikipedia](https://en.wikipedia.org/wiki/Linux)
@@ -14,6 +15,7 @@ Quoting from [Wikipedia](https://en.wikipedia.org/wiki/Linux)
 > Linux is a Unix-like and mostly POSIX-compliant computer operating system (OS) assembled under the model of free and open-source software development and distribution. The defining component of Linux is the Linux kernel an operating system kernel first released on 5 October 1991 by Linus Torvalds. The Free Software Foundation uses the name **GNU/Linux** to describe the operating system
 
 <br>
+
 ### <a name="why-use-linux?"></a>Why use Linux?
 
 * Speed, Security, Stability
@@ -24,6 +26,7 @@ Quoting from [Wikipedia](https://en.wikipedia.org/wiki/Linux)
 * Read more on using Linux and does it fit your computing needs on [computefreely](http://computefreely.org/)
 
 <br>
+
 ### <a name="where-is-linux-deployed?"></a>Where is Linux deployed?
 
 * Servers
@@ -38,6 +41,7 @@ Quoting from [Wikipedia](https://en.wikipedia.org/wiki/Linux)
 * [Usage Share of Operating Systems](http://en.wikipedia.org/wiki/Usage_share_of_operating_systems)
 
 <br>
+
 ### <a name="linux-distros"></a>Linux Distros
 
 Like how numerous programming languages exist, there are various Linux flavors called 'distribution' (distros for short), to cater the needs of beginners to advanced users as well as highly customized as per end use case
@@ -57,6 +61,7 @@ Usually, you'll find installation instructions from respective website of the di
 * [Try out Linux on Virtual Machine](http://www.storagecraft.com/blog/the-dead-simple-guide-to-installing-a-linux-virtual-machine-on-windows/)
 
 <br>
+
 ### <a name="linux-resource-lists"></a>Linux resource lists
 
 * [Linux curated resources](https://github.com/learnbyexample/scripting_course/blob/master/Linux_curated_resources.md)

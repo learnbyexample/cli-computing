@@ -6,6 +6,7 @@ Introduction to Linux commands and Shell scripting
 * For more related resources, visit [scripting course](https://github.com/learnbyexample/scripting_course)
 
 <br>
+
 # <a name="chapters"></a>Chapters
 
 * [Linux Introduction](./Linux_Introduction.md)
@@ -26,12 +27,14 @@ Introduction to Linux commands and Shell scripting
   * Need for scripting, Hello script, Command Line Arguments, Variables and Comparisons, Accepting User Input interactively, if then else, for loop, while loop, Debugging, Resource lists
 
 <br>
+
 # <a name="ebook"></a>ebook
 
 * Read as ebook on [gitbook](https://learnbyexample.gitbooks.io/linux-command-line/content/index.html)
 * Download ebook for offline reading - [link](https://www.gitbook.com/book/learnbyexample/linux-command-line/details)
 
 <br>
+
 # <a name="acknowledgements"></a>Acknowledgements
 
 * [unix.stackexchange](https://unix.stackexchange.com/) and [stackoverflow](https://stackoverflow.com/) - for getting answers to pertinent questions as well as sharpening skills by understanding and answering questions
@@ -39,5 +42,7 @@ Introduction to Linux commands and Shell scripting
 * [Weekly Coders, Hackers & All Tech related thread](https://www.reddit.com/r/india/search?q=Weekly+Coders%2C+Hackers+%26+All+Tech+related+thread+author%3Aavinassh&amp;restrict_sr=on&amp;sort=new&amp;t=all) - for suggestions and critique
 
 <br>
+
 # <a name="license"></a>License
+
 This work is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/)

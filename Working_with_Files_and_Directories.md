@@ -21,6 +21,7 @@
 In this chapter, we will see how to display contents of a file, search within files, search for files, get file properties and information, what are the permissions for files/directories and how to change them to our requirements
 
 <br>
+
 ### <a name="cat"></a>cat
 
 >concatenate files and print on the standard output
@@ -60,6 +61,7 @@ This is an example of adding text to a new file using cat command.
 ```
 
 <br>
+
 ### <a name="less"></a>less
 
 >opposite of more
@@ -85,6 +87,7 @@ This is an example of adding text to a new file using cat command.
 * [less Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/less?sort=votes&pageSize=15)
 
 <br>
+
 ### <a name="tail"></a>tail
 
 >output the last part of files
@@ -101,6 +104,7 @@ This is an example of adding text to a new file using cat command.
 * [tail Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/tail?sort=votes&pageSize=15)
 
 <br>
+
 ### <a name="head"></a>head
 
 >output the first part of files
@@ -114,6 +118,7 @@ This is an example of adding text to a new file using cat command.
 * [head Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/head?sort=votes&pageSize=15)
 
 <br>
+
 ### <a name="text-editors"></a>Text Editors
 
 For editing text files, the following applications can be used. Of these, `gedit`, `nano`, `vi` and/or `vim` are available in most distros by default
@@ -133,6 +138,7 @@ Powerful text editors
 * [sublime](https://www.sublimetext.com/)
 
 <br>
+
 ### <a name="grep"></a>grep
 
 >print lines matching a pattern
@@ -335,6 +341,7 @@ Yellow
 
 
 <br>
+
 ### <a name="find"></a>find
 
 >search for files in a directory hierarchy
@@ -398,6 +405,7 @@ Passing filtered files as input to other commands
 * [Why is looping over find's output bad practice?](https://unix.stackexchange.com/questions/321697/why-is-looping-over-finds-output-bad-practice)
 
 <br>
+
 ### <a name="locate"></a>locate
 
 >find files by name
@@ -416,6 +424,7 @@ Faster alternative to `find` command when searching for a file by its name. It i
 * [find vs locate - pros and cons](https://unix.stackexchange.com/questions/60205/locate-vs-find-usage-pros-and-cons-of-each-other)
 
 <br>
+
 ### <a name="wc"></a>wc
 
 >print newline, word, and byte counts for each file
@@ -432,6 +441,7 @@ Faster alternative to `find` command when searching for a file by its name. It i
 * [wc Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/wc?sort=votes&pageSize=15)
 
 <br>
+
 ### <a name="du"></a>du
 
 >estimate file space usage
@@ -452,6 +462,7 @@ Faster alternative to `find` command when searching for a file by its name. It i
 * [du Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/du?sort=votes&pageSize=15)
 
 <br>
+
 ### <a name="df"></a>df
 
 >report file system disk space usage
@@ -463,6 +474,7 @@ Faster alternative to `find` command when searching for a file by its name. It i
 * [df Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/df?sort=votes&pageSize=15)
 
 <br>
+
 ### <a name="touch"></a>touch
 
 >change file timestamps
@@ -483,6 +495,7 @@ Used to change file time stamps. But if file doesn't exist, the command will cre
 * [touch Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/touch?sort=votes&pageSize=15)
 
 <br>
+
 ### <a name="file"></a>file
 
 >determine file type
@@ -505,6 +518,7 @@ perl.png: PNG image data, 32 x 32, 8-bit/color RGBA, non-interlaced
 ```
 
 <br>
+
 ### <a name="identify"></a>identify
 
 >describes the format and characteristics of one or more image files
@@ -520,6 +534,7 @@ perl.png PNG 32x32 32x32+0+0 8-bit DirectClass 838B 0.000u 0:00.000
 ```
 
 <br>
+
 ### <a name="basename"></a>basename
 
 >strip directory and suffix from filenames
@@ -540,6 +555,7 @@ power
 ```
 
 <br>
+
 ### <a name="dirname"></a>dirname
 
 >strip last component from file name
@@ -556,6 +572,7 @@ $ dirname '/home/learnbyexample/proj_adder/power.log'
 ```
 
 <br>
+
 ### <a name="chmod"></a>chmod
 
 >change file mode bits
