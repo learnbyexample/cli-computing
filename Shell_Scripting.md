@@ -511,11 +511,16 @@ The material in this chapter is only a basic introduction
 
 * [using source command to execute bash script](https://askubuntu.com/questions/661577/difference-between-and-for-running-a-script-application)
 * [functions](http://ryanstutorials.net/bash-scripting-tutorial/bash-functions.php)
-* [Reading file](http://mywiki.wooledge.org/BashFAQ/001)
+* Reading file(s)
+    * [Reading file](http://mywiki.wooledge.org/BashFAQ/001)
+    * [Loop through the lines of two files in parallel](https://unix.stackexchange.com/questions/82541/loop-through-the-lines-of-two-files-in-parallel)
 * [arrays](http://mywiki.wooledge.org/BashGuide/Arrays)
 * [nameref](https://unix.stackexchange.com/questions/288886/bash-array-values-like-variables-inside-loop/288894#288894)
     * also see this [FAQ](http://mywiki.wooledge.org/BashFAQ/006)
-* [getopts example](https://stackoverflow.com/questions/16483119/example-of-how-to-use-getopts-in-bash)
+* getopts
+    * [getopts tutorial](http://wiki.bash-hackers.org/howto/getopts_tutorial)
+    * [wooledge - handle command-line arguments](http://mywiki.wooledge.org/BashFAQ/035)
+    * [stackoverflow - getopts example](https://stackoverflow.com/questions/16483119/example-of-how-to-use-getopts-in-bash)
 
 **Handy tools, tips and reference**
 
