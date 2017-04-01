@@ -2,6 +2,7 @@
 
 * [Need for scripting](#need-for-scripting)
 * [Hello script](#hello-script)
+* [Sourcing script](#sourcing-script)
 * [Command Line Arguments](#command-line-arguments)
 * [Variables and Comparisons](#variables-and-comparisons)
 * [Accepting User Input interactively](#accepting-user-input-interactively)
@@ -75,6 +76,37 @@ $ ./hello_world.sh
 Hello learnbyexample
 Today is Wednesday
 Have a nice day
+```
+
+<br>
+
+### <a name="sourcing-script"></a>Sourcing script
+
+```bash
+$ help -d source
+source - Execute commands from a file in the current shell.
+```
+
+* If script should be executed in current shell environment instead of sub-shell, use the `.` or `source` command
+    * For example, after editing `~/.bashrc` one can use `source ~/.bashrc` for changes to be immeditely effective
+
+```bash
+$ # contents of prev_cmd.sh
+prev=$(fc -ln -2 | sed 's/^[ \t]*//;q')
+echo "$prev"
+```
+
+* For example, to access history of current interactive shell from within script
+
+```bash
+$ printf 'hi there\n'
+hi there
+$ bash prev_cmd.sh 
+
+$ printf 'hi there\n'
+hi there
+$ source prev_cmd.sh
+printf 'hi there\n'
 ```
 
 <br>
