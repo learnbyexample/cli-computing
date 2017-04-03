@@ -11,6 +11,7 @@
 * [while loop](#while-loop)
 * [Reading a file](#reading-file)
 * [Debugging](#debugging)
+* [Real world use case](#real-world-use-case)
 * [Resource lists](#resource-lists)
 
 <br>
@@ -520,6 +521,99 @@ Today is Friday
 echo 'Have a nice day'
 + echo 'Have a nice day'
 Have a nice day
+```
+
+<br>
+
+### <a name="real-world-use-case"></a>Real world use case
+
+With so much copy-paste of commands and their output involved in creating these chapters, mistakes do happen. So a script to check correctness comes in handy. Consider the below markdown file
+
+    ## <a name="some-heading"></a>Some heading
+
+    Some explanation
+
+    ```bash
+    $ seq 3
+    1
+    2
+    3
+
+    $ printf 'hi there!\n'
+    hi there!
+    ```
+
+    ## <a name="another-heading"></a>Another heading
+
+    More explanations
+
+    ```bash
+    $ help -d readarray
+    readarray - Read lines from a file into an array variable.
+
+    $ a=5
+    $ printf "$a\n"
+    5
+    ```
+
+* The whole file is read into an array so that index of next line to be read can be controlled dynamically
+* Once a command is identified to be tested
+    * the expected output is collected into a variable. Multiple lines are concatenated. Some commands do not have stdout to compare against
+    * accordingly the index of next iteration is corrected
+* Note that this is a sample script to demonstrate use of shell script. It is not fool-proof, doesn't have proactive check for possible errors, etc
+* Be sure `eval` is being used for known commands like is the case here
+* See [Parameter Expansion](http://mywiki.wooledge.org/BashGuide/Parameters#Parameter_Expansion) for examples and explanations on string processing constructs
+
+```bash
+#!/bin/bash
+
+cb_start=0
+readarray -t lines < 'sample.md'
+
+for ((i = 0; i < ${#lines[@]}; i++)); do
+    # mark start/end of command block
+    # Line starting with $ to be verified only between ```bash and ```
+    [[ ${lines[$i]:0:7} == '```bash' ]] && ((cb_start=1)) && continue
+    [[ ${lines[$i]:0:3} == '```' ]] && ((cb_start=0)) && continue
+
+    if [[ $cb_start == 1 && ${lines[$i]:0:2} == '$ ' ]]; then
+        cmd="${lines[$i]:2}"
+
+        # collect command output lines until line starting with $ or ```
+        cmp_str=''
+        j=1
+        while [[ ${lines[$i+$j]:0:2} != '$ ' && ${lines[$i+$j]:0:3} != '```' ]]; do
+            cmp_str+="${lines[$i+$j]}"
+            ((j++))
+        done
+        ((i+=j-1))
+
+        cmd_op=$(eval "$cmd")
+        if [[ "${cmd_op//$'\n'}" == "${cmp_str//$'\n'}" ]]; then
+            echo "Pass: $cmd"
+        else
+            echo "Fail: $cmd"
+        fi
+    fi
+done
+```
+
+* Note how sourcing the script is helpful to take into consideration commands dependent on previous commands
+
+```bash
+$ ./verify_cmds.sh 
+Pass: seq 3
+Pass: printf 'hi there!\n'
+Pass: help -d readarray
+Pass: a=5
+Fail: printf "$a\n"
+
+$ source verify_cmds.sh 
+Pass: seq 3
+Pass: printf 'hi there!\n'
+Pass: help -d readarray
+Pass: a=5
+Pass: printf "$a\n"
 ```
 
 <br>
