@@ -572,14 +572,14 @@ readarray -t lines < 'sample.md'
 
 for ((i = 0; i < ${#lines[@]}; i++)); do
     # mark start/end of command block
-    # Line starting with $ to be verified only between ```bash and ```
+    # Line starting with $ to be verified only between ```bash and ``` block end
     [[ ${lines[$i]:0:7} == '```bash' ]] && ((cb_start=1)) && continue
     [[ ${lines[$i]:0:3} == '```' ]] && ((cb_start=0)) && continue
 
     if [[ $cb_start == 1 && ${lines[$i]:0:2} == '$ ' ]]; then
         cmd="${lines[$i]:2}"
 
-        # collect command output lines until line starting with $ or ```
+        # collect command output lines until line starting with $ or ``` block end
         cmp_str=''
         j=1
         while [[ ${lines[$i+$j]:0:2} != '$ ' && ${lines[$i+$j]:0:3} != '```' ]]; do
