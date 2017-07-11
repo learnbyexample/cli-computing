@@ -1,3 +1,7 @@
+Use [![Join the chat at https://gitter.im/learnbyexample/scripting_course](https://badges.gitter.im/learnbyexample/scripting_course.svg)](https://gitter.im/learnbyexample/scripting_course) if you need help, have suggestions, etc
+
+<br>
+
 # <a name="linux-command-line"></a>Linux Command Line
 
 Introduction to Linux commands and Shell scripting
