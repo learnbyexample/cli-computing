@@ -35,30 +35,58 @@ In this chapter, we will see how to display contents of a file, search within fi
 
 **Examples**
 
-* `cat > sample.txt` create a new file for writing, use `Ctrl+d` on a newline to save the file and quit
-    * [difference between Ctrl+c and Ctrl+d to signal end of stdin input in bash](https://unix.stackexchange.com/questions/16333/how-to-signal-the-end-of-stdin-input-in-bash)
-* `cat sample.txt` display the contents of file sample.txt
-* `cat power.log timing.log area.log > report.log` concatenate the contents of all three files and save to report.log
-* `tac sample.txt` display the lines of file sample.txt in reversed order
-* [cat Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/cat?sort=votes&pageSize=15)
-* [cat Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/cat?sort=votes&pageSize=15)
+* One or more files can be given as input and hence a lot of times, `cat` is used to quickly see contents of small single file on terminal
+    * But not needed to simply pass file content as stdin to other commands. See [Useless Use of Cat Award](http://porkmail.org/era/unix/award.html)
+* To save the output of concatenation, just redirect stdout
 
 ```bash
-$ cat > sample.txt
-This is an example of adding text to a new file using cat command.
-Press Ctrl+d on a newline to save and quit.
+$ ls
+marks_2015.txt  marks_2016.txt  marks_2017.txt
 
-$ cat sample.txt 
-This is an example of adding text to a new file using cat command.
-Press Ctrl+d on a newline to save and quit.
+$ cat marks_201*
+Name    Maths   Science
+foo     67      78
+bar     87      85
+Name    Maths   Science
+foo     70      75
+bar     85      88
+Name    Maths   Science
+foo     68      76
+bar     90      90
 
-$ wc sample.txt 
-  2  23 111 sample.txt
-
-$ tac sample.txt 
-Press Ctrl+d on a newline to save and quit.
-This is an example of adding text to a new file using cat command.
+$ # save stdout to a file
+$ cat marks_201* > all_marks.txt
 ```
+
+* often used option is `-A` to see various non-printing characters and end of line
+
+```bash
+$ printf 'foo\0bar\tbaz  \r\n'
+foobar  baz
+
+$ printf 'foo\0bar\tbaz  \r\n' | cat -A
+foo^@bar^Ibaz  ^M$
+```
+
+* use `tac` to reverse input line wise
+
+```bash
+$ tac marks_2015.txt
+bar     87      85
+foo     67      78
+Name    Maths   Science
+
+$ seq 3 | tac
+3
+2
+1
+```
+
+**Further Reading**
+
+* For more detailed examples and discussion, see section [cat from command line text processing repo](https://github.com/learnbyexample/Command-line-text-processing/blob/master/tail_less_cat_head.md#cat)
+* [cat Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/cat?sort=votes&pageSize=15)
+* [cat Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/cat?sort=votes&pageSize=15)
 
 <br>
 
@@ -68,7 +96,7 @@ This is an example of adding text to a new file using cat command.
 
 `cat` command is not suitable for viewing contents of large files on the Terminal. `less` displays contents of a file, automatically fits to size of Terminal, allows scrolling in either direction and other options for effective viewing. Usually, `man` command uses `less` command to display the help page. The navigation options are similar to `vi` editor
 
-**Navigation options**
+Commonly used commands are given below, press `h` for summary of options
 
 * `g` go to start of file
 * `G` go to end of file
@@ -77,11 +105,11 @@ This is an example of adding text to a new file using cat command.
 * `?pattern` search for the given pattern in backward direction
 * `n` go to next pattern
 * `N` go to previous pattern
-* `h` help
 
 **Example and Further Reading**
 
 * `less -s large_filename` display contents of file large_filename using less command, consecutive blank lines are squeezed as single blank line
+    * Use `-N` option to prefix line number
 * `less` command is an [improved version](https://unix.stackexchange.com/questions/604/isnt-less-just-more) of `more` command
 * [differences between most, more and less](https://unix.stackexchange.com/questions/81129/what-are-the-differences-between-most-more-and-less)
 * [less Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/less?sort=votes&pageSize=15)
@@ -94,12 +122,52 @@ This is an example of adding text to a new file using cat command.
 
 **Examples**
 
-* `tail report.log` by default display last 10 lines
-* `tail -20 report.log` display last 20 lines
-* `tail -5 report.log` display last 5 lines
-* `tail power.log timing.log` display last 10 lines of both files preceded by filename header
-* `tail -q power.log timing.log > result.log` save last 10 lines of both files without filename header to result.log
-* `tail -n +3 report.log` display all lines starting from third line (i.e all lines except first two lines)
+* By default, `tail` displays last 10 lines
+* Use `-n` option to change how many lines are needed
+
+```bash
+$ # last two lines
+$ tail -n2 report.log
+Error: something seriously went wrong
+blah blah blah
+
+$ # all lines starting from 3rd line i.e all lines except first two lines
+$ seq 13 17 | tail -n +3
+15
+16
+17
+```
+
+* multiple file input
+
+```bash
+$ # use -q option to avoid filename in output
+$ tail -n2 report.log sample.txt 
+==> report.log <==
+Error: something seriously went wrong
+blah blah blah
+
+==> sample.txt <==
+He he he
+Adios amigo
+```
+
+* characterwise extraction
+    * Note that this works byte wise and not suitable for multi-byte character encodings
+
+```bash
+$ # last three characters including the newline character
+$ echo 'Hi there!' | tail -c3
+e!
+
+$ # excluding the first character
+$ echo 'Hi there!' | tail -c +2
+i there!
+```
+
+**Further Reading**
+
+* For more detailed examples and discussion, see section [tail from command line text processing repo](https://github.com/learnbyexample/Command-line-text-processing/blob/master/tail_less_cat_head.md#tail)
 * [tail Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/tail?sort=votes&pageSize=15)
 * [tail Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/tail?sort=votes&pageSize=15)
 
@@ -111,10 +179,59 @@ This is an example of adding text to a new file using cat command.
 
 **Examples**
 
-* `head report.log` display first 10 lines
-* `head -20 report.log | tail report.log` display lines 11 to 20
-* `tail -30 report.log | head -5 report.log` display 5 lines prior to last 25 lines of file
-* `head -n -2 report.log` display all but last 2 lines
+* By default, `head` displays first 10 lines
+* Use `-n` option to change how many lines are needed
+
+```bash
+$ head -n3 report.log
+blah blah
+Warning: something went wrong
+more blah
+
+$ # tail gives last 10 lines, head then gives first 2 from tail output
+$ tail sample.txt | head -n2
+Just do-it
+Believe it
+
+$ # except last 2 lines
+$ seq 13 17 | head -n -2
+13
+14
+15
+```
+
+* multiple file input
+
+```bash
+$ # use -q option to avoid filename in output
+$ head -n3 report.log sample.txt 
+==> report.log <==
+blah blah
+Warning: something went wrong
+more blah
+
+==> sample.txt <==
+Hello World!
+
+Good day
+```
+
+* characterwise extraction
+    * Note that this works byte wise and not suitable for multi-byte character encodings
+
+```bash
+$ # first two characters
+$ echo 'Hi there!' | head -c2
+Hi
+
+$ # excluding last four characters
+$ echo 'Hi there!' | head -c -4
+Hi the
+```
+
+**Further Reading**
+
+* For more detailed examples and discussion, see section [head from command line text processing repo](https://github.com/learnbyexample/Command-line-text-processing/blob/master/tail_less_cat_head.md#head)
 * [head Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/head?sort=votes&pageSize=15)
 
 <br>
