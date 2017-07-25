@@ -548,12 +548,57 @@ Faster alternative to `find` command when searching for a file by its name. It i
 
 **Examples**
 
-* `wc power.log` outputs no. of lines, words and characters separated by white-space and followed by filename
-* `wc -l power.log` outputs no. of lines followed by filename
-* `wc -w power.log` outputs no. of words followed by filename
-* `wc -c power.log` outputs no. of characters followed by filename
-* `wc -l < power.log` output only the number of lines
-* `wc -L power.log` length of longest line followed by filename
+```bash
+$ # by default, gives newline/word/byte count (in that order)
+$ wc sample.txt 
+ 5 17 78 sample.txt
+
+$ # options to get only newline/word/byte count
+$ wc -l sample.txt 
+5 sample.txt
+$ wc -w sample.txt 
+17 sample.txt
+$ wc -c sample.txt 
+78 sample.txt
+
+$ # use shell input redirection if filename is not needed
+$ wc -l < sample.txt 
+5
+```
+
+* multiple file input
+
+```bash
+$ # automatically displays total at end
+$ wc *.txt
+  5  10  57 fruits.txt
+  2   6  32 greeting.txt
+  5  17  78 sample.txt
+ 12  33 167 total
+```
+
+* other options
+
+```bash
+$ # use -L to get length of longest line
+$ # won't count non-printable characters, tabs are converted to equivalent spaces
+$ wc -L < sample.txt 
+24
+$ printf 'foo\tbar\0baz' | wc -L
+14
+$ printf 'foo\tbar\0baz' | awk '{print length()}'
+11
+
+$ # -c gives byte count, -m gives character count
+$ printf 'hi👍' | wc -m
+3
+$ printf 'hi👍' | wc -c
+6
+```
+
+**Further Reading**
+
+* For more detailed examples and discussion, see section [wc from command line text processing repo](https://github.com/learnbyexample/Command-line-text-processing/blob/master/file_attributes.md#wc)
 * [wc Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/wc?sort=votes&pageSize=15)
 * [wc Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/wc?sort=votes&pageSize=15)
 
@@ -563,18 +608,54 @@ Faster alternative to `find` command when searching for a file by its name. It i
 
 >estimate file space usage
 
-* du command is useful to get size of files and folders, not for file systems
-
 **Examples**
 
-* `du project_report` display size (default unit is 1024 bytes) of folder project_report as well as it sub-directories
-* `du --si project_report` display size (unit is 1000 bytes) of folder project_report as well as it sub-directories
-* `du -h project_report` display size in human readable format for folder project_report as well as it sub-directories
-* `du -ah project_report` display size in human readable format for folder project_report and all of its files and sub-directories
-* `du -sh project_report` display size only for project_report folder in human readable format
-* `du -sm * | sort -n` sort files and folders of current directory, numbers displayed are in Megabytes
-    * use `sort -nr` to reverse sort order, i.e largest at top
-* `du -sh * | sort -h` sort files and folders of current directory, output displayed in human-readable format
+```bash
+$ # By default, size is given in size of 1024 bytes
+$ # Files are ignored, all directories and sub-directories are recursively reported
+$ # add -a option if files are also needed and -L if links should be dereferenced
+$ du
+17920   ./projs/full_addr
+14316   ./projs/half_addr
+32952   ./projs
+33880   .
+
+$ # use -s to show total directory size without descending into sub-directories
+$ du -s projs words.txt
+32952   projs
+924     words.txt
+```
+
+* different size formatting options
+
+```bash
+$ # number of bytes
+$ du -b words.txt
+938848  words.txt
+
+$ # kilobytes = 1024 bytes
+$ du -sk projs
+32952   projs
+
+$ # megabytes = 1024 kilobytes
+$ du -sm projs
+33      projs
+
+$ # human readable, use --si for powers of 1000 instead of 1024
+$ du -h words.txt
+924K    words.txt
+
+$ # sorting
+$ du -sh projs/* words.txt | sort -h
+712K    projs/report.log
+924K    words.txt
+14M     projs/half_addr
+18M     projs/full_addr
+```
+
+**Further Reading**
+
+* For more detailed examples and discussion, see section [du from command line text processing repo](https://github.com/learnbyexample/Command-line-text-processing/blob/master/file_attributes.md#du)
 * [du Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/disk-usage?sort=votes&pageSize=15)
 * [du Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/du?sort=votes&pageSize=15)
 
