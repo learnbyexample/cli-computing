@@ -795,20 +795,32 @@ $ find -type f -exec file {} + | awk -F: '/\<image data\>/{print $1}'
 
 >strip directory and suffix from filenames
 
+**Examples**
+
 ```bash
-$ pwd
+$ # same as using pwd command
+$ echo "$PWD"
 /home/learnbyexample
 
-$ basename $PWD
+$ basename "$PWD"
 learnbyexample
 
-$ basename '/home/learnbyexample/proj_adder/power.log'
+$ # use -a option if there are multiple arguments
+$ basename -a foo/a/report.log bar/y/power.log
+report.log
 power.log
 
-$ #use suffix option -s to strip file extension from filename
-$ basename -s '.log' '/home/learnbyexample/proj_adder/power.log'
+$ # use single quotes if arguments contain space and other special shell characters
+$ # use suffix option -s to strip file extension from filename
+$ basename -s '.log' '/home/learnbyexample/proj adder/power.log'
+power
+$ # -a is implied when using -s option
+$ basename -s'.log' foo/a/report.log bar/y/power.log
+report
 power
 ```
+
+* For more detailed examples and discussion, see section [basename from command line text processing repo](https://github.com/learnbyexample/Command-line-text-processing/blob/master/miscellaneous.md#basename)
 
 <br>
 
@@ -816,16 +828,30 @@ power
 
 >strip last component from file name
 
+**Examples**
+
 ```bash
-$ pwd
+$ echo "$PWD"
 /home/learnbyexample
 
-$ dirname $PWD
+$ dirname "$PWD"
 /home
 
-$ dirname '/home/learnbyexample/proj_adder/power.log'
-/home/learnbyexample/proj_adder
+$ # use single quotes if arguments contain space and other special shell characters
+$ dirname '/home/learnbyexample/proj adder/power.log'
+/home/learnbyexample/proj adder
+
+$ # unlike basename, by default dirname handles multiple arguments
+$ dirname foo/a/report.log bar/y/power.log
+foo/a
+bar/y
+
+$ # if no / in argument, output is . to indicate current directory
+$ dirname power.log
+.
 ```
+
+* For more detailed examples and discussion, see section [dirname from command line text processing repo](https://github.com/learnbyexample/Command-line-text-processing/blob/master/miscellaneous.md#dirname)
 
 <br>
 
