@@ -13,7 +13,6 @@
 * [df](#df)
 * [touch](#touch)
 * [file](#file)
-* [identify](#identify)
 * [basename](#basename)
 * [dirname](#dirname)
 * [chmod](#chmod)
@@ -621,6 +620,7 @@ $ du
 33880   .
 
 $ # use -s to show total directory size without descending into sub-directories
+$ # add -c to also show total size at end
 $ du -s projs words.txt
 32952   projs
 924     words.txt
@@ -667,8 +667,41 @@ $ du -sh projs/* words.txt | sort -h
 
 **Examples**
 
-* `df -h` display usage statistics of all available file systems
-* `df -h .` display usage of only the file system where the current working directory is located
+```bash
+$ # use df without arguments to get information on all currently mounted file systems
+$ df .
+Filesystem     1K-blocks     Used Available Use% Mounted on
+/dev/sda1       98298500 58563816  34734748  63% /
+
+$ # use -B option for custom size
+$ # use --si for size in powers of 1000 instead of 1024
+$ df -h .
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda1        94G   56G   34G  63% /
+```
+
+* Use `--output` to report only specific fields of interest
+
+```bash
+$ df -h --output=size,used,file / /media/learnbyexample/projs
+ Size  Used File
+  94G   56G /
+  92G   35G /media/learnbyexample/projs
+
+$ df -h --output=pcent .
+Use%
+ 63%
+
+$ df -h --output=pcent,fstype | awk -F'%' 'NR>2 && $1>=40'
+ 63% ext3
+ 40% ext4
+ 51% ext4
+```
+
+
+**Further Reading**
+
+* For more detailed examples and discussion, see section [df from command line text processing repo](https://github.com/learnbyexample/Command-line-text-processing/blob/master/file_attributes.md#df)
 * [df Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/df?sort=votes&pageSize=15)
 
 <br>
@@ -677,19 +710,41 @@ $ du -sh projs/* words.txt | sort -h
 
 >change file timestamps
 
-Used to change file time stamps. But if file doesn't exist, the command will create an empty file with the name provided. Both features are quite useful  
-
-* Some program may require a particular file to be present to work, empty file might even be a valid argument. In such cases, a pre-processing script can scan the destination directories and create empty file if needed
-* Similarly, some programs may behave differently according to the time stamps of two or more files - while debugging in such an environment, user might want to just change the time stamp of files
-
 **Examples**
 
-* `touch new_file.txt` create an empty file if it doesn't exist in current directory
-    * use `-c` if new file shouldn't be created
-    * use `-a` option to change only access time and `-m` to change only modification time
-* `touch report.log` change the time stamp of report.log to current time (assuming report.log already exists in current directory)
-* `touch -r power.log report.log` use time stamp of power.log instead of current time to change that of report.log
-    * use `-d` to provide time stamp from a string instead of file
+```bash
+$ # last access and modification time
+$ stat -c $'%x\n%y' fruits.txt
+2017-07-19 17:06:01.523308599 +0530
+2017-07-13 13:54:03.576055933 +0530
+
+$ # Updating both access and modification timestamp to current time
+$ # add -a to change only access timestamp and -m to change only modification
+$ touch fruits.txt 
+$ stat -c $'%x\n%y' fruits.txt
+2017-07-21 10:11:44.241921229 +0530
+2017-07-21 10:11:44.241921229 +0530
+
+$ # copy both access and modification timestamp from power.log to report.log
+$ # add -a or -m as needed
+$ # See also -d and -t options
+$ touch -r power.log report.log
+```
+
+* If file doesn't exist, an empty one gets created unless -c is used
+
+```bash
+$ ls foo.txt
+ls: cannot access 'foo.txt': No such file or directory
+
+$ touch foo.txt
+$ ls foo.txt
+foo.txt
+```
+
+**Further Reading**
+
+* For more detailed examples and discussion, see section [touch from command line text processing repo](https://github.com/learnbyexample/Command-line-text-processing/blob/master/file_attributes.md#touch)
 * [touch Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/touch?sort=votes&pageSize=15)
 
 <br>
@@ -703,33 +758,36 @@ Used to change file time stamps. But if file doesn't exist, the command will cre
 ```bash
 $ file sample.txt 
 sample.txt: ASCII text
+$ printf 'hi👍\n' | file -
+/dev/stdin: UTF-8 Unicode text
+$ file ch
+ch:  Bourne-Again shell script, ASCII text executable
 
-$ file sunset.jpg 
+$ printf 'hi\r\n' | file -
+/dev/stdin: ASCII text, with CRLF line terminators
+
+$ file sunset.jpg moon.png
 sunset.jpg: JPEG image data
-
-$ mv sunset.jpg xyz
-$ file xyz 
-xyz: JPEG image data
-
-$ file perl.png 
-perl.png: PNG image data, 32 x 32, 8-bit/color RGBA, non-interlaced
+moon.png: PNG image data, 32 x 32, 8-bit/color RGBA, non-interlaced
 ```
 
-<br>
-
-### <a name="identify"></a>identify
-
->describes the format and characteristics of one or more image files
-
-Although file command can also give information like pixel dimensions and image type, identify is more reliable command for images and gives complete format information
+* find all files of particular type in current directory, for example `image` files
 
 ```bash
-$ identify sunset.jpg
-sunset.jpg JPEG 740x740 740x740+0+0 8-bit DirectClass 110KB 0.000u 0:00.030
+$ find -type f -exec bash -c '(file -b "$0" | grep -wq "image data") && echo "$0"' {} \;
+./sunset.jpg
+./moon.png
 
-$ identify perl.png 
-perl.png PNG 32x32 32x32+0+0 8-bit DirectClass 838B 0.000u 0:00.000
+$ # if filenames do not contain : or newline characters
+$ find -type f -exec file {} + | awk -F: '/\<image data\>/{print $1}'
+./sunset.jpg
+./moon.png
 ```
+
+**Further Reading**
+
+* For more detailed examples and discussion, see section [file from command line text processing repo](https://github.com/learnbyexample/Command-line-text-processing/blob/master/file_attributes.md#file)
+* See also `identify` command which `describes the format and characteristics of one or more image files`
 
 <br>
 
