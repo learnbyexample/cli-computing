@@ -1065,12 +1065,14 @@ rm: remove write-protected regular empty file ‘linux_tutorial/report/power.log
 rm: cannot remove ‘linux_tutorial/report/power.log’: Permission denied
 ```
 
-* `+r -r +x -x` without `u g o` qualifier affects all the three categories
-* `+w -w` without `u g o` qualifier affects only user and group categories
+* What permissions are affected by `+-/rwx` depends on `umask` value as well. It is usually `002` which means
+    * `+r -r +x -x` without `u g o` qualifier affects all the three categories
+    * `+w -w` without `u g o` qualifier affects only user and group categories
 
 **Further Reading**
 
 * [Linux File Permissions](https://www.linux.com/learn/getting-know-linux-file-permissions)
 * [Linux Permissions Primer](https://danielmiessler.com/study/unixlinux_permissions/)
+* [unix.stackexchange - Why chmod +w filename not giving write permission to other](https://unix.stackexchange.com/questions/429421/why-chmod-w-filename-not-giving-write-permission-to-othero)
 * [chmod Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/chmod?sort=votes&pageSize=15)
 * [chmod Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/chmod?sort=votes&pageSize=15)
