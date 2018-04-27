@@ -73,7 +73,7 @@ Apart from knowing your current working directory, often used to copy the absolu
 * `ls -ltr` list files of current directory with details sorted such that latest created/modified file is displayed last
 * [ls Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/ls?sort=votes&pageSize=15)
 * [ls Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/ls?sort=votes&pageSize=15)
-* [avoid parsing output of ls](http://mywiki.wooledge.org/ParsingLs)
+* [avoid parsing output of ls](https://mywiki.wooledge.org/ParsingLs)
 * [why not parse ls?](https://unix.stackexchange.com/questions/128985/why-not-parse-ls)
 
 <br>
@@ -184,7 +184,7 @@ The destination path is always specified as the last argument. More than one sou
 Also check out
 
 * `rsync` a fast, versatile, remote (and local) file-copying tool
-* [rsync examples](http://www.tutorialspoint.com/articles/rsync-command-examples-on-linux)
+* [rsync examples](https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps)
 * [rsync Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/rsync?sort=votes&pageSize=15)
 * [rsync Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/rsync?sort=votes&pageSize=15)
 
@@ -258,13 +258,13 @@ Archive and Compression
 * `tar -cvf backup_mar15.tar project results` create backup_mar15.tar of files/folders project and results
     * `-v` option stands for verbose, i.e displays all the files and directories being archived
 * `gzip backup_mar15.tar` overwrites backup_mar15.tar with backup_mar15.tar.gz, a compressed version
-* `tar cvfz backup_mar15.tar.gz project results` create backup_mar15.tar and overwrite with backup_mar15.tar.gz
+* `tar -cvzf backup_mar15.tar.gz project results` create backup_mar15.tar and overwrite with backup_mar15.tar.gz
 
 Extract archive and Decompression
 
 * `gunzip backup_mar15.tar.gz` decompress and overwrite as backup_mar15.tar
 * `tar -xvf backup_mar15.tar` extract archived files to current directory
-* `tar xvfz backup_mar15.tar.gz` decompress and extract archived files to current directory
+* `tar -xzvf backup_mar15.tar.gz` decompress and extract archived files to current directory
 
 z commands
 
