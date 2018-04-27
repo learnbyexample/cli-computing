@@ -242,8 +242,8 @@ For editing text files, the following applications can be used. Of these, `gedit
 Easy to use
 
 * [gedit](https://wiki.gnome.org/Apps/Gedit)
-* [geany](http://www.geany.org/)
-* [nano](http://nano-editor.org/)
+* [geany](https://www.geany.org/)
+* [nano](https://nano-editor.org/)
 
 Powerful text editors
 
@@ -446,15 +446,12 @@ Yellow
 
 **Further Reading**
 
+* For more detailed examples and discussion, see [GNU grep chapter from command line text processing repo](https://github.com/learnbyexample/Command-line-text-processing/blob/master/gnu_grep.md)
 * [how grep command was born](https://medium.com/@rualthanzauva/grep-was-a-private-command-of-mine-for-quite-a-while-before-i-made-it-public-ken-thompson-a40e24a5ef48)
 * [why GNU grep is fast](https://lists.freebsd.org/pipermail/freebsd-current/2010-August/019310.html)
-* [grep tutorial](http://www.panix.com/~elflord/unix/grep.html)
-* [grep examples](http://alvinalexander.com/unix/edu/examples/grep.shtml)
 * [Difference between grep, egrep and fgrep](https://unix.stackexchange.com/questions/17949/what-is-the-difference-between-grep-egrep-and-fgrep)
 * [grep Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/grep?sort=votes&pageSize=15)
 * [grep Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/grep?sort=votes&pageSize=15)
-* [ucg](https://github.com/gvansickle/ucg) - UniversalCodeGrep (ucg) is an extremely fast grep-like tool specialized for searching large bodies of source code
-
 
 <br>
 
@@ -512,9 +509,8 @@ Passing filtered files as input to other commands
 
 **Further Reading**
 
-* [using find](http://mywiki.wooledge.org/UsingFind)
-* [find examples on SO](https://stackoverflow.com/documentation/bash/566/find#t=201612140534548263961)
-* [Collection of find examples](http://alvinalexander.com/unix/edu/examples/find.shtml)
+* [using find](https://mywiki.wooledge.org/UsingFind)
+* [Collection of find examples](https://alvinalexander.com/unix/edu/examples/find.shtml)
 * [find Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/find?sort=votes&pageSize=15)
 * [find and tar example](https://unix.stackexchange.com/questions/282762/find-mtime-1-print-xargs-tar-archives-all-files-from-directory-ignoring-t/282885#282885)
 * [find Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/find?sort=votes&pageSize=15)
@@ -1076,3 +1072,4 @@ rm: cannot remove ‘linux_tutorial/report/power.log’: Permission denied
 * [unix.stackexchange - Why chmod +w filename not giving write permission to other](https://unix.stackexchange.com/questions/429421/why-chmod-w-filename-not-giving-write-permission-to-othero)
 * [chmod Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/chmod?sort=votes&pageSize=15)
 * [chmod Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/chmod?sort=votes&pageSize=15)
+
