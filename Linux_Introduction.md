@@ -1,14 +1,16 @@
 # <a name="linux-introduction"></a>Linux Introduction
 
-* [What is Linux?](#what-is-linux?)
-* [Why use Linux?](#why-use-linux?)
-* [Where is Linux deployed?](#where-is-linux-deployed?)
+**Table of Contents**
+
+* [What is Linux?](#what-is-linux)
+* [Why use Linux?](#why-use-linux)
+* [Where is Linux deployed?](#where-is-linux-deployed)
 * [Linux Distros](#linux-distros)
 * [Linux resource lists](#linux-resource-lists)
 
 <br>
 
-### <a name="what-is-linux?"></a>What is Linux?
+## <a name="what-is-linux"></a>What is Linux?
 
 Quoting from [Wikipedia](https://en.wikipedia.org/wiki/Linux)
 
@@ -16,56 +18,55 @@ Quoting from [Wikipedia](https://en.wikipedia.org/wiki/Linux)
 
 <br>
 
-### <a name="why-use-linux?"></a>Why use Linux?
+## <a name="why-use-linux"></a>Why use Linux?
 
-* Speed, Security, Stability
+* Faster, Secure, Stable
+    * it helps that developers from all over the world contribute, instead of just a single company
 * Highly configurable
-* Multiuser environment by default
+* Suitable for both single/multiuser environment
 * Well defined hierarchy and permissions to allow networking across different groups and sites
 * Strong set of commands to automate repetitive manual tasks
-* Read more on using Linux and does it fit your computing needs on [computefreely](http://computefreely.org/)
+* Read more on using Linux and whether it fits your computing needs on [computefreely](https://computefreely.org/)
 
 <br>
 
-### <a name="where-is-linux-deployed?"></a>Where is Linux deployed?
+## <a name="where-is-linux-deployed"></a>Where is Linux deployed?
 
 * Servers
 * Supercomputers
-    * To quote [TOP500 article on wiki](https://en.wikipedia.org/wiki/TOP500), "As of November 2015, 494 or 98.8% of the world's fastest supercomputers use the Linux kernel"
-* Embedded Systems
-* Smart phone and similar
+    * To quote [TOP500 article on wikipedia](https://en.wikipedia.org/wiki/TOP500), "Since November 2017, all the listed supercomputers (100% of the performance share) use an operating system based on the Linux kernel"
+* Embedded/IoT devices like POS, Raspberry Pi
+* Smart phones
 	* Android - built on top of Linux kernel
 	* iOS - Unix based
 * Personal and Enterprise Computers
 * And many more uses, thanks to being open source
-* [Usage Share of Operating Systems](http://en.wikipedia.org/wiki/Usage_share_of_operating_systems)
+* [Usage Share of Operating Systems](https://en.wikipedia.org/wiki/Usage_share_of_operating_systems)
 
 <br>
 
-### <a name="linux-distros"></a>Linux Distros
+## <a name="linux-distros"></a>Linux Distros
 
-Like how numerous programming languages exist, there are various Linux flavors called 'distribution' (distros for short), to cater the needs of beginners to advanced users as well as highly customized as per end use case
+There are various Linux flavors called 'distribution' (distros for short), to cater the needs of beginners to advanced users as well as highly customized as per end use case
 
-* There are [hundreds of known distributions](http://en.wikipedia.org/wiki/List_of_Linux_distributions)
-* One can keep track of them at [distrowatch](http://distrowatch.com/)
-    * [Statistics of various Linux Distros](http://distrowatch.com/dwres.php?resource=popularity)
-* [Popular Linux Distros compared](http://www.howtogeek.com/191207/10-of-the-most-popular-linux-distributions-compared/)
-* [Light Weight Linux Distros](http://www.linux.com/news/software/applications/780781-6-excellent-lightweight-linux-distros-for-x86-and-arm)
-    * Check out article comments also
+* There are [hundreds of known distributions](https://en.wikipedia.org/wiki/List_of_Linux_distributions)
+* One can keep track of them at [distrowatch](https://distrowatch.com/)
+    * [Statistics of various Linux Distros](https://distrowatch.com/dwres.php?resource=popularity)
+* [Popular Linux Distros compared](https://www.howtogeek.com/191207/10-of-the-most-popular-linux-distributions-compared/)
+* [Light Weight Linux Distros](https://en.wikipedia.org/wiki/Light-weight_Linux_distribution)
 
 **Installation**
 
 Usually, you'll find installation instructions from respective website of the distro you chose. If you need an overview of installation process, this should help
 
-* [Installing Nearly Any Distro On Just About Any Machine](http://www.newnix.space/blog/2015/7/6/installing-nearly-any-distro-on-just-about-any-machine)
-* [Try out Linux on Virtual Machine](http://www.storagecraft.com/blog/the-dead-simple-guide-to-installing-a-linux-virtual-machine-on-windows/)
+* [Installing Nearly Any Distro On Just About Any Machine](https://www.newnix.space/blog/2015/7/6/installing-nearly-any-distro-on-just-about-any-machine)
+* [Try out Linux on Virtual Machine](https://blog.storagecraft.com/the-dead-simple-guide-to-installing-a-linux-virtual-machine-on-windows/)
 
 <br>
 
-### <a name="linux-resource-lists"></a>Linux resource lists
+## <a name="linux-resource-lists"></a>Linux resource lists
 
 * [Linux curated resources](https://github.com/learnbyexample/scripting_course/blob/master/Linux_curated_resources.md)
-* [awesome linux by Aleksandar](https://github.com/aleksandar-todorovic/awesome-linux)
-* [awesome linux resources by itech001](https://github.com/itech001/awesome-linux-resources)
-* [linux by Paul](https://linux.zeef.com/paul.reiber)
-* [tutorials collection](http://alvinalexander.com/linux/unix-linux-command-tutorials-collection)
+* [Awesome linux by Aleksandar](https://github.com/aleksandar-todorovic/awesome-linux)
+* [Linux resources by Paul](https://linux.zeef.com/paul.reiber)
+
