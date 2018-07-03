@@ -220,7 +220,7 @@ command with options and arguments
 single quotes vs double quotes
 
 * **single quotes** preserves the literal value of each character within the quotes
-* **double quotes** preserves the literal value of all characters within the quotes, with the exception of '$', '`', '\', and, when history expansion is enabled, '!'
+* **double quotes** preserves the literal value of all characters within the quotes, with the exception of '$', '`', '\\', and, when history expansion is enabled, '!'
 * See also [stackoverflow: Difference between single and double quotes](https://stackoverflow.com/questions/6697753/difference-between-single-and-double-quotes-in-bash)
 
 ```bash
