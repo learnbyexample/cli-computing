@@ -1,9 +1,11 @@
 # <a name="files-and-directories"></a>Files and Directories
 
+**Table of Contents**
+
 * [pwd](#pwd)
+* [cd](#cd)
 * [clear](#clear)
 * [ls](#ls)
-* [cd](#cd)
 * [mkdir](#mkdir)
 * [touch](#touch)
 * [rm](#rm)
@@ -13,31 +15,112 @@
 * [ln](#ln)
 * [tar and gzip](#tar-and-gzip)
 
+<br>
 
-Let's look at commonly used commands to move around directories, create and modify files and folders. For certain commands, a list of commonly used options are also given  
+Let's look at commonly used commands to navigate directories, create and modify files and folders. For certain commands, a list of commonly used options are also given
+
 Make it a habit to use `man` command to read about a new command - for example `man ls`
 
-Short descriptions shown for a command are taken from `whatis` or `help -d`
+Short descriptions for commands are shown as quoted text (taken from `whatis` or `help -d`)
 
 <br>
 
-### <a name="pwd"></a>pwd
+## <a name="pwd"></a>pwd
 
 >print name of current/working directory
 
-Apart from knowing your current working directory, often used to copy the absolute path to be pasted elsewhere, like in a script
+* apart from knowing your current working directory, often used to copy the absolute path to be pasted elsewhere, like in a script
+* some Terminal emulators display the current directory path as window/tab title by default
+
+```bash
+$ pwd
+/home/learnbyexample
+```
 
 <br>
 
-### <a name="clear"></a>clear
+## <a name="cd"></a>cd
+
+>Change the shell working directory
+
+* Like `pwd`, the `cd` command is a shell builtin
+* Let's see an example of changing working directory to some other directory and coming back
+* Specifying `/` at end of path argument is optional
+
+```bash
+$ pwd
+/home/learnbyexample
+
+$ # providing an absolute path as argument
+$ cd /etc
+$ pwd
+/etc
+
+$ # to go back to previous working directory
+$ # if there's a directory named '-', use './-' to go that directory
+$ cd -
+/home/learnbyexample
+$ pwd
+/home/learnbyexample
+```
+
+* Relative paths are well, relative to current working directory
+* `.` refers to current directory
+* `..` refers to directory one hierarchy above
+* `../..` refers to directory two hierarchies above and so on
+
+```bash
+$ pwd
+/home/learnbyexample
+
+$ # go to directory one hierarchy above
+$ cd ..
+$ pwd
+/home
+
+$ # go to directory 'learnbyexample' present in current directory
+$ # './' is optional in this case
+$ cd ./learnbyexample
+$ pwd
+/home/learnbyexample
+
+$ # go to directory two hierarchies above
+$ cd ../..
+$ pwd
+/
+```
+
+* `cd ~/` or `cd ~` or `cd` will go to directory specified by `HOME` shell variable (which is usually set to user's home directory)
+
+```bash
+$ pwd
+/
+$ echo "$HOME"
+/home/learnbyexample
+
+$ cd
+$ pwd
+/home/learnbyexample
+```
+
+**Further Reading**
+
+* Use `help cd` for documentation
+* [cd Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/cd-command?sort=votes&pageSize=15)
+* [cd Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/cd?sort=votes&pageSize=15)
+* [bash manual: Tilde Expansion](https://www.gnu.org/software/bash/manual/html_node/Tilde-Expansion.html)
+
+<br>
+
+## <a name="clear"></a>clear
 
 >clear the terminal screen
 
-* Use `Ctrl+l` to clear the terminal screen and retain already typed text (if any) on command prompt
+You can also use `Ctrl+l` short-cut to clear the terminal screen (in addition, this retains any typed text)
 
 <br>
 
-### <a name="ls"></a>ls
+## <a name="ls"></a>ls
 
 >list directory contents
 
@@ -78,33 +161,7 @@ Apart from knowing your current working directory, often used to copy the absolu
 
 <br>
 
-### <a name="cd"></a>cd
-
->Change the shell working directory
-
-```bash
-$ whatis cd
-cd: nothing appropriate.
-$ type cd
-cd is a shell builtin
-$ help -d cd
-cd - Change the shell working directory.
-```
-
-**Examples**
-
-* `cd /etc` go to 'etc' directory under root folder (absolute path specified)
-* `cd -` switch back to previous working directory
-* `cd ~/` or `cd ~` or `cd` go to home directory
-    * as specified by `HOME` environment variable
-* `cd ..` go one hierarchy back (relative path specified)
-* `cd ../..` two hierarchy back (relative path specified)
-* [cd Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/cd-command?sort=votes&pageSize=15)
-* [cd Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/cd?sort=votes&pageSize=15)
-
-<br>
-
-### <a name="mkdir"></a>mkdir
+## <a name="mkdir"></a>mkdir
 
 >make directories
 
@@ -120,7 +177,7 @@ cd - Change the shell working directory.
 
 <br>
 
-### <a name="touch"></a>touch
+## <a name="touch"></a>touch
 
 >change file timestamps
 
@@ -132,7 +189,7 @@ More info on this command is covered in a later chapter
 
 <br>
 
-### <a name="rm"></a>rm
+## <a name="rm"></a>rm
 
 >remove files and directories
 
@@ -159,7 +216,7 @@ More info on this command is covered in a later chapter
 
 <br>
 
-### <a name="cp"></a>cp
+## <a name="cp"></a>cp
 
 >copy files and directories
 
@@ -190,7 +247,7 @@ Also check out
 
 <br>
 
-### <a name="mv"></a>mv
+## <a name="mv"></a>mv
 
 >move (rename) files
 
@@ -210,7 +267,7 @@ The destination path is always specified as the last argument. More than one sou
 
 <br>
 
-### <a name="rename"></a>rename
+## <a name="rename"></a>rename
 
 >renames multiple files
 
@@ -229,7 +286,7 @@ Note: The `perl` based `rename` is presented here and different from [util-linux
 
 <br>
 
-### <a name="ln"></a>ln
+## <a name="ln"></a>ln
 
 >make links between files
 
@@ -246,7 +303,7 @@ Create hard or soft link of file or folder. Soft link is similar to short-cuts c
 
 <br>
 
-### <a name="tar-and-gzip"></a>tar and gzip
+## <a name="tar-and-gzip"></a>tar and gzip
 
 `tar` is archiving utility. The archived file is same size as combined sizes of archived files  
 Usually so often combined with compression utility like `gzip` that there is a way to do it just using the `tar` command.
