@@ -111,7 +111,8 @@ Most distros for personal use come with documentation for commands already insta
 For certain operations, shell provides its own set of commands, referred as builtin commands
 
 * `type` will display information about command type
-* typically used to get path of command or expand alias/function
+* typically used to get path of command or expand alias/function, use `help type` for documentation
+* See also [unix.stackexchange: Why not use “which”? What to use then?](https://unix.stackexchange.com/questions/85249/why-not-use-which-what-to-use-then)
 
 ```bash
 $ type cd
