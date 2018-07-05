@@ -124,21 +124,33 @@ You can also use `Ctrl+l` short-cut to clear the terminal screen (in addition, t
 
 >list directory contents
 
-**Options**
+* by default, `ls` output is sorted alphabetically
 
-* `-a` list hidden files also
-* `-A` like `-a` but excluding `.` and `..`
-* `-1` list in single column (number one, not lowercase of letter L)
-* `-l` list contents with extra details about the files (lowercase of letter L, not number one)
-* `-h` display file sizes in human readable format
-* `-t` sort based on time
-* `-r` reverse sorting order
-* `-R` recursively display sub-directories
-* `-S` sort by file size
-    * directory is treated as file and doesn’t display actual size used by directory, use `du` command if directory size is also needed
-* `-d` list directory entries instead of contents
-* `-q` prints ? instead of non-graphic characters like `\n` (Linux file names can use any character other than `/` and null character)
-* `-F` Append a character to each file name indicating the file type (other than regular files)
+```bash
+$ # if no argument is given, current directory contents are displayed
+$ ls
+backups  hello_world.py  palindrome.py  projects    todo
+ch.sh    ip.txt          power.log      report.log  workshop_brochures
+
+$ # absolute/relative paths can be given as arguments
+$ ls /var/
+backups  crash  local  log   metrics  run   spool
+cache    lib    lock   mail  opt      snap  tmp
+$ # for multiple arguments, listing is organized by directory
+$ ls workshop_brochures/ backups/
+backups:
+chrome_bookmarks_02_07_2018.html  dot_files
+
+workshop_brochures:
+Python_workshop_2017.pdf  Scripting_course_2016.pdf
+
+$ # single column listing
+$ ls -1 backups/
+chrome_bookmarks_02_07_2018.html
+dot_files
+```
+
+* `-F` appends a character to each file name indicating the file type (other than regular files)
     * `/` for directories
     * `*` for executable files
     * `@` for symbolic links
@@ -146,24 +158,172 @@ You can also use `Ctrl+l` short-cut to clear the terminal screen (in addition, t
     * `=` for sockets
     * `>` for doors
     * the indicator details are described in `info ls`, not in `man ls`
-* `--color=auto` list contents with different color for directories, executables, etc
 
-**Examples**
+```bash
+$ ls -F
+backups/  hello_world.py*  palindrome.py*  projects@   todo
+ch.sh*    ip.txt           power.log       report.log  workshop_brochures/
 
-* `ls` list contents of current directory when argument is not given
-* `ls /home` list contents of directory home present under the root directory (absolute path specified)
-* `ls ../` list contents of directory one hierarchy above (relative path specified)
-* `ls -ltr` list files of current directory with details sorted such that latest created/modified file is displayed last
+$ # if you just need to distinguish file and directory, use -p
+$ ls -p
+backups/  hello_world.py  palindrome.py  projects    todo
+ch.sh     ip.txt          power.log      report.log  workshop_brochures/
+```
+
+* or use the color option
+
+![ls color output](./images/ls_color.png)
+
+* long listing format
+* shows details like file permissions, ownership, size, timestamp, etc
+* file types are distinguished as `d` for directories, `-` for regular files, `l` for symbolic links, etc
+
+```bash
+$ ls -l
+total 84
+drwxrwxr-x 3 learnbyexample eg  4096 Jul  4 18:23 backups
+-rwxr-xr-x 1 learnbyexample eg  2746 Mar 30 11:38 ch.sh
+-rwxrwxr-x 1 learnbyexample eg    41 Aug 21  2017 hello_world.py
+-rw-rw-r-- 1 learnbyexample eg    34 Jul  4 09:01 ip.txt
+-rwxrwxr-x 1 learnbyexample eg  1236 Aug 21  2017 palindrome.py
+-rw-r--r-- 1 learnbyexample eg 10449 Mar  8  2017 power.log
+lrwxrwxrwx 1 learnbyexample eg    12 Jun 21 12:08 projects -> ../projects/
+-rw-rw-r-- 1 learnbyexample eg 39120 Feb 25  2017 report.log
+-rw-rw-r-- 1 learnbyexample eg  5987 Apr 11 11:06 todo
+drwxrwxr-x 2 learnbyexample eg  4096 Jul  5 12:05 workshop_brochures
+
+$ # to show size in human readable format instead of byte count
+$ ls -lh power.log
+-rw-r--r-- 1 learnbyexample eg 11K Mar  8  2017 power.log
+
+$ # use -s option instead of -l if only size info is needed
+$ ls -1sh power.log report.log
+12K power.log
+40K report.log
+```
+
+* changing sorting criteria
+* use `-t` to sort by timestamp, often combined with `-r` to reverse the order so that most recently modified file shows as last item
+* `-S` option sorts by file size (not suitable for directories)
+* `-v` option does version sorting (suitable for filenames with numbers in them)
+* `-X` option allows to sort by file extension (i.e characters after the last `.` in filename)
+
+```bash
+$ ls -lhtr
+total 84K
+-rw-rw-r-- 1 learnbyexample eg  39K Feb 25  2017 report.log
+-rw-r--r-- 1 learnbyexample eg  11K Mar  8  2017 power.log
+-rwxrwxr-x 1 learnbyexample eg 1.3K Aug 21  2017 palindrome.py
+-rwxrwxr-x 1 learnbyexample eg   41 Aug 21  2017 hello_world.py
+-rwxr-xr-x 1 learnbyexample eg 2.7K Mar 30 11:38 ch.sh
+-rw-rw-r-- 1 learnbyexample eg 5.9K Apr 11 11:06 todo
+lrwxrwxrwx 1 learnbyexample eg   12 Jun 21 12:08 projects -> ../projects/
+-rw-rw-r-- 1 learnbyexample eg   34 Jul  4 09:01 ip.txt
+drwxrwxr-x 3 learnbyexample eg 4.0K Jul  4 18:23 backups
+drwxrwxr-x 2 learnbyexample eg 4.0K Jul  5 12:05 workshop_brochures
+
+$ ls -X
+backups   todo                power.log   hello_world.py  ch.sh
+projects  workshop_brochures  report.log  palindrome.py   ip.txt
+```
+
+* filenames starting with `.` are considered as hidden files
+
+```bash
+$ # -a option will show hidden files too
+$ ls -a backups/dot_files/
+.  ..  .bashrc  .inputrc  .vimrc
+
+$ # . and .. are special directories pointing to current and parent directory
+$ # if you recall, we have used them in specifying relative paths
+$ # so, 'ls', 'ls .' and 'ls backups/..' will give same result
+$ ls -aF backups/dot_files/
+./  ../  .bashrc  .inputrc  .vimrc
+
+$ # use -A option to show hidden files excluding . and .. special directories
+$ ls -A backups/dot_files/
+.bashrc  .inputrc  .vimrc
+```
+
+* use `-R` option to recursively list sub-directories too
+
+```bash
+$ ls -ARF
+.:
+backups/  hello_world.py*  palindrome.py*  projects@   todo
+ch.sh*    ip.txt           power.log       report.log  workshop_brochures/
+
+./backups:
+chrome_bookmarks_02_07_2018.html  dot_files/
+
+./backups/dot_files:
+.bashrc  .inputrc  .vimrc
+
+./workshop_brochures:
+Python_workshop_2017.pdf  Scripting_course_2016.pdf
+```
+
+* often, we want to prune which files/folders are to be listed
+* commands like `find` provide extensive features in this regard
+* the shell itself provides a matching technique called glob/wildcards
+    * see [Shell wildcards](./Shell.md#wildcards) section for more examples and details
+* beginners incorrectly associate globbing with `ls` command, as a demonstration globbing results are shown using `echo` command first
+
+```bash
+$ # all unquoted arguments are subjected to shell globbing interpretation
+$ echo *.py *.log
+hello_world.py palindrome.py power.log report.log
+$ echo '*.py' *.log
+*.py power.log report.log
+
+$ # long list only files ending with .py
+$ ls -l *.py
+-rwxrwxr-x 1 learnbyexample eg   41 Aug 21  2017 hello_world.py
+-rwxrwxr-x 1 learnbyexample eg 1236 Aug 21  2017 palindrome.py
+
+$ # match all filenames starting with alphabets c/d/e/f/g/h/i
+$ echo [c-i]*
+ch.sh hello_world.py ip.txt
+$ ls -sh [c-i]*
+4.0K ch.sh  4.0K hello_world.py  4.0K ip.txt
+```
+
+* use `-d` option to not show directory contents
+
+```bash
+$ echo b*
+backups
+$ # since backups is a directory, ls will list its contents
+$ ls b*
+chrome_bookmarks_02_07_2018.html  dot_files
+$ # -d option will show the directory entry instead of its contents
+$ ls -d b*
+backups
+
+$ # a simple way to get only the directory entries
+$ # assuming simple filenames without spaces/newlines/etc
+$ echo */
+backups/ projects/ workshop_brochures/
+$ ls -d */
+backups/  projects/  workshop_brochures/
+```
+
+**Further Reading**
+
+* `man ls` and `info ls` for more options and complete documentation
 * [ls Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/ls?sort=votes&pageSize=15)
 * [ls Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/ls?sort=votes&pageSize=15)
-* [avoid parsing output of ls](https://mywiki.wooledge.org/ParsingLs)
-* [why not parse ls?](https://unix.stackexchange.com/questions/128985/why-not-parse-ls)
+* [mywiki.wooledge: avoid parsing output of ls](https://mywiki.wooledge.org/ParsingLs)
+* [unix.stackexchange: why not parse ls?](https://unix.stackexchange.com/questions/128985/why-not-parse-ls)
+* [unix.stackexchange: What are ./ and ../ directories?](https://unix.stackexchange.com/questions/63081/what-are-and-directories)
 
 <br>
 
 ## <a name="mkdir"></a>mkdir
 
 >make directories
+
+File names can use any character other than `/` and ASCII NUL character
 
 **Examples**
 
