@@ -402,25 +402,58 @@ reports/
 
 >remove files and directories
 
-**Options**
+* to delete files, specify them as separate arguments
+* to delete directories as well, use `-r` option (deletes recursively)
+* use `-f` option to force remove without prompt for non-existing files and write protected files (provided user has appropriate permissions)
 
-* `-r` remove recursively, used for removing directories
-* `-f` force remove without prompt for non-existing files and write protected files (provided user has appropriate permissions)
-* `-i` prompt before every removal
-* `-d` remove empty directories
+```bash
+$ ls
+a  ip.txt  low power adders  reports
+$ rm ip.txt
+$ ls
+a  low power adders  reports
 
-**Examples**
+$ rm reports
+rm: cannot remove 'reports': Is a directory
+$ rm -r reports
+$ ls
+a  low power adders
 
-* `rm project_adder/power.log` remove file power.log from project_adder directory
-* `rm -r project_adder` remove folder project_adder from current directory even if non-empty
-* `rm -d project_tmp` remove project_tmp folder provided it is empty
-    * `rmdir project_tmp` can also be used
-* If available, use `gvfs-trash` command to send items to trash instead of permanent deletion
+$ # to remove only empty directory, same as 'rmdir' command
+$ rm -d a
+rm: cannot remove 'a': Directory not empty
+```
+
+* typos like misplaced space, wrong glob, etc could wipe out files not intended for deletion
+* apart from having backups and snapshots, one could take some mitigating steps
+    * using `-i` option to interactively delete each file
+    * using `echo` as a dry run to see how the glob expands
+    * using a trash command (see links below) instead of `rm`
+
+```bash
+$ rm -ri 'low power adders'
+rm: remove directory 'low power adders'? n
+$ ls
+a  low power adders
+
+$ rm -ri a
+rm: descend into directory 'a'? y
+rm: descend into directory 'a/b'? y
+rm: remove directory 'a/b/c'? y
+rm: remove directory 'a/b'? y
+rm: remove directory 'a'? y
+$ ls
+low power adders
+```
+
+**Further Reading**
+
+* See if a trash command is available for your distro (for ex: `gvfs-trash` on Ubuntu) - this will send items to trash instead of deletion
     * or, [unix.stackexchange: creating a simple trash command](https://unix.stackexchange.com/questions/452496/create-a-recycle-bin-feature-without-using-functions)
 * Files removed using `rm` can still be recovered with time/skill. Use `shred` command to overwrite files
-    * [recover deleted files](https://unix.stackexchange.com/questions/80270/unix-linux-undelete-recover-deleted-files)
-    * [recovering accidentally deleted files](https://unix.stackexchange.com/questions/2677/recovering-accidentally-deleted-files)
-    * [Securely wipe disk](https://wiki.archlinux.org/index.php/Securely_wipe_disk)
+    * [unix.stackexchange: recover deleted files](https://unix.stackexchange.com/questions/80270/unix-linux-undelete-recover-deleted-files)
+    * [unix.stackexchange: recovering accidentally deleted files](https://unix.stackexchange.com/questions/2677/recovering-accidentally-deleted-files)
+    * [wiki.archlinux: Securely wipe disk](https://wiki.archlinux.org/index.php/Securely_wipe_disk)
 * [rm Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/rm?sort=votes&pageSize=15)
 * [rm Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/rm?sort=votes&pageSize=15)
 
@@ -430,30 +463,67 @@ reports/
 
 >copy files and directories
 
-The destination path is always specified as the last argument. More than one source file/folder can be specified if destination is a directory
+* to copy a single file or directory, specify the source as first argument and destination as second argument
+* similar to `rm` command, use `-r` for directories
 
-**Options**
+```bash
+$ # when destination is a directory, specified sources are placed inside that directory
+$ # recall that . is a relative path referring to current directory
+$ cp /usr/share/dict/words .
+$ ls
+low power adders  words
 
-* `-r` copy recursively, used for copying directories
-* `-i` prompt before overwriting
-* `-u` copy files only if newer than existing file in destination location or if file doesn't exist in destination
+$ cp /usr/share/dict .
+cp: omitting directory '/usr/share/dict'
+$ cp -r /usr/share/dict .
+$ ls -1F
+dict/
+low power adders/
+words
+```
 
-**Examples**
+* often, we want to copy for the purpose of modifying it
+* in such cases, a different name can be given while specifying the destination
+* if the destination filename already exists, it will be overwritten (see options `-i` and `-n` to avoid this)
 
-* `cp /home/raja/Raja_resume.doc Ravi_resume.doc` create a copy of file Raja_resume.doc as Ravi_resume.doc in your current directory
-* `cp /home/raja/Raja_resume.doc .` create a copy of file Raja_resume.doc in your current directory - name not changed in this case
-    * `.` represents current directory and `..` represents one hierarchy above
-* `cp -r /home/guest1/proj_matlab ~/proj_matlab_bug_test` copy proj_matlab to your home directory as proj_matlab_bug_test
-* `cp report/output.log report/timing.log .` copy files output.log and timing.log to current directory
+```bash
+$ cp /usr/share/dict/words words_ref.txt
+$ cp -r /usr/share/dict word_lists
+
+$ ls -1F
+dict/
+low power adders/
+word_lists/
+words
+words_ref.txt
+```
+
+* multiple files and directories can be copied at once if the destination is a directory
+* using `-t` option, one could specify destination directory first followed by sources (this is helpful with `find` command and other cases)
+
+```bash
+$ mkdir bkp_dot_files
+
+$ # here, ~ will get expanded to user's home directory
+$ cp ~/.bashrc ~/.bash_profile bkp_dot_files/
+$ ls -A bkp_dot_files
+.bash_profile  .bashrc
+```
+
+* see `man cp` and `info cp` for more options and complete documentation
+* some notable options are
+    * `-u` copy files from source only if they are newer than those in destination or if it doesn't exist in destination location
+    * `-b` and `--backup` for back up options if file with same name already exists in destination location
+    * `--preserve` option to copy files along with source file attributes like timestamp
+
+**Further Reading**
+
 * [cp Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/cp?sort=votes&pageSize=15)
 * [cp Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/cp?sort=votes&pageSize=15)
-
-Also check out
-
 * `rsync` a fast, versatile, remote (and local) file-copying tool
-* [rsync examples](https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps)
-* [rsync Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/rsync?sort=votes&pageSize=15)
-* [rsync Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/rsync?sort=votes&pageSize=15)
+    * [rsync examples](https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps)
+    * [rsync Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/rsync?sort=votes&pageSize=15)
+    * [rsync Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/rsync?sort=votes&pageSize=15)
 
 <br>
 
@@ -461,17 +531,39 @@ Also check out
 
 >move (rename) files
 
-The destination path is always specified as the last argument. More than one source file/folder can be specified if destination is a directory
+* as name suggests, `mv` can move files from one location to another
+* if multiple files need to be moved, destination argument should be a directory (or specified using `-t` option)
+* unlike `rm` and `cp`, both files and directories have same syntax, no additional option required
+* use `-i` option to be prompted instead of overwriting file of same name in destination location
 
-**Options**
+```bash
+$ ls
+bkp_dot_files  dict  low power adders  word_lists  words  words_ref.txt
+$ mkdir backups
 
-* `-f` don't prompt for overwriting and moving write protected files (provided user has appropriate permissions)
-* `-i` prompt before overwriting
+$ mv bkp_dot_files/ backups/
+$ ls -F
+backups/  dict/  low power adders/  word_lists/  words  words_ref.txt
+$ ls -F backups/
+bkp_dot_files/
 
-**Examples**
+$ mv dict words backups/
+$ ls -F
+backups/  low power adders/  word_lists/  words_ref.txt
+$ ls -F backups/
+bkp_dot_files/  dict/  words
+```
 
-* `mv project_adder project_lowpower_adder` rename file or folder
-* `mv power.log timing.log area.log project_multiplier/result/` move the specified files to result directory
+* like `cp` command, for single file/directory one can provide a different destination name
+
+```bash
+$ mv backups/bkp_dot_files backups/dot_files
+$ ls -F backups/
+dict/  dot_files/  words
+```
+
+**Further Reading**
+
 * [mv Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/mv?sort=votes&pageSize=15)
 * [mv Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/mv?sort=votes&pageSize=15)
 
@@ -481,19 +573,26 @@ The destination path is always specified as the last argument. More than one sou
 
 >renames multiple files
 
-Note: The `perl` based `rename` is presented here and different from [util-linux-ng version](https://linux.die.net/man/1/rename). Check `man rename` for details
+Note: The `perl` based `rename` is presented here which is different from [util-linux-ng version](https://linux.die.net/man/1/rename). Check `man rename` for details
 
-**Options**
+```bash
+$ ls
+backups  low power adders  word_lists  words_ref.txt
+$ # here, the * glob will expand to all non-hidden files in current directory
+$ # -n option is for dry run, to see changes before actually renaming files
+$ # s/ /_/g means replace all space characters with _ character
+$ rename -n 's/ /_/g' *
+rename(low power adders, low_power_adders)
 
-* `-f` overwrite existing files
-* `-n` dry run without actually renaming files
+$ rename 's/ /_/g' *
+$ ls
+backups  low_power_adders  word_lists  words_ref.txt
+```
 
-**Examples**
+**Further Reading**
 
-* `rename 's/\.JPG$/.jpg/' *JPG` change the file extension from '.JPG' to '.jpg'
-* `rename 's/ /_/g' *` replace all 'space' characters in filenames with '_'
 * [rename Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/rename?sort=votes&pageSize=15)
-* See [Perl one liners](https://github.com/learnbyexample/Command-line-text-processing/blob/master/perl_the_swiss_knife.md) for examples and details on Perl based substitution command
+* See [Perl one liners](https://github.com/learnbyexample/Command-line-text-processing/blob/master/perl_the_swiss_knife.md) for examples and details on Perl substitution command
 
 <br>
 
