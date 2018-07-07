@@ -176,6 +176,7 @@ ch.sh     ip.txt          power.log      report.log  workshop_brochures/
 
 * long listing format
 * shows details like file permissions, ownership, size, timestamp, etc
+    * See [chmod](./Working_with_Files_and_Directories.md#chmod) section for details on permissions, groups, etc
 * file types are distinguished as `d` for directories, `-` for regular files, `l` for symbolic links, etc
 
 ```bash
@@ -323,29 +324,77 @@ backups/  projects/  workshop_brochures/
 
 >make directories
 
-File names can use any character other than `/` and ASCII NUL character
+* Linux filenames can use any character other than `/` and the ASCII NUL character
+* quote the arguments if name contains characters like space, `*`, etc to prevent shell interpretation
+    * shell considers space as argument separator, `*` is a globbing character, etc
+* unless otherwise needed, try to use only alphabets, numbers and underscores for filenames
 
-**Examples**
+```bash
+$ # one or more absolute/relative paths can be given to create directories
+$ mkdir reports 'low power adders'
 
-* `mkdir project_adder` create folder project_adder in current directory
-* `mkdir project_adder/report` create folder report in project_adder directory
-* `mkdir -p project_adder/report` create both project_adder and report directories in one shot
-    * if project_adder already exists, it won't be affected
-* `mkdir /home/guest1` add a home directory for user guest1
+$ # listing can be confusing when filename contains characters like space
+$ ls
+low power adders  reports
+$ ls -1
+low power adders
+reports
+```
+
+* use `-p` option to create multiple directory hierarchies in one go
+* it is also useful in scripts to create a directory without having to check if it already exists
+* special variable `$?` gives exit status of last executed command
+    * `0` indicates success and other values indicate some kind of failure
+    * see documentation of respective commands for details
+
+```bash
+$ mkdir reports
+mkdir: cannot create directory ‘reports’: File exists
+$ echo $?
+1
+$ # when -p is used, mkdir won't give an error if directory already exists
+$ mkdir -p reports
+$ echo $?
+0
+
+$ # error because 'a/b' doesn't exist
+$ mkdir a/b/c
+mkdir: cannot create directory ‘a/b/c’: No such file or directory
+$ # with -p, any non-existing directory will be created as well
+$ mkdir -p a/b/c
+$ ls -1R a
+a:
+b
+
+a/b:
+c
+
+a/b/c:
+```
+
+**Further Reading**
+
 * [mkdir Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/mkdir?sort=votes&pageSize=15)
 * [mkdir Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/mkdir?sort=votes&pageSize=15)
+* [unix.stackexchange: Characters best avoided in filenames](https://unix.stackexchange.com/questions/269093/characters-best-avoided-in-filenames-when-used-in-bash-e-g)
 
 <br>
 
 ## <a name="touch"></a>touch
 
->change file timestamps
+* Usually files are created using a text editor or by redirecting output of a command to a file
+* But sometimes, for example to test file renaming, creating empty files comes in handy
+* the `touch` command is primarily used to change timestamp of a file (see [touch](./Working_with_Files_and_Directories.md#touch) section of next chapter)
+* if a filename given to `touch` doesn't exist, an empty file gets created with current timestamp
 
-When a filename is passed as argument to `touch` command that doesn't exist, it creates an empty file  
-More info on this command is covered in a later chapter
-
-* `touch error.log` creates an empty file error.log in current directory if it doesn't exist
-* [touch Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/touch?sort=votes&pageSize=15)
+```bash
+$ touch ip.txt
+$ ls -1F
+a/
+ip.txt
+low power adders/
+reports/
+```
 
 <br>
 
@@ -367,6 +416,7 @@ More info on this command is covered in a later chapter
 * `rm -d project_tmp` remove project_tmp folder provided it is empty
     * `rmdir project_tmp` can also be used
 * If available, use `gvfs-trash` command to send items to trash instead of permanent deletion
+    * or, [unix.stackexchange: creating a simple trash command](https://unix.stackexchange.com/questions/452496/create-a-recycle-bin-feature-without-using-functions)
 * Files removed using `rm` can still be recovered with time/skill. Use `shred` command to overwrite files
     * [recover deleted files](https://unix.stackexchange.com/questions/80270/unix-linux-undelete-recover-deleted-files)
     * [recovering accidentally deleted files](https://unix.stackexchange.com/questions/2677/recovering-accidentally-deleted-files)
@@ -443,6 +493,7 @@ Note: The `perl` based `rename` is presented here and different from [util-linux
 * `rename 's/\.JPG$/.jpg/' *JPG` change the file extension from '.JPG' to '.jpg'
 * `rename 's/ /_/g' *` replace all 'space' characters in filenames with '_'
 * [rename Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/rename?sort=votes&pageSize=15)
+* See [Perl one liners](https://github.com/learnbyexample/Command-line-text-processing/blob/master/perl_the_swiss_knife.md) for examples and details on Perl based substitution command
 
 <br>
 
