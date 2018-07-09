@@ -17,7 +17,7 @@
 
 <br>
 
-Let's look at commonly used commands to navigate directories, create and modify files and folders. For certain commands, a list of commonly used options are also given
+Let's look at commonly used commands to navigate directories, create and modify files and directories. For certain commands, a list of commonly used options are also given
 
 Make it a habit to use `man` command to read about a new command - for example `man ls`
 
@@ -30,7 +30,7 @@ Short descriptions for commands are shown as quoted text (taken from `whatis` or
 >print name of current/working directory
 
 * apart from knowing your current working directory, often used to copy the absolute path to be pasted elsewhere, like in a script
-* some Terminal emulators display the current directory path as window/tab title by default
+* some Terminal emulators display the current directory path as window/tab title
 
 ```bash
 $ pwd
@@ -116,7 +116,7 @@ $ pwd
 
 >clear the terminal screen
 
-You can also use `Ctrl+l` short-cut to clear the terminal screen (in addition, this retains any typed text)
+You can also use `Ctrl+l` short-cut to clear the Terminal screen (in addition, this retains any typed text)
 
 <br>
 
@@ -264,11 +264,11 @@ chrome_bookmarks_02_07_2018.html  dot_files/
 Python_workshop_2017.pdf  Scripting_course_2016.pdf
 ```
 
-* often, we want to prune which files/folders are to be listed
+* often, we want to prune which files/directories are to be listed
 * commands like `find` provide extensive features in this regard
 * the shell itself provides a matching technique called glob/wildcards
     * see [Shell wildcards](./Shell.md#wildcards) section for more examples and details
-* beginners incorrectly associate globbing with `ls` command, as a demonstration globbing results are shown using `echo` command first
+* beginners incorrectly associate globbing with `ls` command, so globbing results are shown below using `echo` command as a demonstration
 
 ```bash
 $ # all unquoted arguments are subjected to shell globbing interpretation
@@ -499,7 +499,7 @@ words_ref.txt
 ```
 
 * multiple files and directories can be copied at once if the destination is a directory
-* using `-t` option, one could specify destination directory first followed by sources (this is helpful with `find` command and other cases)
+* using `-t` option, one could specify destination directory first followed by sources (this is helpful with `find` command and other places)
 
 ```bash
 $ mkdir bkp_dot_files
@@ -555,6 +555,7 @@ bkp_dot_files/  dict/  words
 ```
 
 * like `cp` command, for single file/directory one can provide a different destination name
+* so, when source and destination has same parent directory, `mv` acts as renaming command
 
 ```bash
 $ mv backups/bkp_dot_files backups/dot_files
@@ -600,16 +601,52 @@ backups  low_power_adders  word_lists  words_ref.txt
 
 >make links between files
 
-Create hard or soft link of file or folder. Soft link is similar to short-cuts created in Windows. Hard link is like same file with different name, same timestamp and permissions of original file. Hard links can be moved to another directory after creation, will still have content even when original file is deleted. On the other hand, soft links have their own timestamps and permissions, it cannot be moved to another folder unless the link creation was done using full path and of course becomes a dead link when original file is deleted. More differences [here](https://askubuntu.com/questions/108771/what-is-the-difference-between-a-hard-link-and-a-symbolic-link)
+* there are two types of links - symbolic and hard links
+* symbolic links is like a pointer/shortcut to another file or directory
+    * if the original file is deleted or moved to another location, symbolic link will no longer work
+    * if the symbolic link is moved to another location, it will still work if the link was done using absolute path (for relative path, it will depend on whether or not there's another file with same name in that location)
+    * a symbolic link file has its own inode, permissions, timestamps, etc
+    * most commands will work the same when original file or the symbolic file is given as command line argument, see their documentation for details
 
-**Examples**
+```bash
+$ # similar to cp, a different name can be specified if needed
+$ ln -s /usr/share/dict/words .
+$ ls -F
+words@
 
-* `ln -s results/report.log .` create a symbolic link of report.log from results folder to current directory
-* `ln results/report.log report.log` create a hard link of report.log from results folder to current directory, will not lose content even if results/report.log file is deleted
-* `unlink report.log` delete link
-    * `rm report.log` can also be used
+$ # to know which file the link points to
+$ ls -l words
+lrwxrwxrwx 1 learnbyexample eg 21 Jul  9 13:41 words -> /usr/share/dict/words
+$ readlink words
+/usr/share/dict/words
+$ # the linked file may be another link
+$ # use -f option to get original file
+$ readlink -f words
+/usr/share/dict/english
+```
+
+* hard link can only point to another file (not a directory, and restricted to within the same filesystem)
+    * the `.` and `..` special directories are the exceptions, they are hard links which are automatically created
+* once a hard link is created, there is no distinction between the two files other than different filename/location - they have same inode, permissions, timestamps, etc
+* any of the hard link will continue working even if all the other hard links are deleted
+* if a hard link is moved to another location, the links will still be in sync - any change in one of them will be reflected in all the other links
+
+```bash
+$ touch foo.txt
+$ ln foo.txt baz.txt
+$ ls -1i foo.txt baz.txt
+649140 baz.txt
+649140 foo.txt
+```
+
+**Further Reading**
+
+* `unlink` command to delete links (`rm` can be used as well)
 * [ln Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/ln?sort=votes&pageSize=15)
 * [ln Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/ln?sort=votes&pageSize=15)
+* [askubuntu: What is the difference between a hard link and a symbolic link?](https://askubuntu.com/questions/108771/what-is-the-difference-between-a-hard-link-and-a-symbolic-link)
+* [unix.stackexchange: What is the difference between symbolic and hard links?](https://unix.stackexchange.com/questions/9575/what-is-the-difference-between-symbolic-and-hard-links)
+* [unix.stackexchange: What is a Superblock, Inode, Dentry and a File?](https://unix.stackexchange.com/questions/4402/what-is-a-superblock-inode-dentry-and-a-file)
 
 <br>
 
@@ -622,7 +659,7 @@ Usually so often combined with compression utility like `gzip` that there is a w
 
 Archive and Compression
 
-* `tar -cvf backup_mar15.tar project results` create backup_mar15.tar of files/folders project and results
+* `tar -cvf backup_mar15.tar project results` create backup_mar15.tar of files/directories project and results
     * `-v` option stands for verbose, i.e displays all the files and directories being archived
 * `gzip backup_mar15.tar` overwrites backup_mar15.tar with backup_mar15.tar.gz, a compressed version
 * `tar -cvzf backup_mar15.tar.gz project results` create backup_mar15.tar and overwrite with backup_mar15.tar.gz
