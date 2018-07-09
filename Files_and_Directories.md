@@ -634,6 +634,8 @@ $ readlink -f words
 ```bash
 $ touch foo.txt
 $ ln foo.txt baz.txt
+
+$ # the -i option gives inode
 $ ls -1i foo.txt baz.txt
 649140 baz.txt
 649140 foo.txt
@@ -652,31 +654,93 @@ $ ls -1i foo.txt baz.txt
 
 ## <a name="tar-and-gzip"></a>tar and gzip
 
-`tar` is archiving utility. The archived file is same size as combined sizes of archived files  
-Usually so often combined with compression utility like `gzip` that there is a way to do it just using the `tar` command.
+* `tar` is an archiving utility
+* first, lets see an example of creating single archive file from multiple input files
+* note that the archive file so created is a new file and doesn't overwrite input files
 
-**Examples**
+```bash
+$ ls -F
+backups/  low_power_adders/  word_lists/  words_ref.txt
 
-Archive and Compression
+$ # -c option creates a new archive, existing archive will be overwritten
+$ # -f option allows to specify name of archive to be created
+$ # rest of the arguments are the files to be archived
+$ tar -cf bkp_words.tar word_lists words_ref.txt
 
-* `tar -cvf backup_mar15.tar project results` create backup_mar15.tar of files/directories project and results
-    * `-v` option stands for verbose, i.e displays all the files and directories being archived
-* `gzip backup_mar15.tar` overwrites backup_mar15.tar with backup_mar15.tar.gz, a compressed version
-* `tar -cvzf backup_mar15.tar.gz project results` create backup_mar15.tar and overwrite with backup_mar15.tar.gz
+$ ls -F
+backups/  bkp_words.tar  low_power_adders/  word_lists/  words_ref.txt
+$ ls -sh bkp_words.tar
+2.3M bkp_words.tar
+```
 
-Extract archive and Decompression
+* once we have an archive, we can compress it using `gzip`
+* this will replace the archive file with compressed version, adding a `.gz` suffix
 
-* `gunzip backup_mar15.tar.gz` decompress and overwrite as backup_mar15.tar
-* `tar -xvf backup_mar15.tar` extract archived files to current directory
-* `tar -xzvf backup_mar15.tar.gz` decompress and extract archived files to current directory
+```bash
+$ gzip bkp_words.tar
 
-z commands
+$ ls -F
+backups/  bkp_words.tar.gz  low_power_adders/  word_lists/  words_ref.txt
+$ ls -sh bkp_words.tar.gz
+652K bkp_words.tar.gz
+```
 
-* `zcat story.txt.gz` display file contents of compressed file on standard output
-* `zless story.txt.gz` display file contents of compressed file one screenful at a time
-* There are other commands as well like `zgrep`, `zdiff`, `zcmp` etc to work on compressed files
+* to uncompress, use `gunzip` or `gzip -d`
+* this will replace the compressed version with the uncompressed archive file
+
+```bash
+$ gunzip bkp_words.tar.gz
+
+$ ls -F
+backups/  bkp_words.tar  low_power_adders/  word_lists/  words_ref.txt
+$ ls -sh bkp_words.tar
+2.3M bkp_words.tar
+```
+
+* to extract the original files from archive, use `-x` option
+
+```bash
+$ mkdir test_extract
+$ mv bkp_words.tar test_extract/
+$ cd test_extract/
+$ ls
+bkp_words.tar
+
+$ tar -xf bkp_words.tar
+$ ls -F
+bkp_words.tar  word_lists/  words_ref.txt
+$ cd ..
+$ rm -r test_extract/
+```
+
+* the GNU version of `tar` supports compressing/uncompressing options as well
+
+```bash
+$ ls -F
+backups/  low_power_adders/  word_lists/  words_ref.txt
+
+$ # -z option gives same compression as gzip command
+$ # reverse would be: tar -zxf bkp_words.tar.gz
+$ tar -zcf bkp_words.tar.gz word_lists words_ref.txt
+$ ls -sh bkp_words.tar.gz
+652K bkp_words.tar.gz
+```
+
+* there are loads of options for various needs, see documentation for details
+    * `-v` for verbose option
+    * `-r` to append files to archive
+    * `-t` to list contents of archive
+    * `--exclude=` to specify files to be ignored from archiving
+    * `-j` and `-J` to use `bzip2` or `xz` compression technique instead of `-z` which uses `gzip`
+* there are commands starting with `z` to work with compressed files
+    * `zcat` to display file contents of compressed file on standard output
+    * `zless` to display file contents of compressed file one screenful at a time
+    * `zgrep` to search compressed files and so on...
 
 **Further Reading**
 
 * [tar Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/tar?sort=votes&pageSize=15)
 * [tar Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/tar?sort=votes&pageSize=15)
+* [superuser: gzip without tar? Why are they used together?](https://superuser.com/questions/252065/gzip-without-tar-why-are-they-used-together)
+* `zip` and `unzip` commands
+
