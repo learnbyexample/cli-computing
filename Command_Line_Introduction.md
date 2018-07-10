@@ -90,6 +90,8 @@ $ echo "$SHELL"
 
 Note: Your command prompt might be different, for now you can leave it as or change it to the simple prompt I prefer by executing `PS1="$ "`
 
+In the above example, `cat` command is used to display contents of a file and `echo` command is used to display contents of a variable - these commands have other uses as well, which will be covered later on
+
 <br>
 
 ## <a name="command-help"></a>Command Help
@@ -112,6 +114,7 @@ For certain operations, shell provides its own set of commands, referred as buil
 
 * `type` will display information about command type
 * typically used to get path of command or expand alias/function, use `help type` for documentation
+* See also [unix.stackexchange: What is the difference between a builtin command and one that is not?](https://unix.stackexchange.com/questions/11454/what-is-the-difference-between-a-builtin-command-and-one-that-is-not)
 * See also [unix.stackexchange: Why not use “which”? What to use then?](https://unix.stackexchange.com/questions/85249/why-not-use-which-what-to-use-then)
 
 ```bash
