@@ -14,7 +14,7 @@
 
 Quoting from [Wikipedia](https://en.wikipedia.org/wiki/Linux)
 
-> Linux is a Unix-like and mostly POSIX-compliant computer operating system (OS) assembled under the model of free and open-source software development and distribution. The defining component of Linux is the Linux kernel an operating system kernel first released on 5 October 1991 by Linus Torvalds. The Free Software Foundation uses the name **GNU/Linux** to describe the operating system
+>Linux is a family of free and open-source software operating systems built around the Linux kernel. Typically, Linux is packaged in a form known as a Linux distribution (or distro for short) for both desktop and server use. The defining component of a Linux distribution is the Linux kernel, an operating system kernel first released on September 17, 1991, by Linus Torvalds. Many Linux distributions use the word "Linux" in their name. The Free Software Foundation uses the name GNU/Linux to refer to the operating system family, as well as specific distributions, to emphasize that most Linux distributions are not just the Linux kernel, and that they have in common not only the kernel, but also numerous utilities and libraries, a large proportion of which are from the GNU project
 
 <br>
 
@@ -47,7 +47,7 @@ Quoting from [Wikipedia](https://en.wikipedia.org/wiki/Linux)
 
 ## <a name="linux-distros"></a>Linux Distros
 
-There are various Linux flavors called 'distribution' (distros for short), to cater the needs of beginners to advanced users as well as highly customized as per end use case
+There are various Linux flavors called 'distribution' (distro for short), to cater the needs of beginners to advanced users as well as highly customized as per end use case
 
 * There are [hundreds of known distributions](https://en.wikipedia.org/wiki/List_of_Linux_distributions)
 * One can keep track of them at [distrowatch](https://distrowatch.com/)
