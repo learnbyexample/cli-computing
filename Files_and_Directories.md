@@ -264,6 +264,32 @@ chrome_bookmarks_02_07_2018.html  dot_files/
 Python_workshop_2017.pdf  Scripting_course_2016.pdf
 ```
 
+* `tree` command displays contents of a directory recursively as a tree like structure
+* you might have to install this command or have an equivalent command like `gvfs-tree`
+
+```bash
+$ # -h option will show hidden files
+$ gvfs-tree -h
+file:///home/learnbyexample/ls_ex
+|-- backups
+|   |-- chrome_bookmarks_02_07_2018.html
+|   `-- dot_files
+|       |-- .bashrc
+|       |-- .inputrc
+|       `-- .vimrc
+|-- ch.sh
+|-- hello_world.py
+|-- ip.txt
+|-- palindrome.py
+|-- power.log
+|-- projects -> ../projects/
+|-- report.log
+|-- todo
+`-- workshop_brochures
+    |-- Python_workshop_2017.pdf
+    `-- Scripting_course_2016.pdf
+```
+
 * often, we want to prune which files/directories are to be listed
 * commands like `find` provide extensive features in this regard
 * the shell itself provides a matching technique called glob/wildcards
@@ -594,6 +620,7 @@ backups  low_power_adders  word_lists  words_ref.txt
 
 * [rename Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/rename?sort=votes&pageSize=15)
 * See [Perl one liners](https://github.com/learnbyexample/Command-line-text-processing/blob/master/perl_the_swiss_knife.md) for examples and details on Perl substitution command
+* Some more `rename` examples - [unix.stackexchange: replace dots except last one](https://unix.stackexchange.com/questions/315586/replacing-dots-in-file-name-with-underscores-except-the-extension/315589#315589) and [stackoverflow: change date format](https://stackoverflow.com/questions/40286513/converting-date-format-in-bash/40288150#40288150)
 
 <br>
 
