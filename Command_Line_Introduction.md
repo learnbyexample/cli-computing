@@ -109,6 +109,7 @@ Most distros for personal use come with documentation for commands already insta
     * `-k` here is a command option
     * `man -k` is equivalent for `apropos` command
 * Excellent resource [unix.stackexchange: How do I use man pages to learn how to use commands?](https://unix.stackexchange.com/questions/193815/how-do-i-use-man-pages-to-learn-how-to-use-commands)
+* See also [wiki.archlinux: man page](https://wiki.archlinux.org/index.php/man_page)
 
 For certain operations, shell provides its own set of commands, referred as builtin commands
 
