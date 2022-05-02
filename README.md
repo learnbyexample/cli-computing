@@ -1,58 +1,49 @@
-# <a name="linux-command-line"></a>Linux Command Line
+# Computing from the Command Line
 
-Introduction to Linux commands and Shell scripting
+⚠️ ⚠️ ⚠️ This is a **work-in-progress** book on Linux command line and Shell Scripting for beginner to intermediate level users.
 
-* [Linux curated resources](https://github.com/learnbyexample/scripting_course/blob/master/Linux_curated_resources.md) for more complete resources list, including tutorials for beginners
-* For more related resources, visit [scripting course](https://github.com/learnbyexample/scripting_course) and my programming blog https://learnbyexample.github.io
+[Click this link](https://github.com/learnbyexample/cli-computing/tree/09091253463a313ddce5a95f467857ea85c25ce6) for an earlier version of the book on this repo.
 
-<br>
-
-# <a name="chapters"></a>Chapters
-
-* [Linux Introduction](./Linux_Introduction.md)
-  * What is Linux?, Why use Linux?, Where is Linux deployed?, Linux Distros, Linux resource lists
-* [Command Line Introduction](./Command_Line_Introduction.md)
-  * File System, Command Line Interface, Command Help, Do one thing and do it well
-* [Files and Directories](./Files_and_Directories.md)
-  * pwd, clear, ls, cd, mkdir, touch, rm, cp, mv, rename, ln, tar and gzip
-* [Working with Files and Directories](./Working_with_Files_and_Directories.md)
-  * cat, less, tail, head, Text Editors, grep, find, locate, wc, du, df, touch, file, identify, basename, dirname, chmod
-* [Text Processing](./Text_Processing.md)
-  * sort, uniq, comm, cmp, diff, tr, sed, awk, perl, cut, paste, column, pr
-* [Shell](./Shell.md)
-  * What is Shell?, Popular Shells, Wildcards, Redirection, Process Control, Running jobs in background
-* [Shell Customization](./Shell_Customization.md)
-  * Variables, Config files, Emac mode Readline shortcuts
-* [Shell Scripting](./Shell_Scripting.md)
-  * Need for scripting, Hello script, Command Line Arguments, Variables and Comparisons, Accepting User Input interactively, if then else, for loop, while loop, Debugging, Resource lists
+See also my curated list on [Linux CLI and Shell scripting](https://learnbyexample.github.io/curated_resources/linux_cli_scripting.html) for more learning resources.
 
 <br>
 
-## <a name="contributing"></a>Contributing
+# E-book
 
-* Please open an issue for typos/bugs/suggestions/etc
-    * **Please open an issue for discussion before submitting PRs**
-* Share the repo with friends/colleagues, on social media, etc to help reach other learners
-* In case you need to reach me, mail me at `echo 'bGVhcm5ieWV4YW1wbGUubmV0QGdtYWlsLmNvbQo=' | base64 --decode` or send a DM via [twitter](https://twitter.com/learn_byexample)
+For web version of the book, visit https://learnbyexample.github.io/cli-computing/
 
-<br>
-
-# <a name="ebook"></a>ebook
-
-* Read as ebook on [gitbook](https://learnbyexample.gitbooks.io/linux-command-line/content/index.html)
-* All `legacy.gitbook.com` links are now automatically redirected to `gitbook.com`, so there's no longer an option to download ebooks for offline reading
+* Links to pdf/epub versions of the book will be added once they are done
+* See https://learnbyexample.github.io/books/ for list of other books
 
 <br>
 
-# <a name="acknowledgements"></a>Acknowledgements
+## Feedback and Contributing
 
-* [unix.stackexchange](https://unix.stackexchange.com/) and [stackoverflow](https://stackoverflow.com/) - for getting answers to pertinent questions as well as sharpening skills by understanding and answering questions
-* [Devs and Hackers](http://devup.in/) - helpful slack group
-* Forums like [/r/commandline/](https://www.reddit.com/r/commandline/), [Weekly Coders, Hackers & All Tech related thread](https://www.reddit.com/r/india/search?q=Weekly+Coders%2C+Hackers+%26+All+Tech+related+thread+author%3Aavinassh&amp;restrict_sr=on&amp;sort=new&amp;t=all) - for suggestions and critique
+[Open an issue](https://github.com/learnbyexample/cli-computing/issues) if you spot any typo/errors.
+
+⚠️ ⚠️ Please DO NOT submit pull requests. Main reason being any modification requires changes in multiple places.
+
+I'd also highly appreciate your feedback about the book.
+
+Twitter: https://twitter.com/learn_byexample
 
 <br>
 
-# <a name="license"></a>License
+# Acknowledgements
 
-This work is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+* [stackoverflow](https://stackoverflow.com/) and [unix.stackexchange](https://unix.stackexchange.com/) — for getting answers on pertinent questions related to cli tools
+* [/r/commandline/](https://www.reddit.com/r/commandline), [/r/linux4noobs/](https://www.reddit.com/r/linux4noobs/) and [/r/linux/](https://www.reddit.com/r/linux/) — helpful forums
+* [Warning](https://commons.wikimedia.org/wiki/File:Warning_icon.svg) and [Info](https://commons.wikimedia.org/wiki/File:Info_icon_002.svg) icons by [Amada44](https://commons.wikimedia.org/wiki/User:Amada44) under public domain
+* [oxipng](https://github.com/shssoichiro/oxipng), [pngquant](https://pngquant.org/) and [svgcleaner](https://github.com/RazrFalcon/svgcleaner) for optimizing images
+* [mdBook](https://github.com/rust-lang/mdBook) — for web version of the book
+    * [mdBook-pagetoc](https://github.com/JorelAli/mdBook-pagetoc) — for adding table of contents for each page
+    * [minify-html](https://github.com/wilsonzlin/minify-html) — for minifying html files
+
+<br>
+
+# License
+
+The book is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+
+The code snippets are licensed under MIT, see [LICENSE](./LICENSE) file
 
