@@ -1,0 +1,439 @@
+<!DOCTYPE HTML><html lang=en class="sidebar-visible no-js light"><head><meta charset=UTF-8><title>Managing Files and Directories - Computing from the Command Line</title><meta content="text/html; charset=utf-8"http-equiv=Content-Type><meta name=description content="Linux command line and Scripting guide for beginner to intermediate users"><meta name=viewport content="width=device-width, initial-scale=1"><meta name=theme-color content=#ffffff><link rel=icon href=favicon.svg><link rel="shortcut icon"href=favicon.png><link rel=stylesheet href=css/variables.css><link rel=stylesheet href=css/general.css><link rel=stylesheet href=css/chrome.css><link rel=stylesheet href=FontAwesome/css/font-awesome.css><link rel=stylesheet href=fonts/fonts.css><link rel=stylesheet href=highlight.css><link rel=stylesheet href=tomorrow-night.css><link rel=stylesheet href=ayu-highlight.css><link rel=stylesheet href=style.css><body><script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script><script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script><script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script><script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script><nav id=sidebar class=sidebar aria-label="Table of contents"><div class=sidebar-scrollbox><ol class=chapter><li class="chapter-item expanded affix"><a href=preface.html>Preface</a><li class="chapter-item expanded"><a href=introduction.html><strong aria-hidden=true>1.</strong> Introduction</a><li class="chapter-item expanded"><a href=command-line-overview.html><strong aria-hidden=true>2.</strong> Command Line Overview</a><li class="chapter-item expanded"><a href=managing-files-directories.html class=active><strong aria-hidden=true>3.</strong> Managing Files and Directories</a><li class="chapter-item expanded"><a href=working-with-files-and-directories.html><strong aria-hidden=true>4.</strong> Working with Files and Directories</a><li class="chapter-item expanded"><a href=text-processing.html><strong aria-hidden=true>5.</strong> Text Processing</a><li class="chapter-item expanded"><a href=shell.html><strong aria-hidden=true>6.</strong> Shell</a><li class="chapter-item expanded"><a href=shell-scripting.html><strong aria-hidden=true>7.</strong> Shell Scripting</a><li class="chapter-item expanded"><a href=shell-customization.html><strong aria-hidden=true>8.</strong> Shell Customization</a></li><br><hr><li class="chapter-item expanded"><i id=git-repository-button class="fa fa-github"></i><a href=https://github.com/learnbyexample/cli-computing>   Source code</a><li class="chapter-item expanded"><i id=home-button class="fa fa-home"></i><a href=https://learnbyexample.github.io/>   My Blog</a><li class="chapter-item expanded"><i id=book-button class="fa fa-book"></i><a href=https://learnbyexample.github.io/books/>   My Books</a><li class="chapter-item expanded"><i id=mail-button class="fa fa-envelope"></i><a href=https://learnbyexample.gumroad.com/l/learnbyexample-weekly>   learnbyexample weekly</a></ol></div><div id=sidebar-resize-handle class=sidebar-resize-handle></div></nav><div id=page-wrapper class=page-wrapper><div class=page><div id=menu-bar-hover-placeholder></div><div id=menu-bar class="menu-bar sticky bordered"><div class=left-buttons><button id=sidebar-toggle class=icon-button type=button title="Toggle Table of Contents"aria-label="Toggle Table of Contents"aria-controls=sidebar><i class="fa fa-bars"></i></button><button id=theme-toggle class=icon-button type=button title="Change theme"aria-label="Change theme"aria-haspopup=true aria-expanded=false aria-controls=theme-list><i class="fa fa-paint-brush"></i></button><ul id=theme-list class=theme-popup aria-label=Themes role=menu><li role=none><button role=menuitem class=theme id=light>Light (default)</button><li role=none><button role=menuitem class=theme id=rust>Rust</button><li role=none><button role=menuitem class=theme id=coal>Coal</button><li role=none><button role=menuitem class=theme id=navy>Navy</button><li role=none><button role=menuitem class=theme id=ayu>Ayu</button></ul><button id=search-toggle class=icon-button type=button title="Search. (Shortkey: s)"aria-label="Toggle Searchbar"aria-expanded=false aria-keyshortcuts=S aria-controls=searchbar><i class="fa fa-search"></i></button></div><h1 class=menu-title>Computing from the Command Line</h1><div class=right-buttons><a href=https://learnbyexample.github.io title=Blog aria-label=Blog> <i id=home-button class="fa fa-home"></i> </a><a href=https://github.com/learnbyexample/cli-computing title="Git repository"aria-label="Git repository"> <i id=git-repository-button class="fa fa-github"></i> </a></div></div><div id=search-wrapper class=hidden><form id=searchbar-outer class=searchbar-outer><input type=search id=searchbar name=searchbar placeholder="Search this book ..."aria-controls=searchresults-outer aria-describedby=searchresults-header></form><div id=searchresults-outer class="searchresults-outer hidden"><div id=searchresults-header class=searchresults-header></div><ul id=searchresults></ul></div></div><script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script><div id=content class=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=managing-files-and-directories><a class=header href=#managing-files-and-directories>Managing Files and Directories</a></h1><p>This chapter presents commands to do things that are typically handled by a file manager (explorer) in GUI. For example, viewing contents of a directory, navigating to other directories, cut/copy/paste files, renaming and so on.<p>As a good practice, use <code>man</code>, <code>help</code> and <code>info</code> to look up details about the commands presented in this chapter.<blockquote><p><img src=images/info.svg alt=info> Short descriptions for these commands are copied from the output of <code>whatis</code> or <code>help -d</code> and shown as quoted text.</blockquote><h2 id=pwd><a class=header href=#pwd>pwd</a></h2><blockquote><p>Print the name of the current working directory</blockquote><ul><li><code>pwd</code> is a shell builtin<li>helps to orient yourself where you are in the filesystem<li>the absolute path is often handy to copy-paste elsewhere, in a script for example<li>some terminal emulators will display the current directory as window/tab title</ul><pre><code class=language-bash>$ pwd
+/home/learnbyexample
+</code></pre><h2 id=cd><a class=header href=#cd>cd</a></h2><blockquote><p>Change the shell working directory</blockquote><p><code>cd</code> is a shell builtin. Here's an example of changing the current working directory using an absolute path:<pre><code class=language-bash>$ pwd
+/home/learnbyexample
+
+# specifying / at end of the path is optional
+$ cd /etc
+$ pwd
+/etc
+</code></pre><p>You can use <code>-</code> as an argument to go back to the previous working directory. Continuing from previous example:<pre><code class=language-bash>$ cd -
+/home/learnbyexample
+</code></pre><p>Relative paths are well, relative to the current working directory:<ul><li><code>.</code> refers to the current directory<li><code>..</code> refers to the directory one hierarchy above<li><code>../..</code> refers to the directory two hierarchies above and so on<li><code>cd ./-</code> will help you to switch to a directory named <code>-</code> (you cannot use <code>cd -</code> since that'll take you to the previous working directory)</ul><pre><code class=language-bash>$ pwd
+/home/learnbyexample
+
+# go one hierarchy above
+$ cd ..
+$ pwd
+/home
+
+# change to 'learnbyexample' present in the current directory
+# './' is optional in this case
+$ cd ./learnbyexample
+$ pwd
+/home/learnbyexample
+
+# go two hierarchies above
+$ cd ../..
+$ pwd
+/
+</code></pre><p>You can switch to the home directory using <code>cd</code> or <code>cd ~</code> or <code>cd ~/</code> from anywhere in the filesystem. This is determined by the value stored in the <code>HOME</code> shell variable.<pre><code class=language-bash>$ pwd
+/
+$ echo "$HOME"
+/home/learnbyexample
+
+$ cd
+$ pwd
+/home/learnbyexample
+</code></pre><p><strong>Further Reading</strong><ul><li>Use <code>help cd</code> for documentation<li><a href=https://unix.stackexchange.com/questions/tagged/cd-command?sort=votes&pageSize=15>cd Q&A on unix stackexchange</a><li><a href=https://stackoverflow.com/questions/tagged/cd?sort=votes&pageSize=15>cd Q&A on stackoverflow</a><li><a href=https://www.gnu.org/software/bash/manual/html_node/Tilde-Expansion.html>bash manual: Tilde Expansion</a></ul><h2 id=clear><a class=header href=#clear>clear</a></h2><blockquote><p>clear the terminal screen</blockquote><p>By default, the <code>clear</code> command will move the prompt to the top of the terminal as well as try to remove the contents of scrollback buffer. You can use the <code>-x</code> option if you want to retain the scrollback buffer contents.<blockquote><p><img src=images/info.svg alt=info> The <code>Ctrl+l</code> shortcut will also move the prompt line to the top of the terminal. It will retain any text you've typed on the prompt line and scrollback buffer contents won't be cleared.</blockquote><h2 id=ls><a class=header href=#ls>ls</a></h2><blockquote><p>list directory contents</blockquote><p>The <code>ls</code> command has a plethora of options and functionality related to viewing the contents of directories.<p>Here are some examples with/without path arguments. Output shown below will vary for you:<pre><code class=language-bash># by default, current directory contents are displayed
+$ ls
+backups  hello_world.py  palindrome.py  projects    todo
+ch.sh    ip.txt          power.log      report.log  workshop_brochures
+
+# example with a single path argument
+$ ls /var/
+backups  crash  local  log   metrics  run   spool
+cache    lib    lock   mail  opt      snap  tmp
+
+# for multiple paths, listing is organized by directory
+$ ls workshop_brochures/ backups/
+backups:
+chrome_bookmarks_02_07_2018.html  dot_files
+
+workshop_brochures:
+Python_workshop_2017.pdf  Scripting_course_2016.pdf
+</code></pre><p>You can use the <code>-1</code> option to list the contents in a single column:<pre><code class=language-bash>$ ls -1 backups/
+chrome_bookmarks_02_07_2018.html
+dot_files
+</code></pre><p>The <code>-F</code> option appends a character to each file name indicating the file type (if it is other than a regular file). The below list is based on details provided in <code>info ls</code>:<ul><li><code>/</code> directory<li><code>*</code> executable file<li><code>@</code> symbolic link<li><code>|</code> FIFO<li><code>=</code> socket<li><code>></code> door</ul><pre><code class=language-bash>$ ls -F
+backups/  hello_world.py*  palindrome.py*  projects@   todo
+ch.sh*    ip.txt           power.log       report.log  workshop_brochures/
+</code></pre><p>If you just need to distinguish between files and directories, you can use the <code>-p</code> option:<pre><code class=language-bash>$ ls -p
+backups/  hello_world.py  palindrome.py  projects    todo
+ch.sh     ip.txt          power.log      report.log  workshop_brochures/
+</code></pre><p>You can also use the <code>--color</code> option to visually distinguish file types:<p><img src=./images/ls_color.png alt="ls color output"><p>The <code>-l</code> option displays the contents as a long listing format. It shows details like file permissions, ownership, size, timestamp and so on. File types are distinguished as <code>d</code> for directories, <code>-</code> for regular files, <code>l</code> for symbolic links, etc.<pre><code class=language-bash>$ ls -l
+total 84
+drwxrwxr-x 3 learnbyexample eg  4096 Jul  4 18:23 backups
+-rwxr-xr-x 1 learnbyexample eg  2746 Mar 30 11:38 ch.sh
+-rwxrwxr-x 1 learnbyexample eg    41 Aug 21  2017 hello_world.py
+-rw-rw-r-- 1 learnbyexample eg    34 Jul  4 09:01 ip.txt
+-rwxrwxr-x 1 learnbyexample eg  1236 Aug 21  2017 palindrome.py
+-rw-r--r-- 1 learnbyexample eg 10449 Mar  8  2017 power.log
+lrwxrwxrwx 1 learnbyexample eg    12 Jun 21 12:08 projects -> ../projects/
+-rw-rw-r-- 1 learnbyexample eg 39120 Feb 25  2017 report.log
+-rw-rw-r-- 1 learnbyexample eg  5987 Apr 11 11:06 todo
+drwxrwxr-x 2 learnbyexample eg  4096 Jul  5 12:05 workshop_brochures
+</code></pre><p>Add <code>-h</code> option to show file sizes in human readable format (default is byte count).<pre><code class=language-bash>$ ls -l power.log
+-rw-r--r-- 1 learnbyexample eg 10449 Mar  8  2017 power.log
+
+$ ls -lh power.log
+-rw-r--r-- 1 learnbyexample eg 11K Mar  8  2017 power.log
+</code></pre><p>You can use the <code>-s</code> option instead of long listing if you only need to add size information:<pre><code>$ ls -1sh power.log report.log
+12K power.log
+40K report.log
+</code></pre><p>There are several options for changing the order of output listing:<ul><li><code>-t</code> sorts by timestamp, often combined with <code>-r</code> to show most recently modified file as the last item<li><code>-S</code> sorts by file size (not suitable for directories)<li><code>-v</code> version sorting (suitable for file names with numbers in them)<li><code>-X</code> sorts by file extension (i.e. characters after the last <code>.</code> in the file name)</ul><pre><code class=language-bash>$ ls -lhtr
+total 84K
+-rw-rw-r-- 1 learnbyexample eg  39K Feb 25  2017 report.log
+-rw-r--r-- 1 learnbyexample eg  11K Mar  8  2017 power.log
+-rwxrwxr-x 1 learnbyexample eg 1.3K Aug 21  2017 palindrome.py
+-rwxrwxr-x 1 learnbyexample eg   41 Aug 21  2017 hello_world.py
+-rwxr-xr-x 1 learnbyexample eg 2.7K Mar 30 11:38 ch.sh
+-rw-rw-r-- 1 learnbyexample eg 5.9K Apr 11 11:06 todo
+lrwxrwxrwx 1 learnbyexample eg   12 Jun 21 12:08 projects -> ../projects/
+-rw-rw-r-- 1 learnbyexample eg   34 Jul  4 09:01 ip.txt
+drwxrwxr-x 3 learnbyexample eg 4.0K Jul  4 18:23 backups
+drwxrwxr-x 2 learnbyexample eg 4.0K Jul  5 12:05 workshop_brochures
+
+$ ls -X
+backups   todo                power.log   hello_world.py  ch.sh
+projects  workshop_brochures  report.log  palindrome.py   ip.txt
+</code></pre><p>File names starting with <code>.</code> are considered as hidden files and these are NOT shown by default. You can use the <code>-a</code> option to view them. The <code>-A</code> option is similar, but doesn't show the special <code>.</code> and <code>..</code> entries.<pre><code class=language-bash># . and .. point to the current and parent directories
+$ ls -aF backups/dot_files/
+./  ../  .bashrc  .inputrc  .vimrc
+
+# -A will exclude . and ..
+$ ls -A backups/dot_files/
+.bashrc  .inputrc  .vimrc
+</code></pre><p>The <code>-R</code> option recursively lists sub-directories as well:<pre><code class=language-bash>$ ls -ARF
+.:
+backups/  hello_world.py*  palindrome.py*  projects@   todo
+ch.sh*    ip.txt           power.log       report.log  workshop_brochures/
+
+./backups:
+chrome_bookmarks_02_07_2018.html  dot_files/
+
+./backups/dot_files:
+.bashrc  .inputrc  .vimrc
+
+./workshop_brochures:
+Python_workshop_2017.pdf  Scripting_course_2016.pdf
+</code></pre><p>Often you'd want to list only specific files or directories based on some criteria, file extension for example. The shell provides a matching technique called <strong>globs</strong> or <strong>wildcards</strong>. Some simple examples are shown below (globs will be discussed in more detail later).<p><code>*</code> is a placeholder for zero or more characters:<pre><code class=language-bash># '*.py *.log' will give files ending with '.py' or '.log'
+$ echo *.py *.log
+hello_world.py palindrome.py power.log report.log
+
+# glob expansion can be prevented by using quotes
+$ echo '*.py' *.log
+*.py power.log report.log
+
+# long list only files ending with '.py'
+$ ls -l *.py
+-rwxrwxr-x 1 learnbyexample eg   41 Aug 21  2017 hello_world.py
+-rwxrwxr-x 1 learnbyexample eg 1236 Aug 21  2017 palindrome.py
+</code></pre><p><code>[]</code> helps you specify a set of characters to be matched once. For example, <code>[ad]</code> matches <code>a</code> or <code>d</code> once. <code>[c-i]</code> matches a range of characters from <code>c</code> to <code>i</code>.<pre><code class=language-bash>$ echo [c-i]*
+ch.sh hello_world.py ip.txt
+
+$ ls -1sh [c-i]*
+4.0K ch.sh
+4.0K hello_world.py
+4.0K ip.txt
+</code></pre><blockquote><p><img src=images/info.svg alt=info> <img src=images/info.svg alt=info> As shown in the above examples, globs are expanded by the shell. Beginners often associate globs as something specific to the <code>ls</code> command, which is why I've delibrately used <code>echo</code> as well in the above examples.</blockquote><p>You can use the <code>-d</code> option to <em>not</em> show directory contents:<pre><code class=language-bash>$ echo b*
+backups
+# since backups is a directory, ls will show its contents
+$ ls b*
+chrome_bookmarks_02_07_2018.html  dot_files
+# -d will show the directory entry instead of its contents
+$ ls -d b*
+backups
+
+# a handy way to get only the directory entries
+$ echo */
+backups/ projects/ workshop_brochures/
+$ ls -d */
+backups/  projects/  workshop_brochures/
+</code></pre><p><strong>Further Reading</strong><ul><li><code>man ls</code> and <code>info ls</code> for more options and complete documentation<li><a href=https://unix.stackexchange.com/questions/tagged/ls?sort=votes&pageSize=15>ls Q&A on unix stackexchange</a><li><a href=https://stackoverflow.com/questions/tagged/ls?sort=votes&pageSize=15>ls Q&A on stackoverflow</a><li><a href=https://mywiki.wooledge.org/ParsingLs>mywiki.wooledge: avoid parsing output of ls</a><li><a href=https://unix.stackexchange.com/questions/128985/why-not-parse-ls>unix.stackexchange: why not parse ls?</a><li><a href=https://unix.stackexchange.com/questions/63081/what-are-and-directories>unix.stackexchange: What are ./ and ../ directories?</a></ul><h2 id=tree><a class=header href=#tree>tree</a></h2><blockquote><p>list contents of directories in a tree-like format</blockquote><p>The <code>tree</code> command displays the contents of a directory recursively as a tree like structure. You might have to install this command.<pre><code class=language-bash># -a option will show hidden files as well
+$ tree -a
+.
+├── backups
+│   ├── chrome_bookmarks_02_07_2018.html
+│   └── dot_files
+│       ├── .bashrc
+│       ├── .inputrc
+│       └── .vimrc
+├── .hidden
+├── ip.txt
+├── power.log
+└── workshop_brochures
+    ├── Python_workshop_2017.pdf
+    └── Scripting_course_2016.pdf
+
+3 directories, 9 files
+</code></pre><h2 id=mkdir><a class=header href=#mkdir>mkdir</a></h2><blockquote><p>make directories</blockquote><p>You can pass one or more paths along with the name of the directories you want to create. Quote the names if it can contain shell special characters like space, <code>*</code> and so on.<pre><code class=language-bash>$ mkdir reports 'low power adders'
+
+$ ls -1
+low power adders
+reports
+</code></pre><p>The <code>-p</code> option will help you to create multiple directory hierarchies in one shot:<pre><code class=language-bash># error because 'a/b' path doesn't exist yet
+$ mkdir a/b/c
+mkdir: cannot create directory ‘a/b/c’: No such file or directory
+
+# -p will create non-existing directories as well
+$ mkdir -p a/b/c
+</code></pre><p>The <code>-p</code> option also has another functionality. It will not complain if the directory you are trying to create already exists. This is especially helpful in shell scripts. You can check the exit status of the last executed command using the <code>$?</code> special variable. <code>0</code> means everything went well and higher numbers indicate some sort of failure (the details of which you can look up in the manual).<pre><code class=language-bash># assume that the 'reports' directory already exists
+$ mkdir reports
+mkdir: cannot create directory ‘reports’: File exists
+# exit status will also reflect that something went wrong
+$ echo $?
+1
+
+# the -p option will override the error when directory already exists
+$ mkdir -p reports
+$ echo $?
+0
+</code></pre><blockquote><p><img src=images/info.svg alt=info> <img src=images/warning.svg alt=warning> Linux file names can use any character other than <code>/</code> and the ASCII NUL character. Quote the arguments if it contains characters like space, <code>*</code>, etc to prevent shell expansion. Shell considers space as the argument separator, <code>*</code> is a globbing character and so on. Unless otherwise needed, use only alphabets, numbers and underscores for file names as a good practice.</blockquote><p><strong>Further Reading</strong><ul><li><a href=https://unix.stackexchange.com/questions/tagged/mkdir?sort=votes&pageSize=15>mkdir Q&A on unix stackexchange</a><li><a href=https://stackoverflow.com/questions/tagged/mkdir?sort=votes&pageSize=15>mkdir Q&A on stackoverflow</a><li><a href=https://unix.stackexchange.com/questions/269093/characters-best-avoided-in-filenames-when-used-in-bash-e-g>unix.stackexchange: Characters best avoided in filenames</a></ul><h2 id=touch><a class=header href=#touch>touch</a></h2><blockquote><p>change file timestamps</blockquote><p>You'll usually create files using a text editor or by redirecting output of a command to a file. For some cases, you just want empty files for testing purposes or to satisfy a particular build process. A real world use case is the empty <code>.nojekyll</code> file for <a href=https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages#static-site-generators>GitHub Pages</a>.<p>The <code>touch</code> command is used for altering timestamps. If a file doesn't exist, <code>touch</code> will create an empty file with the current timestamp.<pre><code class=language-bash>$ ls ip.txt
+ls: cannot access 'ip.txt': No such file or directory
+
+$ touch ip.txt
+
+$ ls -s ip.txt
+0 ip.txt
+</code></pre><blockquote><p><img src=images/info.svg alt=info> You can also create an empty file using <code>> ip.txt</code>, but one difference is that the file gets overwritten if it already exists.</blockquote><h2 id=rm><a class=header href=#rm>rm</a></h2><blockquote><p>remove files or directories</blockquote><p>The <code>rm</code> command will help you to delete files and directories. You can pass one or more paths as arguments:<pre><code class=language-bash>$ ls
+a  ip.txt  low power adders  reports
+
+$ rm ip.txt
+$ ls
+a  low power adders  reports
+</code></pre><p>You'll need to add <code>-r</code> option to delete directories. You can use <code>rm -d</code> or the <code>rmdir</code> command to delete only empty directories.<pre><code class=language-bash>$ rm reports
+rm: cannot remove 'reports': Is a directory
+$ rm -r reports
+$ ls
+a  low power adders
+
+# delete empty directories, same as 'rmdir a'
+$ rm -d a
+rm: cannot remove 'a': Directory not empty
+</code></pre><p>Typos like misplaced space, wrong glob, etc could wipe out files not intended for deletion. Apart from having backups and snapshots, you could also take some mitigating steps:<ul><li>using <code>-i</code> option to interactively delete each file <ul><li>you can also use <code>-I</code> option for lesser number of prompts</ul><li>using <code>echo</code> as a dry run to see how the glob expands<li>using a trash command (see links below) instead of <code>rm</code></ul><pre><code class=language-bash># use 'y' to confirm deletion and 'n' to cancel deletion
+$ rm -ri 'low power adders'
+rm: remove directory 'low power adders'? n
+$ ls
+a  low power adders
+
+# example with recursive deletion and using 'y' for confirmation
+$ rm -ri a
+rm: descend into directory 'a'? y
+rm: descend into directory 'a/b'? y
+rm: remove directory 'a/b/c'? y
+rm: remove directory 'a/b'? y
+rm: remove directory 'a'? y
+$ ls
+low power adders
+</code></pre><p>The <code>-f</code> option will ignore non-existing files. It also helps to remove write protected files (provided you have appropriate permissions to delete those files). This option is especially useful for removing write protected files (for example, <code>.git/objects</code>) during recursive deletion of directories.<pre><code class=language-bash>$ rm xyz.txt
+rm: cannot remove 'xyz.txt': No such file or directory
+$ echo $?
+1
+$ rm -f xyz.txt
+$ echo $?
+0
+
+# 'chmod' will be discussed later, user here to remove write permission
+$ touch ip.txt
+$ chmod -w ip.txt
+# without -f, you'll be asked for confirmation
+$ rm ip.txt
+rm: remove write-protected regular empty file 'ip.txt'? n
+# with -f, you won't be asked for confirmation
+$ rm -f ip.txt
+</code></pre><p><strong>Further Reading</strong><ul><li>See if a trash command is available for your distro (for example, <code>trash-cli</code> on Ubuntu) so that deleted files are sent to trash <ul><li><a href=https://unix.stackexchange.com/questions/452496/create-a-recycle-bin-feature-without-using-functions>unix.stackexchange: creating a simple trash command</a></ul><li>Files removed using <code>rm</code> can still be recovered with time and skill <ul><li><a href=https://unix.stackexchange.com/questions/80270/unix-linux-undelete-recover-deleted-files>unix.stackexchange: recover deleted files</a><li><a href=https://unix.stackexchange.com/questions/2677/recovering-accidentally-deleted-files>unix.stackexchange: recovering accidentally deleted files</a></ul><li>Use commands like <code>shred</code> if you want to make it harder to recover deleted files <ul><li><a href=https://wiki.archlinux.org/index.php/Securely_wipe_disk>wiki.archlinux: Securely wipe disk</a></ul><li><a href=https://unix.stackexchange.com/questions/tagged/rm?sort=votes&pageSize=15>rm Q&A on unix stackexchange</a><li><a href=https://stackoverflow.com/questions/tagged/rm?sort=votes&pageSize=15>rm Q&A on stackoverflow</a></ul><h2 id=cp><a class=header href=#cp>cp</a></h2><blockquote><p>copy files and directories</blockquote><p>You can use the <code>cp</code> command to copy files and directories from one path to another path. You have to specify the source first followed by the destination. When you need to copy multiple items, the destination can only be a directory (which would be the last argument). You'll also need to use the <code>-r</code> option to copy directories.<pre><code class=language-bash># recall that . is a relative path referring to the current directory
+$ cp /usr/share/dict/words .
+$ ls
+low power adders  words
+
+$ cp /usr/share/dict .
+cp: omitting directory '/usr/share/dict'
+$ cp -r /usr/share/dict .
+$ ls -1F
+dict/
+low power adders/
+words
+</code></pre><blockquote><p><img src=images/info.svg alt=info> <img src=images/warning.svg alt=warning> To avoid overwriting existing files, you can use the <code>-i</code> option to ask for confirmation and the <code>-n</code> option to prevent the change altogether.</blockquote><p>Often, you'd want to copy a file (or a directory) under different name. In such cases, you can simply use a new name while specifying the destination.<pre><code class=language-bash># copy 'words' file from source as 'words_ref.txt' at destination
+$ cp /usr/share/dict/words words_ref.txt
+
+# copy 'words' file as 'words.txt' under the 'reference' directory
+$ cp /usr/share/dict/words reference/words.txt
+
+# copy 'dict' directory as 'word_lists'
+$ cp -r /usr/share/dict word_lists
+</code></pre><p>As mentioned earlier, to copy multiple files and directories, you'll have to specify the destination directory as the last argument. You can use <code>-t</code> if you want to specify the destination before the source paths (helpful with <code>find</code> command, scripting, etc).<pre><code class=language-bash>$ mkdir bkp_dot_files
+
+# copy multiple files to the 'bkp_dot_files' directory
+$ cp ~/.bashrc ~/.bash_profile bkp_dot_files/
+$ ls -A bkp_dot_files
+.bash_profile  .bashrc
+</code></pre><p>Here are some more notable options:<ul><li><code>-u</code> copy files from source only if they are newer or don't exist in the destination<li><code>-b</code> and <code>--backup</code> options will allow you to create backup copies of files already existing in the destination<li><code>--preserve</code> option will help you to copy files along with source file attributes like ownership, timestamp, etc</ul><p><strong>Further Reading</strong><ul><li><code>man cp</code> and <code>info cp</code> for more options and complete documentation<li><a href=https://unix.stackexchange.com/questions/tagged/cp?sort=votes&pageSize=15>cp Q&A on unix stackexchange</a><li><a href=https://stackoverflow.com/questions/tagged/cp?sort=votes&pageSize=15>cp Q&A on stackoverflow</a><li><code>rsync</code> a fast, versatile, remote (and local) file-copying tool <ul><li><a href=https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps>rsync examples</a><li><a href=https://unix.stackexchange.com/questions/tagged/rsync?sort=votes&pageSize=15>rsync Q&A on unix stackexchange</a><li><a href=https://stackoverflow.com/questions/tagged/rsync?sort=votes&pageSize=15>rsync Q&A on stackoverflow</a></ul></ul><h2 id=mv><a class=header href=#mv>mv</a></h2><blockquote><p>move (rename) files</blockquote><p>You can use the <code>mv</code> command to move one or more files and directories from one location to another. Unlike <code>rm</code> and <code>cp</code>, you do not need the <code>-r</code> option for directories. Use the <code>-i</code> option to get a prompt instead of silenty overwriting a file of the same name in the destination.<pre><code class=language-bash>$ ls
+bkp_dot_files  dict  low power adders  word_lists  words  words_ref.txt
+$ mkdir backups
+
+# move 'bkp_dot_files' directory to be placed with the 'backups' directory
+$ mv bkp_dot_files/ backups/
+$ ls -F
+backups/  dict/  low power adders/  word_lists/  words  words_ref.txt
+$ ls -F backups/
+bkp_dot_files/
+
+# move multiple files and directories to the 'backups' directory
+$ mv dict words backups/
+$ ls -F
+backups/  low power adders/  word_lists/  words_ref.txt
+$ ls -F backups/
+bkp_dot_files/  dict/  words
+</code></pre><blockquote><p><img src=images/info.svg alt=info> Similar the <code>cp -t</code> feature, you can use <code>mv -t</code> to specify the destination elsewhere instead of final argument.</blockquote><p>When you are dealing with a single file or directory, you can also rename them:<pre><code class=language-bash># within the same directory
+$ mv ip.txt report.txt
+
+# different source/destination directories
+$ mv backups/bkp_dot_files dot_files
+</code></pre><p><strong>Further Reading</strong><ul><li><a href=https://unix.stackexchange.com/questions/tagged/mv?sort=votes&pageSize=15>mv Q&A on unix stackexchange</a><li><a href=https://stackoverflow.com/questions/tagged/mv?sort=votes&pageSize=15>mv Q&A on stackoverflow</a></ul><h2 id=rename><a class=header href=#rename>rename</a></h2><blockquote><p>renames multiple files</blockquote><p>There are different <code>rename</code> implementations. Perl version is discussed in this section. See also <a href=https://askubuntu.com/questions/956010/whats-the-difference-between-the-different-rename-commands>askubuntu: What's the difference between the different "rename" commands?</a>.<p>Here is an example to change the file extensions:<pre><code class=language-bash>$ touch caves.jpeg waterfall.JPEG
+$ rename 's/\.jpeg$/.jpg/i' *
+$ ls
+caves.jpg  waterfall.jpg
+</code></pre><p>As a good practice, use the <code>-n</code> option to see how the files will be renamed before actually renaming the files.<pre><code class=language-bash>$ touch 1.png 3.png 25.png 100.png
+$ ls
+100.png  1.png  25.png  3.png
+
+# sanity check
+# note that 100.png isn't part of the output, since it isn't affected
+$ rename -n 's/\d+/sprintf "%03d", $&/e' *.png
+rename(1.png, 001.png)
+rename(25.png, 025.png)
+rename(3.png, 003.png)
+
+# remove -n option after sanity check to actually rename the files
+$ rename 's/\d+/sprintf "%03d", $&/e' *.png
+$ ls
+001.png  003.png  025.png  100.png
+</code></pre><p>If the new file name already exists, you'll get an error, which you can override with <code>-f</code> option if you wish. If you are passing filenames with path components in them, you can use the <code>-d</code> option to affect only the file name portion. Otherwise, the logic you are using might affect directory names as well.<pre><code class=language-bash>$ mkdir scripts
+$ touch scripts/toc.sh scripts/reports.py
+
+$ # uppercase first character of the filename
+$ rename -n -d 's/./\u$&/' scripts/*
+rename(scripts/reports.py, scripts/Reports.py)
+rename(scripts/toc.sh, scripts/Toc.sh)
+
+$ # without -d option, directory name will be affected
+$ rename -n 's/./\u$&/' scripts/*
+rename(scripts/reports.py, Scripts/reports.py)
+rename(scripts/toc.sh, Scripts/toc.sh)
+</code></pre><p><strong>Further Reading</strong><ul><li><a href=https://unix.stackexchange.com/questions/tagged/rename?sort=votes&pageSize=15>rename Q&A on unix stackexchange</a><li>See my <a href=https://github.com/learnbyexample/learn_perl_oneliners>Perl one-liners</a> ebook for examples and details about the Perl substitution command</ul><h2 id=ln><a class=header href=#ln>ln</a></h2><blockquote><p>make links between files</blockquote><p>There are two types of links — symbolic links and hard links. Symbolic links point to another file or directory:<ul><li>if the original file is deleted or moved to another location, symbolic link will no longer work<li>if the symbolic link is moved to another location, it will still work if the link was done using absolute path (for relative path, it will depend on whether or not there's another file with same name in that location)<li>a symbolic link file has its own inode, permissions, timestamps, etc<li>most commands will work the same when original file or the symbolic file is given as command line argument, see their documentation for details</ul><p>Syntax is similar to the <code>cp</code> command. You have to specify the source first followed by the destination (which is optional if it is the current working directory).<pre><code class=language-bash># destination is optional for making a link in the current directory
+$ ln -s /usr/share/dict/words
+
+# you can also rename the link if needed
+$ ln -s /usr/share/dict/words words.txt
+$ ls -1sF
+total 0
+0 words@
+0 words.txt@
+</code></pre><p>Long listing with <code>ls -l</code> will also show the path connected to links. You can also use the <code>readlink</code> command, which has features like resolving recursively to the canonical file.<pre><code class=language-bash># to know which file the link points to
+$ ls -l words
+lrwxrwxrwx 1 learnbyexample eg 21 Jul  9 13:41 words -> /usr/share/dict/words
+$ readlink words
+/usr/share/dict/words
+
+# the linked file may be another link
+# use -f option to get original file
+$ readlink -f words
+/usr/share/dict/english
+</code></pre><p>Hard links can only point to another file. You cannot use them for directories and the usage is also restricted to within the same filesystem. The <code>.</code> and <code>..</code> directories are exceptions, these are automatically created hard links. Here are some more points about hard links:<ul><li>once a hard link is created, there is no distinction between the two files other than their paths. They have same inode, permissions, timestamps, etc<li>hard links will continue working even if all the other hard links are deleted<li>if a hard link is moved to another location, the links will still be in sync. Any change in one of them will be reflected in all the other links</ul><pre><code class=language-bash>$ touch apple.txt
+$ ln apple.txt banana.txt
+
+# the -i option gives inode
+$ ls -1i apple.txt banana.txt
+649140 banana.txt
+649140 apple.txt
+</code></pre><blockquote><p><img src=images/info.svg alt=info> You can use <code>unlink</code> or <code>rm</code> commands to delete links.</blockquote><p><strong>Further Reading</strong><ul><li><a href=https://unix.stackexchange.com/questions/tagged/ln?sort=votes&pageSize=15>ln Q&A on unix stackexchange</a><li><a href=https://stackoverflow.com/questions/tagged/ln?sort=votes&pageSize=15>ln Q&A on stackoverflow</a><li><a href=https://askubuntu.com/questions/108771/what-is-the-difference-between-a-hard-link-and-a-symbolic-link>askubuntu: What is the difference between a hard link and a symbolic link?</a><li><a href=https://unix.stackexchange.com/questions/9575/what-is-the-difference-between-symbolic-and-hard-links>unix.stackexchange: What is the difference between symbolic and hard links?</a><li><a href=https://unix.stackexchange.com/questions/4402/what-is-a-superblock-inode-dentry-and-a-file>unix.stackexchange: What is a Superblock, Inode, Dentry and a File?</a></ul><h2 id=tar-and-gzip><a class=header href=#tar-and-gzip>tar and gzip</a></h2><p><code>tar</code> is an archiving utility. Depending on the implementation, you can also use options to compress the archive.<p>Here is an example that creates a single archive file from multiple input files and directories:<pre><code class=language-bash>$ ls -F
+backups/  low_power_adders/  word_lists/  words_ref.txt
+
+# -c option creates a new archive, existing archive will be overwritten
+# -f option allows to specify name of archive to be created
+# rest of the arguments are the files to be archived
+$ tar -cf bkp_words.tar word_lists words_ref.txt
+
+$ ls -F
+backups/  bkp_words.tar  low_power_adders/  word_lists/  words_ref.txt
+$ ls -sh bkp_words.tar
+2.3M bkp_words.tar
+</code></pre><p>Once you have an archive file, you can then compress it using tools like <code>gzip</code>. In this case, it will replace the archive file with the compressed version, as well as add a <code>.gz</code> suffix.<pre><code class=language-bash># the input '.tar' file will be overwritten with the compressed version
+$ gzip bkp_words.tar
+
+$ ls -F
+backups/  bkp_words.tar.gz  low_power_adders/  word_lists/  words_ref.txt
+$ ls -sh bkp_words.tar.gz
+652K bkp_words.tar.gz
+</code></pre><p>To uncompress <code>.gz</code> files, you can use <code>gunzip</code> or <code>gzip -d</code>. This will replace the compressed version with the uncompressed archive file:<pre><code class=language-bash># this '.gz' file will be overwritten with the uncompressed version
+$ gunzip bkp_words.tar.gz
+
+$ ls -F
+backups/  bkp_words.tar  low_power_adders/  word_lists/  words_ref.txt
+$ ls -sh bkp_words.tar
+2.3M bkp_words.tar
+</code></pre><p>To extract the original files from the archive, use <code>tar</code> along with the <code>-x</code> option:<pre><code class=language-bash>$ mkdir test_extract
+$ mv bkp_words.tar test_extract/
+$ cd test_extract/
+$ ls
+bkp_words.tar
+
+$ tar -xf bkp_words.tar
+$ ls -F
+bkp_words.tar  word_lists/  words_ref.txt
+$ cd ..
+$ rm -r test_extract/
+</code></pre><p>With <code>GNU tar</code>, you can compress/uncompress along with the <code>tar</code> command instead of having to use tools like <code>gzip</code> separately. For example, the <code>-z</code> option will use <code>gzip</code>, <code>-j</code> will use <code>bzip2</code> and <code>-J</code> will use <code>xz</code>.<pre><code class=language-bash>$ ls -F
+backups/  low_power_adders/  word_lists/  words_ref.txt
+
+# -z option gives same compression as the gzip command
+$ tar -zcf bkp_words.tar.gz word_lists words_ref.txt
+$ ls -sh bkp_words.tar.gz
+652K bkp_words.tar.gz
+
+# extract original files from compressed file
+$ tar -zxf bkp_words.tar.gz
+</code></pre><p><code>tar</code> has lots and lots of options for various needs. Some are listed below, see documentation for complete details.<ul><li><code>-v</code> verbose option<li><code>-r</code> to append files to an existing archive<li><code>-t</code> to list contents of an archive<li><code>--exclude=</code> specify files to be ignored from archiving</ul><p>There are also commands starting with <code>z</code> to work with compressed files, for example:<ul><li><code>zcat</code> to display file contents of a compressed file<li><code>zless</code> to display file contents of a compressed file one screenful at a time<li><code>zgrep</code> to search compressed files</ul><blockquote><p><img src=images/info.svg alt=info> If you need to work with <code>.zip</code> files, use <code>zip</code> and <code>unzip</code> commands.</blockquote><p><strong>Further Reading</strong><ul><li><a href=https://unix.stackexchange.com/questions/tagged/tar?sort=votes&pageSize=15>tar Q&A on unix stackexchange</a><li><a href=https://stackoverflow.com/questions/tagged/tar?sort=votes&pageSize=15>tar Q&A on stackoverflow</a><li><a href=https://superuser.com/questions/252065/gzip-without-tar-why-are-they-used-together>superuser: gzip without tar? Why are they used together?</a></ul></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=command-line-overview.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=working-with-files-and-directories.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=command-line-overview.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=working-with-files-and-directories.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
+            window.playground_copyable = true;
+        </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>
