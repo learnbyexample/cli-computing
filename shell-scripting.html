@@ -71,11 +71,11 @@ $ echo 'hello'
 hello
 # no output when the script is executed in a sub-shell
 $ bash prev_cmd.sh
-</code></pre><h2 id=comments><a class=header href=#comments>Comments</a></h2><p>Single line comments can be inserted after the <code>#</code> character, either at the start of a line or after an instruction.<blockquote><p><img src=images/info.svg alt=info> See also <a href=https://unix.stackexchange.com/q/37411/109046>Multiline comments</a>.</blockquote><h2 id=quoting-mechanisms><a class=header href=#quoting-mechanisms>Quoting mechanisms</a></h2><p>From <a href=https://www.gnu.org/software/bash/manual/bash.html#Quoting>bash manual</a>:<blockquote><p><strong>Escape Character</strong><p>A non-quoted backslash <code>\</code> is the Bash escape character. It preserves the literal value of the next character that follows, with the exception of newline.</blockquote><blockquote><p><strong>Single Quotes</strong><p>Enclosing characters in single quotes (<code>'</code>) preserves the literal value of each character within the quotes. A single quote may not occur between single quotes, even when preceded by a backslash.</blockquote><blockquote><p><strong>Double Quotes</strong><p>Enclosing characters in double quotes (<code>"</code>) preserves the literal value of all characters within the quotes, with the exception of <code>$</code>, <code>`</code>, <code>\</code>, and, when history expansion is enabled, <code>!</code>.</blockquote><blockquote><p><strong>ANSI-C Quoting</strong><p>Words of the form $'string' are treated specially. The word expands to string, with backslash-escaped characters replaced as specified by the ANSI C standard.</blockquote><h2 id=variables><a class=header href=#variables>Variables</a></h2><p>Here's a simple example of assigning a variable and accessing its value:<pre><code class=language-bash>$ name='learnbyexample'
+</code></pre><h2 id=comments><a class=header href=#comments>Comments</a></h2><p>Single line comments can be inserted after the <code>#</code> character, either at the start of a line or after an instruction.<blockquote><p><img src=images/info.svg alt=info> See also <a href=https://unix.stackexchange.com/q/37411/109046>Multiline comments</a>.</blockquote><h2 id=quoting-mechanisms><a class=header href=#quoting-mechanisms>Quoting mechanisms</a></h2><p>From <a href=https://www.gnu.org/software/bash/manual/bash.html#Quoting>bash manual</a>:<blockquote><p><strong>Escape Character</strong><p>A non-quoted backslash <code>\</code> is the Bash escape character. It preserves the literal value of the next character that follows, with the exception of newline.</blockquote><blockquote><p><strong>Single Quotes</strong><p>Enclosing characters in single quotes (<code>'</code>) preserves the literal value of each character within the quotes. A single quote may not occur between single quotes, even when preceded by a backslash.</blockquote><blockquote><p><strong>Double Quotes</strong><p>Enclosing characters in double quotes (<code>"</code>) preserves the literal value of all characters within the quotes, with the exception of <code>$</code>, <code>`</code>, <code>\</code>, and, when history expansion is enabled, <code>!</code>.</blockquote><blockquote><p><strong>ANSI-C Quoting</strong><p>Words of the form $'string' are treated specially. The word expands to string, with backslash-escaped characters replaced as specified by the ANSI C standard.</blockquote><h2 id=variables-and-arrays><a class=header href=#variables-and-arrays>Variables and Arrays</a></h2><p>Here's a simple example of assigning a variable and accessing its value:<pre><code class=language-bash>$ name='learnbyexample'
 
 $ echo "$name"
 learnbyexample
-</code></pre><p>As seen above, you need to use the <code>$</code> prefix while accessing the value stored in a variable. Using appropriate quotes is recommended, unless otherwise needed.<p>Assigning variables is one of the most common source for errors. Unlike most programming languages, spaces are <em>not</em> allowed around the <code>=</code> sign. That is because space is a shell metacharacter. Another common issue is using quotes (or not) around the value. Here are some examples:<pre><code class=language-bash>$ num = 42
+</code></pre><p>As seen above, you need to use the <code>$</code> prefix while accessing the value stored in a variable. You can use <code>${variable}</code> syntax to distinguish between the variable and other parts of the string. Using appropriate quotes is recommended, unless otherwise needed.<p>Assigning variables is one of the most common source for errors. Unlike most programming languages, spaces are <em>not</em> allowed around the <code>=</code> sign. That is because space is a shell metacharacter. Another common issue is using quotes (or not) around the value. Here are some examples:<pre><code class=language-bash>$ num = 42
 num: command not found
 
 $ greeting=hello world
@@ -91,7 +91,147 @@ $ echo "$dir_path"
 $ dir_path='~/reports'
 $ echo "$dir_path"
 ~/reports
-</code></pre><blockquote><p><img src=images/info.svg alt=info> See <a href=https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameters>bash manual: Shell Parameters</a> for <code>declare</code> builtin command and other details.</blockquote><h2 id=command-line-arguments><a class=header href=#command-line-arguments>Command Line Arguments</a></h2><p>Command line arguments passed to a script are saved in positional variables starting with <code>1</code>, <code>2</code>, <code>3</code> etc. <code>0</code> contains the name of the shell or shell script. <code>@</code> contains all the positional arguments starting from <code>1</code>. Use <code>#</code> to get the number of positional arguments.<p>Here's an example script that accepts two positional arguments:<pre><code class=language-bash>$ cat command_line_arguments.sh
+</code></pre><p>From <a href=https://www.gnu.org/software/bash/manual/bash.html#Arrays>bash manual: Arrays</a>:<blockquote><p>Bash provides one-dimensional indexed and associative array variables. Any variable may be used as an indexed array; the declare builtin will explicitly declare an array. There is no maximum limit on the size of an array, nor any requirement that members be indexed or assigned contiguously. Indexed arrays are referenced using integers and are zero-based; associative arrays use arbitrary strings.</blockquote><p>Here are some examples:<pre><code class=language-bash>$ fruits=('apple' 'fig' 'mango')
+
+# first element
+$ echo "${fruits[0]}"
+apple
+
+# last element
+$ echo "${fruits[-1]}"
+mango
+
+# all elements
+# example with for loop will be discussed later on
+$ echo "${fruits[@]}"
+apple fig mango
+$ printf '%s\n' "${fruits[@]}"
+apple
+fig
+mango
+</code></pre><blockquote><p><img src=images/info.svg alt=info> See <a href=https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameters>bash manual: Shell Parameters</a> for <code>declare</code> builtin command and other details.</blockquote><h2 id=parameter-expansion><a class=header href=#parameter-expansion>Parameter Expansion</a></h2><p>Bash provides several useful ways to extract and modify contents of a variable (including arrays). Some of these features will be discussed in this section.<p>Substring extraction using <code>${parameter:offset}</code> syntax to get all characters from the given index:<pre><code class=language-bash>$ city='Lucknow'
+
+# all characters from index 4 onwards
+$ echo "${city:4}"
+now
+
+# last two characters
+# space before the negative sign is compulsory here,
+# since ${parameter:-word} is a different feature
+$ echo "${city: -2}"
+ow
+</code></pre><p>Substring extraction using <code>${parameter:offset:length}</code> syntax to get specific number of characters from the given index:<pre><code class=language-bash>$ city='Lucknow'
+
+# 4 characters starting from index 0
+$ echo "${city:0:4}"
+Luck
+
+# 2 characters starting from index -4 (4th character from the end)
+$ echo "${city: -4:2}"
+kn
+</code></pre><p>When applied to arrays, substring extraction will give you those elements:<pre><code class=language-bash>$ fruits=('apple' 'fig' 'mango')
+
+# all elements from index 1
+$ echo "${fruits[@]:1}"
+fig mango
+</code></pre><p><code>${#parameter}</code> will give you the length of the string and <code>${#array[@]}</code> will give you the number of elements in the array:<pre><code class=language-bash>$ city='Lucknow'
+$ echo "${#city}"
+7
+
+$ fruits=('apple' 'fig' 'mango')
+$ echo "${#fruits[@]}"
+3
+</code></pre><p><code>${parameter#glob}</code> will remove the shortest match from the start of the string. <code>${parameter##glob}</code> will remove the longest match from the start of the string. Here are some examples:<pre><code class=language-bash>$ s='this is his life history'
+
+# shortest match is deleted
+$ echo "${s#*is}"
+ is his life history
+
+# longest match is deleted
+$ echo "${s##*is}"
+tory
+
+# for arrays, the processing is applied to each element
+$ fruits=('apple' 'fig' 'mango')
+$ echo "${fruits[@]#*[aeiou]}"
+pple g ngo
+</code></pre><p><code>${parameter%glob}</code> will remove the shortest match from the end of the string. <code>${parameter%%glob}</code> will remove the longest match from the end of the string. Here are some examples:<pre><code class=language-bash>$ s='this is his life history'
+
+$ echo "${s%is*}"
+this is his life h
+$ echo "${s%%is*}"
+th
+
+$ fruits=('apple' 'fig' 'mango')
+$ echo "${fruits[@]%[aeiou]*}"
+appl f mang
+</code></pre><p><code>${parameter/glob/string}</code> will replace the first matching occurrence with the given replacement string and <code>${parameter//glob/string}</code> will replace all the matching occurrences. You can leave out the <code>/string</code> portion when you want to delete the matching occurrences. The <code>glob</code> will match the longest portion, similar to greedy behavior in regular expressions. Here are some examples:<pre><code class=language-bash>$ s='this is a sample string'
+
+# first occurrence of 'is' is replaced with '123'
+$ echo "${s/is/123}"
+th123 is a sample string
+# all occurrences of 'is' are replaced with '123'
+$ echo "${s//is/123}"
+th123 123 a sample string
+
+# matches from first 'is' to last 's' in the input
+$ echo "${s/is*s/ X }"
+th X tring
+
+# deletes first occurrence of 'is'
+$ echo "${s/is}"
+th is a sample string
+# deletes all occurrences of 'is'
+$ echo "${s//is}"
+th  a sample string
+</code></pre><p><code>${parameter/#glob/string}</code> will match only at the start of the string and <code>${parameter/%glob/string}</code> will match only at the end of the string.<pre><code class=language-bash>$ s='spare'
+
+# remove only from the start of the string
+$ echo "${s/#sp}"
+are
+$ echo "${s/#par}"
+spare
+
+# remove only from the end of the string
+$ echo "${s/%re}"
+spa
+$ echo "${s/%par}"
+spare
+</code></pre><p><code>${parameter^glob}</code> changes the first character to uppercase if matched by the glob. <code>${parameter^^glob}</code> changes all the matching characters to uppercase. You should provide a glob of one character length only, either a literal alphabet or a character class. If the glob is omitted, entire parameter will be matched.<pre><code class=language-bash>$ fruit='apple'
+
+$ echo "${fruit^}"
+Apple
+$ echo "${fruit^^}"
+APPLE
+
+$ echo "${fruit^^[g-z]}"
+aPPLe
+$ echo "${fruit^^[a-ej-m]}"
+AppLE
+
+# the glob matches 'ap' at the start
+# but this won't work since multiple characters are specified
+$ echo "${fruit^^[a-e][f-z]}"
+apple
+</code></pre><p>To change the characters to lowercase, use <code>,</code> and <code>,,</code> as shown below:<pre><code class=language-bash>$ fruit='APPLE'
+
+$ echo "${fruit,}"
+aPPLE
+$ echo "${fruit,,}"
+apple
+
+$ echo "${fruit,,[G-Z]}"
+ApplE
+</code></pre><p>To swap case, use <code>~</code> and <code>~~</code> as shown below:<pre><code class=language-bash>$ fruit='aPPle'
+
+$ echo "${fruit~}"
+APPle
+$ echo "${fruit~~}"
+AppLE
+
+$ echo "${fruit~~[g-zG-Z]}"
+appLe
+</code></pre><blockquote><p><img src=images/info.svg alt=info> See <a href=https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameter-Expansion>bash manual: Shell Parameter Expansion</a> for more details and other types of expansions.</blockquote><h2 id=command-line-arguments><a class=header href=#command-line-arguments>Command Line Arguments</a></h2><p>Command line arguments passed to a script are saved in positional variables starting with <code>1</code>, <code>2</code>, <code>3</code> etc. <code>0</code> contains the name of the shell or shell script. <code>@</code> contains all the positional arguments starting from <code>1</code>. Use <code>#</code> to get the number of positional arguments.<p>Here's an example script that accepts two positional arguments:<pre><code class=language-bash>$ cat command_line_arguments.sh
 echo "No. of lines in '$1' is $(wc -l < "$1")"
 echo "No. of lines in '$2' is $(wc -l < "$2")"
 
@@ -109,7 +249,7 @@ $ [[ -e hello.sh ]] ; echo $?
 0
 $ [[ -e xyz.txt ]] ; echo $?
 1
-</code></pre><p>The <code>-e</code> option checks the given path argument, which evaluates to true if it exists. The <code>&&</code> and <code>||</code> are control operators that executes the command that follows only if the earlier command evaluates to true and false respectively. You can also use <code>if-else</code> control structure for the above example (will be discussed later).<p>You can use <code>-d</code> and <code>-f</code> to check if the path is a valid directory and file respectively. The <code>-s</code> option checks if file exists and its size is greater than zero. <code>-x</code> option checks if file exists and is executable. See <a href=https://www.gnu.org/software/bash/manual/bash.html#Bash-Conditional-Expressions>bash manual: Conditional Expressions</a> for a complete list of such options.<p>Add a <code>!</code> prefix to negate the condition, <code>[[ ! -e xyz.txt ]]</code> for example.<h3 id=string-comparison><a class=header href=#string-comparison>String comparison</a></h3><ul><li><code>s1 = s2</code> or <code>s1 == s2</code> checks if two strings are equal <ul><li>unquoted portions of <code>s2</code> will be treated as a wildcard while testing against <code>s1</code></ul><li><code>s1 != s2</code> checks if strings are <em>not</em> equal <ul><li>unquoted portions of <code>s2</code> will be treated as a wildcard while testing against <code>s1</code></ul><li><code>s1 < s2</code> checks if <code>s1</code> sorts before <code>s2</code> lexicographically<li><code>s1 > s2</code> checks if <code>s1</code> sorts after <code>s2</code> lexicographically<li><code>s1 =~ s2</code> checks if <code>s1</code> matches the POSIX extended regular expression provided by <code>s2</code> <ul><li>exit status will be <code>2</code> if <code>s2</code> is not a valid regexp</ul></ul><p>Here are some examples for equal and not-equal comparisons:<pre><code class=language-bash>$ fruit='apple'
+</code></pre><p>The <code>-e</code> option checks the given path argument, which evaluates to true if it exists. The <code>&&</code> and <code>||</code> are control operators that executes the command that follows only if the earlier command evaluates to true and false respectively. You can also use <code>if-else</code> control structure for the above example (will be discussed later).<p>You can use <code>-d</code> and <code>-f</code> to check if the path is a valid directory and file respectively. The <code>-s</code> option checks if file exists and its size is greater than zero. <code>-x</code> option checks if file exists and is executable. See <a href=https://www.gnu.org/software/bash/manual/bash.html#Bash-Conditional-Expressions>bash manual: Conditional Expressions</a> for a complete list of such options.<p>Add a <code>!</code> prefix to negate the condition, <code>[[ ! -e xyz.txt ]]</code> for example.<h3 id=string-comparison><a class=header href=#string-comparison>String comparison</a></h3><ul><li><code>s1 = s2</code> or <code>s1 == s2</code> checks if two strings are equal <ul><li>unquoted portions of <code>s2</code> will be treated as a wildcard while testing against <code>s1</code><li><code>extglob</code> would be considered as enabled for comparison purposes</ul><li><code>s1 != s2</code> checks if strings are <em>not</em> equal <ul><li>unquoted portions of <code>s2</code> will be treated as a wildcard while testing against <code>s1</code><li><code>extglob</code> would be considered as enabled for comparison purposes</ul><li><code>s1 < s2</code> checks if <code>s1</code> sorts before <code>s2</code> lexicographically<li><code>s1 > s2</code> checks if <code>s1</code> sorts after <code>s2</code> lexicographically<li><code>s1 =~ s2</code> checks if <code>s1</code> matches the POSIX extended regular expression provided by <code>s2</code> <ul><li>exit status will be <code>2</code> if <code>s2</code> is not a valid regexp</ul></ul><p>Here are some examples for equal and not-equal comparisons:<pre><code class=language-bash>$ fruit='apple'
 $ [[ $fruit == 'apple' ]] && echo 'true' || echo 'false'
 true
 $ [[ $fruit == 'banana' ]] && echo 'true' || echo 'false'
@@ -137,7 +277,7 @@ true
 # don't use this to compare numbers!
 $ [[ 20 > 3 ]] && echo 'true' || echo 'false'
 false
-</code></pre><p>Here are some examples for regexp comparison. You can use the special variable <code>BASH_REMATCH</code> to retrieve specific portions of the string that was matched.<pre><code class=language-bash>$ fruit='apple'
+</code></pre><p>Here are some examples for regexp comparison. You can use the special array <code>BASH_REMATCH</code> to retrieve specific portions of the string that was matched.<pre><code class=language-bash>$ fruit='apple'
 $ [[ $fruit =~ ^a ]] && echo 'true' || echo 'false'
 true
 $ [[ $fruit =~ ^b ]] && echo 'true' || echo 'false'
