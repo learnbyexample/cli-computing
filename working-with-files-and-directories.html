@@ -351,7 +351,7 @@ report.txt
 </code></pre><p><strong>Further Reading</strong><ul><li><a href=https://unix.stackexchange.com/questions/tagged/touch?sort=votes&pageSize=15>touch Q&A on unix stackexchange</a></ul><h2 id=file><a class=header href=#file>file</a></h2><p>The <code>file</code> command helps you identify encoding (ASCII, UTF-8, etc), whether it is an executable file and so on.<p><strong>Examples</strong><p>Here are some examples of how the <code>file</code> command behaves for different types:<pre><code class=language-bash>$ file sample.txt 
 sample.txt: ASCII text
 
-$ printf 'hi👍\n' | file -
+$ printf 'αλεπού\n' | file -
 /dev/stdin: UTF-8 Unicode text
 
 $ file ch

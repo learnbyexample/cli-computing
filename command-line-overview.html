@@ -62,7 +62,7 @@ ls is aliased to `ls --color=auto'
 $ type -a ls
 ls is aliased to `ls --color=auto'
 ls is /bin/ls
-</code></pre><ul><li><code>help</code> command provides documentation for builtin commands <ul><li><code>help help</code> help page on <code>help</code> command<li><code>-m</code> option will display usage in pseudo-manpage format<li><code>-d</code> option gives short description for each topic, similar to <code>whatis</code> command<li><code>help</code> command by itself without any argument displays all shell commands that are defined internally</ul></ul><pre><code>$ help pwd
+</code></pre><ul><li><code>help</code> command provides documentation for builtin commands <ul><li><code>help help</code> help page on <code>help</code> command<li><code>-m</code> option will display usage in pseudo-manpage format<li><code>-d</code> option gives short description for each topic, similar to <code>whatis</code> command<li><code>help</code> command by itself without any argument displays all shell commands that are defined internally</ul></ul><pre><code class=language-bash>$ help pwd
 pwd: pwd [-LP]
     Print the name of the current working directory.
     
@@ -78,7 +78,7 @@ pwd: pwd [-LP]
 
 $ help -d compgen
 compgen - Display possible completions depending on the options.
-</code></pre><p>Here are some more ways to get information about commands:<ul><li><code>whatis</code> displays one-line manual page descriptions<li><code>whereis</code> locates the binary, source, and manual page files for a command<li><a href=https://explainshell.com/>explainshell</a> is a web app that shows the help text that matches each argument of command line <ul><li>example: <a href=https://explainshell.com/explain?cmd=tar%20xzvf%20archive.tar.gz>tar xzvf archive.tar.gz</a></ul><li><a href=https://github.com/learnbyexample/command_help>ch</a> is a <code>bash</code> script I wrote to extract information from <code>man</code> and <code>help</code> pages</ul><pre><code>$ whatis grep
+</code></pre><p>Here are some more ways to get information about commands:<ul><li><code>whatis</code> displays one-line manual page descriptions<li><code>whereis</code> locates the binary, source, and manual page files for a command<li><a href=https://explainshell.com/>explainshell</a> is a web app that shows the help text that matches each argument of command line <ul><li>example: <a href=https://explainshell.com/explain?cmd=tar%20xzvf%20archive.tar.gz>tar xzvf archive.tar.gz</a></ul><li><a href=https://github.com/learnbyexample/command_help>ch</a> is a <code>bash</code> script I wrote to extract information from <code>man</code> and <code>help</code> pages</ul><pre><code class=language-bash>$ whatis grep
 grep (1)             - print lines that match patterns
 
 $ whereis awk
