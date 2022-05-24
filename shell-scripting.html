@@ -410,7 +410,43 @@ $ bash read_file_fields.sh <(printf 'apple : 3\nfig : 100\n')
 \w
 or
 d
-</code></pre><h2 id=debugging><a class=header href=#debugging>Debugging</a></h2><p>You can use the following <code>bash</code> options for debugging purposes:<ul><li><code>-x</code> print commands and their arguments as they are executed<li><code>-v</code> verbose option, print shell input lines as they are read</ul><p>Here's an example with <code>bash -x</code> option:<pre><code class=language-bash>$ bash -x search.sh
+</code></pre><h2 id=functions><a class=header href=#functions>Functions</a></h2><p>From <a href=https://www.gnu.org/software/bash/manual/bash.html#Shell-Functions>bash manual: Shell Functions</a>:<blockquote><p>Shell functions are a way to group commands for later execution using a single name for the group. They are executed just like a "regular" command. When the name of a shell function is used as a simple command name, the list of commands associated with that function name is executed. Shell functions are executed in the current shell context; no new process is created to interpret them.</blockquote><p>You can use either of the syntax shown below to declare functions:<pre><code class=language-bash>fname () compound-command [ redirections ]
+
+function fname [()] compound-command [ redirections ]
+</code></pre><p>Arguments to functions are passed in the same manner as those discussed earlier for shell scripts. Here's an example:<pre><code class=language-bash>$ cat functions.sh
+add_border ()
+{
+    size='10'
+    color='grey'
+    if (( $# == 1 )) ; then
+        ip="$1"
+    elif (( $# == 2 )) ; then
+        if [[ $1 =~ ^[0-9]+$ ]] ; then
+            size="$1"
+        else
+            color="$1"
+        fi
+        ip="$2"
+    else
+        size="$1"
+        color="$2"
+        ip="$3"
+    fi
+
+    op="${ip%.*}_border.${ip##*.}"
+    echo convert -border "$size" -bordercolor "$color" "$ip" "$op"
+}
+
+add_border flower.png
+add_border 5 insect.png
+add_border red lake.png
+add_border 20 blue sky.png
+</code></pre><p>In the above example, <code>echo</code> is used to display the command that will be executed. The function accepts one to three arguments and uses default values when some of the arguments are not passed. Here's the output:<pre><code class=language-bash>$ bash functions.sh
+convert -border 10 -bordercolor grey flower.png flower_border.png
+convert -border 5 -bordercolor grey insect.png insect_border.png
+convert -border 10 -bordercolor red lake.png lake_border.png
+convert -border 20 -bordercolor blue sky.png sky_border.png
+</code></pre><blockquote><p><img src=images/info.svg alt=info> Use <code>mogrify</code> instead of <code>convert</code> if you want to modify input image instead of creating an output image. These image manipulation commands are part of <a href=https://imagemagick.org/>ImageMagick</a>. As an exercise, modify the above function to generate error if the arguments passed do not match the expected usage. You can also accept output image name (or perhaps a different suffix) as an additional argument.</blockquote><p>The shell script and user defined functions (which in turn might call itself or another function) can both have positional arguments. In such cases, the shell takes cares of restoring positional arguments to the earlier state once a function completes its tasks.<p>Functions have exit status as well, which is based on the last executed command by default. You can use the <code>return</code> builtin to provide your own custom exit status.<h2 id=debugging><a class=header href=#debugging>Debugging</a></h2><p>You can use the following <code>bash</code> options for debugging purposes:<ul><li><code>-x</code> print commands and their arguments as they are executed<li><code>-v</code> verbose option, print shell input lines as they are read</ul><p>Here's an example with <code>bash -x</code> option:<pre><code class=language-bash>$ bash -x search.sh
 + read -p 'Enter a search pattern: ' search
 Enter a search pattern: xyz
 + grep -q xyz hello.sh

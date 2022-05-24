@@ -118,7 +118,7 @@ drwxrwxr-x 2 learnbyexample eg  4096 Jul  5 12:05 workshop_brochures
 
 $ ls -lh power.log
 -rw-r--r-- 1 learnbyexample eg 11K Mar  8  2017 power.log
-</code></pre><p>You can use the <code>-s</code> option instead of long listing if you only need to add size information:<pre><code>$ ls -1sh power.log report.log
+</code></pre><p>You can use the <code>-s</code> option instead of long listing if you only need to add size information:<pre><code class=language-bash>$ ls -1sh power.log report.log
 12K power.log
 40K report.log
 </code></pre><p>There are several options for changing the order of output listing:<ul><li><code>-t</code> sorts by timestamp, often combined with <code>-r</code> to show most recently modified file as the last item<li><code>-S</code> sorts by file size (not suitable for directories)<li><code>-v</code> version sorting (suitable for filenames with numbers in them)<li><code>-X</code> sorts by file extension (i.e. characters after the last <code>.</code> in the filename)</ul><pre><code class=language-bash>$ ls -lhtr
