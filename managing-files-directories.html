@@ -382,7 +382,7 @@ $ readlink words
 # use -f option to get the original file
 $ readlink -f words
 /usr/share/dict/english
-</code></pre><p>Hard links can only point to another file. You cannot use them for directories and the usage is also restricted to within the same filesystem. The <code>.</code> and <code>..</code> directories are exceptions, these are automatically created hard links. Here are some more details about hard links:<ul><li>once a hard link is created, there is no distinction between the two files other than their paths. They have same inode, permissions, timestamps, etc<li>hard links will continue working even if all the other hard links are deleted<li>if a hard link is moved to another location, the links will still be in sync. Any change in one of them will be reflected in all the other links</ul><pre><code class=language-bash>$ touch apple.txt
+</code></pre><p>Hard links can only point to another file. You cannot use them for directories and the usage is also restricted to within the same filesystem. The <code>.</code> and <code>..</code> directories are exceptions, these special purpose hard links are automatically created. Here are some more details about hard links:<ul><li>once a hard link is created, there is no distinction between the two files other than their paths. They have same inode, permissions, timestamps, etc<li>hard links will continue working even if all the other hard links are deleted<li>if a hard link is moved to another location, the links will still be in sync. Any change in one of them will be reflected in all the other links</ul><pre><code class=language-bash>$ touch apple.txt
 $ ln apple.txt banana.txt
 
 # the -i option gives inode
