@@ -1,0 +1,158 @@
+<!DOCTYPE HTML><html lang=en class="sidebar-visible no-js light"><head><meta charset=UTF-8><title>Viewing part or whole File contents - Computing from the Command Line</title><meta content="text/html; charset=utf-8"http-equiv=Content-Type><meta name=description content="Linux command line and Scripting guide for beginner to intermediate users"><meta name=viewport content="width=device-width, initial-scale=1"><meta name=theme-color content=#ffffff><link rel=icon href=favicon.svg><link rel="shortcut icon"href=favicon.png><link rel=stylesheet href=css/variables.css><link rel=stylesheet href=css/general.css><link rel=stylesheet href=css/chrome.css><link rel=stylesheet href=FontAwesome/css/font-awesome.css><link rel=stylesheet href=fonts/fonts.css><link rel=stylesheet href=highlight.css><link rel=stylesheet href=tomorrow-night.css><link rel=stylesheet href=ayu-highlight.css><link rel=stylesheet href=style.css><body><script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script><script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script><script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script><script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script><nav id=sidebar class=sidebar aria-label="Table of contents"><div class=sidebar-scrollbox><ol class=chapter><li class="chapter-item expanded affix"><a href=preface.html>Preface</a><li class="chapter-item expanded"><a href=introduction.html><strong aria-hidden=true>1.</strong> Introduction</a><li class="chapter-item expanded"><a href=command-line-overview.html><strong aria-hidden=true>2.</strong> Command Line Overview</a><li class="chapter-item expanded"><a href=managing-files-directories.html><strong aria-hidden=true>3.</strong> Managing Files and Directories</a><li class="chapter-item expanded"><a href=viewing-part-or-whole-file-contents.html class=active><strong aria-hidden=true>4.</strong> Viewing part or whole File contents</a><li class="chapter-item expanded"><a href=searching-files-and-filenames.html><strong aria-hidden=true>5.</strong> Searching Files and Filenames</a><li class="chapter-item expanded"><a href=file-properties.html><strong aria-hidden=true>6.</strong> File Properties</a><li class="chapter-item expanded"><a href=multipurpose-text-processing-tools.html><strong aria-hidden=true>7.</strong> Multipurpose text processing tools</a><li class="chapter-item expanded"><a href=sorting-stuff.html><strong aria-hidden=true>8.</strong> Sorting stuff</a><li class="chapter-item expanded"><a href=comparing-files.html><strong aria-hidden=true>9.</strong> Comparing Files</a><li class="chapter-item expanded"><a href=assorted-text-processing-tools.html><strong aria-hidden=true>10.</strong> Assorted text processing tools</a><li class="chapter-item expanded"><a href=shell.html><strong aria-hidden=true>11.</strong> Shell</a><li class="chapter-item expanded"><a href=shell-scripting.html><strong aria-hidden=true>12.</strong> Shell Scripting</a><li class="chapter-item expanded"><a href=shell-customization.html><strong aria-hidden=true>13.</strong> Shell Customization</a></li><br><hr><li class="chapter-item expanded"><i id=git-repository-button class="fa fa-github"></i><a href=https://github.com/learnbyexample/cli-computing>   Source code</a><li class="chapter-item expanded"><i id=home-button class="fa fa-home"></i><a href=https://learnbyexample.github.io/>   My Blog</a><li class="chapter-item expanded"><i id=book-button class="fa fa-book"></i><a href=https://learnbyexample.github.io/books/>   My Books</a><li class="chapter-item expanded"><i id=mail-button class="fa fa-envelope"></i><a href=https://learnbyexample.gumroad.com/l/learnbyexample-weekly>   learnbyexample weekly</a></ol></div><div id=sidebar-resize-handle class=sidebar-resize-handle></div></nav><div id=page-wrapper class=page-wrapper><div class=page><div id=menu-bar-hover-placeholder></div><div id=menu-bar class="menu-bar sticky bordered"><div class=left-buttons><button id=sidebar-toggle class=icon-button type=button title="Toggle Table of Contents"aria-label="Toggle Table of Contents"aria-controls=sidebar><i class="fa fa-bars"></i></button><button id=theme-toggle class=icon-button type=button title="Change theme"aria-label="Change theme"aria-haspopup=true aria-expanded=false aria-controls=theme-list><i class="fa fa-paint-brush"></i></button><ul id=theme-list class=theme-popup aria-label=Themes role=menu><li role=none><button role=menuitem class=theme id=light>Light (default)</button><li role=none><button role=menuitem class=theme id=rust>Rust</button><li role=none><button role=menuitem class=theme id=coal>Coal</button><li role=none><button role=menuitem class=theme id=navy>Navy</button><li role=none><button role=menuitem class=theme id=ayu>Ayu</button></ul><button id=search-toggle class=icon-button type=button title="Search. (Shortkey: s)"aria-label="Toggle Searchbar"aria-expanded=false aria-keyshortcuts=S aria-controls=searchbar><i class="fa fa-search"></i></button></div><h1 class=menu-title>Computing from the Command Line</h1><div class=right-buttons><a href=https://learnbyexample.github.io title=Blog aria-label=Blog> <i id=home-button class="fa fa-home"></i> </a><a href=https://github.com/learnbyexample/cli-computing title="Git repository"aria-label="Git repository"> <i id=git-repository-button class="fa fa-github"></i> </a></div></div><div id=search-wrapper class=hidden><form id=searchbar-outer class=searchbar-outer><input type=search id=searchbar name=searchbar placeholder="Search this book ..."aria-controls=searchresults-outer aria-describedby=searchresults-header></form><div id=searchresults-outer class="searchresults-outer hidden"><div id=searchresults-header class=searchresults-header></div><ul id=searchresults></ul></div></div><script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script><div id=content class=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=viewing-part-or-whole-file-contents><a class=header href=#viewing-part-or-whole-file-contents>Viewing part or whole File contents</a></h1><p>In this chapter, you'll learn how to view contents of file(s) from within the terminal. If the contents are too long, you can choose to view one screenful at a time or get only the starting/ending portions of the input. The commands used for these purposes also have other functionalities, some of which will be discussed in this chapter as well.<h2 id=cat><a class=header href=#cat>cat</a></h2><p>The <code>cat</code> command derives its name from con<strong>cat</strong>enate. It is primarily used to combine the contents of multiple files to be saved in a file or sent as input to another command.<p><strong>Options</strong><ul><li><code>-n</code> prefix line number and a tab character to each input line<li><code>-s</code> squeeze consecutive empty lines to a single empty line<li><code>-v</code> view special characters like NUL using the <a href=https://en.wikipedia.org/wiki/ASCII_control_characters#Control_code_chart>caret notation</a><li><code>-e</code> view special characters as well as mark the end of line<li><code>-A</code> includes <code>-e</code> and also helps to spot tab characters</ul><p><strong>Examples</strong><p>Here are some examples to showcase <code>cat</code>'s main utility. One or more files can be given as arguments.<pre><code class=language-bash># view contents of a single file
+$ cat greeting.txt
+Hi there
+Have a nice day
+$ cat fruits.txt
+banana
+papaya
+mango
+
+# concatenate multiple files
+$ cat greeting.txt fruits.txt
+Hi there
+Have a nice day
+banana
+papaya
+mango
+</code></pre><p>To save the output of concatenation, use the shell's redirection features.<pre><code class=language-bash>$ cat greeting.txt fruits.txt > op.txt
+
+$ cat op.txt
+Hi there
+Have a nice day
+banana
+papaya
+mango
+</code></pre><p>You can represent <code>stdin</code> data using <code>-</code> as a file argument. If file arguments are not present, <code>cat</code> will read from <code>stdin</code> data if present or wait for interactive input. Note that <code>-</code> is also supported by many more commands to indicate <code>stdin</code> data.<pre><code class=language-bash>$ echo 'apple banana cherry' | cat greeting.txt -
+Hi there
+Have a nice day
+apple banana cherry
+</code></pre><blockquote><p><img src=./images/info.svg alt=info> Using <code>cat</code> to view the contents of a file, to concatenate them, etc is well and good. But, using <code>cat</code> when it is not needed is a bad habit that you should avoid. See <a href=https://en.wikipedia.org/wiki/Cat_(Unix)#Useless_use_of_cat>wikipedia: UUOC</a> and <a href=https://porkmail.org/era/unix/award.html>Useless Use of Cat Award</a> for more details.</blockquote><p><code>cat</code> is often used to spot special characters:<pre><code class=language-bash># example for backspace and carriage return
+$ printf 'car\bt\nbike\rp\n'
+cat
+pike
+$ printf 'car\bt\nbike\rp\n' | cat -v
+car^Ht
+bike^Mp
+
+# example with tab characters and end-of-line marker
+$ printf '1 2\t3\f4\v5   \n' | cat -A
+1 2^I3^L4^K5   $
+</code></pre><p><strong>Further Reading</strong><ul><li><a href=https://unix.stackexchange.com/questions/tagged/cat?sort=votes&pageSize=15>cat Q&A on unix stackexchange</a><li><a href=https://stackoverflow.com/questions/tagged/cat?sort=votes&pageSize=15>cat Q&A on stackoverflow</a></ul><h2 id=tac><a class=header href=#tac>tac</a></h2><p>You can concatenate files using <code>tac</code> as well, but the output will be printed in the reverse line wise. If you pass multiple input files, each file content will be reversed separately. Here are some examples:<pre><code class=language-bash>$ printf 'apple\nbanana\ncherry\n' | tac
+cherry
+banana
+apple
+
+# won't be same as: cat greeting.txt fruits.txt | tac
+$ tac greeting.txt fruits.txt
+Have a nice day
+Hi there
+mango
+papaya
+banana
+</code></pre><blockquote><p><img src=./images/warning.svg alt=warning> If the last line of input doesn't end with a newline, the output will also not have that newline character.</blockquote><pre><code class=language-bash>$ printf 'apple\nbanana\ncherry' | tac
+cherrybanana
+apple
+</code></pre><h2 id=less><a class=header href=#less>less</a></h2><p>The <code>cat</code> command is not suitable for viewing contents of large files in the terminal. The <code>less</code> command automatically fits the content to the size of terminal, allows scrolling and has nifty features for effective viewing. Usually, <code>man</code> command uses <code>less</code> as the <code>pager</code> to display the documentation. The navigation options are similar to the <code>vi/vim</code> text editor.<p>Commonly used commands are given below. You can press the <code>h</code> key for builtin help.<ul><li><code>g</code> go to the start of the file<li><code>G</code> go to the end of the file<li><code>q</code> quit<li><code>/pattern</code> search for the given pattern in the forward direction<li><code>?pattern</code> search for the given pattern in the backward direction<li><code>n</code> go to the next match<li><code>N</code> go to the previous match</ul><p><strong>Example and Further Reading</strong><ul><li><code>less -s large_filename</code> display contents of the given file, consecutive blank lines are squeezed as a single blank line (similar to <code>cat -s</code>) <ul><li>use <code>-N</code> option to prefix line numbers</ul><li><code>less</code> command is an <a href=https://unix.stackexchange.com/q/604/109046>improved version</a> of the <code>more</code> command<li><a href=https://unix.stackexchange.com/q/81129/109046>differences between most, more and less</a><li><a href=https://unix.stackexchange.com/questions/tagged/less?sort=votes&pageSize=15>less Q&A on unix stackexchange</a></ul><h2 id=tail><a class=header href=#tail>tail</a></h2><p>By default, <code>tail</code> displays the last 10 lines of input file(s). If there are less than 10 lines in the input, only those lines will be displayed. You can use the <code>-n</code> option to change the number of lines. By using <code>tail -n +N</code>, you can get all the lines starting from the <code>N</code>th line.<pre><code class=language-bash># last two lines (input has 15 lines)
+$ tail -n2 sample.txt
+14) He he he
+15) Adios amigo
+
+# all lines starting from the 11th line
+# space between -n and +N is optional
+$ tail -n +11 sample.txt
+11) mango
+12) 
+13) Much ado about nothing
+14) He he he
+15) Adios amigo
+</code></pre><p>If you pass multiple input files, each file will be processed separately. By default, the output is nicely formatted with filename headers and empty line separators which you can override with the <code>-q</code> (quiet) option.<pre><code class=language-bash>$ tail -n2 fruits.txt sample.txt 
+==> fruits.txt <==
+papaya
+banana
+
+==> sample.txt <==
+14) He he he
+15) Adios amigo
+</code></pre><p>The <code>-c</code> option works similar to the <code>-n</code> option, but with bytes instead of lines:<pre><code class=language-bash># last three characters
+$ printf 'apple pie' | tail -c3
+pie
+
+# all characters starting from fifth character
+$ printf 'car\njeep\nbus\n' | tail -c +5
+jeep
+bus
+</code></pre><p><strong>Further Reading</strong><ul><li><a href=https://unix.stackexchange.com/questions/tagged/tail?sort=votes&pageSize=15>tail Q&A on unix stackexchange</a><li><a href=https://stackoverflow.com/questions/tagged/tail?sort=votes&pageSize=15>tail Q&A on stackoverflow</a><li><a href=https://en.wikipedia.org/wiki/Tail_(Unix)#File_monitoring>wikipedia: File monitoring with tail -f and -F options</a><li><a href=https://unix.stackexchange.com/q/18760/109046>unix.stackexchange: How does the tail -f option work?</a><li><a href=https://mywiki.wooledge.org/BashFAQ/009>How to deal with output buffering?</a></ul><h2 id=head><a class=header href=#head>head</a></h2><p>By default, <code>head</code> displays the first 10 lines of input file(s). If there are less than 10 lines in the input, only those lines will be displayed. You can use the <code>-n</code> option to change the number of lines. By using <code>head -n -N</code>, you can get all the input lines except the last <code>N</code> lines.<pre><code class=language-bash># first three lines
+$ head -n3 sample.txt
+ 1) Hello World
+ 2) 
+ 3) Hi there
+
+# except the last 11 lines
+$ head -n -11 sample.txt
+ 1) Hello World
+ 2) 
+ 3) Hi there
+ 4) How are you
+</code></pre><p>You can select a range of lines by combining both <code>head</code> and <code>tail</code> commands.<pre><code class=language-bash># 9th to 11th lines
+# same as: head -n11 sample.txt | tail -n3
+$ tail -n +9 sample.txt | head -n3
+ 9) banana
+10) papaya
+11) mango
+</code></pre><p>If you pass multiple input files, each file will be processed separately. By default, the output is nicely formatted with filename headers and empty line separators which you can override with the <code>-q</code> (quiet) option.<pre><code class=language-bash>$ printf '1\n2\n' | head -n1 greeting.txt -
+==> greeting.txt <==
+Hi there
+
+==> standard input <==
+1
+</code></pre><p>The <code>-c</code> option works similar to the <code>-n</code> option, but with bytes instead of lines:<pre><code class=language-bash># first three characters
+$ printf 'apple pie' | head -c3
+app
+
+# excluding last four characters
+$ printf 'car\njeep\nbus\n' | head -c -4
+car
+jeep
+</code></pre><p><strong>Further Reading</strong><ul><li><a href=https://unix.stackexchange.com/questions/tagged/head?sort=votes&pageSize=15>head Q&A on unix stackexchange</a></ul></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=managing-files-directories.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=searching-files-and-filenames.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=managing-files-directories.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=searching-files-and-filenames.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
+            window.playground_copyable = true;
+        </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>
