@@ -130,7 +130,22 @@ $ df -h --output=pcent,fstype | awk 'NR>1 && $1>=40'
  63% ext3
  40% ext4
  51% ext4
-</code></pre><p><strong>Further Reading</strong><ul><li><a href=https://stackoverflow.com/questions/tagged/df?sort=votes&pageSize=15>df Q&A on stackoverflow</a></ul><h2 id=touch><a class=header href=#touch>touch</a></h2><p>As mentioned earlier, the <code>touch</code> command helps you change the timestamps of files. You can do so based on current timestamp, passing an argument, copying the value from another file and so on.<p><strong>Examples</strong><p>By default, <code>touch</code> updates both access and modification timestamp to the current time. You can use <code>-a</code> to change only access timestamp and <code>-m</code> to change only modification timestamp. The <code>stat</code> command is also used here for illustration purposes:<pre><code class=language-bash># last access and modification time
+</code></pre><p><strong>Further Reading</strong><ul><li><a href=https://stackoverflow.com/questions/tagged/df?sort=votes&pageSize=15>df Q&A on stackoverflow</a></ul><h2 id=stat><a class=header href=#stat>stat</a></h2><p>The <code>stat</code> command is useful to get details like file type, size, inode, permissions, last accessed and modified timestamps, etc. You'll get all of these details by default. The <code>-c</code> and <code>--printf</code> options can be used to display only the required details in a particular format.<pre><code class=language-bash># last accessed timestamp
+$ stat -c '%x' ip.txt
+2022-06-01 13:25:18.693823117 +0530
+
+# last modified timestamp
+$ stat -c '%y' ip.txt
+2022-05-24 14:39:41.285714934 +0530
+
+# file size in bytes
+# followed by a newline
+# and then the inode value
+# same as: stat --printf='%s\n%i\n' ip.txt
+$ stat -c $'%s\n%i' ip.txt
+518
+7345526
+</code></pre><blockquote><p><img src=./images/info.svg alt=info> <img src=./images/info.svg alt=info> The <code>stat</code> command should be preferred instead of parsing <code>ls -l</code> output for file details. See <a href=https://mywiki.wooledge.org/ParsingLs>mywiki.wooledge: avoid parsing output of ls</a> and <a href=https://unix.stackexchange.com/q/128985/109046>unix.stackexchange: why not parse ls?</a> for explanation and other alternatives.</blockquote><h2 id=touch><a class=header href=#touch>touch</a></h2><p>As mentioned earlier, the <code>touch</code> command helps you change the timestamps of files. You can do so based on current timestamp, passing an argument, copying the value from another file and so on.<p><strong>Examples</strong><p>By default, <code>touch</code> updates both access and modification timestamp to the current time. You can use <code>-a</code> to change only access timestamp and <code>-m</code> to change only modification timestamp. The <code>stat</code> command is also used here for illustration purposes:<pre><code class=language-bash># last access and modification time
 $ stat -c $'%x\n%y' fruits.txt
 2017-07-19 17:06:01.523308599 +0530
 2017-07-13 13:54:03.576055933 +0530

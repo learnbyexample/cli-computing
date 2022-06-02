@@ -90,6 +90,25 @@ $ seq -f'%.3e' 1.2e2 0.752 1.22e2
 1.200e+02
 1.208e+02
 1.215e+02
+</code></pre><h2 id=shuf><a class=header href=#shuf>shuf</a></h2><p>By default, <code>shuf</code> will randomize the order of input lines. You can use the <code>-n</code> option to limit the number of output lines.<pre><code class=language-bash>$ printf 'apple\nbanana\ncherry\nfig\nmango' | shuf
+banana
+cherry
+mango
+apple
+fig
+
+$ printf 'apple\nbanana\ncherry\nfig\nmango' | shuf -n2
+mango
+cherry
+</code></pre><p>You can use the <code>-e</code> option to specify multiple input lines as arguments to the command. The <code>-r</code> option helps if you want to allow input lines to be repeated. This option is usually paired with <code>-n</code> to limit the number of lines in the output.<pre><code class=language-bash>$ shuf -n4 -r -e red green blue
+blue
+green
+red
+blue
+</code></pre><p>The <code>-i</code> option will help you generate random positive integers.<pre><code class=language-bash>$ shuf -n3 -i 100-200
+170
+112
+148
 </code></pre><h2 id=cut><a class=header href=#cut>cut</a></h2><p><code>cut</code> is a handy tool for many field processing use cases. The features are limited compared to <code>awk</code> and <code>perl</code> commands, but the reduced scope also leads to faster processing.<p>By default, <code>cut</code> splits the input content into fields based on the tab character, which you can change using the <code>-d</code> option. The <code>-f</code> option allows you to select a desired field from each input line. To extract multiple fields, specify the selections separated by the comma character. By default, lines not containing the input delimiter will still be part of the output. You can use the <code>-s</code> option to suppress such lines.<pre><code class=language-bash># second field
 $ printf 'apple\tbanana\tcherry\n' | cut -f2
 banana
@@ -303,6 +322,74 @@ $ pr -mts' : ' <(seq 3) <(seq 4 6)
 1 : 4
 2 : 5
 3 : 6
-</code></pre></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=comparing-files.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=shell.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=comparing-files.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=shell.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
+</code></pre><h2 id=rev><a class=header href=#rev>rev</a></h2><p>The <code>rev</code> command reverses each input line character wise. Newline character <em>won't</em> be added to the end if it wasn't present in the input. Here are some examples:<pre><code class=language-bash>$ echo 'This is a sample text' | rev
+txet elpmas a si sihT
+
+$ printf 'apple\nbanana\ncherry\n' | rev
+elppa
+ananab
+yrrehc
+
+$ printf 'malayalam\nnoon\n' | rev
+malayalam
+noon
+</code></pre><h2 id=split><a class=header href=#split>split</a></h2><p>The <code>split</code> command is useful to divide the input into smaller parts based on number of lines, bytes, file size, etc. You can also execute another command on the divided parts before saving the results. An example use case is sending a large file as multiple parts as a workaround for online transfer size limits.<p>By default, the <code>split</code> command divides the input <code>1000</code> lines at a time. Newline character is the default line separator. You can pass a single file or <code>stdin</code> data as the input. Use <code>cat</code> if you need to concatenate multiple input sources. The output files will be named <code>xaa</code>, <code>xab</code>, <code>xac</code> and so on (where <code>x</code> is the prefix). If the filenames are exhausted, two more letters will be appended and the pattern will continue as needed. If the number of input lines is not evenly divisible, the last file will contain less than <code>1000</code> lines.<pre><code class=language-bash># divide input 1000 lines at a time
+$ seq 10000 | split
+
+# output filenames
+$ ls x*
+xaa  xab  xac  xad  xae  xaf  xag  xah  xai  xaj
+
+# preview of some of the output files
+$ head -n1 xaa xab xae xaj
+==> xaa <==
+1
+
+==> xab <==
+1001
+
+==> xae <==
+4001
+
+==> xaj <==
+9001
+</code></pre><blockquote><p><img src=./images/info.svg alt=info> For more examples, customization options and other details, see <a href=https://learnbyexample.github.io/cli_text_processing_coreutils/split.html>split chapter</a> from my "Command line text processing with GNU Coreutils" ebook.</blockquote><h2 id=csplit><a class=header href=#csplit>csplit</a></h2><p>The <code>csplit</code> command is useful to divide the input into smaller parts based on line numbers and regular expression patterns.<p>You can split the input into two based on a particular line number. To do so, specify the line number after the input source (filename or <code>stdin</code> data). The first output file will have the input lines <em>before</em> the given line number and the second output file will have the rest of the contents. By default, the output files will be named <code>xx00</code>, <code>xx01</code>, <code>xx02</code> and so on (where <code>xx</code> is the prefix). The numerical suffix will automatically use more digits if needed.<pre><code class=language-bash># split input into two based on line number 2
+# -q option suppresses output showing number of bytes written for each file
+$ seq 4 | csplit -q - 2
+
+# first output file will have the first line
+# second output file will have the rest
+$ head xx*
+==> xx00 <==
+1
+
+==> xx01 <==
+2
+3
+4
+</code></pre><p>You can also split the input based on a line matching the given regular expression. The output produced will vary based on <code>//</code> or <code>%%</code> delimiters being used to surround the regexp. When <code>/regexp/</code> is used, output is similar to the line number based splitting. The first output file will have the input lines <em>before</em> the first occurrence of a line matching the given regexp and the second output file will have the rest of the contents.<pre><code class=language-bash># match a line containing 't' followed by zero or more characters and then 'p'
+# 'toothpaste' is the only match for this input file
+$ csplit -q purchases.txt '/t.*p/'
+
+$ head xx*
+==> xx00 <==
+coffee
+tea
+washing powder
+coffee
+
+==> xx01 <==
+toothpaste
+tea
+soap
+tea
+</code></pre><p>When <code>%regexp%</code> is used, the lines occurring before the matching line won't be part of the output. Only the line matching the given regexp and the rest of the contents will be part of the single output file.<pre><code class=language-bash>$ csplit -q purchases.txt '%t.*p%'
+
+$ cat xx00
+toothpaste
+tea
+soap
+tea
+</code></pre><blockquote><p><img src=./images/info.svg alt=info> For more examples, customization options and other details, see <a href=https://learnbyexample.github.io/cli_text_processing_coreutils/csplit.html>csplit chapter</a> from my "Command line text processing with GNU Coreutils" ebook.</blockquote></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=comparing-files.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=shell.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=comparing-files.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=shell.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
             window.playground_copyable = true;
         </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>

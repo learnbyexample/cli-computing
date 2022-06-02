@@ -192,6 +192,27 @@ $ comm -13 colors_1.txt colors_2.txt
 Black
 Green
 Pink
-</code></pre></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=multipurpose-text-processing-tools.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=comparing-files.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=multipurpose-text-processing-tools.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=comparing-files.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
+</code></pre><h2 id=join><a class=header href=#join>join</a></h2><p>By default, <code>join</code> combines two files based on the first field content (also referred as <strong>key</strong>). Only the lines with common keys will be part of the output.<p>The key field will be displayed first in the output (this distinction will come into play if the first field isn't the key). Rest of the line will have the remaining fields from the first and second files, in that order. One or more blanks (space or tab) will be considered as the input field separator and a single space will be used as the output field separator. If present, blank characters at the start of the input lines will be ignored.<pre><code class=language-bash># sample sorted input files
+$ cat shopping_jan.txt
+apple   10
+banana  20
+soap    3
+tshirt  3
+$ cat shopping_feb.txt
+banana  15
+fig     100
+pen     2
+soap    1
+
+# combine common lines based on the first field
+$ join shopping_jan.txt shopping_feb.txt
+banana 20 15
+soap 3 1
+</code></pre><blockquote><p><img src=./images/info.svg alt=info> Note that the collating order used for <code>join</code> should be same as the one used to <code>sort</code> the input files. Use <code>join -i</code> to ignore case, similar to <code>sort -f</code> usage.</blockquote><p>If a field value is present multiple times in the same input file, all possible combinations will be present in the output. As shown below, <code>join</code> will also ensure to add a final newline character even if not present in the input.<pre><code class=language-bash>$ join <(printf 'a f1_x\na f1_y') <(printf 'a f2_x\na f2_y')
+a f1_x f2_x
+a f1_x f2_y
+a f1_y f2_x
+a f1_y f2_y
+</code></pre><blockquote><p><img src=./images/info.svg alt=info> There are many more features such as specifying field delimiter, selecting specific fields from each input file in a particular order, filling fields for non-matching lines and so on. See <a href=https://learnbyexample.github.io/cli_text_processing_coreutils/join.html>join chapter</a> from my "Command line text processing with GNU Coreutils" ebook for explanations and examples.</blockquote></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=multipurpose-text-processing-tools.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=comparing-files.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=multipurpose-text-processing-tools.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=comparing-files.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
             window.playground_copyable = true;
         </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>
