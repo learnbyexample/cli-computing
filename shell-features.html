@@ -1,0 +1,138 @@
+<!DOCTYPE HTML><html lang=en class="sidebar-visible no-js light"><head><meta charset=UTF-8><title>Shell features - Computing from the Command Line</title><meta content="text/html; charset=utf-8"http-equiv=Content-Type><meta name=description content="Linux command line and Scripting guide for beginner to intermediate users"><meta name=viewport content="width=device-width, initial-scale=1"><meta name=theme-color content=#ffffff><link rel=icon href=favicon.svg><link rel="shortcut icon"href=favicon.png><link rel=stylesheet href=css/variables.css><link rel=stylesheet href=css/general.css><link rel=stylesheet href=css/chrome.css><link rel=stylesheet href=FontAwesome/css/font-awesome.css><link rel=stylesheet href=fonts/fonts.css><link rel=stylesheet href=highlight.css><link rel=stylesheet href=tomorrow-night.css><link rel=stylesheet href=ayu-highlight.css><link rel=stylesheet href=style.css><body><script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script><script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script><script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script><script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script><nav id=sidebar class=sidebar aria-label="Table of contents"><div class=sidebar-scrollbox><ol class=chapter><li class="chapter-item expanded affix"><a href=preface.html>Preface</a><li class="chapter-item expanded"><a href=introduction.html><strong aria-hidden=true>1.</strong> Introduction</a><li class="chapter-item expanded"><a href=command-line-overview.html><strong aria-hidden=true>2.</strong> Command Line Overview</a><li class="chapter-item expanded"><a href=managing-files-directories.html><strong aria-hidden=true>3.</strong> Managing Files and Directories</a><li class="chapter-item expanded"><a href=shell-features.html class=active><strong aria-hidden=true>4.</strong> Shell features</a><li class="chapter-item expanded"><a href=viewing-part-or-whole-file-contents.html><strong aria-hidden=true>5.</strong> Viewing part or whole File contents</a><li class="chapter-item expanded"><a href=searching-files-and-filenames.html><strong aria-hidden=true>6.</strong> Searching Files and Filenames</a><li class="chapter-item expanded"><a href=file-properties.html><strong aria-hidden=true>7.</strong> File Properties</a><li class="chapter-item expanded"><a href=managing-processes.html><strong aria-hidden=true>8.</strong> Managing Processes</a><li class="chapter-item expanded"><a href=multipurpose-text-processing-tools.html><strong aria-hidden=true>9.</strong> Multipurpose text processing tools</a><li class="chapter-item expanded"><a href=sorting-stuff.html><strong aria-hidden=true>10.</strong> Sorting stuff</a><li class="chapter-item expanded"><a href=comparing-files.html><strong aria-hidden=true>11.</strong> Comparing Files</a><li class="chapter-item expanded"><a href=assorted-text-processing-tools.html><strong aria-hidden=true>12.</strong> Assorted text processing tools</a><li class="chapter-item expanded"><a href=shell-scripting.html><strong aria-hidden=true>13.</strong> Shell Scripting</a><li class="chapter-item expanded"><a href=shell-customization.html><strong aria-hidden=true>14.</strong> Shell Customization</a></li><br><hr><li class="chapter-item expanded"><i id=git-repository-button class="fa fa-github"></i><a href=https://github.com/learnbyexample/cli-computing>   Source code</a><li class="chapter-item expanded"><i id=home-button class="fa fa-home"></i><a href=https://learnbyexample.github.io/>   My Blog</a><li class="chapter-item expanded"><i id=book-button class="fa fa-book"></i><a href=https://learnbyexample.github.io/books/>   My Books</a><li class="chapter-item expanded"><i id=mail-button class="fa fa-envelope"></i><a href=https://learnbyexample.gumroad.com/l/learnbyexample-weekly>   learnbyexample weekly</a></ol></div><div id=sidebar-resize-handle class=sidebar-resize-handle></div></nav><div id=page-wrapper class=page-wrapper><div class=page><div id=menu-bar-hover-placeholder></div><div id=menu-bar class="menu-bar sticky bordered"><div class=left-buttons><button id=sidebar-toggle class=icon-button type=button title="Toggle Table of Contents"aria-label="Toggle Table of Contents"aria-controls=sidebar><i class="fa fa-bars"></i></button><button id=theme-toggle class=icon-button type=button title="Change theme"aria-label="Change theme"aria-haspopup=true aria-expanded=false aria-controls=theme-list><i class="fa fa-paint-brush"></i></button><ul id=theme-list class=theme-popup aria-label=Themes role=menu><li role=none><button role=menuitem class=theme id=light>Light (default)</button><li role=none><button role=menuitem class=theme id=rust>Rust</button><li role=none><button role=menuitem class=theme id=coal>Coal</button><li role=none><button role=menuitem class=theme id=navy>Navy</button><li role=none><button role=menuitem class=theme id=ayu>Ayu</button></ul><button id=search-toggle class=icon-button type=button title="Search. (Shortkey: s)"aria-label="Toggle Searchbar"aria-expanded=false aria-keyshortcuts=S aria-controls=searchbar><i class="fa fa-search"></i></button></div><h1 class=menu-title>Computing from the Command Line</h1><div class=right-buttons><a href=https://learnbyexample.github.io title=Blog aria-label=Blog> <i id=home-button class="fa fa-home"></i> </a><a href=https://github.com/learnbyexample/cli-computing title="Git repository"aria-label="Git repository"> <i id=git-repository-button class="fa fa-github"></i> </a></div></div><div id=search-wrapper class=hidden><form id=searchbar-outer class=searchbar-outer><input type=search id=searchbar name=searchbar placeholder="Search this book ..."aria-controls=searchresults-outer aria-describedby=searchresults-header></form><div id=searchresults-outer class="searchresults-outer hidden"><div id=searchresults-header class=searchresults-header></div><ul id=searchresults></ul></div></div><script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script><div id=content class=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=shell-features><a class=header href=#shell-features>Shell features</a></h1><p>This chapter will help you familiarize with some Shell features like wildcards and redirection. Others will be discussed in later chapters.<h2 id=wildcards><a class=header href=#wildcards>Wildcards</a></h2><p>It is relatively easy to specify complete filenames as command arguments when they are few in number. And you could use features like tab completion and middle mouse button click paste to assist you for such cases.<p>But what to do if you have to deal with tens and hundreds of files (or even more)? If applicable, one way is to match all the files based on a common pattern in their filenames, for example extensions like <code>.py</code>, <code>.txt</code> and so on. Wildcards (globs) will help in such cases. This feature is provided by the shell, and thus individual commands need not worry about implementing them. Pattern matching supported by wildcards are somewhat similar to regular expressions, but there are fundamental and syntactical differences too.<ul><li><code>*</code> match any character, 0 or more times <ul><li>as a special case, <code>*</code> won't match the starting <code>.</code> of hidden files unless the <code>dotglob</code> shell option is set</ul><li><code>?</code> match any character exactly 1 time<li><code>[set]</code> match any of these characters once<li><code>[!set]</code> match any characters <em>except</em> the characters specified in this class <ul><li>you can also use <code>[^set]</code> to negate the character class</ul><li><code>[a-z]</code> match a range of characters from <code>a</code> to <code>z</code><li><code>[0-9a-fA-F]</code> match any hexademical character</ul><p><strong>Examples</strong><ul><li><code>ls ch_*</code> list all filenames starting with <code>ch_</code><li><code>ls *report*</code> list all filenames containing <code>report</code><li><code>ls *.txt</code> list all filenames ending with <code>.txt</code><li><code>ls -d .*</code> list only hidden files and directories<li><code>rm *.???</code> remove any file ending with <code>.</code> and three characters after<li><code>ls bkp/201[0-5]</code> list files in <code>bkp</code> directory matching the range <code>2010</code> to <code>2015</code></ul><blockquote><p><img src=images/info.svg alt=info> You can use <code>echo</code> to test how the wildcards will expand before using a command to act upon the matching files. For example, <code>echo *.txt</code> to see files ending with <code>.txt</code>. Note that if there's no match, the wildcard will be displayed as is.</blockquote><h2 id=brace-expansion><a class=header href=#brace-expansion>Brace Expansion</a></h2><p>This is not a wildcard feature, you just get expanded strings. Brace expansion has two mechanisms for reducing typing:<ul><li>taking out common portions among multiple strings<li>generating a range of characters</ul><p>Say you want to create two files named <code>test_x.txt</code> and <code>test_y.txt</code>. These two strings have something in common at the start and end. You can specify the unique portions as comma separated strings within a pair of curly braces and use the common parts around the braces. Multiple braces can be used as needed. Use <code>echo</code> for testing purposes.<pre><code class=language-bash># same as: touch ip1.txt ip3.txt ip4.txt
+$ touch ip{1,3,7}.txt
+$ ls ip*txt
+ip1.txt  ip3.txt  ip7.txt
+
+# same as: mv ip1.txt ip_a.txt
+$ mv ip{1,_a}.txt
+$ ls ip*txt
+ip3.txt  ip4.txt  ip_a.txt
+
+$ echo adders/{half_,full_}adder.v
+adders/half_adder.v adders/full_adder.v
+
+$ echo file{0,1}.{txt,log}
+file0.txt file0.log file1.txt file1.log
+
+# you can also have an empty alternate
+$ echo file{,1}.txt
+file.txt file1.txt
+
+# example with nested braces
+$ echo file.{txt,log{,.bkp}}
+file.txt file.log file.log.bkp
+</code></pre><p>To generate a range, specify two numbers or single characters separated by <code>..</code> and an optional third argument as the step value. Here are some examples:<pre><code class=language-bash>$ echo {1..4}
+1 2 3 4
+$ echo {4..1}
+4 3 2 1
+
+$ echo {1..2}{a..b}
+1a 1b 2a 2b
+
+$ echo file{1..4}.txt
+file1.txt file2.txt file3.txt file4.txt
+
+$ echo file{1..10..2}.txt
+file1.txt file3.txt file5.txt file7.txt file9.txt
+
+$ echo file_{x..z}.txt
+file_x.txt file_y.txt file_z.txt
+
+$ echo {z..j..-3}
+z w t q n k
+
+# '0' prefix
+$ echo {008..10}
+008 009 010
+</code></pre><p>If the use of braces doesn't match the expansion syntax, it will be left as is:<pre><code class=language-bash>$ echo file{1}.txt
+file{1}.txt
+
+$ echo file{1-4}.txt
+file{1-4}.txt
+</code></pre><h2 id=extended-and-recursive-globs><a class=header href=#extended-and-recursive-globs>Extended and Recursive globs</a></h2><p>From <code>man bash</code>:<table><thead><tr><th>Extended glob<th>Description<tbody><tr><td><code>?(pattern-list)</code><td>Matches zero or one occurrence of the given patterns<tr><td><code>*(pattern-list)</code><td>Matches zero or more occurrences of the given patterns<tr><td><code>+(pattern-list)</code><td>Matches one or more occurrences of the given patterns<tr><td><code>@(pattern-list)</code><td>Matches one of the given patterns<tr><td><code>!(pattern-list)</code><td>Matches anything except one of the given patterns</table><p>Extended globs are disabled by default. You can use the <code>shopt</code> builtin to set/unset shell options like <code>extglob</code>, <code>globstar</code>, etc. You can also check what is the current status of such options.<pre><code class=language-bash>$ shopt extglob 
+extglob        	off
+
+# set extglob
+$ shopt -s extglob 
+$ shopt extglob 
+extglob        	on
+
+# unset extglob
+$ shopt -u extglob 
+$ shopt extglob 
+extglob        	off
+</code></pre><p>Here are some examples with <code>extglob</code> option set:<pre><code class=language-bash>$ ls
+123.txt  main.c  math.h  power.log
+
+$ echo +([0-9]).txt
+123.txt
+
+$ ls @(*.c|*.h)
+main.c  math.h
+
+$ ls !(*.txt)
+main.c  math.h  power.log
+$ ls !(*.c|*.h)
+123.txt  power.log
+</code></pre><p>If you enable the <code>globstar</code> option, you can recursively match filenames within a specified path.<pre><code class=language-bash># with 'find' command
+$ find -name '*.txt'
+./song_list.txt
+./bar/f1.txt
+./bar/baz/f2.txt
+
+# with 'globstar' enabled
+$ shopt -s globstar
+$ ls **/*.txt
+bar/baz/f2.txt  bar/f1.txt  song_list.txt
+</code></pre><blockquote><p><img src=images/info.svg alt=info> Add <code>shopt</code> invocations to <code>~/.bashrc</code> if you want these settings applied at terminal startup. This will be discussed in more detail later.</blockquote><h2 id=set><a class=header href=#set>set</a></h2><p>The <code>set</code> builtin command helps you to set or unset values of shell options and positional parameters. Here are some examples for shell options:<pre><code class=language-bash># disables logging command history from this point onwards
+$ set +o history
+# enable history logging
+$ set -o history
+
+# use vi-style CLI editing interface
+$ set -o vi
+# use emancs-style interface, this is usually the default
+$ set -o emacs
+</code></pre><p>You'll see more examples (for example, <code>set -x</code>) in later chapters. See <a href=https://www.gnu.org/software/bash/manual/bash.html#The-Set-Builtin>bash manual: Set Builtin</a> for documentation.<h2 id=redirection><a class=header href=#redirection>Redirection</a></h2><p>By default all results of a command are displayed on the terminal, which is the default destination for <strong>standard output</strong> (<code>stdout</code>). You can use shell redirections to send them as <strong>standard input</strong> (<code>stdin</code>) to another command, save the results to a file and so on. The <strong>standard error</strong> (<code>stderr</code>) stream is used when something goes wrong with the command usage.<ul><li><code><</code> or <code>0<</code> is <code>stdin</code> file descriptor<li><code>></code> or <code>1></code> is <code>stdout</code> file descriptor<li><code>2></code> is <code>stderr</code> file descriptor</ul><p><strong>Redirecting output of a command to a file</strong><p>The <code>stdout</code> redirection <code>></code> will overwrite an existing file, creates a new file otherwise. You can use the special file <code>/dev/null</code> if you want to just discard the output. Use <code>>></code> if you want to append content instead of overwriting an existing file.<ul><li><code>grep 'error' *.log > error.log</code> redirects output to <code>error.log</code><li><code>grep -i 'fail' test_results.log >> failed_tests.log</code> appends to <code>failed_tests.log</code> (file will be created if it doesn't already exist)<li><code>./script.sh > /dev/null</code> discard output</ul><blockquote><p><img src=images/info.svg alt=info> See also <a href=https://unix.stackexchange.com/q/45201/109046>unix.stackexchange: explicitly override the setting of noclobber with the >| redirection operator</a></blockquote><p><strong>Redirecting input</strong><ul><li><code>tr 'a-z' 'A-Z' < ip.txt</code> convert lowercase to uppercase, <code>tr</code> command only reads from <code>stdin</code> and doesn't have the ability to read from a file directly<li><code>wc -l < report.log</code> useful to avoid filename in the output<li><code>< report.log grep 'test'</code> useful to easily modify previous command from command history for different command options, search patterns, etc<li><code>grep 'test' report.log | diff - test_list.txt</code> output of <code>grep</code> as one of the input file for the <code>diff</code> command</ul><blockquote><p><img src=images/info.svg alt=info> Space between <code><</code> and the filename is optional.</blockquote><p><strong>Redirecting output of a command to another command</strong><p>The pipe operator <code>|</code> helps you to redirect the output of a command as input to another command.<ul><li><code>ls -q | wc -l</code> count number of files in the current directory<li><code>du -sh * | sort -h</code> calculate size in human-readable format and then sort the results<li><code>./script.sh | tee output.log</code> the <code>tee</code> command displays standard output on terminal as well as writes to the given file</ul><p><strong>Combining output of several commands</strong><p>You can use <code>(list)</code> and <code>{ list; }</code> compound commands to redirect content for several commands. The former is executed in a subshell whereas the latter is executed in the current shell context. Space around <code>()</code> is optional but necessary for the <code>{}</code> version. See <strong>SHELL GRAMMAR</strong> section of <code>man bash</code> for explanation about pipelines, lists, etc.<ul><li><code>(sed -u '1q' ; sort) < scores.csv</code> retain header line at the top and sort rest of the input<li><code>{ head -5 ~/.vimrc ; tail -5 ~/.vimrc ; } > op.txt</code> save output from several commands to a single file</ul><p><strong>Command substitution</strong><p>Command substitution allows you to insert the standard output of a command after removing trailing newlines, if any. You can use <code>$(command)</code> or <code>`command`</code> with the former being the newer and preferred syntax.<ul><li><code>sed -i "s|^|$(basename $PWD)/|" dir_list.txt</code> add current directory path and a <code>/</code> character at the start of every line<li><code>file_count=$(ls -q | wc -l)</code> save command output to a variable</ul><p><strong>Process Substitution</strong><p>You can redirect output of commands as an input file argument using process substitution using the <code><(list)</code> syntax. The shell will take care of passing a filename with the standard output contents. Use <code>>(list)</code> for substituting output file argument.<ul><li><code>grep -Ff <(head -n5 terms.txt) *.log</code> use first five lines from <code>terms.txt</code> as literal search strings <ul><li><code>head -n5 terms.txt | grep -Ff- *.log</code> can also be used here</ul><li><code>comm -23 <(sort file1.txt) <(sort file2.txt)</code> output of the two sort commands are passed as input files for the <code>comm</code> command, this essentially helps you avoid creating temporary files and deleting them later</ul><p><strong>Redirecting error</strong><ul><li><code>xyz 2> cmderror.log</code> assuming a non-existent command <code>xyz</code>, you'll get an error message that gets redirected to the specified file<li><code>./script.sh 2> /dev/null</code> discard error messages</ul><p><strong>Combining stdout and stderr</strong><p>Newer versions of <code>bash</code> provide these handy shortcuts:<ul><li><code>&></code> redirect both <code>stdout</code> and <code>stderr</code>, overwrites existing file<li><code>&>></code> redirect both <code>stdout</code> and <code>stderr</code>, appends to existing file<li><code>|&</code> redirect both <code>stdout</code> and <code>stderr</code> as input to another command</ul><p>Here are some examples (assume <code>xyz.txt</code> doesn't exist, leading to errors):<ul><li><code>grep 'test' report.log xyz.txt &> cmb_out.txt</code> redirect both <code>stdout</code> and <code>stderr</code> to a file<li><code>grep 'test' report.log xyz.txt &>> cmb_out.txt</code> append both <code>stdout</code> and <code>stderr</code> to a file<li><code>ls report.log xyz.txt |& grep 'test'</code> redirect both <code>stdout</code> and <code>stderr</code> as <code>stdin</code></ul><p>For earlier versions:<ul><li><code>1>&2</code> redirects file descriptor <code>1</code> (i.e. <code>stdout</code>) to the file descriptor <code>2</code> (i.e. <code>stderr</code>)<li><code>2>&1</code> redirects file descriptor <code>2</code> (i.e. <code>stderr</code>) to the file descriptor <code>1</code> (i.e. <code>stdout</code>)</ul><p>Here are some examples (assume <code>xyz.txt</code> doesn't exist, leading to errors):<ul><li><code>grep 'test' report.log xyz.txt > cmb_out.txt 2>&1</code> redirect both <code>stdout</code> and <code>stderr</code> to a file <ul><li>note that the order is important here</ul><li><code>grep 'test' report.log xyz.txt 2> cmb_out.txt 1>&2</code> redirect both <code>stdout</code> and <code>stderr</code> to a file<li><code>grep 'test' report.log xyz.txt >> cmb_out.txt 2>&1</code> append both <code>stdout</code> and <code>stderr</code> to a file<li><code>ls report.log xyz.txt 2>&1 | grep 'test'</code> redirect both <code>stdout</code> and <code>stderr</code> as <code>stdin</code></ul><p><strong>Using <code>xargs</code> to redirect output of command as input arguments to another command</strong><ul><li><code>grep -rlZ 'pattern' | xargs -0 sed -i 's/pattern/replace/'</code> search and replace only those files matching the required pattern (search pattern could be different for <code>grep</code> and <code>sed</code> as needed) <ul><li>the <code>-Z</code> option would print filenames separated by ASCII NUL character which is in turn understood by <code>xargs</code> via the <code>-0</code> option. This ensures the command won't break on filenames containing shell metacharacters like spaces, newlines, etc</ul></ul><blockquote><p><img src=images/info.svg alt=info> See also <a href=https://unix.stackexchange.com/q/24954/109046>unix.stackexchange: When to use xargs</a> and <a href=https://unix.stackexchange.com/q/24954/109046>unix.stackexchange: parallel processing jobs with xargs</a>.</blockquote><p><strong>Further Reading</strong><ul><li><a href=https://mywiki.wooledge.org/BashGuide/InputAndOutput#Redirection>Short introduction to shell redirection</a><li><a href=https://wiki.bash-hackers.org/howto/redirection_tutorial>Illustrated Redirection Tutorial</a><li><a href=https://stackoverflow.com/q/818255/4082052>Redirect a stream to another file descriptor using >&</a><li><a href=https://mywiki.wooledge.org/BashFAQ/055>Difference between 2>&1 >foo and >foo 2>&1</a><li><a href=https://stackoverflow.com/q/876239/4082052>Redirect and append both stdout and stderr to a file</a></ul></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=managing-files-directories.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=viewing-part-or-whole-file-contents.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=managing-files-directories.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=viewing-part-or-whole-file-contents.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
+            window.playground_copyable = true;
+        </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>
