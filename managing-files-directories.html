@@ -38,7 +38,16 @@
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
                         link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
                     });
-                </script><div id=content class=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=managing-files-and-directories><a class=header href=#managing-files-and-directories>Managing Files and Directories</a></h1><p>This chapter presents commands to do things that are typically handled by a file manager (explorer) in GUI. For example, viewing contents of a directory, navigating to other directories, cut/copy/paste files, renaming and so on.<p>As a good practice, use <code>man</code>, <code>help</code> and <code>info</code> to look up details about the commands presented in this chapter.<h2 id=pwd><a class=header href=#pwd>pwd</a></h2><p><code>pwd</code> is a shell builtin command to get the current working directory. This helps to orient yourself where you are in the filesystem. The absolute path printed is often handy to copy-paste elsewhere, in a script for example. Some users prefer their terminal emulators and/or shell prompt to always display the current working directory.<pre><code class=language-bash>$ pwd
+                </script><div id=content class=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=managing-files-and-directories><a class=header href=#managing-files-and-directories>Managing Files and Directories</a></h1><p>This chapter presents commands to do things that are typically handled by a file manager (explorer) in GUI. For example, viewing contents of a directory, navigating to other directories, cut/copy/paste files, renaming and so on. Some of the commands used for these purposes are provided by the shell itself.<p>As a good practice, make it a habit to go through the documentation of the commands you encounter. Getting used to looking up documentation from the command line will come in handy whenever you are stuck. You can also learn and experiment with options you haven't used yet.<h2 id=builtin-and-external-commands><a class=header href=#builtin-and-external-commands>Builtin and External commands</a></h2><p>From <a href=https://www.gnu.org/software/bash/manual/bash.html#What-is-a-shell_003f>bash manual: What is a shell?</a><blockquote><p>Shells also provide a small set of built-in commands (builtins) implementing functionality impossible or inconvenient to obtain via separate utilities. For example, <code>cd</code>, <code>break</code>, <code>continue</code>, and <code>exec</code> cannot be implemented outside of the shell because they directly manipulate the shell itself. The <code>history</code>, <code>getopts</code>, <code>kill</code>, or <code>pwd</code> builtins, among others, could be implemented in separate utilities, but they are more convenient to use as builtin commands.</blockquote><p>Most of the commands needed for everyday use are external commands, i.e. not part of the shell. Some builtins, <code>pwd</code> for example, might also be available as external command on your system (and these might have differences in features too). In such cases the builtin version will be executed by default, which you can override by using the path of the external version.<p>You can use the <code>type</code> command to distinguish between builtin and external commands. The <code>type</code> command is a shell builtin, and provides other features too (which will be discussed later). You can use the <code>-a</code> option to get all details about the given command.<pre><code class=language-bash>$ type -a cd
+cd is a shell builtin
+
+$ type -a ls
+ls is /bin/ls
+
+$ type -a pwd
+pwd is a shell builtin
+pwd is /bin/pwd
+</code></pre><blockquote><p><img src=images/info.svg alt=info> To look up documentation, use the <code>help</code> command for builtins and <code>man</code> for external commands (or <code>info</code> for complete documentation, where applicable). Use <code>help help</code> and <code>man man</code> for their own documentation.</blockquote><blockquote><p><img src=images/info.svg alt=info> Typing just <code>help</code> will give the list of builtins, along with the command's syntax.</blockquote><h2 id=pwd><a class=header href=#pwd>pwd</a></h2><p><code>pwd</code> is a shell builtin command to get the current working directory. This helps to orient yourself where you are in the filesystem. The absolute path printed is often handy to copy-paste elsewhere, in a script for example. Some users prefer their terminal emulators and/or shell prompt to always display the current working directory.<pre><code class=language-bash>$ pwd
 /home/learnbyexample
 </code></pre><h2 id=cd><a class=header href=#cd>cd</a></h2><p><code>cd</code> is another shell builtin. This helps to change the current working directory. Here's an example of changing the current working directory using an absolute path:<pre><code class=language-bash>$ pwd
 /home/learnbyexample
@@ -49,7 +58,7 @@ $ pwd
 /etc
 </code></pre><p>You can use <code>-</code> as an argument to go back to the previous working directory. Continuing from the previous example:<pre><code class=language-bash>$ cd -
 /home/learnbyexample
-</code></pre><p>Relative paths are well, relative to the current working directory:<ul><li><code>.</code> refers to the current directory<li><code>..</code> refers to the directory one hierarchy above<li><code>../..</code> refers to the directory two hierarchies above and so on<li><code>cd ./-</code> will help you to switch to a directory named <code>-</code> in the current location (you cannot use <code>cd -</code> since that'll take you to the previous working directory)</ul><pre><code class=language-bash>$ pwd
+</code></pre><p>Relative paths are well, relative to the current working directory:<ul><li><code>.</code> refers to the current directory<li><code>..</code> refers to the directory one hierarchy above<li><code>../..</code> refers to the directory two hierarchies above and so on<li><code>cd ./-</code> will help you to switch to a directory named <code>-</code> in the current location <ul><li>you cannot use <code>cd -</code> since that'll take you to the previous working directory</ul></ul><pre><code class=language-bash>$ pwd
 /home/learnbyexample
 
 # go one hierarchy above
@@ -75,68 +84,69 @@ $ echo "$HOME"
 $ cd
 $ pwd
 /home/learnbyexample
-</code></pre><p><strong>Further Reading</strong><ul><li>Use <code>help cd</code> for documentation<li><a href=https://unix.stackexchange.com/questions/tagged/cd-command?sort=votes&pageSize=15>cd Q&A on unix stackexchange</a><li><a href=https://stackoverflow.com/questions/tagged/cd?sort=votes&pageSize=15>cd Q&A on stackoverflow</a><li><a href=https://www.gnu.org/software/bash/manual/html_node/Tilde-Expansion.html>bash manual: Tilde Expansion</a></ul><h2 id=clear><a class=header href=#clear>clear</a></h2><p>You can use this command to clear the terminal screen. By default, the <code>clear</code> command will move the prompt to the top of the terminal as well as try to remove the contents of the scrollback buffer. You can use the <code>-x</code> option if you want to retain the scrollback buffer contents.<blockquote><p><img src=images/info.svg alt=info> The <code>Ctrl+l</code> shortcut will also move the prompt line to the top of the terminal. It will retain any text you've typed on the prompt line and scrollback buffer contents won't be cleared.</blockquote><h2 id=ls><a class=header href=#ls>ls</a></h2><p>When you use a file explorer GUI application, you'll automatically see the directory contents. And such GUI apps typically have features to show file size, differentiate between files and folders and so on. <code>ls</code> is the equivalent command line tool with a plethora of options and functionality related to viewing the contents of directories.<p>Here are some examples, output shown below will vary for you:<pre><code class=language-bash># by default, current directory contents are displayed
+</code></pre><p><strong>Further Reading</strong><ul><li>Use <code>help cd</code> for documentation<li><a href=https://unix.stackexchange.com/questions/tagged/cd-command?sort=votes&pageSize=15>cd Q&A on unix stackexchange</a><li><a href=https://stackoverflow.com/questions/tagged/cd?sort=votes&pageSize=15>cd Q&A on stackoverflow</a><li><a href=https://www.gnu.org/software/bash/manual/html_node/Tilde-Expansion.html>bash manual: Tilde Expansion</a></ul><h2 id=clear><a class=header href=#clear>clear</a></h2><p>You can use this command to clear the terminal screen. By default, the <code>clear</code> command will move the prompt to the top of the terminal as well as try to remove the contents of the scrollback buffer. You can use the <code>-x</code> option if you want to retain the scrollback buffer contents.<blockquote><p><img src=images/info.svg alt=info> The <code>Ctrl+l</code> shortcut will also move the prompt line to the top of the terminal. It will retain any text you've typed on the prompt line and scrollback buffer contents won't be cleared.</blockquote><h2 id=ls><a class=header href=#ls>ls</a></h2><p>When you use a file explorer GUI application, you'll automatically see the directory contents. And such GUI apps typically have features to show file size, differentiate between files and folders and so on. <code>ls</code> is the equivalent command line tool with a plethora of options and functionality related to viewing the contents of directories.<p>Here are some examples:<pre><code class=language-bash># by default, the current directory contents are displayed
 $ ls
-backups  hello_world.py  palindrome.py  projects    todo
-ch.sh    ip.txt          power.log      report.log  workshop_brochures
+backups     hello_world.py  ip.txt    report.log  todos
+errors.log  hi              projects  scripts
 
 # example with a single path argument
-$ ls /var/
-backups  crash  local  log   metrics  run   spool
-cache    lib    lock   mail  opt      snap  tmp
+$ ls /sys
+block  class  devices   fs          kernel  power
+bus    dev    firmware  hypervisor  module
 
-# for multiple paths, listing is organized by directory
-$ ls workshop_brochures/ backups/
+# multiple paths example
+# directory listing will be preceded by its name
+$ ls projects backups ip.txt
+ip.txt
+
 backups:
-chrome_bookmarks_02_07_2018.html  dot_files
+bookmarks.html  dot_files
 
-workshop_brochures:
-Python_workshop_2017.pdf  Scripting_course_2016.pdf
-</code></pre><p>You can use the <code>-1</code> option (<code>1</code> as in numeric one, not the alphabet <code>l</code> which does something else) to list the contents in a single column:<pre><code class=language-bash>$ ls -1 backups/
-chrome_bookmarks_02_07_2018.html
+projects:
+calculator  tictactoe
+</code></pre><p>You can use the <code>-1</code> option (<code>1</code> as in numeric one, not the alphabet <code>l</code> which does something else) to list the contents in a single column:<pre><code class=language-bash>$ ls -1 backups
+bookmarks.html
 dot_files
 </code></pre><p>The <code>-F</code> option appends a character to each filename indicating the file type (if it is other than a regular file):<ul><li><code>/</code> directory<li><code>*</code> executable file<li><code>@</code> symbolic link<li><code>|</code> FIFO<li><code>=</code> socket<li><code>></code> door</ul><pre><code class=language-bash>$ ls -F
-backups/  hello_world.py*  palindrome.py*  projects@   todo
-ch.sh*    ip.txt           power.log       report.log  workshop_brochures/
+backups/    hello_world.py*  ip.txt     report.log  todos/
+errors.log  hi*              projects/  scripts@
 </code></pre><p>If you just need to distinguish between files and directories, you can use the <code>-p</code> option:<pre><code class=language-bash>$ ls -p
-backups/  hello_world.py  palindrome.py  projects    todo
-ch.sh     ip.txt          power.log      report.log  workshop_brochures/
-</code></pre><p>You can also use the <code>--color</code> option to visually distinguish file types:<p><img src=./images/ls_color.png alt="ls color output"><p>The <code>-l</code> option displays the contents using a long listing format. You'll get details like file permissions, ownership, size, timestamp and so on. The first character of the first column distinguishes file types as <code>d</code> for directories, <code>-</code> for regular files, <code>l</code> for symbolic links, etc. Under each directory listing, the first line will display the total size of the entries (in terms of KB).<pre><code class=language-bash>$ ls -l
-total 84
-drwxrwxr-x 3 learnbyexample eg  4096 Jul  4 18:23 backups
--rwxr-xr-x 1 learnbyexample eg  2746 Mar 30 11:38 ch.sh
--rwxrwxr-x 1 learnbyexample eg    41 Aug 21  2017 hello_world.py
--rw-rw-r-- 1 learnbyexample eg    34 Jul  4 09:01 ip.txt
--rwxrwxr-x 1 learnbyexample eg  1236 Aug 21  2017 palindrome.py
--rw-r--r-- 1 learnbyexample eg 10449 Mar  8  2017 power.log
-lrwxrwxrwx 1 learnbyexample eg    12 Jun 21 12:08 projects -> ../projects/
--rw-rw-r-- 1 learnbyexample eg 39120 Feb 25  2017 report.log
--rw-rw-r-- 1 learnbyexample eg  5987 Apr 11 11:06 todo
-drwxrwxr-x 2 learnbyexample eg  4096 Jul  5 12:05 workshop_brochures
-</code></pre><p>Use the <code>-h</code> option to show file sizes in human readable format (default is byte count).<pre><code class=language-bash>$ ls -l power.log
--rw-r--r-- 1 learnbyexample eg 10449 Mar  8  2017 power.log
+backups/    hello_world.py  ip.txt     report.log  todos/
+errors.log  hi              projects/  scripts
+</code></pre><p>You can also use the <code>--color</code> option to visually distinguish file types:<p><img src=./images/ls_color.png alt="ls color output"><p>The <code>-l</code> option displays the contents using a long listing format. You'll get details like file permissions, ownership, size, timestamp and so on. The first character of the first column distinguishes file types as <code>d</code> for directories, <code>-</code> for regular files, <code>l</code> for symbolic links, etc. Under each directory listing, the first line will display the total size of the entries (in terms of KB).<pre><code class=language-bash>$ ls -l hi
+-rwxrwxr-x 1 learnbyexample learnbyexample 21 Dec  5  2019 hi
 
-$ ls -lh power.log
--rw-r--r-- 1 learnbyexample eg 11K Mar  8  2017 power.log
-</code></pre><p>You can use the <code>-s</code> option instead of long listing if you only need file sizes and names:<pre><code class=language-bash>$ ls -1sh power.log report.log
-12K power.log
-40K report.log
-</code></pre><p>There are several options for changing the order of output listing:<ul><li><code>-t</code> sorts by timestamp<li><code>-S</code> sorts by file size (not suitable for directories)<li><code>-v</code> version sorting (suitable for filenames with numbers in them)<li><code>-X</code> sorts by file extension (i.e. characters after the last <code>.</code> in the filename)<li><code>-r</code> reverse the listing order</ul><pre><code class=language-bash>$ ls -lhtr
-total 84K
--rw-rw-r-- 1 learnbyexample eg  39K Feb 25  2017 report.log
--rw-r--r-- 1 learnbyexample eg  11K Mar  8  2017 power.log
--rwxrwxr-x 1 learnbyexample eg 1.3K Aug 21  2017 palindrome.py
--rwxrwxr-x 1 learnbyexample eg   41 Aug 21  2017 hello_world.py
--rwxr-xr-x 1 learnbyexample eg 2.7K Mar 30 11:38 ch.sh
--rw-rw-r-- 1 learnbyexample eg 5.9K Apr 11 11:06 todo
-lrwxrwxrwx 1 learnbyexample eg   12 Jun 21 12:08 projects -> ../projects/
--rw-rw-r-- 1 learnbyexample eg   34 Jul  4 09:01 ip.txt
-drwxrwxr-x 3 learnbyexample eg 4.0K Jul  4 18:23 backups
-drwxrwxr-x 2 learnbyexample eg 4.0K Jul  5 12:05 workshop_brochures
+# you can add -G option to avoid the group column
+$ ls -lG
+total 7516
+drwxrwxr-x 3 learnbyexample    4096 Feb  4 09:23 backups
+-rw-rw-r-- 1 learnbyexample   12345 Jan  1 03:30 errors.log
+-rwxrwxr-x 1 learnbyexample      42 Feb 29  2020 hello_world.py
+-rwxrwxr-x 1 learnbyexample      21 Dec  5  2019 hi
+-rw-rw-r-- 1 learnbyexample      10 Jul 21  2017 ip.txt
+drwxrwxr-x 4 learnbyexample    4096 Mar  5 11:21 projects
+-rw-rw-r-- 1 learnbyexample 7654321 Jan  1 01:01 report.log
+lrwxrwxrwx 1 learnbyexample      13 May  7 15:17 scripts -> ../../scripts
+drwxrwxr-x 2 learnbyexample    4096 Apr  6 13:19 todos
+</code></pre><p>Use the <code>-h</code> option to show file sizes in human readable format (default is byte count).<pre><code class=language-bash>$ ls -lG report.log
+-rw-rw-r-- 1 learnbyexample 7654321 Jan  1 01:01 report.log
 
-$ ls -X
-backups   todo                power.log   hello_world.py  ch.sh
-projects  workshop_brochures  report.log  palindrome.py   ip.txt
+$ ls -lhG report.log
+-rw-rw-r-- 1 learnbyexample 7.3M Jan  1 01:01 report.log
+</code></pre><p>You can use the <code>-s</code> option instead of long listing if you only need allocated file sizes and names:<pre><code class=language-bash>$ ls -1sh errors.log report.log
+ 16K errors.log
+7.4M report.log
+</code></pre><p>There are several options for changing the order of output listing:<ul><li><code>-t</code> sorts by timestamp<li><code>-S</code> sorts by file size (not suitable for directories)<li><code>-v</code> version sorting (suitable for filenames with numbers in them)<li><code>-X</code> sorts by file extension (i.e. characters after the last <code>.</code> in the filename)<li><code>-r</code> reverse the listing order</ul><pre><code class=language-bash>$ ls -lGhtr
+total 7.4M
+-rw-rw-r-- 1 learnbyexample   10 Jul 21  2017 ip.txt
+-rwxrwxr-x 1 learnbyexample   21 Dec  5  2019 hi
+-rwxrwxr-x 1 learnbyexample   42 Feb 29  2020 hello_world.py
+-rw-rw-r-- 1 learnbyexample 7.3M Jan  1 01:01 report.log
+-rw-rw-r-- 1 learnbyexample  13K Jan  1 03:30 errors.log
+drwxrwxr-x 3 learnbyexample 4.0K Feb  4 09:23 backups
+drwxrwxr-x 4 learnbyexample 4.0K Mar  5 11:21 projects
+drwxrwxr-x 2 learnbyexample 4.0K Apr  6 13:19 todos
+lrwxrwxrwx 1 learnbyexample   13 May  7 15:17 scripts -> ../../scripts
 </code></pre><p>Filenames starting with <code>.</code> are considered as hidden files and these are NOT shown by default. You can use the <code>-a</code> option to view them. The <code>-A</code> option is similar, but doesn't show the special <code>.</code> and <code>..</code> entries.<pre><code class=language-bash># . and .. point to the current and parent directories
 $ ls -aF backups/dot_files/
 ./  ../  .bashrc  .inputrc  .vimrc
@@ -146,69 +156,90 @@ $ ls -A backups/dot_files/
 .bashrc  .inputrc  .vimrc
 </code></pre><p>The <code>-R</code> option recursively lists sub-directories as well:<pre><code class=language-bash>$ ls -ARF
 .:
-backups/  hello_world.py*  palindrome.py*  projects@   todo
-ch.sh*    ip.txt           power.log       report.log  workshop_brochures/
+backups/    hello_world.py*  .hidden  projects/   scripts@
+errors.log  hi*              ip.txt   report.log  todos/
 
 ./backups:
-chrome_bookmarks_02_07_2018.html  dot_files/
+bookmarks.html  dot_files/
 
 ./backups/dot_files:
 .bashrc  .inputrc  .vimrc
 
-./workshop_brochures:
-Python_workshop_2017.pdf  Scripting_course_2016.pdf
+./projects:
+calculator/  tictactoe/
+
+./projects/calculator:
+calc.sh
+
+./projects/tictactoe:
+game.py
+
+./todos:
+books.txt  outing.txt
 </code></pre><p>Often you'd want to list only specific files or directories based on some criteria, file extension for example. The shell provides a matching technique called <strong>globs</strong> or <strong>wildcards</strong>. Some simple examples are shown below (globs will be discussed in more detail later).<p><code>*</code> is a placeholder for zero or more characters:<pre><code class=language-bash># '*.py *.log' will give filenames ending with '.py' or '.log'
 $ echo *.py *.log
-hello_world.py palindrome.py power.log report.log
+hello_world.py errors.log report.log
 
 # glob expansion can be prevented by using quotes
 $ echo '*.py' *.log
-*.py power.log report.log
+*.py errors.log report.log
 
-# long list only files ending with '.py'
-$ ls -l *.py
--rwxrwxr-x 1 learnbyexample eg   41 Aug 21  2017 hello_world.py
--rwxrwxr-x 1 learnbyexample eg 1236 Aug 21  2017 palindrome.py
-</code></pre><p><code>[]</code> helps you specify a set of characters to be matched once. For example, <code>[ad]</code> matches <code>a</code> or <code>d</code> once. <code>[c-i]</code> matches a range of characters from <code>c</code> to <code>i</code>.<pre><code class=language-bash>$ echo [c-i]*
-ch.sh hello_world.py ip.txt
+# long list only files ending with '.log'
+$ ls -lG *.log
+-rw-rw-r-- 1 learnbyexample   12345 Jan  1 03:30 errors.log
+-rw-rw-r-- 1 learnbyexample 7654321 Jan  1 01:01 report.log
+</code></pre><p><code>[]</code> helps you specify a set of characters to be matched once. For example, <code>[ad]</code> matches <code>a</code> or <code>d</code> once. <code>[c-i]</code> matches a range of characters from <code>c</code> to <code>i</code>.<pre><code class=language-bash># entries starting with 'c' to 'i'
+$ echo [c-i]*
+errors.log hello_world.py hi ip.txt
 
 $ ls -1sh [c-i]*
-4.0K ch.sh
+ 16K errors.log
 4.0K hello_world.py
+4.0K hi
 4.0K ip.txt
 </code></pre><blockquote><p><img src=images/info.svg alt=info> <img src=images/info.svg alt=info> As shown in the above examples, globs are expanded by the shell. Beginners often associate globs as something specific to the <code>ls</code> command, which is why I've delibrately used <code>echo</code> as well in the above examples.</blockquote><p>You can use the <code>-d</code> option to <em>not</em> show directory contents:<pre><code class=language-bash>$ echo b*
 backups
 # since backups is a directory, ls will show its contents
 $ ls b*
-chrome_bookmarks_02_07_2018.html  dot_files
+bookmarks.html  dot_files
 # -d will show the directory entry instead of its contents
 $ ls -d b*
 backups
 
 # a handy way to get only the directory entries
 $ echo */
-backups/ projects/ workshop_brochures/
+backups/ projects/ scripts/ todos/
 $ ls -1d */
 backups/
 projects/
-workshop_brochures/
+scripts/
+todos/
 </code></pre><p><strong>Further Reading</strong><ul><li><code>man ls</code> and <code>info ls</code> for more options and complete documentation<li><a href=https://unix.stackexchange.com/questions/tagged/ls?sort=votes&pageSize=15>ls Q&A on unix stackexchange</a><li><a href=https://stackoverflow.com/questions/tagged/ls?sort=votes&pageSize=15>ls Q&A on stackoverflow</a><li><a href=https://mywiki.wooledge.org/ParsingLs>mywiki.wooledge: avoid parsing output of ls</a><li><a href=https://unix.stackexchange.com/q/128985/109046>unix.stackexchange: why not parse ls?</a><li><a href=https://unix.stackexchange.com/q/63081/109046>unix.stackexchange: What are ./ and ../ directories?</a></ul><h2 id=tree><a class=header href=#tree>tree</a></h2><p>The <code>tree</code> command displays the contents of a directory recursively, in a hierarchical manner. You might have to install this command.<pre><code class=language-bash># -a option will show hidden files as well
 $ tree -a
 .
 ├── backups
-│   ├── chrome_bookmarks_02_07_2018.html
+│   ├── bookmarks.html
 │   └── dot_files
 │       ├── .bashrc
 │       ├── .inputrc
 │       └── .vimrc
+├── errors.log
+├── hello_world.py
+├── hi
 ├── .hidden
 ├── ip.txt
-├── power.log
-└── workshop_brochures
-    ├── Python_workshop_2017.pdf
-    └── Scripting_course_2016.pdf
+├── projects
+│   ├── calculator
+│   │   └── calc.sh
+│   └── tictactoe
+│       └── game.py
+├── report.log
+├── scripts -> ../../scripts
+└── todos
+    ├── books.txt
+    └── outing.txt
 
-3 directories, 9 files
+7 directories, 14 files
 </code></pre><h2 id=mkdir><a class=header href=#mkdir>mkdir</a></h2><p>The <code>mkdir</code> command helps you to create new directories. You can pass one or more paths along with the name of the directories you want to create. Quote the names if it can contain shell special characters like space, <code>*</code> and so on.<pre><code class=language-bash>$ mkdir reports 'low power adders'
 
 $ ls -1
