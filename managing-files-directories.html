@@ -245,16 +245,16 @@ $ tree -a
 $ ls -1
 low power adders
 reports
-</code></pre><p>The <code>-p</code> option will help you to create multiple directory hierarchies in one shot:<pre><code class=language-bash># error because 'a/b' path doesn't exist yet
+</code></pre><p>The <code>-p</code> option will help you to create multiple directory hierarchies in one shot:<pre><code class=language-bash># error because 'a' and 'a/b' paths do not exist yet
 $ mkdir a/b/c
 mkdir: cannot create directory ‘a/b/c’: No such file or directory
 
-# -p will create non-existing directories as well
+# -p is handy in such cases
 $ mkdir -p a/b/c
-</code></pre><p>The <code>-p</code> option also has another functionality. It will not complain if the directory you are trying to create already exists. This is especially helpful in shell scripts. You can check the exit status of the last executed command using the <code>$?</code> special variable. <code>0</code> means everything went well and higher numbers indicate some sort of failure (the details of which you can look up in the manual).<pre><code class=language-bash># assume that the 'reports' directory already exists
+</code></pre><p>The <code>-p</code> option has another functionality too. It will not complain if the directory you are trying to create already exists. This is especially helpful in shell scripts.<pre><code class=language-bash># 'reports' directory was already created in an earlier example
 $ mkdir reports
 mkdir: cannot create directory ‘reports’: File exists
-# exit status will also reflect that something went wrong
+# exit status will reflect that something went wrong
 $ echo $?
 1
 
@@ -262,45 +262,59 @@ $ echo $?
 $ mkdir -p reports
 $ echo $?
 0
-</code></pre><blockquote><p><img src=images/info.svg alt=info> <img src=images/warning.svg alt=warning> Linux filenames can use any character other than <code>/</code> and the ASCII NUL character. Quote the arguments if it contains characters like space, <code>*</code>, etc to prevent shell expansion. Shell considers space as the argument separator, <code>*</code> is a wildcard character and so on. As a good practice, use only alphabets, numbers and underscores for filenames, unless you have some specific requirements.</blockquote><p><strong>Further Reading</strong><ul><li><a href=https://unix.stackexchange.com/questions/tagged/mkdir?sort=votes&pageSize=15>mkdir Q&A on unix stackexchange</a><li><a href=https://stackoverflow.com/questions/tagged/mkdir?sort=votes&pageSize=15>mkdir Q&A on stackoverflow</a><li><a href=https://unix.stackexchange.com/q/269093/109046>unix.stackexchange: Characters best avoided in filenames</a></ul><h2 id=touch><a class=header href=#touch>touch</a></h2><p>You'll usually create files using a text editor or by redirecting output of a command to a file. For some cases, you'll just need empty files for testing purposes or to satisfy a particular build process. A real world use case is the empty <code>.nojekyll</code> file for <a href=https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages#static-site-generators>GitHub Pages</a>.<p>The <code>touch</code> command's main functionality is altering timestamps. However, if a file doesn't exist, <code>touch</code> will create an empty file using the current timestamp.<pre><code class=language-bash>$ ls ip.txt
+</code></pre><p>As seen in the examples above, you can check the exit status of the last executed command using the <code>$?</code> special variable. <code>0</code> means everything went well and higher numbers indicate some sort of failure has occurred (the details of which you can look up in the command's manual).<blockquote><p><img src=images/info.svg alt=info> <img src=images/warning.svg alt=warning> Linux filenames can use any character other than <code>/</code> and the ASCII NUL character. Quote the arguments if it contains characters like space, <code>*</code>, etc to prevent shell expansion. Shell considers space as the argument separator, <code>*</code> is a wildcard character and so on. As a good practice, use only alphabets, numbers and underscores for filenames, unless you have some specific requirements.</blockquote><p><strong>Further Reading</strong><ul><li><a href=https://unix.stackexchange.com/questions/tagged/mkdir?sort=votes&pageSize=15>mkdir Q&A on unix stackexchange</a><li><a href=https://stackoverflow.com/questions/tagged/mkdir?sort=votes&pageSize=15>mkdir Q&A on stackoverflow</a><li><a href=https://unix.stackexchange.com/q/269093/109046>unix.stackexchange: Characters best avoided in filenames</a></ul><h2 id=touch><a class=header href=#touch>touch</a></h2><p>You'll usually create files using a text editor or by redirecting output of a command to a file. For some cases, empty files are needed for testing purposes or to satisfy a particular build process. A real world use case is the empty <code>.nojekyll</code> file for <a href=https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages#static-site-generators>GitHub Pages</a>.<p>The <code>touch</code> command's main functionality is altering timestamps (which will be discussed in a later chapter). If a file doesn't exist, <code>touch</code> will create an empty file using the current timestamp. You can also pass more than one file argument if needed.<pre><code class=language-bash>$ ls ip.txt
 ls: cannot access 'ip.txt': No such file or directory
 
 $ touch ip.txt
 
 $ ls -s ip.txt
 0 ip.txt
-</code></pre><blockquote><p><img src=images/info.svg alt=info> You can also create an empty file using <code>> ip.txt</code>, but one difference is that the file gets overwritten if it already exists.</blockquote><blockquote><p><img src=images/info.svg alt=info> Using <code>touch</code> for timestamp related functionality will be discussed in a later chapter.</blockquote><h2 id=rm><a class=header href=#rm>rm</a></h2><p>The <code>rm</code> command will help you to delete files and directories. You can pass one or more paths as arguments:<pre><code class=language-bash>$ ls -F
-a/  ip.txt  low power adders/  reports/  summary.txt
+</code></pre><blockquote><p><img src=images/info.svg alt=info> You can also create an empty file using <code>> ip.txt</code>, but one difference is that the file gets overwritten if it already exists.</blockquote><h2 id=rm><a class=header href=#rm>rm</a></h2><p>The <code>rm</code> command will help you to delete files and directories. You can pass one or more paths as arguments:<pre><code class=language-bash>$ ls -F
+empty_dir/  hello.py  loops.py  projects/  read_only.txt  reports/
 
-# delete files ending with .txt
-$ rm *.txt
+# delete files ending with .py
+$ rm *.py
 $ ls -F
-a/  low power adders/  reports/
-</code></pre><p>You'll need to add <code>-r</code> option to delete directories. You can use <code>rm -d</code> or the <code>rmdir</code> command to delete only empty directories.<pre><code class=language-bash>$ rm reports
+empty_dir/  projects/  read_only.txt  reports/
+</code></pre><p>You'll need to add <code>-r</code> option to recursively delete directory contents. You can use <code>rm -d</code> or the <code>rmdir</code> command to delete only empty directories.<pre><code class=language-bash># -r is needed to delete directory contents recursively
+$ rm reports
 rm: cannot remove 'reports': Is a directory
 $ rm -r reports
 $ ls -F
-a/  low power adders/
+empty_dir/  projects/  read_only.txt
 
-# delete empty directories, same as: rmdir a
-$ rm -d a
-rm: cannot remove 'a': Directory not empty
-</code></pre><p>Typos like misplaced space, wrong glob, etc could wipe out files not intended for deletion. Apart from having backups and snapshots, you could also take some mitigating steps:<ul><li>using <code>-i</code> option to interactively delete each file <ul><li>you can also use <code>-I</code> option for lesser number of prompts</ul><li>using <code>echo</code> as a dry run to see how the glob expands<li>using a trash command (see links below) instead of <code>rm</code></ul><pre><code class=language-bash># use 'y' to confirm deletion and 'n' to cancel deletion
-$ rm -ri 'low power adders'
-rm: remove directory 'low power adders'? n
-$ ls -F
-a/  low power adders/
+# delete empty directories, same as using the 'rmdir' command
+$ rm -d empty_dir
+# you'll get an error if the directory is not empty
+$ rm -d projects
+rm: cannot remove 'projects': Directory not empty
+</code></pre><p>Typos like misplaced space, wrong glob, etc could wipe out files not intended for deletion. Apart from having backups and snapshots, you could also take some mitigating steps:<ul><li>using <code>-i</code> option to interactively delete each file <ul><li>you can also use <code>-I</code> option for lesser number of prompts</ul><li>using <code>echo</code> as a dry run to see how the glob expands<li>using a trash command (see links below) instead of <code>rm</code></ul><p>Use <code>y</code> for confirmation and <code>n</code> to cancel deletion with <code>-i</code> or <code>-I</code> options. Here's an example of cancelling deletion:<pre><code class=language-bash>$ rm -ri projects
+rm: descend into directory 'projects'? n
 
-# example with recursive deletion and using 'y' for confirmation
-$ rm -ri a
-rm: descend into directory 'a'? y
-rm: descend into directory 'a/b'? y
-rm: remove directory 'a/b/c'? y
-rm: remove directory 'a/b'? y
-rm: remove directory 'a'? y
 $ ls -F
-low power adders/
-</code></pre><p>The <code>-f</code> option will ignore non-existing files. It also helps to remove write protected files (provided you have appropriate permissions to delete those files). This option is especially useful for recursive deletion of directories, <code>.git/objects</code> for example (see <a href=https://learnbyexample.github.io/curated_resources/git_and_github.html>my list</a> for <code>git</code> learning resources).<pre><code class=language-bash>$ rm xyz.txt
+projects/  read_only.txt
+</code></pre><p>And here's an example of providing confirmation at each step of the deletion process:<pre><code class=language-bash>$ tree projects
+projects
+├── calculator
+│   └── calc.sh
+└── tictactoe
+    └── game.py
+
+2 directories, 2 files
+
+$ rm -ri projects
+rm: descend into directory 'projects'? y
+rm: descend into directory 'projects/tictactoe'? y
+rm: remove regular empty file 'projects/tictactoe/game.py'? y
+rm: remove directory 'projects/tictactoe'? y
+rm: descend into directory 'projects/calculator'? y
+rm: remove regular empty file 'projects/calculator/calc.sh'? y
+rm: remove directory 'projects/calculator'? y
+rm: remove directory 'projects'? y
+
+$ ls -F
+read_only.txt
+</code></pre><p>The <code>-f</code> option can be used to ignore complaints about non-existing files (somewhat similar to the <code>mkdir -p</code> feature). It also helps to remove write protected files (provided you have appropriate permissions to delete those files). This option is especially useful for recursive deletion of directories, <code>.git/objects</code> for example (see <a href=https://learnbyexample.github.io/curated_resources/git_and_github.html>my list</a> for links to <code>git</code> and related resources).<pre><code class=language-bash>$ rm xyz.txt
 rm: cannot remove 'xyz.txt': No such file or directory
 $ echo $?
 1
@@ -308,27 +322,70 @@ $ rm -f xyz.txt
 $ echo $?
 0
 
-# 'chmod' will be discussed later, used here to remove write permission
-$ touch ip.txt
-$ chmod -w ip.txt
-# without -f, you'll be asked for confirmation
-$ rm ip.txt
-rm: remove write-protected regular empty file 'ip.txt'? n
-# with -f, you won't be asked for confirmation
-$ rm -f ip.txt
-</code></pre><p><strong>Further Reading</strong><ul><li>See if a trash command is available for your distro (for example, <code>trash-cli</code> on Ubuntu) so that deleted files are sent to trash <ul><li><a href=https://unix.stackexchange.com/q/452496/109046>unix.stackexchange: creating a simple trash command</a></ul><li>Files removed using <code>rm</code> can still be recovered with time and skill <ul><li><a href=https://unix.stackexchange.com/q/80270/109046>unix.stackexchange: recover deleted files</a><li><a href=https://unix.stackexchange.com/q/2677/109046>unix.stackexchange: recovering accidentally deleted files</a></ul><li>Use commands like <code>shred</code> if you want to make it harder to recover deleted files <ul><li><a href=https://wiki.archlinux.org/index.php/Securely_wipe_disk>wiki.archlinux: Securely wipe disk</a></ul><li><a href=https://unix.stackexchange.com/questions/tagged/rm?sort=votes&pageSize=15>rm Q&A on unix stackexchange</a><li><a href=https://stackoverflow.com/questions/tagged/rm?sort=votes&pageSize=15>rm Q&A on stackoverflow</a></ul><h2 id=cp><a class=header href=#cp>cp</a></h2><p>You can use the <code>cp</code> command to make copies of files and directories. You have to specify the source first followed by the destination. To copy multiple items, the destination can only be a directory (which would be the last argument). You'll also need to use the <code>-r</code> option to copy directories.<pre><code class=language-bash># recall that . is a relative path referring to the current directory
+# example for removing write protected files
+# you'll be asked for confirmation even without the -i/-I options
+$ rm read_only.txt
+rm: remove write-protected regular empty file 'read_only.txt'? n
+# with -f, files will be deleted without asking for confirmation
+$ rm -f read_only.txt
+</code></pre><p><strong>Further Reading</strong><ul><li>See if a trash command is available for your distro (for example, <code>trash-cli</code> on Ubuntu) so that deleted files are sent to trash <ul><li><a href=https://unix.stackexchange.com/q/452496/109046>unix.stackexchange: creating a simple trash command</a></ul><li>Files removed using <code>rm</code> can still be recovered with time and skill <ul><li><a href=https://unix.stackexchange.com/q/80270/109046>unix.stackexchange: recover deleted files</a><li><a href=https://unix.stackexchange.com/q/2677/109046>unix.stackexchange: recovering accidentally deleted files</a></ul><li>Use commands like <code>shred</code> if you want to make it harder to recover deleted files <ul><li><a href=https://wiki.archlinux.org/index.php/Securely_wipe_disk>wiki.archlinux: Securely wipe disk</a></ul><li><a href=https://unix.stackexchange.com/questions/tagged/rm?sort=votes&pageSize=15>rm Q&A on unix stackexchange</a><li><a href=https://stackoverflow.com/questions/tagged/rm?sort=votes&pageSize=15>rm Q&A on stackoverflow</a></ul><h2 id=cp><a class=header href=#cp>cp</a></h2><p>You can use the <code>cp</code> command to make copies of files and directories. With default syntax, you have to specify the source first followed by the destination. To copy multiple items, the last argument as destination can only be a directory. You'll also need to use the <code>-r</code> option to copy directories (similar to <code>rm -r</code> seen earlier).<pre><code class=language-bash>$ ls -F
+backups/  reference/
+
+# recall that . is a relative path referring to the current directory
 $ cp /usr/share/dict/words .
 $ ls -F
-low power adders/  words
+backups/  reference/  words
 
+# error because -r is needed to copy directories
+# other file arguments (if present) will still be copied
 $ cp /usr/share/dict .
-cp: omitting directory '/usr/share/dict'
+cp: -r not specified; omitting directory '/usr/share/dict'
 $ cp -r /usr/share/dict .
-$ ls -1F
-dict/
-low power adders/
-words
-</code></pre><blockquote><p><img src=images/info.svg alt=info> <img src=images/warning.svg alt=warning> You can use the <code>-i</code> option to interactively confirm or deny overwriting existing files. The <code>-n</code> option will prevent overwriting existing files without asking for confirmation.</blockquote><p>Often, you'd want to copy a file (or a directory) under different name. In such cases, you can simply use a new name while specifying the destination.<pre><code class=language-bash># copy 'words' file from source as 'words_ref.txt' at destination
+$ ls -F
+backups/  dict/  reference/  words
+</code></pre><blockquote><p><img src=images/info.svg alt=info> <img src=images/warning.svg alt=warning> By default, <code>cp</code> will overwrite an existing file of the same name in the destination directory. You can use the <code>-i</code> option to interactively confirm or deny overwriting existing files. The <code>-n</code> option will prevent overwriting existing files without asking for confirmation.</blockquote><pre><code class=language-bash>$ echo 'hello' > ip.txt
+$ ls -F
+backups/  dict/  ip.txt  reference/  words
+$ ls backups
+ip.txt  reports
+$ cat backups/ip.txt
+apple banana cherry
+# file will be overwritten without asking for confirmation!
+$ cp ip.txt backups/
+$ cat backups/ip.txt
+hello
+
+# use -i to interactively confirm or deny overwriting
+$ echo 'good morning' > ip.txt
+$ cp -i ip.txt backups/
+cp: overwrite 'backups/ip.txt'? n
+$ cat backups/ip.txt
+hello
+
+# use -n to prevent overwriting without needing confirmation
+$ cp -n ip.txt backups/
+$ cat backups/ip.txt
+hello
+</code></pre><p>If there's a folder in the destination path with the same name as a folder being copied, the contents will be merged. If there are files of identical names in such directories, the same rules discussed above will apply.<pre><code class=language-bash>$ tree backups
+backups
+├── ip.txt
+└── reports
+    └── jan.log
+
+1 directory, 2 files
+
+$ mkdir reports
+$ touch reports/dec.log
+$ cp -r reports backups/
+$ tree backups
+backups
+├── ip.txt
+└── reports
+    ├── dec.log
+    └── jan.log
+
+1 directory, 3 files
+</code></pre><p>Often, you'd want to copy a file (or a directory) under a different name. In such cases, you can simply use a new name while specifying the destination.<pre><code class=language-bash># copy 'words' file from source as 'words_ref.txt' at destination
 $ cp /usr/share/dict/words words_ref.txt
 
 # copy 'words' file as 'words.txt' under the 'reference' directory
@@ -336,12 +393,10 @@ $ cp /usr/share/dict/words reference/words.txt
 
 # copy 'dict' directory as 'word_lists'
 $ cp -r /usr/share/dict word_lists
-</code></pre><p>As mentioned earlier, to copy multiple files and directories, you'll have to specify the destination directory as the last argument. You can use the <code>-t</code> option if you want to specify the destination before the source paths (helpful with <code>find</code> command for example).<pre><code class=language-bash>$ mkdir bkp_dot_files
+</code></pre><p>As mentioned earlier, to copy multiple files and directories, you'll have to specify the destination directory as the last argument. You can use the <code>-t</code> option if you want to specify the destination before the source paths (helpful with <code>find</code> command for example, will be discussed later).<pre><code class=language-bash>$ cp -r ~/.bashrc /usr/share/dict backups/
 
-# copy multiple files to the 'bkp_dot_files' directory
-$ cp ~/.bashrc ~/.bash_profile bkp_dot_files/
-$ ls -A bkp_dot_files
-.bash_profile  .bashrc
+$ ls -AF backups
+.bashrc  dict/  ip.txt  reports/
 </code></pre><p>Here are some more notable options:<ul><li><code>-u</code> copy files from source only if they are newer or don't exist in the destination<li><code>-b</code> and <code>--backup</code> options will allow you to create backup copies of files already existing in the destination<li><code>--preserve</code> option will help you to copy files along with source file attributes like ownership, timestamp, etc</ul><p><strong>Further Reading</strong><ul><li><code>man cp</code> and <code>info cp</code> for more options and complete documentation<li><a href=https://unix.stackexchange.com/questions/tagged/cp?sort=votes&pageSize=15>cp Q&A on unix stackexchange</a><li><a href=https://stackoverflow.com/questions/tagged/cp?sort=votes&pageSize=15>cp Q&A on stackoverflow</a><li><code>rsync</code> a fast, versatile, remote (and local) file-copying tool <ul><li><a href=https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps>rsync examples</a><li><a href=https://unix.stackexchange.com/questions/tagged/rsync?sort=votes&pageSize=15>rsync Q&A on unix stackexchange</a><li><a href=https://stackoverflow.com/questions/tagged/rsync?sort=votes&pageSize=15>rsync Q&A on stackoverflow</a></ul></ul><h2 id=mv><a class=header href=#mv>mv</a></h2><p>You can use the <code>mv</code> command to move one or more files and directories from one location to another. Unlike <code>rm</code> and <code>cp</code>, you do not need the <code>-r</code> option for directories.<pre><code class=language-bash>$ ls -F
 backups/  bkp_dot_files/  dict/  low power adders/  word_lists/  words  words_ref.txt
 
