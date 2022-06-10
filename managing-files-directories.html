@@ -397,37 +397,56 @@ $ cp -r /usr/share/dict word_lists
 
 $ ls -AF backups
 .bashrc  dict/  ip.txt  reports/
-</code></pre><p>Here are some more notable options:<ul><li><code>-u</code> copy files from source only if they are newer or don't exist in the destination<li><code>-b</code> and <code>--backup</code> options will allow you to create backup copies of files already existing in the destination<li><code>--preserve</code> option will help you to copy files along with source file attributes like ownership, timestamp, etc</ul><p><strong>Further Reading</strong><ul><li><code>man cp</code> and <code>info cp</code> for more options and complete documentation<li><a href=https://unix.stackexchange.com/questions/tagged/cp?sort=votes&pageSize=15>cp Q&A on unix stackexchange</a><li><a href=https://stackoverflow.com/questions/tagged/cp?sort=votes&pageSize=15>cp Q&A on stackoverflow</a><li><code>rsync</code> a fast, versatile, remote (and local) file-copying tool <ul><li><a href=https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps>rsync examples</a><li><a href=https://unix.stackexchange.com/questions/tagged/rsync?sort=votes&pageSize=15>rsync Q&A on unix stackexchange</a><li><a href=https://stackoverflow.com/questions/tagged/rsync?sort=votes&pageSize=15>rsync Q&A on stackoverflow</a></ul></ul><h2 id=mv><a class=header href=#mv>mv</a></h2><p>You can use the <code>mv</code> command to move one or more files and directories from one location to another. Unlike <code>rm</code> and <code>cp</code>, you do not need the <code>-r</code> option for directories.<pre><code class=language-bash>$ ls -F
-backups/  bkp_dot_files/  dict/  low power adders/  word_lists/  words  words_ref.txt
+</code></pre><p>Here are some more notable options:<ul><li><code>-u</code> copy files from source only if they are newer or don't exist in the destination<li><code>-b</code> and <code>--backup</code> options will allow you to create backup copies of files already existing in the destination<li><code>--preserve</code> option will help you to copy files along with source file attributes like ownership, timestamp, etc</ul><p><strong>Further Reading</strong><ul><li><code>man cp</code> and <code>info cp</code> for more options and complete documentation<li><a href=https://unix.stackexchange.com/questions/tagged/cp?sort=votes&pageSize=15>cp Q&A on unix stackexchange</a><li><a href=https://stackoverflow.com/questions/tagged/cp?sort=votes&pageSize=15>cp Q&A on stackoverflow</a><li><code>rsync</code> a fast, versatile, remote (and local) file-copying tool <ul><li><a href=https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps>rsync examples</a><li><a href=https://unix.stackexchange.com/questions/tagged/rsync?sort=votes&pageSize=15>rsync Q&A on unix stackexchange</a><li><a href=https://stackoverflow.com/questions/tagged/rsync?sort=votes&pageSize=15>rsync Q&A on stackoverflow</a></ul></ul><h2 id=mv><a class=header href=#mv>mv</a></h2><p>You can use the <code>mv</code> command to move one or more files and directories from one location to another. Unlike <code>rm</code> and <code>cp</code>, you do not need the <code>-r</code> option for directories.<p>Syntax for specifying the source and destination is same as seen earlier with <code>cp</code>. Here's an example of moving a directory into another directory:<pre><code class=language-bash>$ ls -F
+backups/  dot_files/  hello.py  ip.txt  loops.py  manuals/
+$ ls -F backups
+projects/
 
-# move 'bkp_dot_files' directory to be placed within the 'backups' directory
-$ mv bkp_dot_files/ backups/
-$ ls -F
-backups/  dict/  low power adders/  word_lists/  words  words_ref.txt
-$ ls -F backups/
-bkp_dot_files/
+$ mv dot_files backups
 
-# move multiple files and directories
-$ mv dict words backups/
 $ ls -F
-backups/  low power adders/  word_lists/  words_ref.txt
-$ ls -F backups/
-bkp_dot_files/  dict/  words
-</code></pre><p>When you are dealing with a single file or directory, you can also rename them:<pre><code class=language-bash># within the same directory
+backups/  hello.py  ip.txt  loops.py  manuals/
+$ ls -F backups
+dot_files/  projects/
+</code></pre><p>Here's an example for moving multiple files and directories to another directory:<pre><code class=language-bash>$ mv *.py manuals backups
+
+$ ls -F
+backups/  ip.txt
+$ ls -F backups
+dot_files/  hello.py  loops.py  manuals/  projects/
+</code></pre><p>When you are dealing with a single file or directory, you can also <strong>rename</strong> them:<pre><code class=language-bash># within the same directory
 $ mv ip.txt report.txt
+$ ls -F
+backups/  report.txt
 
-# different source/destination directories
-$ mv backups/bkp_dot_files dot_files
-</code></pre><p>Here are some more notable options:<ul><li><code>-i</code> interactively confirm or deny if destination already has a file of the same name<li><code>-n</code> always deny overwriting of files<li><code>-f</code> always overwrite files<li><code>-t</code> specify the destination elsewhere instead of final argument, useful with commands like <code>find</code><li><code>-u</code> move only if the files are newer or don't exist in the destination<li><code>-b</code> and <code>--backup</code> options will allow you to create backup copies of files already existing in the destination<li><code>-v</code> verbose option</ul><p><strong>Further Reading</strong><ul><li><a href=https://unix.stackexchange.com/questions/tagged/mv?sort=votes&pageSize=15>mv Q&A on unix stackexchange</a><li><a href=https://stackoverflow.com/questions/tagged/mv?sort=votes&pageSize=15>mv Q&A on stackoverflow</a></ul><h2 id=rename><a class=header href=#rename>rename</a></h2><p>There are different <code>rename</code> implementations to change filenames. Perl version is discussed in this section. See also <a href=https://askubuntu.com/questions/956010/whats-the-difference-between-the-different-rename-commands>askubuntu: What's the difference between the different "rename" commands?</a>.<p>Here's an example to change the file extensions:<pre><code class=language-bash>$ touch caves.jpeg waterfall.JPEG flower.JPG
+# between different directories
+$ mv backups/dot_files rc_files
+$ ls -F
+backups/  rc_files/  report.txt
+$ ls -F backups
+hello.py  loops.py  manuals/  projects/
+</code></pre><p>Here are some more notable options, some of which behave similar to those seen with the <code>cp</code> command:<ul><li><code>-i</code> interactively confirm or deny when the destination already has a file of the same name<li><code>-n</code> always deny overwriting of files<li><code>-f</code> always overwrite files<li><code>-t</code> specify the destination elsewhere instead of final argument<li><code>-u</code> move only if the files are newer or don't exist in the destination<li><code>-b</code> and <code>--backup</code> options will allow you to create backup copies of files already existing in the destination<li><code>-v</code> verbose option</ul><p><strong>Further Reading</strong><ul><li><a href=https://unix.stackexchange.com/questions/tagged/mv?sort=votes&pageSize=15>mv Q&A on unix stackexchange</a><li><a href=https://stackoverflow.com/questions/tagged/mv?sort=votes&pageSize=15>mv Q&A on stackoverflow</a></ul><h2 id=rename><a class=header href=#rename>rename</a></h2><p><code>mv</code> command is useful for single file renaming. <code>rename</code> helps when you need to change multiple filenames based on a pattern. There are different implementations of the <code>rename</code> command, with wildly different set of features. See <a href=https://askubuntu.com/questions/956010/whats-the-difference-between-the-different-rename-commands>askubuntu: What's the difference between the different "rename" commands?</a> for details.<p>Perl implementation of the <code>rename</code> command will be discussed in this section. You'd need to know regular expressions to use this command. Basic explanations will be given here, more details can be found in the links mentioned at the end of this section. Here's an example to change the file extensions:<pre><code class=language-bash># sample files for illustration purposes
+$ touch caves.jpeg waterfall.JPEG flower.JPG
+
+# substitution command syntax is s/search/replace/flags
+# \. matches . character literally
+# e? matches e optionally (? is a quantifier to match 0 or 1 times)
+# $ anchors the match to the end of the input
+# i flag matches the input case-insensitively
 $ rename 's/\.jpe?g$/.jpg/i' *
+
 $ ls
 caves.jpg  flower.jpg  waterfall.jpg
 </code></pre><p>As a good practice, use the <code>-n</code> option to see how the files will be renamed before actually renaming the files.<pre><code class=language-bash>$ touch 1.png 3.png 25.png 100.png
 $ ls
 100.png  1.png  25.png  3.png
 
-# sanity check
+# use -n option for sanity check
 # note that 100.png isn't part of the output, since it isn't affected
+# \d matches a digit character
+# \d+ matches 1 or more digits (+ is a quantifier to match 1 or more times)
+# e flag treats the replacement string as Perl code
+# $& is a backreference to the matched portion
 $ rename -n 's/\d+/sprintf "%03d", $&/e' *.png
 rename(1.png, 001.png)
 rename(25.png, 025.png)
@@ -440,7 +459,10 @@ $ ls
 </code></pre><p>If the new filename already exists, you'll get an error, which you can override with <code>-f</code> option if you wish. If you are passing filenames with path components in them, you can use the <code>-d</code> option to affect only the filename portion. Otherwise, the logic you are using might affect directory names as well.<pre><code class=language-bash>$ mkdir scripts
 $ touch scripts/toc.sh scripts/reports.py
 
-# uppercase first character of the filename
+# aim is to uppercase the first character of the filename
+# . metacharacter matches any character (except newline)
+# \u changes the next character to uppercase
+# $& is a backreference to the matched portion
 $ rename -n -d 's/./\u$&/' scripts/*
 rename(scripts/reports.py, scripts/Reports.py)
 rename(scripts/toc.sh, scripts/Toc.sh)
@@ -449,7 +471,7 @@ rename(scripts/toc.sh, scripts/Toc.sh)
 $ rename -n 's/./\u$&/' scripts/*
 rename(scripts/reports.py, Scripts/reports.py)
 rename(scripts/toc.sh, Scripts/toc.sh)
-</code></pre><p><strong>Further Reading</strong><ul><li><a href=https://unix.stackexchange.com/questions/tagged/rename?sort=votes&pageSize=15>rename Q&A on unix stackexchange</a><li>See my <a href=https://github.com/learnbyexample/learn_perl_oneliners>Perl one-liners</a> ebook for examples and details about the Perl substitution command</ul><h2 id=ln><a class=header href=#ln>ln</a></h2><p>The <code>ln</code> command helps you create a link to another file or directory within the same or different path. There are two types of links — symbolic links and hard links. Symbolic links point to another file or directory:<ul><li>if the original file is deleted or moved to another location, symbolic link will no longer work<li>if the symbolic link is moved to another location, it will still work if the link was done using absolute path (for relative path, it will depend on whether or not there's another file with same name in that location)<li>a symbolic link file has its own inode, permissions, timestamps, etc<li>some commands will work the same when original file or the symbolic file is given as the command line argument and some require additional options</ul><p>Syntax is similar to the <code>cp</code> command. You have to specify the source first followed by the destination (which is optional if it is the current working directory).<pre><code class=language-bash># destination is optional for making a link in the current directory
+</code></pre><p><strong>Further Reading</strong><ul><li><a href=https://unix.stackexchange.com/questions/tagged/rename?sort=votes&pageSize=15>rename Q&A on unix stackexchange</a><li><a href=https://perldoc.perl.org/perlretut>perldoc: Regexp tutorial</a><li>See my <a href=https://github.com/learnbyexample/learn_perl_oneliners>Perl one-liners</a> ebook for examples and more details about Perl substitution and <code>rename</code> command</ul><h2 id=ln><a class=header href=#ln>ln</a></h2><p>The <code>ln</code> command helps you create a link to another file or directory within the same or different path. There are two types of links — symbolic links and hard links. Symbolic links point to another file or directory:<ul><li>if the original file is deleted or moved to another location, symbolic link will no longer work<li>if the symbolic link is moved to another location, it will still work if the link was done using absolute path (for relative path, it will depend on whether or not there's another file with same name in that location)<li>a symbolic link file has its own inode, permissions, timestamps, etc<li>some commands will work the same when original file or the symbolic file is given as the command line argument and some require additional options</ul><p>Syntax is similar to the <code>cp</code> command. You have to specify the source first followed by the destination (which is optional if it is the current working directory).<pre><code class=language-bash># destination is optional for making a link in the current directory
 $ ln -s /usr/share/dict/words
 
 # you can also rename the link if needed
@@ -458,9 +480,9 @@ $ ls -1sF
 total 0
 0 words@
 0 words.txt@
-</code></pre><p>Long listing with <code>ls -l</code> will also show the path connected to links. You can also use the <code>readlink</code> command, which has features like resolving recursively to the canonical file.<pre><code class=language-bash># to know which file the link points to
-$ ls -l words
-lrwxrwxrwx 1 learnbyexample eg 21 Jul  9 13:41 words -> /usr/share/dict/words
+</code></pre><p>Long listing with <code>ls -l</code> will show the path connected to links. You can also use the <code>readlink</code> command, which has features like resolving recursively to the canonical file.<pre><code class=language-bash># to know which file the link points to
+$ ls -lG words
+lrwxrwxrwx 1 learnbyexample 21 Jul  9 13:41 words -> /usr/share/dict/words
 $ readlink words
 /usr/share/dict/words
 
@@ -476,52 +498,81 @@ $ ls -1i apple.txt banana.txt
 649140 banana.txt
 649140 apple.txt
 </code></pre><blockquote><p><img src=images/info.svg alt=info> You can use <code>unlink</code> or <code>rm</code> commands to delete links.</blockquote><p><strong>Further Reading</strong><ul><li><a href=https://unix.stackexchange.com/questions/tagged/ln?sort=votes&pageSize=15>ln Q&A on unix stackexchange</a><li><a href=https://stackoverflow.com/questions/tagged/ln?sort=votes&pageSize=15>ln Q&A on stackoverflow</a><li><a href=https://askubuntu.com/questions/108771/what-is-the-difference-between-a-hard-link-and-a-symbolic-link>askubuntu: What is the difference between a hard link and a symbolic link?</a><li><a href=https://unix.stackexchange.com/q/9575/109046>unix.stackexchange: What is the difference between symbolic and hard links?</a><li><a href=https://unix.stackexchange.com/q/4402/109046>unix.stackexchange: What is a Superblock, Inode, Dentry and a File?</a></ul><h2 id=tar-and-gzip><a class=header href=#tar-and-gzip>tar and gzip</a></h2><p><code>tar</code> is an archiving utility. Depending on the implementation, you can also use options to compress the archive.<p>Here's an example that creates a single archive file from multiple input files and directories:<pre><code class=language-bash>$ ls -F
-backups/  low_power_adders/  word_lists/  words_ref.txt
+projects/  report.log  todos/
 
 # -c option creates a new archive, any existing archive will be overwritten
 # -f option allows to specify name of archive to be created
 # rest of the arguments are the files/directories to be archived
-$ tar -cf bkp_words.tar word_lists words_ref.txt
+$ tar -cf bkp.tar report.log projects
 
 $ ls -F
-backups/  bkp_words.tar  low_power_adders/  word_lists/  words_ref.txt
-$ ls -sh bkp_words.tar
-2.3M bkp_words.tar
+bkp.tar  projects/  report.log  todos/
+$ ls -sh bkp.tar
+7.4M bkp.tar
 </code></pre><p>Once you have an archive file, you can then compress it using tools like <code>gzip</code>, <code>bzip2</code>, <code>xz</code>, etc. In the below example, the command replaces the archive file with the compressed version and adds a <code>.gz</code> suffix to indicate that <code>gzip</code> was the technique used.<pre><code class=language-bash># the input '.tar' file will be overwritten with the compressed version
-$ gzip bkp_words.tar
+$ gzip bkp.tar
 
 $ ls -F
-backups/  bkp_words.tar.gz  low_power_adders/  word_lists/  words_ref.txt
-$ ls -sh bkp_words.tar.gz
-652K bkp_words.tar.gz
+bkp.tar.gz  projects/  report.log  todos/
+$ ls -sh bkp.tar.gz
+5.6M bkp.tar.gz
+</code></pre><p>Use the <code>-t</code> option if you want to check the contents of the compressed file. This will work with the uncompressed <code>.tar</code> version as well.<pre><code class=language-bash>$ tar -tf bkp.tar.gz 
+report.log
+projects/
+projects/scripts/
+projects/scripts/calc.sh
+projects/errors.log
 </code></pre><p>To uncompress <code>.gz</code> files, you can use <code>gunzip</code> or <code>gzip -d</code>. This will replace the compressed version with the uncompressed archive file:<pre><code class=language-bash># this '.gz' file will be overwritten with the uncompressed version
-$ gunzip bkp_words.tar.gz
+$ gunzip bkp.tar.gz
 
 $ ls -F
-backups/  bkp_words.tar  low_power_adders/  word_lists/  words_ref.txt
-$ ls -sh bkp_words.tar
-2.3M bkp_words.tar
-</code></pre><p>To extract the original files from the archive, use <code>tar</code> along with the <code>-x</code> option:<pre><code class=language-bash>$ mkdir test_extract
-$ mv bkp_words.tar test_extract/
-$ cd test_extract/
+bkp.tar  projects/  report.log  todos/
+$ ls -sh bkp.tar
+7.4M bkp.tar
+</code></pre><p>To extract the files from an archive, use <code>tar</code> along with the <code>-x</code> option:<pre><code class=language-bash>$ mkdir test_extract
+$ mv bkp.tar test_extract
+$ cd test_extract
 $ ls
-bkp_words.tar
+bkp.tar
 
-$ tar -xf bkp_words.tar
-$ ls -F
-bkp_words.tar  word_lists/  words_ref.txt
+$ tar -xf bkp.tar
+$ tree
+.
+├── bkp.tar
+├── projects
+│   ├── errors.log
+│   └── scripts
+│       └── calc.sh
+└── report.log
+
+2 directories, 4 files
+
 $ cd ..
-$ rm -r test_extract/
+$ rm -r test_extract
 </code></pre><p>With <code>GNU tar</code>, you can compress/uncompress along with the <code>tar</code> command instead of having to use tools like <code>gzip</code> separately. For example, the <code>-z</code> option will use <code>gzip</code>, <code>-j</code> will use <code>bzip2</code> and <code>-J</code> will use <code>xz</code>. Use the <code>-a</code> option if you want <code>tar</code> to automatically select the compression technique based on the extension provided.<pre><code class=language-bash>$ ls -F
-backups/  low_power_adders/  word_lists/  words_ref.txt
+projects/  report.log  todos/
 
 # -z option gives same compression as the gzip command
-$ tar -zcf bkp_words.tar.gz word_lists words_ref.txt
-$ ls -sh bkp_words.tar.gz
-652K bkp_words.tar.gz
+$ tar -zcf bkp.tar.gz report.log projects
+$ ls -sh bkp.tar.gz
+5.6M bkp.tar.gz
 
 # extract original files from compressed file
-$ tar -zxf bkp_words.tar.gz
-</code></pre><p><code>tar</code> has lots and lots of options for various needs. Some are listed below, see documentation for complete details.<ul><li><code>-v</code> verbose option<li><code>-r</code> to append files to an existing archive<li><code>-t</code> to list contents of an archive<li><code>--exclude=</code> specify files to be ignored from archiving</ul><p>There are also commands starting with <code>z</code> to work with compressed files, for example:<ul><li><code>zcat</code> to display file contents of a compressed file<li><code>zless</code> to display file contents of a compressed file one screenful at a time<li><code>zgrep</code> to search compressed files</ul><blockquote><p><img src=images/info.svg alt=info> If you need to work with <code>.zip</code> files, use <code>zip</code> and <code>unzip</code> commands.</blockquote><p><strong>Further Reading</strong><ul><li><a href=https://unix.stackexchange.com/questions/tagged/tar?sort=votes&pageSize=15>tar Q&A on unix stackexchange</a><li><a href=https://stackoverflow.com/questions/tagged/tar?sort=votes&pageSize=15>tar Q&A on stackoverflow</a><li><a href=https://superuser.com/questions/252065/gzip-without-tar-why-are-they-used-together>superuser: gzip without tar? Why are they used together?</a></ul></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=command-line-overview.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=shell-features.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=command-line-overview.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=shell-features.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
+$ mkdir test_extract
+$ cd test_extract
+$ tar -zxf ../bkp.tar.gz
+$ tree
+.
+├── projects
+│   ├── errors.log
+│   └── scripts
+│       └── calc.sh
+└── report.log
+
+2 directories, 3 files
+
+$ cd ..
+$ rm -r test_extract
+</code></pre><p><code>tar</code> has lots and lots of options for various needs. Some are listed below, see documentation for complete details.<ul><li><code>-v</code> verbose option<li><code>-r</code> to append files to an existing archive<li><code>--exclude=</code> specify files to be ignored from archiving</ul><p>There are also commands starting with <code>z</code> to work with compressed files, for example:<ul><li><code>zcat</code> to display file contents of a compressed file<li><code>zless</code> to display file contents of a compressed file one screenful at a time<li><code>zgrep</code> to search compressed files</ul><blockquote><p><img src=images/info.svg alt=info> If you need to work with <code>.zip</code> files, use <code>zip</code> and <code>unzip</code> commands.</blockquote><p><strong>Further Reading</strong><ul><li><a href=https://unix.stackexchange.com/questions/tagged/tar?sort=votes&pageSize=15>tar Q&A on unix stackexchange</a><li><a href=https://stackoverflow.com/questions/tagged/tar?sort=votes&pageSize=15>tar Q&A on stackoverflow</a><li><a href=https://superuser.com/questions/252065/gzip-without-tar-why-are-they-used-together>superuser: gzip without tar? Why are they used together?</a></ul></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=command-line-overview.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=shell-features.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=command-line-overview.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=shell-features.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
             window.playground_copyable = true;
         </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>
