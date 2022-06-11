@@ -113,7 +113,7 @@ errors.log  hi*              projects/  scripts@
 </code></pre><p>If you just need to distinguish between files and directories, you can use the <code>-p</code> option:<pre><code class=language-bash>$ ls -p
 backups/    hello_world.py  ip.txt     report.log  todos/
 errors.log  hi              projects/  scripts
-</code></pre><p>You can also use the <code>--color</code> option to visually distinguish file types:<p><img src=./images/ls_color.png alt="ls color output"><p>The <code>-l</code> option displays the contents using a long listing format. You'll get details like file permissions, ownership, size, timestamp and so on. The first character of the first column distinguishes file types as <code>d</code> for directories, <code>-</code> for regular files, <code>l</code> for symbolic links, etc. Under each directory listing, the first line will display the total size of the entries (in terms of KB).<pre><code class=language-bash>$ ls -l hi
+</code></pre><p>You can also use the <code>--color</code> option to visually distinguish file types:<p align=center><img src=images/ls_color.png alt="example with --color option"><p>The <code>-l</code> option displays the contents using a long listing format. You'll get details like file permissions, ownership, size, timestamp and so on. The first character of the first column distinguishes file types as <code>d</code> for directories, <code>-</code> for regular files, <code>l</code> for symbolic links, etc. Under each directory listing, the first line will display the total size of the entries (in terms of KB).<pre><code class=language-bash>$ ls -l hi
 -rwxrwxr-x 1 learnbyexample learnbyexample 21 Dec  5  2019 hi
 
 # you can add -G option to avoid the group column

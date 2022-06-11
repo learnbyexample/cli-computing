@@ -55,27 +55,30 @@ $ wc -c greeting.txt
 25 greeting.txt
 $ wc -wc greeting.txt
  6 25 greeting.txt
-
-# filename won't be printed for stdin data
-$ wc -l &LTgreeting.txt
+</code></pre><p>Filename won't be printed for stdin data. This is helpful to save the results in a variable for scripting purposes.<pre><code class=language-bash>$ wc -l &LTgreeting.txt
 2
-</code></pre><p>Word count is based on whitespace separation. You'll have to pre-process the input if you do not want certain non-whitespace characters to influence the results. <code>tr</code> is helpful to remove the given set of characters, or its complement (this command will be discussed later).<pre><code class=language-bash>$ echo 'apple ; banana ; cherry' | wc -w
+</code></pre><p>Word count is based on whitespace separation. You'll have to pre-process the input if you do not want certain non-whitespace characters to influence the results. <code>tr</code> can be used to remove a particular set of characters (this command will be discussed in a later chapter).<pre><code class=language-bash>$ echo 'apple ; banana ; cherry' | wc -w
 5
 
 # remove characters other than alphabets and whitespace
+# -d option is for deleting, -c option complements the given set
 $ echo 'apple ; banana ; cherry' | tr -cd 'a-zA-Z[:space:]'
 apple  banana  cherry
 $ echo 'apple ; banana ; cherry' | tr -cd 'a-zA-Z[:space:]' | wc -w
 3
-</code></pre><p>If you pass multiple files to the <code>wc</code> command, the count values will be displayed separately for each file. You'll also get a summary at the end, which sums the respective count of all the input files.<pre><code class=language-bash>$ wc greeting.txt nums.txt purchases.txt
- 2  6 25 greeting.txt
- 3  3 13 nums.txt
- 8  9 57 purchases.txt
-13 18 95 total
-</code></pre><p>You can use the <code>-L</code> to report the length of the longest line in the input (excluding the newline character of a line). Note that <code>-L</code> won't count non-printable characters and tabs are converted to equivalent spaces. Multibyte characters will each be counted as <code>1</code> (depending on the locale, they might become non-printable too).<pre><code class=language-bash>$ echo 'apple' | wc -L
+</code></pre><p>If you pass multiple files to the <code>wc</code> command, the count values will be displayed separately for each file. You'll also get a summary at the end, which sums the respective count of all the input files.<pre><code class=language-bash>$ wc greeting.txt fruits.txt sample.txt
+  2   6  25 greeting.txt
+  3   3  20 fruits.txt
+ 15  38 183 sample.txt
+ 20  47 228 total
+</code></pre><p>You can use the <code>-L</code> to report the length of the longest line in the input (excluding the newline character of a line). Note that <code>-L</code> won't count non-printable characters and tabs are converted to equivalent spaces. Multibyte characters and <a href=https://unicode.org/reports/tr29/#Grapheme_Cluster_Boundaries>grapheme clusters</a> will each be counted as <code>1</code> (depending on the locale, they might become non-printable too).<pre><code class=language-bash>$ echo 'apple' | wc -L
 5
-$ wc -L &LTsample.txt
-26
+
+$ echo 'αλεπού cag̈e' | wc -L
+11
+
+$ wc -L &LTgreeting.txt
+15
 </code></pre><p>Use <code>-m</code> option instead of <code>-c</code> if the input has multibyte characters.<pre><code class=language-bash>$ printf 'αλεπού' | wc -c
 12
 
@@ -235,23 +238,23 @@ $ dirname /home/learnbyexample/example_files/scores.csv ../report/backups/
 </code></pre><p>You can use shell features like command substitution to combine the effects of <code>basename</code> and <code>dirname</code> commands.<pre><code class=language-bash># extract the second last path component
 $ basename $(dirname /home/learnbyexample/example_files/scores.csv)
 example_files
-</code></pre><h2 id=chmod><a class=header href=#chmod>chmod</a></h2><p>This section will show how you can use the <code>chmod</code> command to change file permissions. Consider this <code>ls</code> long listing example:<pre><code class=language-bash>$ ls -l sample.txt 
--rw-rw-r-- 1 learnbyexample learnbyexample 111 May 25 14:47 sample.txt
+</code></pre><h2 id=chmod><a class=header href=#chmod>chmod</a></h2><p>This section will show how you can use the <code>chmod</code> command to change file permissions. Consider this <code>ls</code> long listing example:<pre><code class=language-bash>$ ls -lG sample.txt 
+-rw-rw-r-- 1 learnbyexample 111 May 25 14:47 sample.txt
 </code></pre><p>In the above output of <code>ls -l</code> command, the 10 characters displayed in the first column are related to file type and permissions. First character indicates the <strong>file type</strong>. The most common ones are shown below. See <code>-l</code> option in <code>info ls</code> for complete list.<ul><li><code>-</code> regular file<li><code>d</code> directory<li><code>l</code> symbolic link</ul><p>The other nine characters represent three sets of <strong>file permissions</strong> for <code>user</code>, <code>group</code> and <code>others</code>, in that order.<ul><li><code>user</code> file properties for owner of the file (<code>u</code>)<li><code>group</code> file properties for the group the file belongs to (<code>g</code>)<li><code>others</code> file properties for everyone else (<code>o</code>)</ul><p>Only <code>rwx</code> file properties will be discussed in this section. For other types of properties, <a href=https://www.mkssoftware.com/docs/man1/ls.1.asp#Long_Output_Format>refer to this documentation</a>.<p><strong>Permission reference table for files:</strong><table><thead><tr><th>Character<th>Meaning<th>Value<tbody><tr><td><code>r</code><td>read<td><code>4</code><tr><td><code>w</code><td>write<td><code>2</code><tr><td><code>x</code><td>execute<td><code>1</code><tr><td><code>-</code><td>no permission<td><code>0</code></table><blockquote><p><img src=./images/info.svg alt=info> Note that the permissions are not straightforward to understand for directories. If a directory only has the <code>x</code> permission, you can <code>cd</code> into it but you cannot read the contents (using <code>ls</code> for example). If a directory only has the <code>r</code> permission, you cannot <code>cd</code> into it, but you'll be able to read the contents (along with "cannot access" error). For this reason, <code>rx</code> permissions are almost always enabled/disabled together. The <code>w</code> permission allows you to add or remove contents, provided <code>x</code> is active.</blockquote><p><strong>Changing permissions for all three categories</strong><p>You can provide numbers for <code>u g o</code> (in that order) to change <code>rwx</code> permissions.<pre><code class=language-bash># r(4) + w(2) + 0 = 6
 # r(4) + 0 + 0 = 4
 $ chmod 664 sample.txt 
-$ ls -lF sample.txt 
--rw-rw-r-- 1 learnbyexample learnbyexample 148 May 29 11:00 sample.txt
+$ ls -lFG sample.txt 
+-rw-rw-r-- 1 learnbyexample 148 May 29 11:00 sample.txt
 
 # r(4) + w(2) + x(1) = 7
 # r(4) + 0 + x(1) = 5
 $ chmod 755 hello_world.pl 
-$ ls -lF hello_world.pl 
--rwxr-xr-x 1 learnbyexample learnbyexample 40 May 28 13:25 hello_world.pl*
+$ ls -lFG hello_world.pl 
+-rwxr-xr-x 1 learnbyexample 40 May 28 13:25 hello_world.pl*
 
 $ chmod 775 report/
-$ ls -ld report/
-drwxrwxr-x 2 learnbyexample learnbyexample 4096 May 29 14:01 report/
+$ ls -ldG report/
+drwxrwxr-x 2 learnbyexample 4096 May 29 14:01 report/
 </code></pre><p><strong>Changing permissions for specific categories</strong><p>The permissions that are affected by <code>+-/rwx</code> depends on <code>umask</code> value as well. It is usually <code>002</code> which means:<ul><li><code>+r -r +x -x</code> without <code>u g o</code> qualifier affects all the three categories<li><code>+w -w</code> without <code>u g o</code> qualifier affects only <code>user</code> and <code>group</code> categories</ul><pre><code class=language-bash># add execute permission for all three categories
 $ chmod +x report.sh
 

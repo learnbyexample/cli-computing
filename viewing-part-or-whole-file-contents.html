@@ -42,6 +42,8 @@
 $ cat greeting.txt
 Hi there
 Have a nice day
+
+# another example
 $ cat fruits.txt
 banana
 papaya
@@ -54,7 +56,7 @@ Have a nice day
 banana
 papaya
 mango
-</code></pre><p>To save the output of concatenation, use the shell's redirection features.<pre><code class=language-bash>$ cat greeting.txt fruits.txt > op.txt
+</code></pre><p>To save the output of concatenation, use redirection:<pre><code class=language-bash>$ cat greeting.txt fruits.txt > op.txt
 
 $ cat op.txt
 Hi there
@@ -62,11 +64,12 @@ Have a nice day
 banana
 papaya
 mango
-</code></pre><p>You can represent <code>stdin</code> data using <code>-</code> as a file argument. If file arguments are not present, <code>cat</code> will read from <code>stdin</code> data if present or wait for interactive input. Note that <code>-</code> is also supported by many more commands to indicate <code>stdin</code> data.<pre><code class=language-bash>$ echo 'apple banana cherry' | cat greeting.txt -
+</code></pre><p>You can represent <code>stdin</code> data using <code>-</code> as a file argument. If file arguments are not present, <code>cat</code> will read from <code>stdin</code> data if present or wait for interactive input. Note that <code>-</code> is also supported by many more commands to indicate <code>stdin</code> data.<pre><code class=language-bash># concatenate contents of 'greeting.txt' and 'stdin' data
+$ echo 'apple banana cherry' | cat greeting.txt -
 Hi there
 Have a nice day
 apple banana cherry
-</code></pre><blockquote><p><img src=./images/info.svg alt=info> Using <code>cat</code> to view the contents of a file, to concatenate them, etc is well and good. But, using <code>cat</code> when it is not needed is a bad habit that you should avoid. See <a href=https://en.wikipedia.org/wiki/Cat_(Unix)#Useless_use_of_cat>wikipedia: UUOC</a> and <a href=https://porkmail.org/era/unix/award.html>Useless Use of Cat Award</a> for more details.</blockquote><p><code>cat</code> is often used to spot special characters:<pre><code class=language-bash># example for backspace and carriage return
+</code></pre><blockquote><p><img src=./images/info.svg alt=info> Using <code>cat</code> to view the contents of a file, to concatenate them, etc is well and good. But, using <code>cat</code> when it is not needed is a bad habit that you should avoid. See <a href=https://en.wikipedia.org/wiki/Cat_(Unix)#Useless_use_of_cat>wikipedia: UUOC</a> and <a href=https://porkmail.org/era/unix/award.html>Useless Use of Cat Award</a> for more details.</blockquote><p><code>cat</code> is also handy to spot special characters:<pre><code class=language-bash># example for backspace and carriage return characters
 $ printf 'car\bt\nbike\rp\n'
 cat
 pike
@@ -92,7 +95,23 @@ banana
 </code></pre><blockquote><p><img src=./images/warning.svg alt=warning> If the last line of input doesn't end with a newline, the output will also not have that newline character.</blockquote><pre><code class=language-bash>$ printf 'apple\nbanana\ncherry' | tac
 cherrybanana
 apple
-</code></pre><h2 id=less><a class=header href=#less>less</a></h2><p>The <code>cat</code> command is not suitable for viewing contents of large files in the terminal. The <code>less</code> command automatically fits the content to the size of terminal, allows scrolling and has nifty features for effective viewing. Usually, <code>man</code> command uses <code>less</code> as the <code>pager</code> to display the documentation. The navigation options are similar to the <code>vi/vim</code> text editor.<p>Commonly used commands are given below. You can press the <code>h</code> key for builtin help.<ul><li><code>g</code> go to the start of the file<li><code>G</code> go to the end of the file<li><code>q</code> quit<li><code>/pattern</code> search for the given pattern in the forward direction<li><code>?pattern</code> search for the given pattern in the backward direction<li><code>n</code> go to the next match<li><code>N</code> go to the previous match</ul><p><strong>Example and Further Reading</strong><ul><li><code>less -s large_filename</code> display contents of the given file, consecutive blank lines are squeezed as a single blank line (similar to <code>cat -s</code>) <ul><li>use <code>-N</code> option to prefix line numbers</ul><li><code>less</code> command is an <a href=https://unix.stackexchange.com/q/604/109046>improved version</a> of the <code>more</code> command<li><a href=https://unix.stackexchange.com/q/81129/109046>differences between most, more and less</a><li><a href=https://unix.stackexchange.com/questions/tagged/less?sort=votes&pageSize=15>less Q&A on unix stackexchange</a></ul><h2 id=tail><a class=header href=#tail>tail</a></h2><p>By default, <code>tail</code> displays the last 10 lines of input file(s). If there are less than 10 lines in the input, only those lines will be displayed. You can use the <code>-n</code> option to change the number of lines. By using <code>tail -n +N</code>, you can get all the lines starting from the <code>N</code>th line.<pre><code class=language-bash># last two lines (input has 15 lines)
+</code></pre><h2 id=less><a class=header href=#less>less</a></h2><p>The <code>cat</code> command is not suitable for viewing contents of large files in the terminal. The <code>less</code> command automatically fits the content to the size of terminal, allows scrolling and has nifty features for effective viewing. Usually, <code>man</code> command uses <code>less</code> as the <code>pager</code> to display the documentation. The navigation options are similar to the <code>vi/vim</code> text editor.<p>Commonly used commands are given below. You can press the <code>h</code> key for builtin help.<ul><li><code>g</code> go to the start of the file<li><code>G</code> go to the end of the file<li><code>q</code> quit<li><code>/pattern</code> search for the given pattern in the forward direction<li><code>?pattern</code> search for the given pattern in the backward direction<li><code>n</code> go to the next match<li><code>N</code> go to the previous match</ul><p><strong>Example and Further Reading</strong><ul><li><code>less -s large_filename</code> display contents of the given file, consecutive blank lines are squeezed as a single blank line (similar to <code>cat -s</code>) <ul><li>use <code>-N</code> option to prefix line numbers</ul><li><code>less</code> command is an <a href=https://unix.stackexchange.com/q/604/109046>improved version</a> of the <code>more</code> command<li><a href=https://unix.stackexchange.com/q/81129/109046>differences between most, more and less</a><li><a href=https://unix.stackexchange.com/questions/tagged/less?sort=votes&pageSize=15>less Q&A on unix stackexchange</a></ul><h2 id=tail><a class=header href=#tail>tail</a></h2><p>By default, <code>tail</code> displays the last 10 lines of input file(s). If there are less than 10 lines in the input, only those lines will be displayed. You can use the <code>-n</code> option to change the number of lines. By using <code>tail -n +N</code>, you can get all the lines starting from the <code>N</code>th line.<p>Here's an example file that'll be used for illustration purposes:<pre><code class=language-bash>$ cat sample.txt 
+ 1) Hello World
+ 2) 
+ 3) Hi there
+ 4) How are you
+ 5) 
+ 6) Just do-it
+ 7) Believe it
+ 8) 
+ 9) banana
+10) papaya
+11) mango
+12) 
+13) Much ado about nothing
+14) He he he
+15) Adios amigo
+</code></pre><p>Here are some examples with <code>-n</code> option:<pre><code class=language-bash># last two lines (input has 15 lines)
 $ tail -n2 sample.txt
 14) He he he
 15) Adios amigo
