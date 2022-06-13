@@ -123,6 +123,176 @@ $ echo 'car bat cod map combat' | grep -oP '\b(bat|map)\b(*SKIP)(*F)|\w+'
 car
 cod
 combat
-</code></pre><p><strong>Further Reading</strong><ul><li>My ebook <a href=https://github.com/learnbyexample/learn_gnugrep_ripgrep>GNU GREP and RIPGREP</a> <ul><li>See also my blog post <a href=https://learnbyexample.github.io/gnu-bre-ere-cheatsheet/>GNU BRE/ERE cheatsheet</a></ul><li><a href=https://lists.freebsd.org/pipermail/freebsd-current/2010-August/019310.html>Why GNU grep is fast</a><li><a href=https://stackoverflow.com/questions/tagged/grep?sort=votes&pageSize=15>grep Q&A on stackoverflow</a><li><a href=https://unix.stackexchange.com/questions/tagged/grep?sort=votes&pageSize=15>grep Q&A on unix stackexchange</a><li><a href=https://unix.stackexchange.com/q/131535/109046>unix.stackexchange: grep -r vs find+grep</a></ul><h2 id=find><a class=header href=#find>find</a></h2><p>The <code>find</code> command has comprehensive features to narrow down files and directories based on name, size, date and so on. And more importantly, <code>find</code> helps you to perform actions on such filtered files.<p><strong>Examples</strong><p>Filtering based on filename:<p>You have to construct a pattern that covers the entire filename, be it glob (<code>-name</code> and <code>-iname</code>) or regexp (<code>-regex</code>). The path(s) to search should be specified before any options like <code>-type</code>, <code>-name</code>, etc.<ul><li><code>find</code> by default, you'll get every entry (including hidden ones) in the current directory and sub-directories<li><code>find . -name '*log'</code> only files whose name ends with <code>log</code> in the current directory and sub-directories <ul><li>the argument to <code>-name</code> is treated as a <strong>glob</strong> (i.e. wildcards, not regex)<li>specifying <code>.</code> as the search path is optional</ul><li><code>find ~/reports /etc/ -name '*.txt'</code> filenames ending with <code>.txt</code> from the paths <code>~/reports</code> and <code>/etc/</code><li><code>find -iname 'power.log'</code> files named <code>power.log</code> (ignoring case) in the current directory and sub-directories<li><code>find -not -name '*log'</code> all files whose name does NOT end with <code>log</code><li><code>find -regextype egrep -regex '.*/\w+'</code> filenames containing only word characters <code>[a-zA-Z0-9_]</code> <ul><li><code>-regextype egrep</code> sets ERE (Extended Regular Expression) as the regexp flavor (default is <code>emacs</code> flavor)<li><code>.*/</code> is needed to match till the last <code>/</code> character in the file path</ul></ul><p>Filtering based on file type:<ul><li><code>find ~/proj -type f</code> all regular files<li><code>find ~/proj -type d</code> all directories<li><code>find ~/proj -type f -name '.*'</code> only hidden files</ul><p>Filtering based on depth:<p>The path being searched is considered as depth <code>0</code>, files in sub-directory are at depth <code>1</code>, files in sub-directory of a sub-directory are at depth <code>2</code> and so on.<ul><li><code>find -maxdepth 1 -type f</code> all regular files (including hidden ones) from current directory, but not sub-directories<li><code>find -maxdepth 1 -type f -name '[^.]*'</code> all regular files (but not hidden ones) from current directory, but not sub-directories <ul><li><code>-not -name '.*'</code> can be also used</ul><li><code>find -mindepth 1 -maxdepth 1 -type d</code> all directories (including hidden ones) in current directory, but not sub-directories <ul><li><code>-mindepth 1</code> is used to exclude the path being searched, which is considered as depth <code>0</code></ul></ul><p>Filtering based on file properties:<ul><li><code>find -mtime -2</code> files that were modified within the last two days <ul><li>Note that day here means 24 hours</ul><li><code>find -mtime +7</code> files that were modified more than seven days back<li><code>find -daystart -type f -mtime -1</code> files that were modified from beginning of day (not past 24 hours)<li><code>find -size +10k</code> files with size greater than 10 kilobytes<li><code>find -size -1M</code> files with size less than 1 megabytes<li><code>find -size 2G</code> files of size 2 gigabytes</ul><p>Passing filtered files as arguments to other commands:<ul><li><code>find report -name '*log*' -exec rm {} \;</code> delete all files containing <code>log</code> anywhere in the name <ul><li>here <code>rm</code> command is called for every file matching the given condition<li>since <code>;</code> is a special shell character, it needs to be escaped using <code>\</code></ul><li><code>find report -name '*log*' -delete</code> builtin option to delete files matching the given condition<li><code>find -name '*.txt' -exec wc {} +</code> files ending with <code>.txt</code> are all passed as arguments to the <code>wc</code> command <ul><li>no need to use escape the <code>+</code> character in this case<li><strong>note</strong> that the number of invocations of the command specified is not necessarily once if the number of files found are too large</ul><li><code>find -name '*.log' -exec mv {} ../log/ \;</code> move files ending with <code>.log</code> to the <code>log</code> directory present in one hierarchy above <ul><li><code>mv</code> is executed once per each filtered file</ul><li><code>find -name '*.log' -exec mv -t ../log/ {} +</code> the <code>-t</code> option allows to specify target directory, so you can use <code>+</code> instead of having to call <code>mv</code> once for each file found <ul><li>similarly, you can use <code>-t</code> for the <code>cp</code> command</ul></ul><p><strong>Further Reading</strong><ul><li><a href=https://mywiki.wooledge.org/UsingFind>mywiki.wooledge: using find</a><li><a href=https://unix.stackexchange.com/questions/tagged/find?sort=votes&pageSize=15>find Q&A on unix stackexchange</a><li><a href=https://stackoverflow.com/questions/tagged/find?sort=votes&pageSize=15>find Q&A on stackoverflow</a><li><a href=https://unix.stackexchange.com/q/282762/109046>unix.stackexchange: find and tar example</a><li><a href=https://unix.stackexchange.com/q/321697/109046>unix.stackexchange: Why is looping over find's output bad practice?</a></ul><h2 id=locate><a class=header href=#locate>locate</a></h2><p><code>locate</code> is a faster alternative to the <code>find</code> command for searching files by name. It is based on a database, which gets updated by a <code>cron</code> job. So, newer files may be not present in results unless you update the database. Use this command if it is available in your distro and you remember some part of filename. Very useful if you have to search the entire filesystem in which case <code>find</code> command will take a very long time compared to <code>locate</code>.<p><strong>Examples</strong><ul><li><code>locate 'power'</code> print path of filenames containing <code>power</code> in the whole filesystem <ul><li>implicitly, <code>locate</code> would change the string to <code>*power*</code> as no globbing characters are present in the string specified</ul><li><code>locate -b '\power.log'</code> print path matching the string <code>power.log</code> exactly at the end of the path <ul><li><code>/home/learnbyexample/power.log</code> matches<li><code>/home/learnbyexample/lowpower.log'</code> will not match since there are other characters at the start of the filename<li>use of <code>\</code> prevents the search string from implicitly being replaced by <code>*power.log*</code></ul><li><code>locate -b '\proj_adder'</code> the <code>-b</code> option is also handy to print only the matching directory name, otherwise every file under that folder would also be displayed</ul><blockquote><p><img src=./images/info.svg alt=info> See also <a href=https://unix.stackexchange.com/q/60205/109046>unix.stackexchange: pros and cons of find and locate</a>.</blockquote></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=viewing-part-or-whole-file-contents.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=file-properties.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=viewing-part-or-whole-file-contents.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=file-properties.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
+</code></pre><p><strong>Further Reading</strong><ul><li>My ebook <a href=https://github.com/learnbyexample/learn_gnugrep_ripgrep>GNU GREP and RIPGREP</a> <ul><li>See also my blog post <a href=https://learnbyexample.github.io/gnu-bre-ere-cheatsheet/>GNU BRE/ERE cheatsheet</a></ul><li><a href=https://lists.freebsd.org/pipermail/freebsd-current/2010-August/019310.html>Why GNU grep is fast</a><li><a href=https://stackoverflow.com/questions/tagged/grep?sort=votes&pageSize=15>grep Q&A on stackoverflow</a><li><a href=https://unix.stackexchange.com/questions/tagged/grep?sort=votes&pageSize=15>grep Q&A on unix stackexchange</a><li><a href=https://unix.stackexchange.com/q/131535/109046>unix.stackexchange: grep -r vs find+grep</a></ul><h2 id=find><a class=header href=#find>find</a></h2><p>The <code>find</code> command has comprehensive features to narrow down files and directories based on name, size, date and so on. And more importantly, <code>find</code> helps you to perform actions on such filtered files.<h3 id=filenames><a class=header href=#filenames>Filenames</a></h3><p>By default, you'll get every entry (including hidden ones) in the current directory and sub-directories when you use <code>find</code> without any options or paths. To search within specific path(s), they should be immediately mentioned after <code>find</code>, i.e. before any options.<pre><code class=language-bash>$ ls -F
+backups/    hello_world.py*  ip.txt     report.log  todos/
+errors.log  hi.sh*           projects/  scripts@
+
+$ cd projects
+# this is same as: find .
+$ find
+.
+./.venv
+./tictactoe
+./tictactoe/game.py
+./calculator
+./calculator/calc.sh
+
+$ cd ..
+$ find todos
+todos
+todos/books.txt
+todos/TRIP.txt
+todos/wow.txt
+</code></pre><blockquote><p><img src=./images/info.svg alt=info> Note that symbolic links won't be followed by default. You can use <code>-L</code> option for such cases.</blockquote><p>To match filenames based on a particular criteria, you can use wildcards or regular expressions. For wildcards, you can use <code>-name</code> or the case-insensitive version <code>-iname</code>. This will match only the basename, so you'll get a warning if you use <code>/</code> as part of the pattern. You can use <code>-path</code> and <code>-ipath</code> if you need to include <code>/</code> as well in the pattern. Unlike <code>grep</code>, the pattern should always match the entire basename (I think this is because there are no start/end anchors in globs).<pre><code class=language-bash># filenames ending with '.log'
+# 'find .' indicates current working directory (CWD) as the path to search
+$ find . -name '*.log'
+./report.log
+./backups/aug.log
+./backups/jan.log
+./errors.log
+
+# match filenames containing 'ip' case-insensitively
+# note the use of '*' on both sides of 'ip' to match the whole filename
+# . is optional when CWD is the only path to search
+$ find -iname '*ip*'
+./todos/TRIP.txt
+./scripts
+./ip.txt
+
+# names containing 'k' within 'backups' and 'todos' directories
+$ find backups todos -name '*k*'
+backups
+backups/bookmarks.html
+todos/books.txt
+</code></pre><p>You can use the <code>-not</code> operator to invert the matching condition:<pre><code class=language-bash># except filenames containing uppercase alphabets
+$ find todos -not -name '*[A-Z]*'
+todos
+todos/books.txt
+todos/wow.txt
+</code></pre><p>You can use <code>-regex</code> and <code>-iregex</code> (case-insensitive) to match filenames based on regular expressions. In this case, the pattern will match the entire path, so use of <code>/</code> is possible without needing to use special options. The default regexp flavor is <code>emacs</code> which you can change by using the <code>-regextype</code> option.<pre><code class=language-bash># filename containing only uppercase alphabets and file extension is '.txt'
+# note the use of '.*/' to match the entire file path
+$ find -regex '.*/[A-Z]+.txt'
+./todos/TRIP.txt
+
+# here 'egrep' flavor is being used
+# filename starting and ending with the same word character (case-insensitive)
+# and file extension is '.txt'
+$ find -regextype egrep -iregex '.*/(\w).*\1\.txt'
+./todos/wow.txt
+</code></pre><h3 id=file-type><a class=header href=#file-type>File type</a></h3><p>The <code>-type</code> option helps to filter files based on their types like regular file, directory, symbolic link, etc.<pre><code class=language-bash># regular files
+$ find projects -type f
+projects/tictactoe/game.py
+projects/calculator/calc.sh
+
+# regular files that are hidden as well
+$ find -type f -name '.*'
+./.hidden
+./backups/dot_files/.bashrc
+./backups/dot_files/.inputrc
+./backups/dot_files/.vimrc
+
+# directories
+$ find projects -type d
+projects
+projects/.venv
+projects/tictactoe
+projects/calculator
+
+# symbolic links
+$ find -type l
+./scripts
+</code></pre><blockquote><p><img src=./images/info.svg alt=info> You can use <code>,</code> to separate multiple file types. For example, <code>-type f,l</code> will match both regular files and symbolic links.</blockquote><h3 id=depth><a class=header href=#depth>Depth</a></h3><p>The path being searched is considered as depth <code>0</code>, files within the search path are at depth <code>1</code>, files within a sub-directory are at depth <code>2</code> and so on. Note that these global options should be specified before other kind of options like <code>-type</code>, <code>-name</code>, etc.<p><code>-maxdepth</code> option restricts the search to the specified maximum depth:<pre><code class=language-bash># non-hidden regular files only in the current directory
+# sub-directories will not be checked
+# -not -name '.*' can also be used instead of -name '[^.]*'
+$ find -maxdepth 1 -type f -name '[^.]*'
+./report.log
+./hi.sh
+./errors.log
+./hello_world.py
+./ip.txt
+</code></pre><p><code>-mindepth</code> option specifies the minimum depth:<pre><code class=language-bash># recall that path being searched is considered as depth 0
+# and contents within the search path are at depth 1
+$ find -mindepth 1 -maxdepth 1 -type d
+./projects
+./todos
+./backups
+
+$ find -mindepth 3 -type f
+./projects/tictactoe/game.py
+./projects/calculator/calc.sh
+./backups/dot_files/.bashrc
+./backups/dot_files/.inputrc
+./backups/dot_files/.vimrc
+</code></pre><h3 id=age><a class=header href=#age>Age</a></h3><p>Consider the following file properties:<ul><li><code>a</code> accessed<li><code>c</code> status changed<li><code>m</code> modified</ul><p>The above prefixes need to be combined with <code>time</code> (based on 24 hour periods) or <code>min</code> (based on minutes) options. For example, <code>-mtime</code> (24 hour) option checks for last modified timestamp and <code>-amin</code> (minute) checks for last accessed timestamp. These options accept a number (integer or fractional) argument, that can be further prefixed by <code>+</code> or <code>-</code> symbols. Here are some examples:<pre><code class=language-bash># modified less than 24 hours ago
+$ find -maxdepth 1 -type f -mtime 0
+./hello_world.py
+./ip.txt
+
+# accessed between 24 to 48 hours ago
+$ find -maxdepth 1 -type f -atime 1
+./ip.txt
+# accessed within the last 24 hours
+$ find -maxdepth 1 -type f -atime -1
+./hello_world.py
+# accessed within the last 48 hours
+$ find -maxdepth 1 -type f -atime -2
+./hello_world.py
+./ip.txt
+
+# modified more than 20 days back
+$ find -maxdepth 1 -type f -mtime +20
+./.hidden
+./report.log
+./errors.log
+</code></pre><blockquote><p><img src=./images/info.svg alt=info> The <code>-daystart</code> qualifier will measure time only from the beginning of the day. For example, <code>-daystart -mtime 1</code> will check the files that were modified yesterday.</blockquote><h3 id=size><a class=header href=#size>Size</a></h3><p>You can use the <code>-size</code> option to filter based on file sizes. By default, the number argument will be considered as 512-byte blocks. You can use the suffix <code>c</code> to specify the size in bytes. The suffixes <code>k</code> (kilo), <code>M</code> (mega) and <code>G</code> (giga) are calculated in powers of 1024.<pre><code class=language-bash># greater than 10 * 1024 bytes
+$ find -type f -size +10k
+./report.log
+./errors.log
+
+# greater than 9 bytes and less than 50 bytes
+$ find -type f -size +9c -size -50c
+./hi.sh
+./hello_world.py
+./ip.txt
+
+# exactly 10 bytes
+$ find -type f -size 10c
+./ip.txt
+</code></pre><blockquote><p><img src=./images/info.svg alt=info> You can also use the <code>-empty</code> option instead of <code>-size 0</code>.</blockquote><h3 id=acting-on-matched-files><a class=header href=#acting-on-matched-files>Acting on matched files</a></h3><p>The <code>-exec</code> option helps you to pass the matching files to another command. You can choose to execute the command once for every file (by using <code>\;</code>) or just once for all the matching files (by using <code>+</code>). However, if the number of files are too many, <code>find</code> will use more command invocations as necessary. The <code>;</code> character is escaped since it is a shell metacharacter (you can also quote it as an alternative to escaping).<p>You need to use <code>{}</code> to represent the file(s) passed as argument(s) to the command being executed. Here are some examples:<pre><code class=language-bash># count the number of characters for each matching file
+# wc is called separately for each matching file
+$ find -type f -size +9k -exec wc -c {} \;
+1234567 ./report.log
+54321 ./errors.log
+
+# here, both matching files are passed together to the wc command
+$ find -type f -size +9k -exec wc -c {} +
+1234567 ./report.log
+  54321 ./errors.log
+1288888 total
+</code></pre><p>As mentioned in an earlier chapter, the <code>-t</code> option for <code>cp</code> and <code>mv</code> commands will help you specify the target directory before the source files. Here's an example:<pre><code class=language-bash>$ mkdir rc_files
+$ find backups/dot_files -type f -exec cp -t rc_files {} +
+
+$ find rc_files -type f
+rc_files/.bashrc
+rc_files/.inputrc
+rc_files/.vimrc
+
+$ rm -r rc_files
+</code></pre><blockquote><p><img src=./images/info.svg alt=info> You can use the <code>-delete</code> option instead of calling the <code>rm</code> command to delete the matching files. However, it cannot remove non-empty directories and there are other gotchas to be considered. See the manual for more details.</blockquote><h3 id=multiple-criteria><a class=header href=#multiple-criteria>Multiple criteria</a></h3><p>You can specify multiple matching criteria such as <code>-name</code>, <code>-size</code>, <code>-mtime</code>, etc. You can use operators between them and group them within <code>\(</code> and <code>\)</code> to construct complex expressions.<ul><li><code>-a</code> or <code>-and</code> or absence of an operator means both expressions have to be satisfied <ul><li>second expression won't be evaluated if the first one is false</ul><li><code>-o</code> or <code>-or</code> means either of the expressions have to be satisfied <ul><li>second expression won't be evaluated if the first one is true</ul><li><code>-not</code> inverts the result of the expression <ul><li>you can also use <code>!</code> but that might need escaping or quoting depending on the shell</ul></ul><pre><code class=language-bash># names containing both 'x' and 'ip' in any order (case-insensitive)
+$ find -iname '*x*' -iname '*ip*'
+./todos/TRIP.txt
+./ip.txt
+
+# names containing 'sc' or size greater than 10k
+$ find -name '*sc*' -or -size +10k
+./report.log
+./scripts
+./errors.log
+
+# except names containing 'o' or 'p'
+$ find projects -not \( -name '*o*' -or -name '*p*' \)
+projects/.venv
+projects/calculator/calc.sh
+</code></pre><h3 id=further-reading><a class=header href=#further-reading>Further Reading</a></h3><ul><li><a href=https://mywiki.wooledge.org/UsingFind>mywiki.wooledge: using find</a><li><a href=https://unix.stackexchange.com/questions/tagged/find?sort=votes&pageSize=15>find Q&A on unix stackexchange</a><li><a href=https://stackoverflow.com/questions/tagged/find?sort=votes&pageSize=15>find Q&A on stackoverflow</a><li><a href=https://unix.stackexchange.com/q/282762/109046>unix.stackexchange: find and tar example</a><li><a href=https://unix.stackexchange.com/q/321697/109046>unix.stackexchange: Why is looping over find's output bad practice?</a></ul><h2 id=locate><a class=header href=#locate>locate</a></h2><p><code>locate</code> is a faster alternative to the <code>find</code> command for searching files by name. It is based on a database, which gets updated by a <code>cron</code> job. So, newer files may be not present in results unless you update the database. Use this command if it is available in your distro and you remember some part of filename. Very useful if you have to search the entire filesystem in which case <code>find</code> command will take a very long time compared to <code>locate</code>.<p><strong>Examples</strong><ul><li><code>locate 'power'</code> print path of filenames containing <code>power</code> in the whole filesystem <ul><li>implicitly, <code>locate</code> would change the string to <code>*power*</code> as no globbing characters are present in the string specified</ul><li><code>locate -b '\power.log'</code> print path matching the string <code>power.log</code> exactly at the end of the path <ul><li><code>/home/learnbyexample/power.log</code> matches<li><code>/home/learnbyexample/lowpower.log'</code> will not match since there are other characters at the start of the filename<li>use of <code>\</code> prevents the search string from implicitly being replaced by <code>*power.log*</code></ul><li><code>locate -b '\proj_adder'</code> the <code>-b</code> option is also handy to print only the matching directory name, otherwise every file under that folder would also be displayed</ul><blockquote><p><img src=./images/info.svg alt=info> See also <a href=https://unix.stackexchange.com/q/60205/109046>unix.stackexchange: pros and cons of find and locate</a>.</blockquote></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=viewing-part-or-whole-file-contents.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=file-properties.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=viewing-part-or-whole-file-contents.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=file-properties.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
             window.playground_copyable = true;
         </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>
