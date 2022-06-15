@@ -84,55 +84,56 @@ $ wc -L &LTgreeting.txt
 
 $ printf 'αλεπού' | wc -m
 6
-</code></pre><p><strong>Further Reading</strong><ul><li><a href=https://unix.stackexchange.com/questions/tagged/wc?sort=votes&pageSize=15>wc Q&A on unix stackexchange</a><li><a href=https://stackoverflow.com/questions/tagged/wc?sort=votes&pageSize=15>wc Q&A on stackoverflow</a></ul><h2 id=du><a class=header href=#du>du</a></h2><p>The <code>du</code> command helps you estimate the size of files and directories.<p><strong>Examples</strong><p>By default, size is given in size in terms of 1024 bytes. All directories and sub-directories are recursively reported, but files are ignored. You can use the <code>-a</code> option if files should also be reported. <code>du</code> is one of the commands that require an explicit option (<code>-L</code> in this case) if you want symbolic links to be dereferenced.<pre><code class=language-bash>$ du
-17920   ./projs/full_addr
-14316   ./projs/half_addr
-32952   ./projs
-33880   .
-</code></pre><p>Use <code>-s</code> option to show total directory size without descending into sub-directories. Add <code>-c</code> option to also show total size at the end.<pre><code class=language-bash>$ du -s projs words.txt
-32952   projs
-924     words.txt
-</code></pre><p>Here are some examples to show different size formatting options available:<pre><code class=language-bash># number of bytes
-$ du -b words.txt
-938848  words.txt
+</code></pre><p><strong>Further Reading</strong><ul><li><a href=https://unix.stackexchange.com/questions/tagged/wc?sort=votes&pageSize=15>wc Q&A on unix stackexchange</a><li><a href=https://stackoverflow.com/questions/tagged/wc?sort=votes&pageSize=15>wc Q&A on stackoverflow</a></ul><h2 id=du><a class=header href=#du>du</a></h2><p>The <code>du</code> command helps you estimate the size of files and directories.<p><strong>Examples</strong><p>By default, size is given in size in terms of 1024 bytes. All directories and sub-directories are recursively reported, but files are ignored. You can use the <code>-a</code> option if files should also be reported. <code>du</code> is one of the commands that require an explicit option (<code>-L</code> in this case) if you want symbolic links to be followed.<pre><code class=language-bash># n * 1024 bytes
+$ du
+28      ./projects/scripts
+48      ./projects
+8       ./todos
+7536    .
+</code></pre><p>Use <code>-s</code> option to show the total directory size without descending into sub-directories. Add <code>-c</code> option to also show total size at the end.<pre><code class=language-bash>$ du -s projects report.log
+48      projects
+7476    report.log
 
-# kilobytes (1024 bytes)
-$ du -sk projs
-32952   projs
+$ du -sc projects report.log
+48      projects
+7476    report.log
+7524    total
+</code></pre><p>Here are some examples to illustrate size formatting options:<pre><code class=language-bash># number of bytes
+$ du -b report.log
+7654321 report.log
 
-# megabytes (1024 kilobytes)
-$ du -sm projs
-33      projs
+# n * 1024 bytes
+$ du -k report.log
+7476    report.log
 
-# -h is for human readable
-# use --si for powers of 1000 instead of 1024
-$ du -h words.txt
-924K    words.txt
-</code></pre><p>If you use <code>du -h</code>, you can pipe the output to <code>sort -h</code> for sorting based on human readable size:<pre><code class=language-bash>$ du -sh projs/* words.txt | sort -h
-712K    projs/report.log
-924K    words.txt
-14M     projs/half_addr
-18M     projs/full_addr
+# n * 1024 * 1024 bytes
+$ du -m report.log
+8       report.log
+</code></pre><p>The <code>-h</code> option reports size in human readable format (uses power of 1024). Add <code>--si</code> option to get results in powers of 1000 instead. If you use <code>du -h</code>, you can pipe the output to <code>sort -h</code> for sorting purposes.<pre><code class=language-bash>$ du -sh *
+48K     projects
+7.4M    report.log
+8.0K    todos
+
+$ du -sh * | sort -h
+8.0K    todos
+48K     projects
+7.4M    report.log
 </code></pre><p><strong>Further Reading</strong><ul><li><a href=https://unix.stackexchange.com/questions/tagged/disk-usage?sort=votes&pageSize=15>du Q&A on unix stackexchange</a><li><a href=https://stackoverflow.com/questions/tagged/du?sort=votes&pageSize=15>du Q&A on stackoverflow</a></ul><h2 id=df><a class=header href=#df>df</a></h2><p>The <code>df</code> command gives you the space usage of file systems.<p><strong>Examples</strong><p><code>df</code> without path arguments will give information about all the currently mounted file systems. You can specify <code>.</code> to get information only for the current filesystem:<pre><code class=language-bash>$ df .
 Filesystem     1K-blocks     Used Available Use% Mounted on
 /dev/sda1       98298500 58563816  34734748  63% /
-</code></pre><p>Use <code>-h</code> option for human readable sizes. The <code>-B</code> option allows you to scale sizes by the specified amount. Use <code>--si</code> for size in powers of <code>1000</code> instead of <code>1024</code>.<pre><code class=language-bash>$ df -h .
+</code></pre><p>Use <code>-h</code> option for human readable sizes. The <code>-B</code> option allows you to scale sizes by the specified amount. Use <code>--si</code> for size in powers of 1000 instead of 1024.<pre><code class=language-bash>$ df -h .
 Filesystem      Size  Used Avail Use% Mounted on
 /dev/sda1        94G   56G   34G  63% /
-</code></pre><p>Use <code>--output</code> to report only specific fields of interest:<pre><code class=language-bash>$ df -h --output=size,used,file / /media/learnbyexample/projs
+</code></pre><p>Use the <code>--output</code> option to report only specific fields of interest:<pre><code class=language-bash>$ df -h --output=size,used,file / /media/learnbyexample/projs
  Size  Used File
   94G   56G /
   92G   35G /media/learnbyexample/projs
 
-$ df -h --output=pcent .
-Use%
- 63%
-
-# 'awk' here excludes first line and matches lines with first field >= 40
-$ df -h --output=pcent,fstype | awk 'NR>1 && $1>=40'
- 63% ext3
- 40% ext4
- 51% ext4
+# 'awk' here excludes first line and matches lines with first field >= 30
+$ df -h --output=pcent,fstype,target | awk 'NR>1 && $1>=30'
+ 63% ext3     /
+ 38% ext4     /media/learnbyexample/projs
+ 51% ext4     /media/learnbyexample/backups
 </code></pre><p><strong>Further Reading</strong><ul><li><a href=https://stackoverflow.com/questions/tagged/df?sort=votes&pageSize=15>df Q&A on stackoverflow</a></ul><h2 id=stat><a class=header href=#stat>stat</a></h2><p>The <code>stat</code> command is useful to get details like file type, size, inode, permissions, last accessed and modified timestamps, etc. You'll get all of these details by default. The <code>-c</code> and <code>--printf</code> options can be used to display only the required details in a particular format.<pre><code class=language-bash># last accessed timestamp
 $ stat -c '%x' ip.txt
 2022-06-01 13:25:18.693823117 +0530
@@ -146,30 +147,40 @@ $ stat -c '%y' ip.txt
 # and then the inode value
 # same as: stat --printf='%s\n%i\n' ip.txt
 $ stat -c $'%s\n%i' ip.txt
-518
-7345526
+10
+787224
 
 # quoted filenames
 # if input is a link, path it points to is also displayed
 $ stat -c '%N' words.txt
 'words.txt' -> '/usr/share/dict/words'
 </code></pre><p>You can also pass multiple file arguments:<pre><code class=language-bash># %n gives filenames
-$ stat -c '%s %n' f1.txt f2.txt 
-86 f1.txt
-51 f2.txt
-</code></pre><blockquote><p><img src=./images/info.svg alt=info> <img src=./images/info.svg alt=info> The <code>stat</code> command should be preferred instead of parsing <code>ls -l</code> output for file details. See <a href=https://mywiki.wooledge.org/ParsingLs>mywiki.wooledge: avoid parsing output of ls</a> and <a href=https://unix.stackexchange.com/q/128985/109046>unix.stackexchange: why not parse ls?</a> for explanation and other alternatives.</blockquote><h2 id=touch><a class=header href=#touch>touch</a></h2><p>As mentioned earlier, the <code>touch</code> command helps you change the timestamps of files. You can do so based on current timestamp, passing an argument, copying the value from another file and so on.<p><strong>Examples</strong><p>By default, <code>touch</code> updates both access and modification timestamp to the current time. You can use <code>-a</code> to change only access timestamp and <code>-m</code> to change only modification timestamp. The <code>stat</code> command is also used here for illustration purposes:<pre><code class=language-bash># last access and modification time
+$ stat -c '%s %n' ip.txt hi.sh
+10 ip.txt
+21 hi.sh
+</code></pre><blockquote><p><img src=./images/info.svg alt=info> <img src=./images/info.svg alt=info> The <code>stat</code> command should be preferred instead of parsing <code>ls -l</code> output for file details. See <a href=https://mywiki.wooledge.org/ParsingLs>mywiki.wooledge: avoid parsing output of ls</a> and <a href=https://unix.stackexchange.com/q/128985/109046>unix.stackexchange: why not parse ls?</a> for explanation and other alternatives.</blockquote><h2 id=touch><a class=header href=#touch>touch</a></h2><p>As mentioned earlier, the <code>touch</code> command helps you change the timestamps of files. You can do so based on current timestamp, passing an argument, copying the value from another file and so on.<p><strong>Examples</strong><p>By default, <code>touch</code> updates both access and modification timestamp to the current time. You can use <code>-a</code> to change only access timestamp and <code>-m</code> to change only modification timestamp.<pre><code class=language-bash># last access and modification time
 $ stat -c $'%x\n%y' fruits.txt
 2017-07-19 17:06:01.523308599 +0530
 2017-07-13 13:54:03.576055933 +0530
 
+# update access and modification values to current time
 $ touch fruits.txt 
 $ stat -c $'%x\n%y' fruits.txt
-2017-07-21 10:11:44.241921229 +0530
-2017-07-21 10:11:44.241921229 +0530
-</code></pre><p>You can use the <code>-r</code> option to copy timestamp information from one file to another. The <code>-d</code> and <code>-t</code> options will allow you to specify timestamps directly as part of the command.<pre><code class=language-bash># copy timestamp from 'power.log' to 'report.log'
-# add -a or -m as needed
-$ touch -r power.log report.log
-</code></pre><p>As seen earlier, <code>touch</code> creates a new file if the given argument doesn't exist yet. You can use the <code>-c</code> option to prevent this behavior.<pre><code class=language-bash>$ ls report.txt
+2022-06-14 13:01:25.921205889 +0530
+2022-06-14 13:01:25.921205889 +0530
+</code></pre><p>You can use the <code>-r</code> option to copy timestamp information from one file to another. The <code>-d</code> and <code>-t</code> options will allow you to specify timestamps directly as part of the command.<pre><code class=language-bash>$ stat -c '%y' hi.sh
+2022-06-14 13:00:46.170416890 +0530
+
+# copy modified timestamp from 'ip.txt' to 'hi.sh'
+$ touch -m -r ip.txt hi.sh
+$ stat -c '%y' hi.sh
+2022-05-24 14:39:41.285714934 +0530
+
+# pass timestamp as an argument
+$ touch -m -d '2000-01-01 00:00:01' hi.sh
+$ stat -c '%y' hi.sh
+2000-01-01 00:00:01.000000000 +0530
+</code></pre><p>As seen in an earlier chapter, <code>touch</code> creates a new file if the target file doesn't exist yet. You can use the <code>-c</code> option to prevent this behavior.<pre><code class=language-bash>$ ls report.txt
 ls: cannot access 'report.txt': No such file or directory
 $ touch report.txt
 $ ls report.txt
@@ -178,30 +189,26 @@ report.txt
 $ touch -c xyz.txt
 $ ls xyz.txt
 ls: cannot access 'xyz.txt': No such file or directory
-</code></pre><p><strong>Further Reading</strong><ul><li><a href=https://unix.stackexchange.com/questions/tagged/touch?sort=votes&pageSize=15>touch Q&A on unix stackexchange</a></ul><h2 id=file><a class=header href=#file>file</a></h2><p>The <code>file</code> command helps you identify text encoding (ASCII, UTF-8, etc), whether the file is executable and so on.<p><strong>Examples</strong><p>Here are some examples of how the <code>file</code> command behaves for different types:<pre><code class=language-bash>$ file sample.txt 
-sample.txt: ASCII text
+</code></pre><p><strong>Further Reading</strong><ul><li><a href=https://unix.stackexchange.com/questions/tagged/touch?sort=votes&pageSize=15>touch Q&A on unix stackexchange</a></ul><h2 id=file><a class=header href=#file>file</a></h2><p>The <code>file</code> command helps you identify text encoding (ASCII, UTF-8, etc), whether the file is executable and so on.<p><strong>Examples</strong><p>Here are some examples to show how the <code>file</code> command behaves for different types:<pre><code class=language-bash>$ ls -F
+hi.sh*  ip.txt  moon.png  sunrise.jpg
+
+$ file ip.txt hi.sh
+ip.txt: ASCII text
+hi.sh: Bourne-Again shell script, ASCII text executable
 
 $ printf 'αλεπού\n' | file -
 /dev/stdin: UTF-8 Unicode text
 
-$ file ch
-ch:  Bourne-Again shell script, ASCII text executable
-
 $ printf 'hi\r\n' | file -
 /dev/stdin: ASCII text, with CRLF line terminators
-
-$ file sunset.jpg moon.png
-sunset.jpg: JPEG image data
-moon.png: PNG image data, 32 x 32, 8-bit/color RGBA, non-interlaced
-</code></pre><p>You can use the <code>-b</code> option to avoid filenames in the output:<pre><code class=language-bash>$ file -b sample.txt 
+</code></pre><p>Example for image files:<pre><code class=language-bash># output of 'sunrise.jpg' wrapped for illustration purposes
+$ file sunrise.jpg moon.png
+sunrise.jpg: JPEG image data, JFIF standard 1.01, resolution (DPI), density
+    96x96, segment length 16, baseline, precision 8, 76x76, components 3
+moon.png:    PNG image data, 76 x 76, 8-bit colormap, non-interlaced
+</code></pre><p>You can use the <code>-b</code> option to avoid filenames in the output:<pre><code class=language-bash>$ file -b ip.txt 
 ASCII text
-</code></pre><p>Here is an example of finding particular type of files, say <code>image</code> files.<pre><code class=language-bash># '$0' contains the name of files passed from 'find' to 'bash'
-$ find -type f -exec bash -c '
-       (file -b "$0" | grep -wq "image data") && echo "$0"' {} \;
-./sunset.jpg
-./moon.png
-
-# if filenames do not contain ':' or newline characters
+</code></pre><p>Here is an example of finding particular type of files, say <code>image</code> files.<pre><code class=language-bash># assuming filenames do not contain ':' or newline characters
 $ find -type f -exec file {} + | awk -F: '/\&LTimage data\>/{print $1}'
 ./sunset.jpg
 ./moon.png
@@ -214,6 +221,7 @@ report.log
 </code></pre><p>You can use the <code>-s</code> option to remove a suffix from the filename. Usually used to remove the file extension.<pre><code class=language-bash>$ basename -s'.csv' /home/learnbyexample/example_files/scores.csv
 scores
 
+# suffix will be removed only once
 $ basename -s'.txt' purchases.txt.txt
 purchases.txt
 </code></pre><p>The <code>basename</code> command requires <code>-a</code> or <code>-s</code> (which implies <code>-a</code>) to work with multiple arguments.<pre><code class=language-bash>$ basename -a /backups/jan_2021.tar.gz /home/learnbyexample/report.log
@@ -238,40 +246,66 @@ $ dirname /home/learnbyexample/example_files/scores.csv ../report/backups/
 </code></pre><p>You can use shell features like command substitution to combine the effects of <code>basename</code> and <code>dirname</code> commands.<pre><code class=language-bash># extract the second last path component
 $ basename $(dirname /home/learnbyexample/example_files/scores.csv)
 example_files
-</code></pre><h2 id=chmod><a class=header href=#chmod>chmod</a></h2><p>This section will show how you can use the <code>chmod</code> command to change file permissions. Consider this <code>ls</code> long listing example:<pre><code class=language-bash>$ ls -lG sample.txt 
--rw-rw-r-- 1 learnbyexample 111 May 25 14:47 sample.txt
-</code></pre><p>In the above output of <code>ls -l</code> command, the 10 characters displayed in the first column are related to file type and permissions. First character indicates the <strong>file type</strong>. The most common ones are shown below. See <code>-l</code> option in <code>info ls</code> for complete list.<ul><li><code>-</code> regular file<li><code>d</code> directory<li><code>l</code> symbolic link</ul><p>The other nine characters represent three sets of <strong>file permissions</strong> for <code>user</code>, <code>group</code> and <code>others</code>, in that order.<ul><li><code>user</code> file properties for owner of the file (<code>u</code>)<li><code>group</code> file properties for the group the file belongs to (<code>g</code>)<li><code>others</code> file properties for everyone else (<code>o</code>)</ul><p>Only <code>rwx</code> file properties will be discussed in this section. For other types of properties, <a href=https://www.mkssoftware.com/docs/man1/ls.1.asp#Long_Output_Format>refer to this documentation</a>.<p><strong>Permission reference table for files:</strong><table><thead><tr><th>Character<th>Meaning<th>Value<tbody><tr><td><code>r</code><td>read<td><code>4</code><tr><td><code>w</code><td>write<td><code>2</code><tr><td><code>x</code><td>execute<td><code>1</code><tr><td><code>-</code><td>no permission<td><code>0</code></table><blockquote><p><img src=./images/info.svg alt=info> Note that the permissions are not straightforward to understand for directories. If a directory only has the <code>x</code> permission, you can <code>cd</code> into it but you cannot read the contents (using <code>ls</code> for example). If a directory only has the <code>r</code> permission, you cannot <code>cd</code> into it, but you'll be able to read the contents (along with "cannot access" error). For this reason, <code>rx</code> permissions are almost always enabled/disabled together. The <code>w</code> permission allows you to add or remove contents, provided <code>x</code> is active.</blockquote><p><strong>Changing permissions for all three categories</strong><p>You can provide numbers for <code>u g o</code> (in that order) to change <code>rwx</code> permissions.<pre><code class=language-bash># r(4) + w(2) + 0 = 6
+</code></pre><h2 id=chmod><a class=header href=#chmod>chmod</a></h2><p>This section will show how you can use the <code>chmod</code> command to change file permissions. Consider this example:<pre><code class=language-bash>$ echo 'learnbyexample' > ip.txt
+
+# this info can also be seen in the first column of 'ls -l' output
+$ stat -c '%A' ip.txt
+-rw-rw-r--
+</code></pre><p>In the above output, the 10 characters displayed in the last line are related to file type and permissions. First character indicates the <strong>file type</strong>. The most common ones are shown below:<ul><li><code>-</code> regular file<li><code>d</code> directory<li><code>l</code> symbolic link</ul><p>The other nine characters represent three sets of <strong>file permissions</strong> for <em>user</em> (<code>u</code>), <em>group</em> (<code>g</code>) and <em>others</em> (<code>o</code>), in that order.<ul><li><em>user</em> — file owner<li><em>group</em> — users having file access as part of a group<li><em>others</em> — everyone else</ul><p>Only <code>rwx</code> file properties will be discussed in this section. For other types of properties, refer to the <a href=https://www.gnu.org/software/coreutils/manual/coreutils.html#File-permissions>coreutils manual: File permissions</a>.<p><strong>Permission reference table for files:</strong><table><thead><tr><th>Character<th>Meaning<th>Value<tbody><tr><td><code>r</code><td>read<td><code>4</code><tr><td><code>w</code><td>write<td><code>2</code><tr><td><code>x</code><td>execute<td><code>1</code><tr><td><code>-</code><td>no permission<td><code>0</code></table><p>Here's an example showing both <code>rwx</code> and numerical representations of a file's permissions:<pre><code class=language-bash>$ stat -c '%A' ip.txt
+-rw-rw-r--
+
+# r(4) + w(2) + 0 = 6
 # r(4) + 0 + 0 = 4
-$ chmod 664 sample.txt 
-$ ls -lFG sample.txt 
--rw-rw-r-- 1 learnbyexample 148 May 29 11:00 sample.txt
+$ stat -c '%a' ip.txt
+664
+</code></pre><blockquote><p><img src=./images/info.svg alt=info> Note that the permissions are not straightforward to understand for directories. If a directory only has the <code>x</code> permission, you can <code>cd</code> into it but you cannot read the contents (using <code>ls</code> for example). If a directory only has the <code>r</code> permission, you cannot <code>cd</code> into it, but you'll be able to read the contents (along with "cannot access" error). For this reason, <code>rx</code> permissions are almost always enabled/disabled together. The <code>w</code> permission allows you to add or remove contents, provided <code>x</code> is active.</blockquote><p><strong>Changing permissions for all three categories</strong><p>You can provide numbers for <code>ugo</code> (in that order) to change permissions. This is best understood with examples:<pre><code class=language-bash>$ printf '#!/bin/bash\n\necho hi\n' > hi.sh
+$ stat -c '%a %A' hi.sh
+664 -rw-rw-r--
 
 # r(4) + w(2) + x(1) = 7
 # r(4) + 0 + x(1) = 5
-$ chmod 755 hello_world.pl 
-$ ls -lFG hello_world.pl 
--rwxr-xr-x 1 learnbyexample 40 May 28 13:25 hello_world.pl*
+$ chmod 755 hi.sh
+$ stat -c '%a %A' hi.sh
+755 -rwxr-xr-x
+</code></pre><p>Here's an example for a directory:<pre><code class=language-bash>$ mkdir dot_files
+$ stat -c '%a %A' dot_files
+775 drwxrwxr-x
 
-$ chmod 775 report/
-$ ls -ldG report/
-drwxrwxr-x 2 learnbyexample 4096 May 29 14:01 report/
-</code></pre><p><strong>Changing permissions for specific categories</strong><p>The permissions that are affected by <code>+-/rwx</code> depends on <code>umask</code> value as well. It is usually <code>002</code> which means:<ul><li><code>+r -r +x -x</code> without <code>u g o</code> qualifier affects all the three categories<li><code>+w -w</code> without <code>u g o</code> qualifier affects only <code>user</code> and <code>group</code> categories</ul><pre><code class=language-bash># add execute permission for all three categories
-$ chmod +x report.sh
+$ chmod 700 dot_files
+$ stat -c '%a %A' dot_files
+700 drwx------
+</code></pre><blockquote><p><img src=./images/info.svg alt=info> You can use <code>-R</code> option to recursively change permissions. Use <code>find+exec</code> if you want to apply changes only for files filtered by some criteria.</blockquote><p><strong>Changing permissions for specific categories</strong><p>You can assign (<code>=</code>), add (<code>+</code>) or remove (<code>-</code>) permissions by using those symbols followed by one or more <code>rwx</code> permissions. This depends on <code>umask</code> value:<pre><code class=language-bash>$ umask
+0002
+</code></pre><p><code>umask</code> value of <code>0002</code> means:<ul><li>read and execute permissions without <code>ugo</code> prefix affects all the three categories<li>write permissions without <code>ugo</code> prefix affects only <code>user</code> and <code>group</code> categories</ul><p>Here are some examples without <code>ugo</code> prefixes:<pre><code class=language-bash># remove execute permission for all three categories
+$ chmod -x hi.sh
 
 # add write permission only for 'user' and 'group'
 $ chmod +w ip.txt
 
-# remove read and execute permissions for all three categories
-$ chmod -rx source_files
+$ touch sample.txt
+$ chmod 702 sample.txt
+# give only read permission for all three categories
+# write/execute permissions, if any, will be removed
+$ chmod =r sample.txt
+$ stat -c '%a %A' sample.txt
+444 -r--r--r--
 
-# remove read and write permission only for 'others'
+# give read and write permissions for 'user' and 'group'
+# and read permission for 'others'
+# execute permissions, if any, will be removed
+$ chmod =rw report.sh
+</code></pre><p>Here are some examples with <code>ugo</code> prefixes. You can use <code>a</code> to refer to all the three categories. For example, <code>a+w</code> is same as <code>ugo+w</code>.<pre><code class=language-bash># remove read and write permissions only for 'others'
 $ chmod o-rw sample.txt
 
-# remove execute permission for 'group' and 'others'
-$ chmod go-x hello_world.pl
-
 # add execute permission for 'group' and 'others'
-$ chmod go+x hello_world.pl
+$ chmod go+x hello.pl
+
+# give read and write permissions for all three categories
+# execute permissions, if any, will be removed
+$ chmod a=rw report.sh
+</code></pre><p>You can use <code>,</code> to separate multiple permissions:<pre><code class=language-bash># remove execute permission for 'group' and 'others'
+# remove write permission for 'others'
+$ chmod go-x,o-w hello.pl
 </code></pre><p><strong>Further Reading</strong><ul><li><a href=https://danielmiessler.com/study/unixlinux_permissions/>Linux Permissions Primer</a><li><a href=https://unix.stackexchange.com/questions/tagged/chmod?sort=votes&pageSize=15>chmod Q&A on unix stackexchange</a><li><a href=https://stackoverflow.com/questions/tagged/chmod?sort=votes&pageSize=15>chmod Q&A on stackoverflow</a><li><a href=https://unix.stackexchange.com/q/429421/109046>unix.stackexchange: why chmod +w filename not giving write permission to other</a></ul></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=searching-files-and-filenames.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=managing-processes.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=searching-files-and-filenames.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=managing-processes.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
             window.playground_copyable = true;
         </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>
