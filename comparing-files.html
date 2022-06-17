@@ -38,21 +38,22 @@
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
                         link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
                     });
-                </script><div id=content class=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=comparing-files><a class=header href=#comparing-files>Comparing Files</a></h1><p>In this chapter, you'll learn how to find and report differences between the contents of two files.<h2 id=cmp><a class=header href=#cmp>cmp</a></h2><p>The <code>cmp</code> command is useful to compare text and binary files. If the two files are same, no output is displayed and exit status is <code>0</code>. If there is a difference, it prints the first difference with details like line number and byte location and exit status will be <code>1</code>. You can use <code>-s</code> option to suppress the output when you just need the exit status. The <code>-i</code> option will allow you to skip initial bytes from the input.<pre><code class=language-bash>$ echo 'hello' > f1.txt
-$ echo 'hello' > f2.txt
-$ echo 'hello.' > f3.txt
+                </script><div id=content class=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=comparing-files><a class=header href=#comparing-files>Comparing Files</a></h1><p>In this chapter, you'll learn how to find and report differences between the contents of two files.<h2 id=cmp><a class=header href=#cmp>cmp</a></h2><p>The <code>cmp</code> command is useful to compare text and binary files. If the two files are same, no output is displayed and exit status is <code>0</code>. If there is a difference, it prints the first difference with details like line number and byte location and exit status will be <code>1</code>.<pre><code class=language-bash>$ echo 'hello' > x1.txt
+$ echo 'hello' > x2.txt
+$ echo 'hello.' > x3.txt
 
 # files with same content
-$ cmp f1.txt f2.txt
+$ cmp x1.txt x2.txt
 $ echo $?
 0
 
 # files with differences
-$ cmp f1.txt f3.txt
-f1.txt f3.txt differ: byte 6, line 1
+$ cmp x1.txt x3.txt
+x1.txt x3.txt differ: byte 6, line 1
 $ echo $?
 1
-</code></pre><h2 id=diff><a class=header href=#diff>diff</a></h2><p>Useful to find differences between text files. All the differences are printed, which might not be desirable for long files.<p><strong>Options</strong><ul><li><code>-i</code> ignore case while comparing<li><code>-w</code> ignore white-spaces<li><code>-b</code> ignore changes in the amount of white space<li><code>-B</code> ignore only blank lines<li><code>-E</code> ignore changes due to tab expansion<li><code>-z</code> ignore trailing white spaces at the end of line<li><code>-y</code> two column output<li><code>-r</code> recursively compare files between the two directories specified<li><code>-s</code> convey message when two files are same<li><code>-q</code> report if files differ, not the details of differences</ul><p><strong>Examples</strong><p><code>diff</code> output shows lines from the first file input starting with <code><</code> and lines from the second file input starts with <code>></code>. Between the two file contents, <code>---</code> is used as the separator. Each difference is prefixed by a command that indicates the differences (these commands are understood by tools like <code>patch</code>).<pre><code class=language-bash>$ paste f1.txt f2.txt
+</code></pre><blockquote><p><img src=./images/info.svg alt=info> Use the <code>-s</code> option to suppress the output when you just need the exit status. The <code>-i</code> option will allow you to skip initial bytes from the input.</blockquote><h2 id=diff><a class=header href=#diff>diff</a></h2><p>Useful to find differences between text files. All the differences are printed, which might not be desirable for long files.<h3 id=common-options><a class=header href=#common-options>Common options</a></h3><ul><li><code>-i</code> ignore case while comparing<li><code>-w</code> ignore white-spaces<li><code>-b</code> ignore changes in the amount of whitespace<li><code>-B</code> ignore only blank lines<li><code>-E</code> ignore changes due to tab expansion<li><code>-z</code> ignore trailing whitespaces at the end of line<li><code>-y</code> two column output<li><code>-r</code> recursively compare files between the two directories specified<li><code>-s</code> convey message when two files are same<li><code>-q</code> report if files differ, not the details of differences</ul><h3 id=default-diff><a class=header href=#default-diff>Default diff</a></h3><p>By default, the <code>diff</code> output shows lines from the first file input starting with <code><</code> and lines from the second file input starts with <code>></code>. Between the two file contents, <code>---</code> is used as the separator. Each difference is prefixed by a command that indicates the differences (these commands are understood by tools like <code>patch</code>).<pre><code class=language-bash># side-by-side view of sample input files
+$ paste f1.txt f2.txt
 1       1
 2       hello
 3       3
@@ -71,29 +72,27 @@ $ diff f1.txt f2.txt
 $ diff <(seq 4) <(seq 5)
 4a5
 > 5
-</code></pre><p>Ignoring difference in white spaces:<pre><code class=language-bash># ignore changes in the amount of white space
+</code></pre><h3 id=ignoring-whitespaces><a class=header href=#ignoring-whitespaces>Ignoring whitespaces</a></h3><p>There are several options to ignore specific whitespace characters during comparison. Here are some examples:<pre><code class=language-bash># ignore changes in the amount of whitespace
 $ diff -b <(echo 'good day') <(echo 'good    day')
 $ echo $?
 0
 
-# ignore all white spaces
+# ignore all whitespaces
 $ diff -w <(echo 'hi    there ') <(echo ' hi there')
 $ echo $?
 0
 $ diff -w <(echo 'hi    there ') <(echo 'hithere')
 $ echo $?
 0
-</code></pre><p>Side-by-side output:<pre><code class=language-bash>$ diff -y f1.txt f2.txt
+</code></pre><h3 id=side-by-side-output><a class=header href=#side-by-side-output>Side-by-side output</a></h3><p>The <code>-y</code> option is handy to view the differences side-by-side. By default, all the input lines will be present in the output and the line width is 130 print columns. You can use the <code>-W</code> option to change the width when dealing with short input lines. The <code>--suppress-common-lines</code> helps to focus only on the differences.<pre><code class=language-bash>$ diff -y f1.txt f2.txt
 1                                                               1
 2                                                             | hello
 3                                                               3
 world                                                         | 4
 
-# -y is usually used along with other options
-# default width is 130 print columns
-$ diff -W 60 --suppress-common-lines -y d1 d2
+$ diff -W 60 --suppress-common-lines -y f1.txt f2.txt
 2                            |  hello
 world                        |  4
-</code></pre><p><strong>Further Reading</strong><ul><li><a href=https://unix.stackexchange.com/questions/tagged/diff?sort=votes&pageSize=15>diff Q&A on unix stackexchange</a><li><code>gvimdiff</code> edit two, three or four versions of a file with GVim and show differences<li><a href=http://askubuntu.com/questions/2946/what-are-some-good-gui-diff-and-merge-applications-available-for-ubuntu>GUI diff and merge tools</a></ul></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=sorting-stuff.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=assorted-text-processing-tools.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=sorting-stuff.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=assorted-text-processing-tools.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
+</code></pre><h3 id=further-reading><a class=header href=#further-reading>Further Reading</a></h3><ul><li><a href=https://unix.stackexchange.com/questions/tagged/diff?sort=votes&pageSize=15>diff Q&A on unix stackexchange</a><li><code>gvimdiff</code> edit two, three or four versions of a file with GVim and show differences<li><a href=http://askubuntu.com/questions/2946/what-are-some-good-gui-diff-and-merge-applications-available-for-ubuntu>GUI diff and merge tools</a></ul></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=sorting-stuff.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=assorted-text-processing-tools.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=sorting-stuff.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=assorted-text-processing-tools.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
             window.playground_copyable = true;
         </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>

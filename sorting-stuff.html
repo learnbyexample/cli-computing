@@ -154,7 +154,7 @@ $ printf '2 @blue\n10 :black\n5 :cherry\n3 @chalk' | uniq -f1 -s2 -w2
 2 @blue
 5 :cherry
 </code></pre><h2 id=comm><a class=header href=#comm>comm</a></h2><p>The <code>comm</code> command finds common and unique lines between two sorted files. By default, you'll get a tabular output with three columns:<ul><li>first column has lines unique to the first file<li>second column has lines unique to the second file<li>third column has lines common to both the files</ul><pre><code class=language-bash># side by side view of already sorted sample files
-$ paste colors_1.txt colors_2.txt
+$ paste c1.txt c2.txt
 Blue    Black
 Brown   Blue
 Orange  Green
@@ -164,7 +164,7 @@ Teal    Red
 White   White
 
 # default three column output
-$ comm colors_1.txt colors_2.txt
+$ comm c1.txt c2.txt
         Black
                 Blue
 Brown
@@ -176,14 +176,14 @@ Purple
 Teal
                 White
 </code></pre><p>You can use one or more of the following options to suppress columns:<ul><li><code>-1</code> to suppress lines unique to the first file<li><code>-2</code> to suppress lines unique to the second file<li><code>-3</code> to suppress lines common to both the files</ul><pre><code class=language-bash># only the common lines
-$ comm -12 colors_1.txt colors_2.txt
+$ comm -12 c1.txt c2.txt
 Blue
 Orange
 Red
 White
 
 # lines unique to the second file
-$ comm -13 colors_1.txt colors_2.txt
+$ comm -13 c1.txt c2.txt
 Black
 Green
 Pink

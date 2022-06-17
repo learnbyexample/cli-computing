@@ -367,7 +367,16 @@ $ head xx*
 2
 3
 4
-</code></pre><p>You can also split the input based on a line matching the given regular expression. The output produced will vary based on <code>//</code> or <code>%%</code> delimiters being used to surround the regexp. When <code>/regexp/</code> is used, output is similar to the line number based splitting. The first output file will have the input lines <em>before</em> the first occurrence of a line matching the given regexp and the second output file will have the rest of the contents.<pre><code class=language-bash># match a line containing 't' followed by zero or more characters and then 'p'
+</code></pre><p>You can also split the input based on a line matching the given regular expression. The output produced will vary based on <code>//</code> or <code>%%</code> delimiters being used to surround the regexp. When <code>/regexp/</code> is used, output is similar to the line number based splitting. The first output file will have the input lines <em>before</em> the first occurrence of a line matching the given regexp and the second output file will have the rest of the contents.<p>Consider this sample input file:<pre><code class=language-bash>$ cat purchases.txt
+coffee
+tea
+washing powder
+coffee
+toothpaste
+tea
+soap
+tea
+</code></pre><p>Here's an example of splitting the input file using the <code>/regexp/</code> syntax:<pre><code class=language-bash># match a line containing 't' followed by zero or more characters and then 'p'
 # 'toothpaste' is the only match for this input file
 $ csplit -q purchases.txt '/t.*p/'
 

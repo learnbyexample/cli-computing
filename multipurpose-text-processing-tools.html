@@ -56,15 +56,15 @@ Have a nice day
 $ sed 's/day/weekend/' greeting.txt
 Hi there
 Have a nice weekend
-</code></pre><h3 id=inplace-editing><a class=header href=#inplace-editing>Inplace editing</a></h3><p>You can use the <code>-i</code> option for inplace editing. Pass an argument to this option to save the original input as a backup.<pre><code class=language-bash>$ cat colors.txt
+</code></pre><h3 id=inplace-editing><a class=header href=#inplace-editing>Inplace editing</a></h3><p>You can use the <code>-i</code> option for inplace editing. Pass an argument to this option to save the original input as a backup.<pre><code class=language-bash>$ cat ip.txt
 deep blue
 light orange
 blue delight
 
-# output from sed is written back to 'colors.txt'
-# original file is preserved in 'colors.txt.bkp'
-$ sed -i.bkp 's/blue/green/' colors.txt
-$ cat colors.txt
+# output from sed is written back to 'ip.txt'
+# original file is preserved in 'ip.txt.bkp'
+$ sed -i.bkp 's/blue/green/' ip.txt
+$ cat ip.txt
 deep green
 light orange
 green delight
