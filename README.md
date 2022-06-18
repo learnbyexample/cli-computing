@@ -2,9 +2,9 @@
 
 ⚠️ ⚠️ ⚠️ This is a **work-in-progress** book on Linux command line and Shell Scripting for beginner to intermediate level users.
 
-[Click this link](https://github.com/learnbyexample/cli-computing/tree/09091253463a313ddce5a95f467857ea85c25ce6) for an earlier version of the book on this repo.
+[Click this link](https://github.com/learnbyexample/cli-computing/tree/09091253463a313ddce5a95f467857ea85c25ce6) for an earlier version of the book in this repo.
 
-See also my curated list on [Linux CLI and Shell scripting](https://learnbyexample.github.io/curated_resources/linux_cli_scripting.html) for more learning resources.
+See my curated list on [Linux CLI and Shell scripting](https://learnbyexample.github.io/curated_resources/linux_cli_scripting.html) for more learning resources.
 
 <br>
 
@@ -13,7 +13,7 @@ See also my curated list on [Linux CLI and Shell scripting](https://learnbyexamp
 For web version of the book, visit https://learnbyexample.github.io/cli-computing/
 
 * Links to pdf/epub versions of the book will be added once they are done
-* See https://learnbyexample.github.io/books/ for list of other books
+* See https://learnbyexample.github.io/books/ for a list of my other books
 
 <br>
 
