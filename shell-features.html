@@ -38,7 +38,7 @@
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
                         link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
                     });
-                </script><div id=content class=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=shell-features><a class=header href=#shell-features>Shell Features</a></h1><p>This chapter will help you familiarize with some Shell features like wildcards and redirection. Others will be discussed in later chapters.<blockquote><p><img src=./images/info.svg alt=info> The <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files>example_files</a> directory has the scripts used in this chapter.</blockquote><h2 id=quoting-mechanisms><a class=header href=#quoting-mechanisms>Quoting mechanisms</a></h2><p>This section will quote (heh) the relevant definitions from the <a href=https://www.gnu.org/software/bash/manual/bash.html#Quoting>bash manual</a> and show some examples for each of the four mechanisms.<p><strong>Escape Character</strong><blockquote><p>A non-quoted backslash <code>\</code> is the Bash escape character. It preserves the literal value of the next character that follows, with the exception of newline.<p><strong>metacharacter</strong>: A character that, when unquoted, separates words. A metacharacter is a space, tab, newline, or one of the following characters: <code>|</code>, <code>&</code>, <code>;</code>, <code>(</code>, <code>)</code>, <code><</code>, or <code>></code>.</blockquote><pre><code class=language-bash># error because ';' is a shell metacharacter
+                </script><div id=content class=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=shell-features><a class=header href=#shell-features>Shell Features</a></h1><p>This chapter will help you familiarize with some of the Bash shell features like quoting mechanisms, wildcards, redirections, command grouping, process substitution, command substitution, etc. Others will be discussed in later chapters.<blockquote><p><img src=./images/info.svg alt=info> The <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files>example_files</a> directory has the scripts and sample input files used in this chapter.</blockquote><blockquote><p><img src=./images/info.svg alt=info> Some of the examples in this chapter use commands that will be discussed in later chapters. Description of what such commands do have been added here and you'll also see more examples in the rest of the chapters.</blockquote><h2 id=quoting-mechanisms><a class=header href=#quoting-mechanisms>Quoting mechanisms</a></h2><p>This section will quote (heh) the relevant definitions from the <a href=https://www.gnu.org/software/bash/manual/bash.html#Quoting>bash manual</a> and show some examples for each of the four mechanisms.<p><strong>Escape Character</strong><blockquote><p>A non-quoted backslash <code>\</code> is the Bash escape character. It preserves the literal value of the next character that follows, with the exception of newline.<p><strong>metacharacter</strong>: A character that, when unquoted, separates words. A metacharacter is a space, tab, newline, or one of the following characters: <code>|</code>, <code>&</code>, <code>;</code>, <code>(</code>, <code>)</code>, <code><</code>, or <code>></code>.</blockquote><pre><code class=language-bash># error because ';' is a shell metacharacter
 $ echo apple;cherry
 apple
 cherry: command not found
@@ -266,7 +266,143 @@ $ set -o history
 $ set -o vi
 # use emancs-style interface, this is usually the default
 $ set -o emacs
-</code></pre><p>You'll see more examples (for example, <code>set -x</code>) in later chapters. See <a href=https://www.gnu.org/software/bash/manual/bash.html#The-Set-Builtin>bash manual: Set Builtin</a> for documentation.<h2 id=redirection><a class=header href=#redirection>Redirection</a></h2><p>By default all results of a command are displayed on the terminal, which is the default destination for <strong>standard output</strong> (<code>stdout</code>). You can use shell redirections to send them as <strong>standard input</strong> (<code>stdin</code>) to another command, save the results to a file and so on. The <strong>standard error</strong> (<code>stderr</code>) stream is used when something goes wrong with the command usage.<ul><li><code><</code> or <code>0<</code> is <code>stdin</code> file descriptor<li><code>></code> or <code>1></code> is <code>stdout</code> file descriptor<li><code>2></code> is <code>stderr</code> file descriptor</ul><p><strong>Redirecting output of a command to a file</strong><p>The <code>stdout</code> redirection <code>></code> will overwrite an existing file, creates a new file otherwise. You can use the special file <code>/dev/null</code> if you want to just discard the output. Use <code>>></code> if you want to append content instead of overwriting an existing file.<ul><li><code>grep 'error' *.log > error.log</code> redirects output to <code>error.log</code><li><code>grep -i 'fail' test_results.log >> failed_tests.log</code> appends to <code>failed_tests.log</code> (file will be created if it doesn't already exist)<li><code>./script.sh > /dev/null</code> discard output</ul><blockquote><p><img src=images/info.svg alt=info> See also <a href=https://unix.stackexchange.com/q/45201/109046>unix.stackexchange: explicitly override the setting of noclobber with the >| redirection operator</a></blockquote><p><strong>Redirecting input</strong><ul><li><code>tr 'a-z' 'A-Z' < ip.txt</code> convert lowercase to uppercase, <code>tr</code> command only reads from <code>stdin</code> and doesn't have the ability to read from a file directly<li><code>wc -l < report.log</code> useful to avoid filename in the output<li><code>< report.log grep 'test'</code> useful to easily modify previous command from command history for different command options, search patterns, etc<li><code>grep 'test' report.log | diff - test_list.txt</code> output of <code>grep</code> as one of the input file for the <code>diff</code> command</ul><blockquote><p><img src=images/info.svg alt=info> Space between <code><</code> and the filename is optional.</blockquote><p><strong>Redirecting output of a command to another command</strong><p>The pipe operator <code>|</code> helps you to redirect the output of a command as input to another command.<ul><li><code>ls -q | wc -l</code> count number of files in the current directory<li><code>du -sh * | sort -h</code> calculate size in human-readable format and then sort the results<li><code>./script.sh | tee output.log</code> the <code>tee</code> command displays standard output on terminal as well as writes to the given file</ul><p><strong>Combining output of several commands</strong><p>You can use <code>(list)</code> and <code>{ list; }</code> compound commands to redirect content for several commands. The former is executed in a subshell whereas the latter is executed in the current shell context. Space around <code>()</code> is optional but necessary for the <code>{}</code> version. See <strong>SHELL GRAMMAR</strong> section of <code>man bash</code> for explanation about pipelines, lists, etc.<ul><li><code>(sed -u '1q' ; sort) < scores.csv</code> retain header line at the top and sort rest of the input<li><code>{ head -5 ~/.vimrc ; tail -5 ~/.vimrc ; } > op.txt</code> save output from several commands to a single file</ul><p><strong>Command substitution</strong><p>Command substitution allows you to insert the standard output of a command after removing trailing newlines, if any. You can use <code>$(command)</code> or <code>`command`</code> with the former being the newer and preferred syntax.<ul><li><code>sed -i "s|^|$(basename $PWD)/|" dir_list.txt</code> add current directory path and a <code>/</code> character at the start of every line<li><code>file_count=$(ls -q | wc -l)</code> save command output to a variable</ul><p><strong>Process Substitution</strong><p>You can redirect output of commands as an input file argument using process substitution using the <code><(list)</code> syntax. The shell will take care of passing a filename with the standard output contents. Use <code>>(list)</code> for substituting output file argument.<ul><li><code>grep -Ff <(head -n5 terms.txt) *.log</code> use first five lines from <code>terms.txt</code> as literal search strings <ul><li><code>head -n5 terms.txt | grep -Ff- *.log</code> can also be used here</ul><li><code>comm -23 <(sort file1.txt) <(sort file2.txt)</code> output of the two sort commands are passed as input files for the <code>comm</code> command, this essentially helps you avoid creating temporary files and deleting them later</ul><p><strong>Redirecting error</strong><ul><li><code>xyz 2> cmderror.log</code> assuming a non-existent command <code>xyz</code>, you'll get an error message that gets redirected to the specified file<li><code>./script.sh 2> /dev/null</code> discard error messages</ul><p><strong>Combining stdout and stderr</strong><p>Newer versions of <code>bash</code> provide these handy shortcuts:<ul><li><code>&></code> redirect both <code>stdout</code> and <code>stderr</code>, overwrites existing file<li><code>&>></code> redirect both <code>stdout</code> and <code>stderr</code>, appends to existing file<li><code>|&</code> redirect both <code>stdout</code> and <code>stderr</code> as input to another command</ul><p>Here are some examples (assume <code>xyz.txt</code> doesn't exist, leading to errors):<ul><li><code>grep 'test' report.log xyz.txt &> cmb_out.txt</code> redirect both <code>stdout</code> and <code>stderr</code> to a file<li><code>grep 'test' report.log xyz.txt &>> cmb_out.txt</code> append both <code>stdout</code> and <code>stderr</code> to a file<li><code>ls report.log xyz.txt |& grep 'test'</code> redirect both <code>stdout</code> and <code>stderr</code> as <code>stdin</code></ul><p>For earlier versions:<ul><li><code>1>&2</code> redirects file descriptor <code>1</code> (i.e. <code>stdout</code>) to the file descriptor <code>2</code> (i.e. <code>stderr</code>)<li><code>2>&1</code> redirects file descriptor <code>2</code> (i.e. <code>stderr</code>) to the file descriptor <code>1</code> (i.e. <code>stdout</code>)</ul><p>Here are some examples (assume <code>xyz.txt</code> doesn't exist, leading to errors):<ul><li><code>grep 'test' report.log xyz.txt > cmb_out.txt 2>&1</code> redirect both <code>stdout</code> and <code>stderr</code> to a file <ul><li>note that the order is important here</ul><li><code>grep 'test' report.log xyz.txt 2> cmb_out.txt 1>&2</code> redirect both <code>stdout</code> and <code>stderr</code> to a file<li><code>grep 'test' report.log xyz.txt >> cmb_out.txt 2>&1</code> append both <code>stdout</code> and <code>stderr</code> to a file<li><code>ls report.log xyz.txt 2>&1 | grep 'test'</code> redirect both <code>stdout</code> and <code>stderr</code> as <code>stdin</code></ul><p><strong>Using <code>xargs</code> to redirect output of command as input arguments to another command</strong><ul><li><code>grep -rlZ 'pattern' | xargs -0 sed -i 's/pattern/replace/'</code> search and replace only those files matching the required pattern (search pattern could be different for <code>grep</code> and <code>sed</code> as needed) <ul><li>the <code>-Z</code> option would print filenames separated by ASCII NUL character which is in turn understood by <code>xargs</code> via the <code>-0</code> option. This ensures the command won't break on filenames containing shell metacharacters like spaces, newlines, etc</ul></ul><blockquote><p><img src=images/info.svg alt=info> See also <a href=https://unix.stackexchange.com/q/24954/109046>unix.stackexchange: When to use xargs</a> and <a href=https://unix.stackexchange.com/q/24954/109046>unix.stackexchange: parallel processing jobs with xargs</a>.</blockquote><p><strong>Further Reading</strong><ul><li><a href=https://mywiki.wooledge.org/BashGuide/InputAndOutput#Redirection>Short introduction to shell redirection</a><li><a href=https://wiki.bash-hackers.org/howto/redirection_tutorial>Illustrated Redirection Tutorial</a><li><a href=https://stackoverflow.com/q/818255/4082052>Redirect a stream to another file descriptor using >&</a><li><a href=https://mywiki.wooledge.org/BashFAQ/055>Difference between 2>&1 >foo and >foo 2>&1</a><li><a href=https://stackoverflow.com/q/876239/4082052>Redirect and append both stdout and stderr to a file</a></ul><h2 id=waiting-for-stdin><a class=header href=#waiting-for-stdin>Waiting for stdin</a></h2><p>Sometimes, you might mistype a command without providing input. And instead of getting an error, you'll see the cursor patiently waiting for something. This isn't the shell hanging up on you. The command is waiting for you to type data, so that it can perform its duty.<p>Say, you typed <code>cat</code> and pressed the Enter key. Seeing the blinking cursor, you type some text and press the Enter key again. You'll see the text you just typed echoed back to you as <code>stdout</code> (which is the functionality of the <code>cat</code> command). This will continue again and again, until you tell the shell that you are done. How to do that? Press <code>Ctrl+d</code> on a fresh line or press <code>Ctrl+d</code> twice at the end of a line. In the latter case, you'll not get a newline character at the end of the data.<pre><code class=language-bash># press Enter key and Ctrl+d after typing all the required characters
+</code></pre><p>You'll see more examples (for example, <code>set -x</code>) in later chapters. See <a href=https://www.gnu.org/software/bash/manual/bash.html#The-Set-Builtin>bash manual: Set Builtin</a> for documentation.<h2 id=pipelines><a class=header href=#pipelines>Pipelines</a></h2><p>The pipe control operator <code>|</code> helps you connect the output of a command as the input of another command. This operator vastly reduces the need for temporary intermediate files. As discussed previously in the "Unix Philosophy" section, command line tools specialize in one task. If you can break down a problem into smaller tasks, the pipe operator will come in handy often. Here are some examples:<pre><code class=language-bash># change to the 'scripts' directory and source the 'du.sh' script
+$ source du.sh
+
+# list of files
+$ ls
+projects  report.log  todos
+# count the number of files
+# you can also use: printf '%q\n' * | wc -l
+$ ls -q | wc -l
+3
+
+# report size of files/folders in human readable format
+# and then sort them based on human readable sizes in ascending order
+$ du -sh * | sort -h
+8.0K    todos
+48K     projects
+7.4M    report.log
+</code></pre><p>In the above examples, <code>ls</code> and <code>du</code> perform their own tasks of displaying list of files and showing file sizes respectively. After that, the <code>wc</code> and <code>sort</code> commands take care of calculating number of lines and sorting respectively. In such cases, the pipe operator saves you the trouble of dealing with temporary data.<blockquote><p><img src=./images/info.svg alt=info> The <code>|&</code> control operator will be discussed later in this chapter.</blockquote><h3 id=tee><a class=header href=#tee>tee</a></h3><p>Sometimes, you might want to display the command output on the terminal as well as require the results for later use. In such cases, you can use the <code>tee</code> command:<pre><code class=language-bash>$ du -sh * | tee sizes.log
+48K     projects
+7.4M    report.log
+8.0K    todos
+
+$ cat sizes.log
+48K     projects
+7.4M    report.log
+8.0K    todos
+
+$ rm sizes.log
+</code></pre><h2 id=redirection><a class=header href=#redirection>Redirection</a></h2><p>From <a href=https://www.gnu.org/software/bash/manual/bash.html#Redirections>bash manual: Redirections</a>:<blockquote><p>Before a command is executed, its input and output may be <em>redirected</em> using a special notation interpreted by the shell. Redirection allows commands' file handles to be duplicated, opened, closed, made to refer to different files, and can change the files the command reads from and writes to. Redirection may also be used to modify file handles in the current shell execution environment.</blockquote><p>There are three standard data streams:<ul><li><strong>standard input</strong> (<code>stdin</code> — file descriptor 0)<li><strong>standard output</strong> (<code>stdout</code> — file descriptor 1)<li><strong>standard error</strong> (<code>stderr</code> — file descriptor 2)</ul><p>Both standard output and error are displayed on the terminal by default. The <code>stderr</code> stream is used when something goes wrong with the command usage. Each of these three streams have a predefined file descriptor as mentioned above. In this section, you'll see how to redirect these three streams.<blockquote><p><img src=./images/info.svg alt=info> Redirections can be placed at the start as well as the end of a command. For example, the following two commands are equivalent:<pre><code class=language-bash>>op.txt grep 'error' report.log
+
+grep 'error' report.log >op.txt
+</code></pre></blockquote><blockquote><p><img src=images/info.svg alt=info> Space characters between the redirection operators and the filename are optional.</blockquote><h3 id=redirecting-output><a class=header href=#redirecting-output>Redirecting output</a></h3><p>You can use the <code>></code> operator to redirect the standard output of a command to a file. A number prefix can be added to the <code>></code> operator to work with that particular file descriptor. Default is <code>1</code> (recall that the file descriptor for <code>stdout</code> is <code>1</code>), so <code>1></code> and <code>></code> perform the same operation. Use <code>>></code> to append the output to a file.<p>The filename provided to the <code>></code> and <code>>></code> operators will be created if a regular file of that name doesn't exist yet. If the file already exists, <code>></code> will overwrite that file and <code>>></code> will append contents to that file.<pre><code class=language-bash># change to the 'example_files/text_files' directory for this section
+
+# save first three lines of 'sample.txt' to 'op.txt'
+$ head -n3 sample.txt > op.txt
+$ cat op.txt
+ 1) Hello World
+ 2) 
+ 3) Hi there
+
+# append last two lines of 'sample.txt' to 'op.txt'
+$ tail -n2 sample.txt >> op.txt
+$ cat op.txt
+ 1) Hello World
+ 2) 
+ 3) Hi there
+14) He he he
+15) Adios amigo
+
+$ rm op.txt
+</code></pre><blockquote><p><img src=./images/info.svg alt=info> You can use <code>/dev/null</code> as a filename to discard the output, to provide an empty file for a command, etc.</blockquote><blockquote><p><img src=images/info.svg alt=info> Use <code>set noclobber</code> to prevent overwriting if a file already exists. When the <code>noclobber</code> option is set, you can still overwrite a file by using <code>>|</code> instead of the <code>></code> operator.</blockquote><h3 id=redirecting-input><a class=header href=#redirecting-input>Redirecting input</a></h3><p>Some commands like <code>tr</code> and <code>datamash</code> can only work with data from the standard input. This isn't an issue when you are piping data from another command, for example:<pre><code class=language-bash># filter lines containing 'the' from the input file 'greeting.txt'
+# and then display the results in uppercase using the 'tr' command
+$ grep 'the' greeting.txt | tr 'a-z' 'A-Z'
+HI THERE
+</code></pre><p>You can use the <code><</code> redirection operator if you want to pass data from a file to such commands. The default prefix here is <code>0</code>, which is the file descriptor for <code>stdin</code> data. Here's an example:<pre><code class=language-bash>$ tr 'a-z' 'A-Z' &LTgreeting.txt
+HI THERE
+HAVE A NICE DAY
+</code></pre><p>In some cases, a tool behaves differently when processing <code>stdin</code> data compared to file input. Here's an example with <code>wc -l</code> to report the total number of lines in the input:<pre><code class=language-bash># line count, filename is part of the output as well
+$ wc -l purchases.txt
+8 purchases.txt
+
+# filename won't be part of the output for stdin data
+# helpful for assigning the number to a variable for scripting purposes
+$ wc -l &LTpurchases.txt
+8
+</code></pre><p>Sometimes, you need to pass <code>stdin</code> data as well as other file inputs to a command. In such cases, you can use <code>-</code> to represent data from standard input. Here's an example:<pre><code class=language-bash>$ cat scores.csv
+Name,Maths,Physics,Chemistry
+Ith,100,100,100
+Cy,97,98,95
+Lin,78,83,80
+
+# insert a column at the start
+$ printf 'ID\n1\n2\n3' | paste -d, - scores.csv
+ID,Name,Maths,Physics,Chemistry
+1,Ith,100,100,100
+2,Cy,97,98,95
+3,Lin,78,83,80
+</code></pre><p>Even though a command accepts file input directly as an argument, redirecting can help for interactive usage. Here's an example:<pre><code class=language-bash># display only the third field
+$ &LTscores.csv cut -d, -f3
+Physics
+100
+98
+83
+
+# later, you realize that you need the first field too
+# use 'up' arrow key to bring the previous command
+# and modify the argument easily at the end
+# if you had used cut -d, -f3 scores.csv instead,
+# you'd have to navigate past the filename to modify the argument
+$ &LTscores.csv cut -d, -f1,3
+Name,Physics
+Ith,100
+Cy,98
+Lin,83
+</code></pre><blockquote><p><img src=./images/info.svg alt=info> <img src=./images/warning.svg alt=warning> Don't use <code>cat filename | cmd</code> for passing file content as <code>stdin</code> data, unless you need to concatenate data from multiple input files. See <a href=https://en.wikipedia.org/wiki/Cat_(Unix)#Useless_use_of_cat>wikipedia: UUOC</a> and <a href=https://porkmail.org/era/unix/award.html>Useless Use of Cat Award</a> for more details.</blockquote><h3 id=redirecting-error><a class=header href=#redirecting-error>Redirecting error</a></h3><p>Recall that the file descriptor for <code>stderr</code> is <code>2</code>. So, you can use <code>2></code> to redirect standard error to a file. Use <code>2>></code> if you need to append the contents. Here's an example:<pre><code class=language-bash># assume 'abcdxyz' doesn't exist as a shell command
+$ abcdxyz
+abcdxyz: command not found
+
+# the error in such cases will be part of the stderr stream, not stdout
+# so, you'll need to use 2> here
+$ abcdxyz 2> cmderror.log
+
+$ cat cmderror.log
+abcdxyz: command not found
+
+$ rm cmderror.log
+</code></pre><blockquote><p><img src=./images/info.svg alt=info> As mentioned earlier, you can use <code>/dev/null</code> as a filename if you need to just discard the results.</blockquote><h3 id=combining-stdout-and-stderr><a class=header href=#combining-stdout-and-stderr>Combining stdout and stderr</a></h3><p>Newer versions of <code>bash</code> provide these handy shortcuts:<ul><li><code>&></code> redirect both <code>stdout</code> and <code>stderr</code> (overwrites an existing file)<li><code>&>></code> redirect both <code>stdout</code> and <code>stderr</code> (appends to existing file)<li><code>|&</code> pipe both <code>stdout</code> and <code>stderr</code> as input to another command</ul><p>Here's an example, which assumes <code>xyz.txt</code> doesn't exist, thus leading to errors:<pre><code class=language-bash># using '>' will redirect only the stdout stream
+# stderr will be displayed on the terminal
+$ grep 'log' file_size.txt xyz.txt > op.txt
+grep: xyz.txt: No such file or directory
+
+# using '&>' will redirect both the stdout and stderr streams
+$ grep 'log' file_size.txt xyz.txt &> op.txt
+$ cat op.txt
+file_size.txt:104K    power.log
+file_size.txt:746K    report.log
+grep: xyz.txt: No such file or directory
+
+$ rm op.txt
+</code></pre><p>And here's an example with the <code>|&</code> operator:<pre><code class=language-bash># filter lines containing 'log' from the given file arguments
+# and then filter lines containing 'or' from the combined stdout and stderr
+$ grep 'log' file_size.txt xyz.txt |& grep 'or'
+file_size.txt:746K    report.log
+grep: xyz.txt: No such file or directory
+</code></pre><p>For earlier Bash versions, you'll have to manually redirect the streams:<ul><li><code>1>&2</code> redirects file descriptor <code>1</code> (<code>stdout</code>) to the file descriptor <code>2</code> (<code>stderr</code>)<li><code>2>&1</code> redirects file descriptor <code>2</code> (<code>stderr</code>) to the file descriptor <code>1</code> (<code>stdout</code>)</ul><p>Here are some examples:<pre><code class=language-bash># note that the order of redirections is important here
+# you can also use: 2> op.txt 1>&2
+$ grep 'log' file_size.txt xyz.txt > op.txt 2>&1
+$ cat op.txt
+file_size.txt:104K    power.log
+file_size.txt:746K    report.log
+grep: xyz.txt: No such file or directory
+$ rm op.txt
+
+$ grep 'log' file_size.txt xyz.txt 2>&1 | grep 'or'
+file_size.txt:746K    report.log
+grep: xyz.txt: No such file or directory
+</code></pre><h3 id=waiting-for-stdin><a class=header href=#waiting-for-stdin>Waiting for stdin</a></h3><p>Sometimes, you might mistype a command without providing input. And instead of getting an error, you'll see the cursor patiently waiting for something. This isn't the shell hanging up on you. The command is waiting for you to type data, so that it can perform its task.<p>Say, you typed <code>cat</code> and pressed the Enter key. Seeing the blinking cursor, you type some text and press the Enter key again. You'll see the text you just typed echoed back to you as <code>stdout</code> (which is the functionality of the <code>cat</code> command). This will continue again and again, until you tell the shell that you are done. How to do that? Press <code>Ctrl+d</code> on a fresh line or press <code>Ctrl+d</code> twice at the end of a line. In the latter case, you'll not get a newline character at the end of the data.<pre><code class=language-bash># press Enter key and Ctrl+d after typing all the required characters
 $ cat
 knock knock
 knock knock
@@ -279,7 +415,16 @@ knock knock
 KNOCK KNOCK
 anybody here?
 ANYBODY HERE?
-</code></pre><blockquote><p><img src=./images/info.svg alt=info> Getting output immediately after each input line depends on the command's functionality. Commands like <code>sort</code> and <code>shuf</code> will wait for the entire input data before producing the output.</blockquote><p>Here's an example with output redirection:<pre><code class=language-bash># 'grep' here filters lines containing 'is'
+</code></pre><blockquote><p><img src=./images/info.svg alt=info> Getting output immediately after each input line depends on the command's functionality. Commands like <code>sort</code> and <code>shuf</code> will wait for the entire input data before producing the output.<pre><code class=language-bash># press Ctrl+d after the line containing 'bee'
+$ sort
+lion
+zebra
+bee
+bee
+lion
+zebra
+</code></pre></blockquote><p>Here's an example with output redirection:<pre><code class=language-bash>> # press Ctrl+d after the line containing 'histogram'
+# filter lines containing 'is'
 $ grep 'is' > op.txt
 hi there
 this is a sample line
@@ -291,7 +436,7 @@ this is a sample line
 histogram
 
 $ rm op.txt
-</code></pre><blockquote><p><img src=./images/info.svg alt=info> See also <a href=https://unix.stackexchange.com/q/16333/109046>unix.stackexchange: difference between Ctrl+c and Ctrl+d</a>.</blockquote><h2 id=here-documents><a class=header href=#here-documents>Here Documents</a></h2><p>Here Documents is another way to provide <code>stdin</code> data. In this case, the termination condition is a line matching a predefined string. This is especially helpful in shell scripts, since pressing <code>Ctrl+d</code> interactively won't be possible. Here's an example:<pre><code class=language-bash># > and a space at the start of lines are only present in interactive mode
+</code></pre><blockquote><p><img src=./images/info.svg alt=info> See also <a href=https://unix.stackexchange.com/q/16333/109046>unix.stackexchange: difference between Ctrl+c and Ctrl+d</a>.</blockquote><h3 id=here-documents><a class=header href=#here-documents>Here Documents</a></h3><p>Here Documents is another way to provide <code>stdin</code> data. In this case, the termination condition is a line matching a predefined string which is specified after the <code><<</code> redirection operator. This is especially helpful in shell scripts, since pressing <code>Ctrl+d</code> interactively won't be possible. Here's an example:<pre><code class=language-bash># > and a space at the start of lines are only present in interactive mode
 # don't type them in a shell script
 # EOF is typically used as the special string
 $ cat << 'EOF' > fruits.txt
@@ -305,16 +450,82 @@ banana 2
 papaya 3
 mango  10
 $ rm fruits.txt
-</code></pre><p>In the above example, the termination string was enclosed in single quotes to prevent parameter expansion, command substitution, etc. You can also use <code>\string</code> for this purpose. If you use <code><&LT-</code> instead of <code><<</code>, leading tab characters can be added at the start of input lines without being part of the actual data.<blockquote><p><img src=./images/info.svg alt=info> See <a href=https://www.gnu.org/software/bash/manual/bash.html#Here-Documents>bash manual: Here Documents</a> and <a href=https://stackoverflow.com/q/2953081/4082052>stackoverflow: here documents</a> for more examples and details.</blockquote><h2 id=here-strings><a class=header href=#here-strings>Here Strings</a></h2><p>This is similar to Here Documents, but you need to provide the string (or something that gives a string) immediately after the redirection. Another difference is that the termination string isn't used. Here are some examples:<pre><code class=language-bash>$ tr 'a-z' 'A-Z' <<< hello
+</code></pre><p>In the above example, the termination string was enclosed in single quotes to prevent parameter expansion, command substitution, etc. You can also use <code>\string</code> for this purpose. If you use <code><&LT-</code> instead of <code><<</code>, leading tab characters can be added at the start of input lines without being part of the actual data.<blockquote><p><img src=./images/info.svg alt=info> See <a href=https://www.gnu.org/software/bash/manual/bash.html#Here-Documents>bash manual: Here Documents</a> and <a href=https://stackoverflow.com/q/2953081/4082052>stackoverflow: here documents</a> for more examples and details.</blockquote><h3 id=here-strings><a class=header href=#here-strings>Here Strings</a></h3><p>This is similar to Here Documents, but the termination string isn't used. The redirection operator is <code><<<</code>. Here are some examples:<pre><code class=language-bash>$ tr 'a-z' 'A-Z' <<< hello
 HELLO
 $ tr 'a-z' 'A-Z' <<< 'hello world'
 HELLO WORLD
 
 $ greeting='hello world'
-$ tr 'a-z' 'A-Z' > op.txt <<< $greeting
+$ tr 'a-z' 'A-Z' > op.txt <<< "$greeting"
 $ cat op.txt
 HELLO WORLD
 $ rm op.txt
-</code></pre></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=managing-files-directories.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=viewing-part-or-whole-file-contents.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=managing-files-directories.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=viewing-part-or-whole-file-contents.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
+</code></pre><h3 id=further-reading><a class=header href=#further-reading>Further Reading</a></h3><ul><li><a href=https://mywiki.wooledge.org/BashGuide/InputAndOutput#Redirection>Short introduction to shell redirection</a><li><a href=https://wiki.bash-hackers.org/howto/redirection_tutorial>Illustrated Redirection Tutorial</a><li><a href=https://stackoverflow.com/q/818255/4082052>Redirect a stream to another file descriptor using >&</a><li><a href=https://mywiki.wooledge.org/BashFAQ/055>Difference between 2>&1 >foo and >foo 2>&1</a><li><a href=https://stackoverflow.com/q/876239/4082052>Redirect and append both stdout and stderr to a file</a></ul><h2 id=grouping-commands><a class=header href=#grouping-commands>Grouping commands</a></h2><p>You can use <code>(list)</code> and <code>{ list; }</code> compound commands to redirect content for several commands. The former is executed in a subshell whereas the latter is executed in the current shell context. Spaces around <code>()</code> are optional but necessary for the <code>{}</code> version. From <a href=https://www.gnu.org/software/bash/manual/bash.html#Lists>bash manual: Lists of Commands</a>:<blockquote><p>A <code>list</code> is a sequence of one or more pipelines separated by one of the operators <code>;</code>, <code>&</code>, <code>&&</code>, or <code>||</code>, and optionally terminated by one of <code>;</code>, <code>&</code>, or a newline.</blockquote><p>Here are some examples of command groupings:<pre><code class=language-bash># the 'sed' command here gives the first line of the input
+# rest of the lines are then processed by the 'sort' command
+# thus, the header will always be the first line in the output
+$ (sed -u '1q' ; sort) < scores.csv
+Name,Maths,Physics,Chemistry
+Cy,97,98,95
+Ith,100,100,100
+Lin,78,83,80
+
+# save first three and last two lines from 'sample.txt' to 'op.txt'
+$ { head -n3 sample.txt; tail -n2 sample.txt; } > op.txt
+$ cat op.txt
+ 1) Hello World
+ 2) 
+ 3) Hi there
+14) He he he
+15) Adios amigo
+$ rm op.txt
+</code></pre><p>You might wonder why the second command did not use <code>< sample.txt</code> instead of repeating the filename twice. The reason is that some commands might read more than what is required and thus cause issues for the remaining commands. In the <code>sed+sort</code> example, the <code>-u</code> option guarantees not to read more than the required data. See <a href=https://unix.stackexchange.com/q/11856/109046>unix.stackexchange: sort but keep header line at the top</a> for more examples and details.<blockquote><p><img src=./images/info.svg alt=info> You don't need the <code>()</code> or <code>{}</code> groups to see the results of multiple commands on the terminal. Just the <code>;</code> separator between the commands would be enough. See also <a href=https://www.gnu.org/software/bash/manual/bash.html#Command-Execution-Environment>bash manual: Command Execution Environment</a>.</blockquote><h2 id=command-substitution><a class=header href=#command-substitution>Command substitution</a></h2><p>Command substitution allows you to use the standard output of a command as part of another command. Trailing newlines, if any, will be removed. You can use the newer and preferred syntax <code>$(command)</code> or the older syntax <code>`command`</code>. Here are some examples:<pre><code class=language-bash># sample input
+$ printf 'hello\ntoday is: \n'
+hello
+today is:
+# append output from the 'date' command to the line containing 'today'
+$ printf 'hello\ntoday is: \n' | sed '/today/ s/$/'"$(date +%A)"'/'
+hello
+today is: Monday
+
+# save the output of 'wc' command to a variable
+# same as: line_count=`wc -l &LTsample.txt`
+$ line_count=$(wc -l &LTsample.txt)
+$ echo "$line_count"
+15
+</code></pre><p>Here's an example with nested substitutions:<pre><code class=language-bash># dirname removes the trailing path component
+$ dirname projects/tictactoe/game.py
+projects/tictactoe
+# basename removes the leading directory component
+$ basename projects/tictactoe
+tictactoe
+
+$ proj=$(basename $(dirname projects/tictactoe/game.py))
+$ echo "$proj"
+tictactoe
+</code></pre><p>Difference between the two types of syntax is quoted below from <a href=https://www.gnu.org/software/bash/manual/bash.html#Command-Substitution>bash manual: Command Substitution</a>:<blockquote><p>When the old-style backquote form of substitution is used, backslash retains its literal meaning except when followed by <code>$</code>, <code>`</code>, or <code>\</code>. The first backquote not preceded by a backslash terminates the command substitution. When using the $(command) form, all characters between the parentheses make up the command; none are treated specially.<p>Command substitutions may be nested. To nest when using the backquoted form, escape the inner backquotes with backslashes.</blockquote><h2 id=process-substitution><a class=header href=#process-substitution>Process substitution</a></h2><p>You can redirect output of commands to take the place of a file argument with process substitution using the <code><(list)</code> syntax. The shell will take care of passing a filename with the standard output of those commands. Here's an example:<pre><code class=language-bash>$ cat scores.csv
+Name,Maths,Physics,Chemistry
+Ith,100,100,100
+Cy,97,98,95
+Lin,78,83,80
+
+# can also use: paste -d, <(echo 'ID'; seq 3) scores.csv
+$ paste -d, <(printf 'ID\n1\n2\n3') scores.csv 
+ID,Name,Maths,Physics,Chemistry
+1,Ith,100,100,100
+2,Cy,97,98,95
+3,Lin,78,83,80
+</code></pre><p>For the above example, you could also have used <code>-</code> to represent <code>stdin</code> piped data as seen in an earlier section. Here's an example where two substitutions are used. This essentially helps you to avoid managing multiple temporary files, similar to how the <code>|</code> pipe operator helps for single temporary file use case.<pre><code class=language-bash># side-by-side view of sample input files
+$ paste f1.txt f2.txt
+1       1
+2       hello
+3       3
+world   4
+
+# this command gives the common lines between two files
+# the files have to be sorted for the command to work properly
+$ comm -12 <(sort f1.txt) <(sort f2.txt)
+1
+3
+</code></pre><blockquote><p><img src=./images/info.svg alt=info> See <a href=https://unix.stackexchange.com/q/609375/109046>this unix.stackexchange thread</a> for examples with <code>>(list)</code> form.</blockquote></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=managing-files-directories.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=viewing-part-or-whole-file-contents.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=managing-files-directories.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=viewing-part-or-whole-file-contents.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
             window.playground_copyable = true;
         </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>
