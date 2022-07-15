@@ -38,29 +38,29 @@
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
                         link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
                     });
-                </script><div id=content class=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=shell-scripting><a class=header href=#shell-scripting>Shell Scripting</a></h1><p>This chapter will cover basic usage of <code>bash</code> for scripting purposes. You'll learn about declaring variables, control structures, working with arguments passed to a script, getting user input and so on.<blockquote><p><img src=./images/info.svg alt=info> The <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files>example_files</a> directory has all the shell scripts discussed in this chapter. However, it is recommended that you type the scripts manually using your favorite text editor and refer to the <code>example_files/shell_scripting</code> directory only when necessary.</blockquote><h2 id=need-for-scripting><a class=header href=#need-for-scripting>Need for scripting</a></h2><p>From <a href=https://en.wikipedia.org/wiki/Scripting_language>wikipedia: Scripting language</a>:<blockquote><p>A scripting language or script language is a programming language for a runtime system that automates the execution of tasks that would otherwise be performed individually by a human operator. Scripting languages are usually interpreted at runtime rather than compiled.</blockquote><blockquote><p>Typical scripting languages are intended to be very fast to learn and write in, either as short source code files or interactively in a read–eval–print loop (REPL, language shell). This generally implies relatively simple syntax and semantics; typically a "script" (code written in the scripting language) is executed from start to finish, as a "script", with no explicit entry point.</blockquote><p>From <a href=https://en.wikipedia.org/wiki/Shell_script>wikipedia: Shell script</a>:<blockquote><p>A shell script is a computer program designed to be run by the Unix shell, a command-line interpreter. The various dialects of shell scripts are considered to be scripting languages. Typical operations performed by shell scripts include file manipulation, program execution, and printing text. A script which sets up the environment, runs the program, and does any necessary cleanup or logging, is called a wrapper.</blockquote><p>See also <a href=https://stackoverflow.com/q/17253545/4082052>Difference between scripting and programming languages</a><h2 id=executable-script><a class=header href=#executable-script>Executable script</a></h2><p>There are several ways you can put code in a file and execute the script. This section shows an example of creating an executable script. Consider this sample script saved in a file named <code>hello.sh</code>:<pre><code class=language-bash>#!/bin/bash
+                </script><div id=content class=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=shell-scripting><a class=header href=#shell-scripting>Shell Scripting</a></h1><p>This chapter will cover basics of shell scripting with <code>bash</code>. You'll learn about declaring variables, control structures, working with arguments passed to a script, getting user input and so on.<blockquote><p><img src=./images/info.svg alt=info> The <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files>example_files</a> directory has all the shell scripts discussed in this chapter. However, it is recommended that you type the scripts manually using your favorite text editor and refer to the <code>example_files/shell_scripting</code> directory only when necessary.</blockquote><h2 id=need-for-scripting><a class=header href=#need-for-scripting>Need for scripting</a></h2><p>From <a href=https://en.wikipedia.org/wiki/Scripting_language>wikipedia: Scripting language</a>:<blockquote><p>A scripting language or script language is a programming language for a runtime system that automates the execution of tasks that would otherwise be performed individually by a human operator. Scripting languages are usually interpreted at runtime rather than compiled.</blockquote><blockquote><p>Typical scripting languages are intended to be very fast to learn and write in, either as short source code files or interactively in a read–eval–print loop (REPL, language shell). This generally implies relatively simple syntax and semantics; typically a "script" (code written in the scripting language) is executed from start to finish, as a "script", with no explicit entry point.</blockquote><p>From <a href=https://en.wikipedia.org/wiki/Shell_script>wikipedia: Shell script</a>:<blockquote><p>A shell script is a computer program designed to be run by the Unix shell, a command-line interpreter. The various dialects of shell scripts are considered to be scripting languages. Typical operations performed by shell scripts include file manipulation, program execution, and printing text. A script which sets up the environment, runs the program, and does any necessary cleanup or logging, is called a wrapper.</blockquote><p>See also <a href=https://stackoverflow.com/q/17253545/4082052>Difference between scripting and programming languages</a>.<h2 id=executable-script><a class=header href=#executable-script>Executable script</a></h2><p>There are several ways you can execute commands from a file. This section shows an example of creating an executable script. Consider this sample script saved in a file named <code>hello.sh</code>:<pre><code class=language-bash>#!/bin/bash
 
 echo "Hello $USER"
 echo "Today is $(date -u +%A)"
 echo 'Have a nice day'
-</code></pre><p>The first line in the above script has two parts:<ul><li><code>/bin/bash</code> is the path of <code>bash</code> interpreter (you can use <code>type -a bash</code> to get the path)<li><code>#!</code> is known as <a href=https://en.wikipedia.org/wiki/Shebang_(Unix)>shebang or hashbang</a> which directs the program loader to use the interpreter path provided <ul><li>See also <a href=https://stackoverflow.com/q/21612980>stackoverflow: comparison between #!/usr/bin/env and #!/bin/bash?</a><li>The <code>#</code> character starts a comment, <code>#!</code> is only special at the start of the script</ul></ul><p>Here's how you can make the file as executable and run it:<pre><code class=language-bash>$ chmod +x hello.sh
+</code></pre><p>The first line in the above script has two parts:<ul><li><code>/bin/bash</code> is the path of <code>bash</code> interpreter <ul><li>you can use <code>type bash</code> to get the path on your system</ul><li><code>#!</code> is known as <a href=https://en.wikipedia.org/wiki/Shebang_(Unix)>shebang or hashbang</a> which directs the program loader to use the interpreter path provided <ul><li>see also <a href=https://stackoverflow.com/q/21612980>stackoverflow: comparison between #!/usr/bin/env and #!/bin/bash?</a><li>the <code>#</code> character starts a comment, <code>#!</code> is only special at the start of the script</ul></ul><p>Use <code>chmod</code> to add executable permission to the file and then run the script:<pre><code class=language-bash>$ chmod +x hello.sh
 
 $ ./hello_world.sh 
 Hello learnbyexample
 Today is Wednesday
 Have a nice day
-</code></pre><blockquote><p><img src=images/info.svg alt=info> <code>.sh</code> is typically used as the file extension for shell scripts.</blockquote><h2 id=passing-file-argument-to-bash><a class=header href=#passing-file-argument-to-bash>Passing file argument to bash</a></h2><p>You can also pass a regular file as a file argument to <code>bash</code> for execution without having to use the shebang.<pre><code class=language-bash>$ cat greeting.sh
+</code></pre><p>If you want to use just the script name to execute it, the file has to be located in one of the <code>PATH</code> folders. Otherwise, you'll have to provide the script's path (absolute or relative) in order to execute it (as shown in the above illustration).<blockquote><p><img src=images/info.svg alt=info> <code>.sh</code> is typically used as the file extension for shell scripts. It is also common to <em>not</em> have an extension at all, especially for executable scripts.</blockquote><h2 id=passing-file-argument-to-bash><a class=header href=#passing-file-argument-to-bash>Passing file argument to bash</a></h2><p>You can also just pass a regular file as an argument to the <code>bash</code> command. In this case, the shebang isn't needed (though it wouldn't cause any issues either, since it will be treated as a comment).<pre><code class=language-bash>$ cat greeting.sh
 echo 'hello'
 echo 'have a nice day'
 
 $ bash greeting.sh
 hello
 have a nice day
-</code></pre><h2 id=sourcing-script><a class=header href=#sourcing-script>Sourcing script</a></h2><p>Yet another way to execute a script is to <em>source</em> it using the <code>.</code> or <code>source</code> builtin command. A major difference from the previous methods is that the script is executed in the current shell environment context instead of a sub-shell. A common use case is sourcing <code>~/.bashrc</code> and alias/functions (if they are saved in a separate file).<p>Here's an example:<pre><code class=language-bash>$ cat prev_cmd.sh
+</code></pre><h2 id=sourcing-script><a class=header href=#sourcing-script>Sourcing script</a></h2><p>Yet another way to execute a script is to <em>source</em> it using the <code>source</code> (or <code>.</code>) builtin command. A major difference from the previous methods is that the script is executed in the current shell environment context instead of a sub-shell. A common use case is sourcing <code>~/.bashrc</code> and alias/functions (if they are saved in a separate file).<p>Here's an example:<pre><code class=language-bash>$ cat prev_cmd.sh
 prev=$(fc -ln -2 | sed 's/^\s*//; q')
 echo "$prev"
 
-# 'echo' here is just a sample command
+# 'echo' here is just a sample command for illustration purposes
 $ echo 'hello'
 hello
 # sourcing the script correctly gives the previous command
@@ -71,11 +71,36 @@ $ echo 'hello'
 hello
 # no output when the script is executed in a sub-shell
 $ bash prev_cmd.sh
-</code></pre><h2 id=comments><a class=header href=#comments>Comments</a></h2><p>Single line comments can be inserted after the <code>#</code> character, either at the start of a line or after an instruction.<blockquote><p><img src=images/info.svg alt=info> See also <a href=https://unix.stackexchange.com/q/37411/109046>Multiline comments</a>.</blockquote><h2 id=variables-and-arrays><a class=header href=#variables-and-arrays>Variables and Arrays</a></h2><p>Here's a simple example of assigning a variable and accessing its value:<pre><code class=language-bash>$ name='learnbyexample'
+</code></pre><blockquote><p><img src=./images/info.svg alt=info> <code>fc</code> is a builtin command to manipulate the history of commands you've used from the terminal. See <a href=https://www.gnu.org/software/bash/manual/bash.html#Bash-History-Builtins>bash manual: History Builtins</a> for more details.</blockquote><h2 id=comments><a class=header href=#comments>Comments</a></h2><p>Single line comments can be inserted after the <code>#</code> character, either at the start of a line or after an instruction.<pre><code class=language-bash>$ cat comments.sh
+# this is a comment on its own line
+echo 'hello' # and this is a comment after a command
+
+$ bash comments.sh
+hello
+</code></pre><blockquote><p><img src=images/info.svg alt=info> See this <a href=https://unix.stackexchange.com/q/37411/109046>unix.stackexchange thread</a> for emulating multiline comments.</blockquote><h2 id=variables><a class=header href=#variables>Variables</a></h2><p>Here's a basic example of assigning a variable and accessing its value:<pre><code class=language-bash>$ name='learnbyexample'
 
 $ echo "$name"
 learnbyexample
-</code></pre><p>As seen above, you need to use the <code>$</code> prefix while accessing the value stored in a variable. You can use <code>${variable}</code> syntax to distinguish between the variable and other parts of the string. Using appropriate quotes is recommended, unless otherwise needed.<p>Assigning variables is one of the most common source for errors. Unlike most programming languages, spaces are <em>not</em> allowed around the <code>=</code> sign. That is because space is a shell metacharacter. Another common issue is using quotes (or not) around the value. Here are some examples:<pre><code class=language-bash>$ num = 42
+</code></pre><p>As seen above, you need to use the <code>$</code> prefix while accessing the value stored in a variable. You can use <code>${variable}</code> syntax to distinguish between the variable and other parts of the string. Using appropriate quotes is recommended, unless otherwise needed.<p>You can append to a variable by using the <code>+=</code> operator. Here's an example:<pre><code class=language-bash>$ colors='blue'
+$ echo "$colors"
+blue
+
+$ colors+=' green'
+$ echo "$colors"
+blue green
+</code></pre><p>You can use the <code>declare</code> builtin to add attributes to variables. For example, the <code>-i</code> option for treating the variable as an integer, <code>-r</code> option for readonly, etc. These attributes can change the behavior of operators like <code>=</code> and <code>+=</code> for those variables. See <a href=https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameters>bash manual: Shell-Parameters</a> and <a href=https://www.gnu.org/software/bash/manual/bash.html#index-declare>bash manual: declare</a> for more details.<pre><code class=language-bash>$ declare -i num=5
+$ echo "$num"
+5
+$ num+=42
+$ echo "$num"
+47
+
+$ declare -r color='brown'
+$ echo "$color"
+brown
+$ color+=' green'
+bash: color: readonly variable
+</code></pre><blockquote><p><img src=./images/info.svg alt=info> <img src=./images/warning.svg alt=warning> Assigning variables is one of the most common source for errors. Unlike most programming languages, spaces are <em>not</em> allowed around the <code>=</code> sign. That is because space is a shell metacharacter. Another common issue is using quotes (or not) around the value. Here are some examples:</blockquote><pre><code class=language-bash>$ num = 42
 num: command not found
 
 $ greeting=hello world
@@ -91,7 +116,7 @@ $ echo "$dir_path"
 $ dir_path='~/reports'
 $ echo "$dir_path"
 ~/reports
-</code></pre><p>From <a href=https://www.gnu.org/software/bash/manual/bash.html#Arrays>bash manual: Arrays</a>:<blockquote><p>Bash provides one-dimensional indexed and associative array variables. Any variable may be used as an indexed array; the declare builtin will explicitly declare an array. There is no maximum limit on the size of an array, nor any requirement that members be indexed or assigned contiguously. Indexed arrays are referenced using integers and are zero-based; associative arrays use arbitrary strings.</blockquote><p>Here are some examples:<pre><code class=language-bash>$ fruits=('apple' 'fig' 'mango')
+</code></pre><h2 id=arrays><a class=header href=#arrays>Arrays</a></h2><p>From <a href=https://www.gnu.org/software/bash/manual/bash.html#Arrays>bash manual: Arrays</a>:<blockquote><p>Bash provides one-dimensional indexed and associative array variables. Any variable may be used as an indexed array; the <code>declare</code> builtin will explicitly declare an array. There is no maximum limit on the size of an array, nor any requirement that members be indexed or assigned contiguously. Indexed arrays are referenced using integers and are zero-based; associative arrays use arbitrary strings.</blockquote><p>Here's an example of assigning an array and various ways of accessing the elements:<pre><code class=language-bash>$ fruits=('apple' 'fig' 'mango')
 
 # first element
 $ echo "${fruits[0]}"
@@ -109,9 +134,10 @@ $ printf '%s\n' "${fruits[@]}"
 apple
 fig
 mango
-</code></pre><blockquote><p><img src=images/info.svg alt=info> See <a href=https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameters>bash manual: Shell Parameters</a> for <code>declare</code> builtin command and other details.</blockquote><h2 id=parameter-expansion><a class=header href=#parameter-expansion>Parameter Expansion</a></h2><p>Bash provides several useful ways to extract and modify contents of a variable (including arrays). Some of these features will be discussed in this section.<p>Substring extraction using <code>${parameter:offset}</code> syntax to get all characters from the given index:<pre><code class=language-bash>$ city='Lucknow'
+</code></pre><h2 id=parameter-expansion><a class=header href=#parameter-expansion>Parameter Expansion</a></h2><p>Bash provides several useful ways to extract and modify contents of parameters and variables (including arrays). Some of these features will be discussed in this section.<p>Substring extraction using <code>${parameter:offset}</code> syntax to get all characters from the given index:<pre><code class=language-bash>$ city='Lucknow'
 
 # all characters from index 4 onwards
+# indexing starts from 0
 $ echo "${city:4}"
 now
 
@@ -165,47 +191,57 @@ th
 $ fruits=('apple' 'fig' 'mango')
 $ echo "${fruits[@]%[aeiou]*}"
 appl f mang
-</code></pre><p><code>${parameter/glob/string}</code> will replace the first matching occurrence with the given replacement string and <code>${parameter//glob/string}</code> will replace all the matching occurrences. You can leave out the <code>/string</code> portion when you want to delete the matching occurrences. The <code>glob</code> will match the longest portion, similar to greedy behavior in regular expressions. Here are some examples:<pre><code class=language-bash>$ s='this is a sample string'
+</code></pre><p><code>${parameter/glob/string}</code> will replace the first matching occurrence with the given replacement string and <code>${parameter//glob/string}</code> will replace all the matching occurrences. You can leave out the <code>/string</code> portion when you want to delete the matching occurrences. The <code>glob</code> will match the longest portion, similar to greedy behavior in regular expressions. Here are some examples:<pre><code class=language-bash>$ ip='this is a sample string'
 
 # first occurrence of 'is' is replaced with '123'
-$ echo "${s/is/123}"
+$ echo "${ip/is/123}"
 th123 is a sample string
 # all occurrences of 'is' are replaced with '123'
-$ echo "${s//is/123}"
+$ echo "${ip//is/123}"
 th123 123 a sample string
 
-# matches from first 'is' to last 's' in the input
-$ echo "${s/is*s/ X }"
+# matches from the first 'is' to the last 's' in the input
+$ echo "${ip/is*s/ X }"
 th X tring
 
-# deletes first occurrence of 'is'
-$ echo "${s/is}"
-th is a sample string
-# deletes all occurrences of 'is'
-$ echo "${s//is}"
-th  a sample string
-</code></pre><p><code>${parameter/#glob/string}</code> will match only at the start of the string and <code>${parameter/%glob/string}</code> will match only at the end of the string.<pre><code class=language-bash>$ s='spare'
+# deletes first occurrence of 's'
+$ echo "${ip/s}"
+thi is a sample string
+# deletes all occurrences of 's'
+$ echo "${ip//s}"
+thi i a ample tring
+</code></pre><p><code>${parameter/#glob/string}</code> will match only at the start of the string and <code>${parameter/%glob/string}</code> will match only at the end of the string.<pre><code class=language-bash>$ ip='spare'
 
 # remove only from the start of the string
-$ echo "${s/#sp}"
+$ echo "${ip/#sp}"
 are
-$ echo "${s/#par}"
+$ echo "${ip/#par}"
 spare
+# example with replacement string
+$ echo "${ip/#sp/fl}"
+flare
 
 # remove only from the end of the string
-$ echo "${s/%re}"
+$ echo "${ip/%re}"
 spa
-$ echo "${s/%par}"
+$ echo "${ip/%par}"
 spare
-</code></pre><p><code>${parameter^glob}</code> changes the first character to uppercase if matched by the glob. <code>${parameter^^glob}</code> changes all the matching characters to uppercase. You should provide a glob that only matches one character in length. If the glob is omitted, entire parameter will be matched.<pre><code class=language-bash>$ fruit='apple'
+</code></pre><p><code>${parameter^glob}</code> changes the first character to uppercase if matched by the glob. <code>${parameter^^glob}</code> changes all the matching characters to uppercase. You should provide a glob that only matches one character in length. If the glob is omitted, entire parameter will be matched. These rules also apply to the lowercase and swap case versions discussed later.<pre><code class=language-bash>$ fruit='apple'
 
+# uppercase the first character
 $ echo "${fruit^}"
 Apple
+# uppercase the entire parameter
 $ echo "${fruit^^}"
 APPLE
 
+# first character doesn't match the 'g-z' range, so no change
+$ echo "${fruit^[g-z]}"
+apple
+# uppercase all letters in the 'g-z' range
 $ echo "${fruit^^[g-z]}"
 aPPLe
+# uppercase all letters in the 'a-e' or 'j-m' ranges
 $ echo "${fruit^^[a-ej-m]}"
 AppLE
 
@@ -224,11 +260,14 @@ $ echo "${fruit,,[G-Z]}"
 ApplE
 </code></pre><p>To swap case, use <code>~</code> and <code>~~</code> as shown below:<pre><code class=language-bash>$ fruit='aPPle'
 
+# swap case only for the first character
 $ echo "${fruit~}"
 APPle
+# swap case for all the characters
 $ echo "${fruit~~}"
 AppLE
 
+# swap case for characters matching the given character set
 $ echo "${fruit~~[g-zG-Z]}"
 appLe
 </code></pre><blockquote><p><img src=images/info.svg alt=info> See <a href=https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameter-Expansion>bash manual: Shell Parameter Expansion</a> for more details and other types of expansions.</blockquote><h2 id=command-line-arguments><a class=header href=#command-line-arguments>Command Line Arguments</a></h2><p>Command line arguments passed to a script are saved in positional variables starting with <code>1</code>, <code>2</code>, <code>3</code> etc. <code>0</code> contains the name of the shell or shell script. <code>@</code> contains all the positional arguments starting from <code>1</code>. Use <code>#</code> to get the number of positional arguments.<p>Here's an example script that accepts two positional arguments:<pre><code class=language-bash>$ cat command_line_arguments.sh
