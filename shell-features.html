@@ -460,7 +460,9 @@ $ tr 'a-z' 'A-Z' > op.txt <<< "$greeting"
 $ cat op.txt
 HELLO WORLD
 $ rm op.txt
-</code></pre><h3 id=further-reading><a class=header href=#further-reading>Further Reading</a></h3><ul><li><a href=https://mywiki.wooledge.org/BashGuide/InputAndOutput#Redirection>Short introduction to shell redirection</a><li><a href=https://wiki.bash-hackers.org/howto/redirection_tutorial>Illustrated Redirection Tutorial</a><li><a href=https://stackoverflow.com/q/818255/4082052>Redirect a stream to another file descriptor using >&</a><li><a href=https://mywiki.wooledge.org/BashFAQ/055>Difference between 2>&1 >foo and >foo 2>&1</a><li><a href=https://stackoverflow.com/q/876239/4082052>Redirect and append both stdout and stderr to a file</a></ul><h2 id=grouping-commands><a class=header href=#grouping-commands>Grouping commands</a></h2><p>You can use <code>(list)</code> and <code>{ list; }</code> compound commands to redirect content for several commands. The former is executed in a subshell whereas the latter is executed in the current shell context. Spaces around <code>()</code> are optional but necessary for the <code>{}</code> version. From <a href=https://www.gnu.org/software/bash/manual/bash.html#Lists>bash manual: Lists of Commands</a>:<blockquote><p>A <code>list</code> is a sequence of one or more pipelines separated by one of the operators <code>;</code>, <code>&</code>, <code>&&</code>, or <code>||</code>, and optionally terminated by one of <code>;</code>, <code>&</code>, or a newline.</blockquote><p>Here are some examples of command groupings:<pre><code class=language-bash># the 'sed' command here gives the first line of the input
+</code></pre><h3 id=further-reading><a class=header href=#further-reading>Further Reading</a></h3><ul><li><a href=https://mywiki.wooledge.org/BashGuide/InputAndOutput#Redirection>Short introduction to shell redirection</a><li><a href=https://wiki.bash-hackers.org/howto/redirection_tutorial>Illustrated Redirection Tutorial</a><li><a href=https://stackoverflow.com/q/818255/4082052>Redirect a stream to another file descriptor using >&</a><li><a href=https://mywiki.wooledge.org/BashFAQ/055>Difference between 2>&1 >foo and >foo 2>&1</a><li><a href=https://stackoverflow.com/q/876239/4082052>Redirect and append both stdout and stderr to a file</a></ul><h2 id=grouping-commands><a class=header href=#grouping-commands>Grouping commands</a></h2><p>You can use <code>(list)</code> and <code>{ list; }</code> compound commands to redirect content for several commands. The former is executed in a subshell whereas the latter is executed in the current shell context. Spaces around <code>()</code> are optional but necessary for the <code>{}</code> version. From <a href=https://www.gnu.org/software/bash/manual/bash.html#Lists>bash manual: Lists of Commands</a>:<blockquote><p>A <code>list</code> is a sequence of one or more pipelines separated by one of the operators <code>;</code>, <code>&</code>, <code>&&</code>, or <code>||</code>, and optionally terminated by one of <code>;</code>, <code>&</code>, or a newline.</blockquote><p>Here are some examples of command groupings:<pre><code class=language-bash># change to the 'example_files/text_files' directory for this section
+
+# the 'sed' command here gives the first line of the input
 # rest of the lines are then processed by the 'sort' command
 # thus, the header will always be the first line in the output
 $ (sed -u '1q' ; sort) < scores.csv
@@ -478,7 +480,33 @@ $ cat op.txt
 14) He he he
 15) Adios amigo
 $ rm op.txt
-</code></pre><p>You might wonder why the second command did not use <code>< sample.txt</code> instead of repeating the filename twice. The reason is that some commands might read more than what is required and thus cause issues for the remaining commands. In the <code>sed+sort</code> example, the <code>-u</code> option guarantees not to read more than the required data. See <a href=https://unix.stackexchange.com/q/11856/109046>unix.stackexchange: sort but keep header line at the top</a> for more examples and details.<blockquote><p><img src=./images/info.svg alt=info> You don't need the <code>()</code> or <code>{}</code> groups to see the results of multiple commands on the terminal. Just the <code>;</code> separator between the commands would be enough. See also <a href=https://www.gnu.org/software/bash/manual/bash.html#Command-Execution-Environment>bash manual: Command Execution Environment</a>.</blockquote><h2 id=command-substitution><a class=header href=#command-substitution>Command substitution</a></h2><p>Command substitution allows you to use the standard output of a command as part of another command. Trailing newlines, if any, will be removed. You can use the newer and preferred syntax <code>$(command)</code> or the older syntax <code>`command`</code>. Here are some examples:<pre><code class=language-bash># sample input
+</code></pre><p>You might wonder why the second command did not use <code>< sample.txt</code> instead of repeating the filename twice. The reason is that some commands might read more than what is required (for example, buffering) and thus cause issues for the remaining commands. In the <code>sed+sort</code> example, the <code>-u</code> option guarantees not to read more than the required data. See <a href=https://unix.stackexchange.com/q/11856/109046>unix.stackexchange: sort but keep header line at the top</a> for more examples and details.<blockquote><p><img src=./images/info.svg alt=info> You don't need the <code>()</code> or <code>{}</code> groups to see the results of multiple commands on the terminal. Just the <code>;</code> separator between the commands would be enough. See also <a href=https://www.gnu.org/software/bash/manual/bash.html#Command-Execution-Environment>bash manual: Command Execution Environment</a>.<pre><code class=language-bash>$ head -n1 sample.txt ; echo 'have a nice day'
+ 1) Hello World
+have a nice day
+</code></pre></blockquote><h2 id=list-control-operators><a class=header href=#list-control-operators>List control operators</a></h2><p>You can use these operators to control the execution of the subsequent command depending on the exit status of the first command. From <a href=https://www.gnu.org/software/bash/manual/bash.html#Lists>bash manual: Lists of Commands</a>:<blockquote><p>AND and OR lists are sequences of one or more pipelines separated by the control operators <code>&&</code> and <code>||</code>, respectively. AND and OR lists are executed with left associativity.</blockquote><p>For AND list, the second command will be executed if and only if the first command exits with <code>0</code> status.<pre><code class=language-bash># first command succeeds here, so the second command is also executed
+$ echo 'hello' && echo 'have a nice day'
+hello
+have a nice day
+
+# assume 'abcdxyz' doesn't exist as a shell command
+# the second command will not be executed
+$ abcdxyz && echo 'have a nice day'
+abcdxyz: command not found
+
+# if you use ';' instead, the second command will still be executed
+$ abcdxyz ; echo 'have a nice day'
+abcdxyz: command not found
+have a nice day
+</code></pre><p>For OR list, the second command will be executed if and only if the first command does <em>not</em> exit with <code>0</code> status.<pre><code class=language-bash># since the first command succeeds, the second one won't run
+$ echo 'hello' || echo 'have a nice day'
+hello
+
+# assume 'abcdxyz' doesn't exist as a shell command
+# since the first command fails, the second one will run
+$ abcdxyz || echo 'have a nice day'
+abcdxyz: command not found
+have a nice day
+</code></pre><h2 id=command-substitution><a class=header href=#command-substitution>Command substitution</a></h2><p>Command substitution allows you to use the standard output of a command as part of another command. Trailing newlines, if any, will be removed. You can use the newer and preferred syntax <code>$(command)</code> or the older syntax <code>`command`</code>. Here are some examples:<pre><code class=language-bash># sample input
 $ printf 'hello\ntoday is: \n'
 hello
 today is:
@@ -502,7 +530,9 @@ tictactoe
 $ proj=$(basename $(dirname projects/tictactoe/game.py))
 $ echo "$proj"
 tictactoe
-</code></pre><p>Difference between the two types of syntax is quoted below from <a href=https://www.gnu.org/software/bash/manual/bash.html#Command-Substitution>bash manual: Command Substitution</a>:<blockquote><p>When the old-style backquote form of substitution is used, backslash retains its literal meaning except when followed by <code>$</code>, <code>`</code>, or <code>\</code>. The first backquote not preceded by a backslash terminates the command substitution. When using the $(command) form, all characters between the parentheses make up the command; none are treated specially.<p>Command substitutions may be nested. To nest when using the backquoted form, escape the inner backquotes with backslashes.</blockquote><h2 id=process-substitution><a class=header href=#process-substitution>Process substitution</a></h2><p>You can redirect output of commands to take the place of a file argument with process substitution using the <code><(list)</code> syntax. The shell will take care of passing a filename with the standard output of those commands. Here's an example:<pre><code class=language-bash>$ cat scores.csv
+</code></pre><p>Difference between the two types of syntax is quoted below from <a href=https://www.gnu.org/software/bash/manual/bash.html#Command-Substitution>bash manual: Command Substitution</a>:<blockquote><p>When the old-style backquote form of substitution is used, backslash retains its literal meaning except when followed by <code>$</code>, <code>`</code>, or <code>\</code>. The first backquote not preceded by a backslash terminates the command substitution. When using the $(command) form, all characters between the parentheses make up the command; none are treated specially.<p>Command substitutions may be nested. To nest when using the backquoted form, escape the inner backquotes with backslashes.</blockquote><h2 id=process-substitution><a class=header href=#process-substitution>Process substitution</a></h2><p>You can redirect output of commands to take the place of a file argument with process substitution using the <code><(list)</code> syntax. The shell will take care of passing a filename with the standard output of those commands. Here's an example:<pre><code class=language-bash># change to the 'example_files/text_files' directory for this section
+
+$ cat scores.csv
 Name,Maths,Physics,Chemistry
 Ith,100,100,100
 Cy,97,98,95
