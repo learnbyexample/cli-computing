@@ -1,4 +1,4 @@
 while IFS= read -r line; do
     # do something with each line
-    echo "$line"
+    wc -l "$line"
 done < "$1"
