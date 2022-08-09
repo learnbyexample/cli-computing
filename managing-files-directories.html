@@ -1,4 +1,4 @@
-<!DOCTYPE HTML><html lang=en class="sidebar-visible no-js light"><head><meta charset=UTF-8><title>Managing Files and Directories - Computing from the Command Line</title><meta content="text/html; charset=utf-8"http-equiv=Content-Type><meta name=description content="Linux Command Line and Shell Scripting for beginner to intermediate level users"><meta name=viewport content="width=device-width, initial-scale=1"><meta name=theme-color content=#ffffff><meta property=og:title content="Computing from the Command Line"><meta property=og:type content=website><meta property=og:url content=https://learnbyexample.github.io/cli-computing/><meta property=og:image content=https://learnbyexample.github.io/cli-computing/images/cli_computing_ls.png><meta property=og:image:width content=1280><meta property=og:image:height content=720><meta property=twitter:card content=summary_large_image><meta property=twitter:site content=@learn_byexample><meta property=twitter:title content="Computing from the Command Line"><meta property=twitter:description content="Linux Command Line and Shell Scripting for beginner to intermediate level users"><meta property=twitter:image content=https://learnbyexample.github.io/cli-computing/images/cli_computing_ls.png><link rel=icon href=favicon.svg><link rel="shortcut icon"href=favicon.png><link rel=stylesheet href=css/variables.css><link rel=stylesheet href=css/general.css><link rel=stylesheet href=css/chrome.css><link rel=stylesheet href=FontAwesome/css/font-awesome.css><link rel=stylesheet href=fonts/fonts.css><link rel=stylesheet href=highlight.css><link rel=stylesheet href=tomorrow-night.css><link rel=stylesheet href=ayu-highlight.css><link rel=stylesheet href=style.css><body><script>
+<!DOCTYPE HTML><html lang=en class="sidebar-visible no-js light"><head><meta charset=UTF-8><title>Managing Files and Directories - Computing from the Command Line</title><meta content="text/html; charset=utf-8"http-equiv=Content-Type><meta name=description content="Linux Command Line and Shell Scripting for beginner to intermediate level users"><meta name=viewport content="width=device-width, initial-scale=1"><meta name=theme-color content=#ffffff><meta property=og:title content="Computing from the Command Line"><meta property=og:type content=website><meta property=og:description content="Linux Command Line and Shell Scripting for beginner to intermediate level users"><meta property=og:url content=https://learnbyexample.github.io/cli-computing/><meta property=og:image content=https://learnbyexample.github.io/cli-computing/images/cli_computing_ls.png><meta property=og:image:width content=1280><meta property=og:image:height content=720><meta property=twitter:card content=summary_large_image><meta property=twitter:site content=@learn_byexample><link rel=icon href=favicon.svg><link rel="shortcut icon"href=favicon.png><link rel=stylesheet href=css/variables.css><link rel=stylesheet href=css/general.css><link rel=stylesheet href=css/chrome.css><link rel=stylesheet href=FontAwesome/css/font-awesome.css><link rel=stylesheet href=fonts/fonts.css><link rel=stylesheet href=highlight.css><link rel=stylesheet href=tomorrow-night.css><link rel=stylesheet href=ayu-highlight.css><link rel=stylesheet href=style.css><body><script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script><script>
@@ -88,8 +88,8 @@ $ pwd
 $ cd cli-computing/example_files/scripts
 
 $ ls
-cp.sh  file.sh  ls.sh  rm.sh    tar.sh
-du.sh  find.sh  mv.sh  stat.sh  touch.sh
+cp.sh  file.sh  globs.sh  mv.sh  stat.sh  touch.sh
+du.sh  find.sh  ls.sh     rm.sh  tar.sh
 
 # 'ls.sh' script will create a directory named 'ls_examples'
 # and automatically change to that directory as well
@@ -226,34 +226,7 @@ backups/
 projects/
 scripts/
 todos/
-</code></pre><p><strong>Further Reading</strong><ul><li><code>man ls</code> and <code>info ls</code> for more options and complete documentation<li><a href=https://unix.stackexchange.com/questions/tagged/ls?sort=votes&pageSize=15>ls Q&A on unix stackexchange</a><li><a href=https://stackoverflow.com/questions/tagged/ls?sort=votes&pageSize=15>ls Q&A on stackoverflow</a><li><a href=https://mywiki.wooledge.org/ParsingLs>mywiki.wooledge: avoid parsing output of ls</a><li><a href=https://unix.stackexchange.com/q/128985/109046>unix.stackexchange: why not parse ls?</a><li><a href=https://unix.stackexchange.com/q/63081/109046>unix.stackexchange: What are ./ and ../ directories?</a></ul><h2 id=tree><a class=header href=#tree>tree</a></h2><p>The <code>tree</code> command displays the contents of a directory recursively, in a hierarchical manner. You might have to install this command.<pre><code class=language-bash># use the 'ls_examples' directory created earlier
-# -a option will show hidden files as well
-$ tree -a
-.
-├── backups
-│   ├── bookmarks.html
-│   └── dot_files
-│       ├── .bashrc
-│       ├── .inputrc
-│       └── .vimrc
-├── errors.log
-├── hello_world.py
-├── hi
-├── .hidden
-├── ip.txt
-├── projects
-│   ├── calculator
-│   │   └── calc.sh
-│   └── tictactoe
-│       └── game.py
-├── report.log
-├── scripts -> ../../scripts
-└── todos
-    ├── books.txt
-    └── outing.txt
-
-7 directories, 14 files
-</code></pre><h2 id=mkdir><a class=header href=#mkdir>mkdir</a></h2><p>The <code>mkdir</code> command helps you to create new directories. You can pass one or more paths along with the name of the directories you want to create. Quote the names if it can contain shell special characters like space, <code>*</code> and so on.<blockquote><p><img src=./images/info.svg alt=info> Create a practice directory for this section:<pre><code class=language-bash>$ mkdir practice_mkdir
+</code></pre><p><strong>Further Reading</strong><ul><li><code>man ls</code> and <code>info ls</code> for more options and complete documentation<li><a href=https://unix.stackexchange.com/questions/tagged/ls?sort=votes&pageSize=15>ls Q&A on unix stackexchange</a><li><a href=https://stackoverflow.com/questions/tagged/ls?sort=votes&pageSize=15>ls Q&A on stackoverflow</a><li><a href=https://mywiki.wooledge.org/ParsingLs>mywiki.wooledge: avoid parsing output of ls</a><li><a href=https://unix.stackexchange.com/q/128985/109046>unix.stackexchange: why not parse ls?</a><li><a href=https://unix.stackexchange.com/q/63081/109046>unix.stackexchange: What are ./ and ../ directories?</a></ul><h2 id=tree><a class=header href=#tree>tree</a></h2><p>The <code>tree</code> command displays the contents of a directory recursively, in a hierarchical manner. Here's a screenshot of using <code>tree -a</code> from the <code>ls_examples</code> sample directory seen in the previous section. The <code>-a</code> option is used to show the hidden files as well.<p align=center><img src=images/tree_example.png alt="example for tree command"><blockquote><p><img src=./images/info.svg alt=info> You might have to install this command. <code>sudo apt install tree</code> can be used to get this command on Debian like distributions.</blockquote><h2 id=mkdir><a class=header href=#mkdir>mkdir</a></h2><p>The <code>mkdir</code> command helps you to create new directories. You can pass one or more paths along with the name of the directories you want to create. Quote the names if it can contain shell special characters like space, <code>*</code> and so on.<blockquote><p><img src=./images/info.svg alt=info> Create a practice directory for this section:<pre><code class=language-bash>$ mkdir practice_mkdir
 $ cd practice_mkdir
 </code></pre></blockquote><p>Here's an example of creating multiple directories:<pre><code class=language-bash>$ mkdir reports 'low power adders'
 
