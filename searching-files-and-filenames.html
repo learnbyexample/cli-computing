@@ -83,10 +83,8 @@ mesdames
 respires
 restores
 testates
-</code></pre><p>The <code>-f</code> and <code>-x</code> options can be combined to get common lines between two files or the difference when <code>-v</code> is used as well. Add <code>-F</code> if you want to treat the search strings literally (recall that regexp is the default).<pre><code class=language-bash>$ mkdir practice_grep
-$ cd practice_grep
-$ printf 'teal\nlight blue\nbrown\nyellow\n' > colors_1
-$ printf 'blue\nblack\ndark green\nyellow\n' > colors_2
+</code></pre><p>The <code>-f</code> and <code>-x</code> options can be combined to get common lines between two files or the difference when <code>-v</code> is used as well. Add <code>-F</code> if you want to treat the search strings literally (recall that regexp is the default).<pre><code class=language-bash># change to the 'scripts' directory and source the 'grep.sh' script
+$ source grep.sh
 
 # common lines between two files
 $ grep -Fxf colors_1 colors_2
@@ -125,7 +123,66 @@ $ echo 'car bat cod map combat' | grep -oP '\b(bat|map)\b(*SKIP)(*F)|\w+'
 car
 cod
 combat
-</code></pre><h3 id=further-reading><a class=header href=#further-reading>Further Reading</a></h3><ul><li>My ebook <a href=https://github.com/learnbyexample/learn_gnugrep_ripgrep>GNU GREP and RIPGREP</a> <ul><li>See also my blog post <a href=https://learnbyexample.github.io/gnu-bre-ere-cheatsheet/>GNU BRE/ERE cheatsheet</a></ul><li><a href=https://lists.freebsd.org/pipermail/freebsd-current/2010-August/019310.html>Why GNU grep is fast</a><li><a href=https://stackoverflow.com/questions/tagged/grep?sort=votes&pageSize=15>grep Q&A on stackoverflow</a><li><a href=https://unix.stackexchange.com/questions/tagged/grep?sort=votes&pageSize=15>grep Q&A on unix stackexchange</a><li><a href=https://unix.stackexchange.com/q/131535/109046>unix.stackexchange: grep -r vs find+grep</a></ul><h2 id=find><a class=header href=#find>find</a></h2><p>The <code>find</code> command has comprehensive features to narrow down files and directories based on name, size, date and so on. And more importantly, <code>find</code> helps you to perform actions on such filtered files.<h3 id=filenames><a class=header href=#filenames>Filenames</a></h3><p>By default, you'll get every entry (including hidden ones) in the current directory and sub-directories when you use <code>find</code> without any options or paths. To search within specific path(s), they should be immediately mentioned after <code>find</code>, i.e. before any options.<pre><code class=language-bash># change to the 'scripts' directory and source the 'find.sh' script
+</code></pre><h3 id=recursive-search><a class=header href=#recursive-search>Recursive search</a></h3><p>You can use the <code>-r</code> option to search recursively within the specified directories. By default, the current directory will be searched. Use <code>-R</code> if you want symbolic links found within the input directories to be followed as well. You do not need <code>-R</code> option for specifying symbolic links as arguments.<p>Here are some basic examples. Recursive search will work as if <code>-H</code> option was specified as well, even if only one file was matched. Also, hidden files are included by default.<pre><code class=language-bash># change to the 'scripts' directory and source the 'grep.sh' script
+$ source grep.sh
+$ ls -AF
+backups/  colors_1  colors_2  .hidden  projects/
+
+# recursively search in the 'backups' directory
+$ grep -r 'clear' backups
+backups/dot_files/.bash_aliases:alias c=clear
+# add -h option to prevent filename prefix in the output
+$ grep -rh 'clear' backups
+alias c=clear
+
+# by default, the current directory is used for recursive search
+$ grep -rl 'clear'
+.hidden
+backups/dot_files/.bash_aliases
+</code></pre><p>You can further prune the files to be searched using the <em>include/exclude</em> options. Note that these options will work even if recursive search is not active.<table><thead><tr><th>Option<th>Description<tbody><tr><td>--include=GLOB<td>search only files that match GLOB<tr><td>--exclude=GLOB<td>skip files that match GLOB<tr><td>--exclude-from=FILE<td>skip files that match any file pattern from FILE<tr><td>--exclude-dir=GLOB<td>skip directories that match GLOB</table><pre><code class=language-bash># default recursive search
+$ grep -r 'Hello'
+projects/python/hello.py:print("Hello, Python!")
+projects/shell/hello.sh:echo "Hello, Bash!"
+
+# limit the search to only filenames ending with '.py'
+$ grep -r --include='*.py' 'Hello'
+projects/python/hello.py:print("Hello, Python!")
+
+# alternatively, you can use shell globs instead of recursive+include/exclude
+$ shopt -s globstar
+$ grep -H 'Hello' **/*.py
+projects/python/hello.py:print("Hello, Python!")
+</code></pre><blockquote><p><img src=./images/info.svg alt=info> <a href=https://github.com/BurntSushi/ripgrep>ripgrep</a> is a recommended alternative to <code>GNU grep</code> with a highly optimized regexp engine, parallel search, ignoring files based on <code>.gitignore</code> and so on.</blockquote><h3 id=grep-and-xargs><a class=header href=#grep-and-xargs>grep and xargs</a></h3><p>You can use the shell <code>|</code> operator to pass the output of a command as input to another command. Suppose a command gives you a list of filenames and you want to pass this list as input <em>arguments</em> to another command, what would you do? One solution is to use the <code>xargs</code> command. Here's a basic example (assuming filenames won't conflict with shell metacharacters):<pre><code class=language-bash># an example command producing a list of filenames
+$ grep -rl 'clear'
+.hidden
+backups/dot_files/.bash_aliases
+
+# same as: head -n1 .hidden backups/dot_files/.bash_aliases
+$ grep -rl 'clear' | xargs head -n1
+==> .hidden <==
+ghost
+
+==> backups/dot_files/.bash_aliases <==
+alias p=pwd
+</code></pre><p>Characters like space, newline, semicolon, etc are special to the shell. So, filenames containing these characters have to be properly quoted. Or, where applicable, you can use a list of filenames separated by the ASCII NUL character (since filenames cannot have the NUL character). You can use <code>grep -Z</code> to separate the output with NUL and <code>xargs -0</code> to treat the input as NUL separated. Here's an example:<pre><code class=language-bash># consider this command that generates a list of filenames
+$ grep -rl 'blue'
+.hidden
+colors_1
+colors_2
+backups/color list.txt
+
+# example to show issues due to filenames containing shell metacharacters
+# 'backups/color list.txt' is treated as two different files
+$ grep -rl 'blue' | xargs grep -l 'teal'
+colors_2
+grep: backups/color: No such file or directory
+grep: list.txt: No such file or directory
+
+# use 'grep -Z' + 'xargs -0' combo for a robust solution
+# match files containing both 'blue' and 'teal'
+$ grep -rlZ 'blue' | xargs -0 grep -l 'teal'
+colors_1
+</code></pre><blockquote><p><img src=./images/info.svg alt=info> You can use <code>xargs -r</code> to avoid running the command when the filename list doesn't have any non-blank character (i.e. when the list is empty).</blockquote><blockquote><p><img src=images/warning.svg alt=warning> <img src=images/warning.svg alt=warning> Do not use <code>xargs -P</code> to combine the output of parallel runs, as you are likely to get a mangled result. The <a href=https://www.gnu.org/software/parallel/>parallel</a> command would be a better option. See <a href=https://unix.stackexchange.com/q/104778/109046>unix.stackexchange: xargs vs parallel</a> for more details.</blockquote><h3 id=further-reading><a class=header href=#further-reading>Further Reading</a></h3><ul><li>My ebook <a href=https://github.com/learnbyexample/learn_gnugrep_ripgrep>GNU GREP and RIPGREP</a> <ul><li>See also my blog post <a href=https://learnbyexample.github.io/gnu-bre-ere-cheatsheet/>GNU BRE/ERE cheatsheet</a></ul><li><a href=https://lists.freebsd.org/pipermail/freebsd-current/2010-August/019310.html>Why GNU grep is fast</a><li><a href=https://stackoverflow.com/questions/tagged/grep?sort=votes&pageSize=15>grep Q&A on stackoverflow</a><li><a href=https://unix.stackexchange.com/questions/tagged/grep?sort=votes&pageSize=15>grep Q&A on unix stackexchange</a><li><a href=https://unix.stackexchange.com/q/131535/109046>unix.stackexchange: grep -r vs find+grep</a></ul><h2 id=find><a class=header href=#find>find</a></h2><p>The <code>find</code> command has comprehensive features to narrow down files and directories based on name, size, date and so on. And more importantly, <code>find</code> helps you to perform actions on such filtered files.<h3 id=filenames><a class=header href=#filenames>Filenames</a></h3><p>By default, you'll get every entry (including hidden ones) in the current directory and sub-directories when you use <code>find</code> without any options or paths. To search within specific path(s), they should be immediately mentioned after <code>find</code>, i.e. before any options.<pre><code class=language-bash># change to the 'scripts' directory and source the 'find.sh' script
 $ source find.sh
 $ ls -F
 backups/    hello_world.py*  ip.txt     report.log  todos/
@@ -309,6 +366,15 @@ $ find -type f -name '*.log'
 $ find -type f -not -path './backups/*' -prune -name '*.log'
 ./report.log
 ./errors.log
-</code></pre><p>Using <code>-not -path '*/.git/*' -prune</code> is a common practice when dealing with Git based version control projects.<h3 id=further-reading-1><a class=header href=#further-reading-1>Further Reading</a></h3><ul><li><a href=https://mywiki.wooledge.org/UsingFind>mywiki.wooledge: using find</a><li><a href=https://unix.stackexchange.com/questions/tagged/find?sort=votes&pageSize=15>find Q&A on unix stackexchange</a><li><a href=https://stackoverflow.com/questions/tagged/find?sort=votes&pageSize=15>find Q&A on stackoverflow</a><li><a href=https://unix.stackexchange.com/q/282762/109046>unix.stackexchange: find and tar example</a><li><a href=https://unix.stackexchange.com/q/321697/109046>unix.stackexchange: Why is looping over find's output bad practice?</a></ul><h2 id=locate><a class=header href=#locate>locate</a></h2><p><code>locate</code> is a faster alternative to the <code>find</code> command for searching files by name. It is based on a database, which gets updated by a <code>cron</code> job. So, newer files may be not present in results unless you update the database. Use this command if it is available in your distro and you remember some part of filename. Very useful if you have to search the entire filesystem in which case <code>find</code> command will take a very long time compared to <code>locate</code>.<p><strong>Examples</strong><ul><li><code>locate 'power'</code> print path of filenames containing <code>power</code> in the whole filesystem <ul><li>implicitly, <code>locate</code> would change the string to <code>*power*</code> as no globbing characters are present in the string specified</ul><li><code>locate -b '\power.log'</code> print path matching the string <code>power.log</code> exactly at the end of the path <ul><li><code>/home/learnbyexample/power.log</code> matches<li><code>/home/learnbyexample/lowpower.log'</code> will not match since there are other characters at the start of the filename<li>use of <code>\</code> prevents the search string from implicitly being replaced by <code>*power.log*</code></ul><li><code>locate -b '\proj_adder'</code> the <code>-b</code> option is also handy to print only the matching directory name, otherwise every file under that folder would also be displayed</ul><blockquote><p><img src=./images/info.svg alt=info> See also <a href=https://unix.stackexchange.com/q/60205/109046>unix.stackexchange: pros and cons of find and locate</a>.</blockquote></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=viewing-part-or-whole-file-contents.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=file-properties.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=viewing-part-or-whole-file-contents.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=file-properties.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
+</code></pre><p>Using <code>-not -path '*/.git/*' -prune</code> is a common practice when dealing with Git based version control projects.<h3 id=find-and-xargs><a class=header href=#find-and-xargs>find and xargs</a></h3><p>Similar to <code>grep -Z</code> and <code>xargs -0</code> combination seen earlier, you can use <code>find -print0</code> and <code>xargs -0</code> combination. The <code>-exec</code> option is sufficient for most use cases, but <code>xargs -P</code> (or the <a href=https://www.gnu.org/software/parallel/>parallel</a> command) can be handy if you need parallel execution for performance reasons.<p>Here's an example of passing filtered files to <code>sed</code> (<strong>s</strong>tream <strong>ed</strong>itor, will be discussed in a later chapter):<pre><code class=language-bash>$ find -name '*.log'
+./report.log
+./backups/aug.log
+./backups/jan.log
+./errors.log
+
+# for the filtered files, replace all occurrences of 'apple' with 'fig'
+# 'sed -i' will edit the files inplace, so no output on the terminal
+$ find -name '*.log' -print0 | xargs -r0 -n2 -P2 sed -i 's/apple/fig/g'
+</code></pre><p>In the above example, <code>-P2</code> is used to allow <code>xargs</code> to run two processes at a time (default is one process). You can use <code>-P0</code> to allow <code>xargs</code> to launch as many processes as possible. The <code>-n2</code> option is used to limit the number of file arguments passed to each <code>sed</code> call to <code>2</code>, otherwise <code>xargs</code> is likely to pass as many arguments as possible and thus reduce/negate the effect of parallelism. Note that the values used for <code>-n</code> and <code>-P</code> in the above illustration are just random examples, you'll have to tune them for your particular use case.<h3 id=further-reading-1><a class=header href=#further-reading-1>Further Reading</a></h3><ul><li><a href=https://mywiki.wooledge.org/UsingFind>mywiki.wooledge: using find</a><li><a href=https://unix.stackexchange.com/questions/tagged/find?sort=votes&pageSize=15>find Q&A on unix stackexchange</a><li><a href=https://stackoverflow.com/questions/tagged/find?sort=votes&pageSize=15>find Q&A on stackoverflow</a><li><a href=https://unix.stackexchange.com/q/282762/109046>unix.stackexchange: find and tar example</a><li><a href=https://unix.stackexchange.com/q/321697/109046>unix.stackexchange: Why is looping over find's output bad practice?</a></ul><h2 id=locate><a class=header href=#locate>locate</a></h2><p><code>locate</code> is a faster alternative to the <code>find</code> command for searching files by name. It is based on a database, which gets updated by a <code>cron</code> job. So, newer files may be not present in results unless you update the database. Use this command if it is available in your distro and you remember some part of filename. Very useful if you have to search the entire filesystem in which case <code>find</code> command will take a very long time compared to <code>locate</code>.<p><strong>Examples</strong><ul><li><code>locate 'power'</code> print path of filenames containing <code>power</code> in the whole filesystem <ul><li>implicitly, <code>locate</code> would change the string to <code>*power*</code> as no globbing characters are present in the string specified</ul><li><code>locate -b '\power.log'</code> print path matching the string <code>power.log</code> exactly at the end of the path <ul><li><code>/home/learnbyexample/power.log</code> matches<li><code>/home/learnbyexample/lowpower.log'</code> will not match since there are other characters at the start of the filename<li>use of <code>\</code> prevents the search string from implicitly being replaced by <code>*power.log*</code></ul><li><code>locate -b '\proj_adder'</code> the <code>-b</code> option is also handy to print only the matching directory name, otherwise every file under that folder would also be displayed</ul><blockquote><p><img src=./images/info.svg alt=info> See also <a href=https://unix.stackexchange.com/q/60205/109046>unix.stackexchange: pros and cons of find and locate</a>.</blockquote></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=viewing-part-or-whole-file-contents.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=file-properties.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=viewing-part-or-whole-file-contents.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=file-properties.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
             window.playground_copyable = true;
         </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>
