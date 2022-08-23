@@ -580,6 +580,44 @@ $ tree
 
 $ cd ..
 $ rm -r test_extract
-</code></pre><p><code>tar</code> has lots and lots of options for various needs. Some are listed below, see documentation for complete details.<ul><li><code>-v</code> verbose option<li><code>-r</code> to append files to an existing archive<li><code>--exclude=</code> specify files to be ignored from archiving</ul><p>There are also commands starting with <code>z</code> to work with compressed files, for example:<ul><li><code>zcat</code> to display file contents of a compressed file<li><code>zless</code> to display file contents of a compressed file one screenful at a time<li><code>zgrep</code> to search compressed files</ul><blockquote><p><img src=images/info.svg alt=info> If you need to work with <code>.zip</code> files, use <code>zip</code> and <code>unzip</code> commands.</blockquote><p><strong>Further Reading</strong><ul><li><a href=https://unix.stackexchange.com/q/178127/109046>unix.stackexchange: tar files with a sorted order</a><li><a href=https://superuser.com/questions/252065/gzip-without-tar-why-are-they-used-together>superuser: gzip without tar? Why are they used together?</a></ul></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=command-line-overview.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=shell-features.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=command-line-overview.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=shell-features.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
+</code></pre><p><code>tar</code> has lots and lots of options for various needs. Some are listed below, see documentation for complete details.<ul><li><code>-v</code> verbose option<li><code>-r</code> to append files to an existing archive<li><code>--exclude=</code> specify files to be ignored from archiving</ul><p>There are also commands starting with <code>z</code> to work with compressed files, for example:<ul><li><code>zcat</code> to display file contents of a compressed file<li><code>zless</code> to display file contents of a compressed file one screenful at a time<li><code>zgrep</code> to search compressed files</ul><blockquote><p><img src=images/info.svg alt=info> If you need to work with <code>.zip</code> files, use <code>zip</code> and <code>unzip</code> commands.</blockquote><p><strong>Further Reading</strong><ul><li><a href=https://unix.stackexchange.com/q/178127/109046>unix.stackexchange: tar files with a sorted order</a><li><a href=https://superuser.com/questions/252065/gzip-without-tar-why-are-they-used-together>superuser: gzip without tar? Why are they used together?</a></ul><h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><p><strong>1)</strong> Which of these commands will always display the absolute path of the home directory?<p><em>a)</em> <code>pwd</code><br> <em>b)</em> <code>echo "$PWD"</code><br> <em>c)</em> <code>echo "$HOME"</code><p><strong>2)</strong> The current working directory has a folder named <code>-dash</code>. How would you switch to that directory?<p><em>a)</em> <code>cd -- -dash</code><br> <em>b)</em> <code>cd -dash</code><br> <em>c)</em> <code>cd ./-dash</code><br> <em>d)</em> <code>cd \-dash</code><br> <em>e)</em> <code>cd '-dash'</code><br> <em>f)</em> all of the above<br> <em>g)</em> only <code>a)</code> and <code>c)</code><p><strong>3)</strong> Given the directory structure as shown below, how would you change to the <code>learning</code> directory?<pre><code class=language-bash>$ pwd
+/home/learnbyexample/all
+$ ls -1F
+colors.txt
+learning/
+notes.txt
+projects/
+reports/
+
+$ cd projects
+$ pwd
+/home/learnbyexample/all/projects
+
+# ???
+$ pwd
+/home/learnbyexample/all/learning
+</code></pre><p><strong>4)</strong> As per the scenario shown below, how would you change to the <code>cli-computing</code> directory under the user's home directory?<pre><code class=language-bash>$ pwd
+/home/learnbyexample/all/projects/square_tictactoe
+
+# ???
+$ pwd
+/home/learnbyexample/cli-computing
+</code></pre><p><strong>5)</strong> How'd you list the contents of the current directory, one per line, along with size of the entries in human readable format?<p><strong>6)</strong> Which <code>ls</code> command option would you use for version based sorting of entries?<p><strong>7)</strong> Which <code>ls</code> command option would you use for sorting based on entry size?<p><strong>8)</strong> Which <code>ls</code> command option would you use for sorting based on file extension?<p><strong>9)</strong> What does the <code>-G</code> option of <code>ls</code> command do?<p><strong>10)</strong> What does the <code>-i</code> option of <code>ls</code> command do?<p><strong>11)</strong> List only the directories as one entry per line.<pre><code class=language-bash>$ ls -1F
+colors.txt
+learning/
+notes.txt
+projects/
+reports/
+
+# ???
+learning/
+projects/
+reports/
+</code></pre><p><strong>12)</strong> Assume that a regular file named <code>notes</code> already exists. What would happen if you use the <code>mkdir -p notes</code> command?<pre><code class=language-bash>$ ls -1F notes
+notes
+
+# what would happen here?
+$ mkdir -p notes
+</code></pre></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=command-line-overview.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=shell-features.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=command-line-overview.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=shell-features.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
             window.playground_copyable = true;
         </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>
