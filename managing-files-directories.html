@@ -618,6 +618,77 @@ notes
 
 # what would happen here?
 $ mkdir -p notes
-</code></pre></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=command-line-overview.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=shell-features.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=command-line-overview.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=shell-features.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
+</code></pre><p><strong>13)</strong> Use one or more commands to match the scenario shown below:<pre><code class=language-bash>$ ls -1F
+cost.txt
+
+# ???
+
+$ ls -1F
+cost.txt
+ghost/
+quest/
+toast/
+</code></pre><p><strong>14)</strong> Use one or more commands to match the scenario shown below:<pre><code class=language-bash># start with an empty directory
+$ ls -l
+total 0
+
+# ???
+
+$ tree -F
+.
+├── hobbies/
+│   ├── painting/
+│   │   └── waterfall.bmp
+│   ├── trekking/
+│   │   └── himalayas.txt
+│   └── writing/
+└── shopping/
+    └── festival.xlsx
+
+5 directories, 3 files
+</code></pre><p><strong>15)</strong> If directories to create already exist, which <code>mkdir</code> command option would you use to not show an error?<p><strong>16)</strong> Use one or more commands to match the scenario shown below:<pre><code class=language-bash>$ ls -1F
+cost.txt
+ghost/
+quest/
+toast/
+
+# ???
+
+$ ls -1F
+quest/
+</code></pre><p><strong>17)</strong> What does the <code>-f</code> option of <code>rm</code> command do?<p><strong>18)</strong> Which option would you use to interactively delete files using the <code>rm</code> command?<p><strong>19)</strong> Can the files removed by <code>rm</code> easily be restored? Do you need to take some extra steps or use special commands to make the files more difficult to recover?<p><strong>20)</strong> Does your Linux distribution provide a tool to send deleted files to the trash (which would help to recover deleted files)?<p><strong>21)</strong> Which option would you use to interactively accept/prevent the <code>cp</code> command from overwriting a file of the same name? And which option would prevent overwriting without needing manual confirmation?<p><strong>22)</strong> Does the <code>cp</code> command allow you to rename the file or directory being copied? If so, can you rename multiple files/directories being copied?<p><strong>23)</strong> What do the <code>-u</code>, <code>-b</code> and <code>-t</code> options of <code>cp</code> command do?<p><strong>24)</strong> What's the difference between the two commands shown below?<pre><code class=language-bash>$ cp ip.txt op.txt
+
+$ mv ip.txt op.txt
+</code></pre><p><strong>25)</strong> Which option would you use to interactively accept/prevent the <code>mv</code> command from overwriting a file of the same name?<p><strong>26)</strong> Use one or more commands to match the scenario shown below:<pre><code class=language-bash>$ tree -F
+.
+├── hobbies/
+│   ├── painting/
+│   │   └── waterfall.bmp
+│   ├── trekking/
+│   │   └── himalayas.txt
+│   └── writing/
+└── shopping/
+    └── festival.xlsx
+
+5 directories, 3 files
+
+# ???
+
+$ tree -F
+.
+├── hobbies/
+│   ├── himalayas.txt
+│   └── waterfall.bmp
+└── shopping/
+    └── festival.xlsx
+
+2 directories, 3 files
+</code></pre><p><strong>27)</strong> What does the <code>-t</code> option of <code>mv</code> command do?<p><strong>28)</strong> Determine and implement the <code>rename</code> logic based on the filenames and expected output shown below.<pre><code class=language-bash>$ touch '(2020) report part 1.txt' 'analysis part 3 (2018).log'
+
+# ???
+
+$ ls
+2020_report_part_1.txt  analysis_part_3_2018.log
+</code></pre><p><strong>29)</strong> Does the <code>ln</code> command follow the same order to specify source and destination as the <code>cp</code> and <code>mv</code> commands?<p><strong>30)</strong> Which <code>tar</code> option helps to compress archives based on filename extension? This option can be used instead of <code>-z</code> for <code>gzip</code>, <code>-j</code> for <code>bzip2</code> and <code>-J</code> for <code>xz</code>.</main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=command-line-overview.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=shell-features.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=command-line-overview.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=shell-features.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
             window.playground_copyable = true;
         </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>
