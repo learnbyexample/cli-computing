@@ -141,7 +141,11 @@ $ touch 'a^b' 'mars[planet].txt'
 $ rm -i *[]^]*
 rm: remove regular empty file 'a^b'? y
 rm: remove regular empty file 'mars[planet].txt'? y
-</code></pre><p>A <strong>named character set</strong> is defined by a name enclosed between <code>[:</code> and <code>:]</code> and has to be used within a character class <code>[]</code>, along with any other characters as needed.<table><thead><tr><th>Named set<th>Description<tbody><tr><td><code>[:digit:]</code><td><code>[0-9]</code><tr><td><code>[:lower:]</code><td><code>[a-z]</code><tr><td><code>[:upper:]</code><td><code>[A-Z]</code><tr><td><code>[:alpha:]</code><td><code>[a-zA-Z]</code><tr><td><code>[:alnum:]</code><td><code>[0-9a-zA-Z]</code><tr><td><code>[:word:]</code><td><code>[0-9a-zA-Z_]</code><tr><td><code>[:xdigit:]</code><td><code>[0-9a-fA-F]</code><tr><td><code>[:cntrl:]</code><td>control characters — first 32 ASCII characters and 127th (DEL)<tr><td><code>[:punct:]</code><td>all the punctuation characters<tr><td><code>[:graph:]</code><td><code>[:alnum:]</code> and <code>[:punct:]</code><tr><td><code>[:print:]</code><td><code>[:alnum:]</code>, <code>[:punct:]</code> and space<tr><td><code>[:ascii:]</code><td>all the ASCII characters<tr><td><code>[:blank:]</code><td>space and tab characters<tr><td><code>[:space:]</code><td>whitespace characters</table><pre><code class=language-bash># starting with a digit character or 'c'
+</code></pre><p>A <strong>named character set</strong> is defined by a name enclosed between <code>[:</code> and <code>:]</code> and has to be used within a character class <code>[]</code>, along with any other characters as needed.<table><thead><tr><th>Named set<th>Description<tbody><tr><td><code>[:digit:]</code><td><code>[0-9]</code><tr><td><code>[:lower:]</code><td><code>[a-z]</code><tr><td><code>[:upper:]</code><td><code>[A-Z]</code><tr><td><code>[:alpha:]</code><td><code>[a-zA-Z]</code><tr><td><code>[:alnum:]</code><td><code>[0-9a-zA-Z]</code><tr><td><code>[:word:]</code><td><code>[0-9a-zA-Z_]</code><tr><td><code>[:xdigit:]</code><td><code>[0-9a-fA-F]</code><tr><td><code>[:cntrl:]</code><td>control characters — first 32 ASCII characters and 127th (DEL)<tr><td><code>[:punct:]</code><td>all the punctuation characters<tr><td><code>[:graph:]</code><td><code>[:alnum:]</code> and <code>[:punct:]</code><tr><td><code>[:print:]</code><td><code>[:alnum:]</code>, <code>[:punct:]</code> and space<tr><td><code>[:ascii:]</code><td>all the ASCII characters<tr><td><code>[:blank:]</code><td>space and tab characters<tr><td><code>[:space:]</code><td>whitespace characters</table><pre><code class=language-bash># starting with a digit character, same as: [0-9]*
+$ ls [[:digit:]]*
+100.sh  42.txt
+
+# starting with a digit character or 'c'
 # same as: [0-9c]*
 $ ls [[:digit:]c]*
 100.sh  42.txt  calc.py
@@ -556,7 +560,7 @@ world   4
 $ comm -12 <(sort f1.txt) <(sort f2.txt)
 1
 3
-</code></pre><blockquote><p><img src=./images/info.svg alt=info> See <a href=https://unix.stackexchange.com/q/609375/109046>this unix.stackexchange thread</a> for examples with <code>>(list)</code> form.</blockquote><h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><blockquote><p><img src=./images/info.svg alt=info> Use the <code>globs.sh</code> script for wildcards related exercises.</blockquote><p><strong>1)</strong> Use the <code>echo</code> command to display the text as shown below. Use appropriate quoting as necessary.<pre><code class=language-nohighlight># ???
+</code></pre><blockquote><p><img src=./images/info.svg alt=info> See <a href=https://unix.stackexchange.com/q/609375/109046>this unix.stackexchange thread</a> for examples with <code>>(list)</code> form.</blockquote><h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><blockquote><p><img src=./images/info.svg alt=info> Use the <code>globs.sh</code> script for wildcards related exercises, unless otherwise mentioned.</blockquote><blockquote><p><img src=./images/info.svg alt=info> Create a temporary directory for exercises that may require you to create some files. You can delete such practice directories afterwards.</blockquote><p><strong>1)</strong> Use the <code>echo</code> command to display the text as shown below. Use appropriate quoting as necessary.<pre><code class=language-nohighlight># ???
 that's    great! $x = $y + $z
 </code></pre><p><strong>2)</strong> Use the <code>echo</code> command to display the values of the three variables in the format as shown below.<pre><code class=language-bash>$ n1=10
 $ n2=90
@@ -574,8 +578,67 @@ $ source globs.sh
 100.sh  calc.py  hello.py  hi.sh  main.c  math.h
 </code></pre><p><strong>6)</strong> List filenames whose extension only have a single character.<pre><code class=language-bash># ???
 main.c  math.h
-</code></pre><p><strong>7)</strong> List filenames whose extension is not <code>txt</code>.<pre><code class=language-bash>100.sh   hello.py  main.c  report-00.log  report-04.log
+</code></pre><p><strong>7)</strong> List filenames whose extension is not <code>txt</code>.<pre><code class=language-bash># ???
+100.sh   hello.py  main.c  report-00.log  report-04.log
 calc.py  hi.sh     math.h  report-02.log  report-98.log
-</code></pre></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=managing-files-directories.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=viewing-part-or-whole-file-contents.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=managing-files-directories.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=viewing-part-or-whole-file-contents.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
+</code></pre><p><strong>8)</strong> Describe the wildcard pattern used in the command shown below.<pre><code class=language-bash>$ ls *[^[:word:]]*.*
+report-00.log  report-02.log  report-04.log  report-98.log
+</code></pre><p><strong>9)</strong> List filenames having only lowercase alphabets before the extension.<pre><code class=language-bash># ???
+calc.py  hello.py  hi.sh  ip.txt  main.c  math.h  notes.txt
+</code></pre><p><strong>10)</strong> List filenames starting with <code>ma</code> or <code>he</code> or <code>hi</code>.<pre><code class=language-bash># ???
+hello.py  hi.sh  main.c  math.h
+</code></pre><p><strong>11)</strong> What commands would you use to get the outputs shown below? Assume that you do not know the depth of sub-directories.<pre><code class=language-bash># change to the 'scripts' directory and source the 'ls.sh' script
+$ source ls.sh
+
+# filenames ending with '.txt'
+# ???
+ip.txt  todos/books.txt  todos/outing.txt
+
+# directories starting with 'c' or 'd' or 'g' or 'r' or 't'
+# ???
+backups/dot_files/
+projects/calculator/
+projects/tictactoe/
+todos/
+</code></pre><p><strong>12)</strong> Create and change to an empty directory. Then, use brace expansion along with relevant commands to get the results shown below.<pre><code class=language-bash># ???
+$ ls report*
+report_2020.txt  report_2021.txt  report_2022.txt
+
+# use 'cp' command here
+# ???
+$ ls report*
+report_2020.txt  report_2021.txt  report_2021.txt.bkp  report_2022.txt
+</code></pre><p><strong>13)</strong> What does the <code>set</code> builtin command do?<p><strong>14)</strong> What does the <code>|</code> pipe operator do? And when would you add the <code>tee</code> command?<p><strong>15)</strong> Can you infer what the following command does?<pre><code class=language-bash>$ printf '%s\n' apple car dragon
+apple
+car
+dragon
+</code></pre><p><strong>16)</strong> Use brace expansion along with relevant commands and shell features to get the result shown below. <em>Hint</em>: see previous question.<pre><code class=language-bash>$ ls ip.txt
+ls: cannot access 'ip.txt': No such file or directory
+
+# ???
+$ cat ip.txt
+item_10
+item_12
+item_14
+item_16
+item_18
+item_20
+</code></pre><p><strong>17)</strong> With <code>ip.txt</code> containing text as shown in the previous question, use brace expansion and relevant commands to get the result shown below.<pre><code class=language-bash>$ cat ip.txt
+item_10
+item_12
+item_14
+item_16
+item_18
+item_20
+apple_1_banana_6
+apple_1_banana_7
+apple_1_banana_8
+apple_2_banana_6
+apple_2_banana_7
+apple_2_banana_8
+apple_3_banana_6
+apple_3_banana_7
+apple_3_banana_8
+</code></pre><p><strong>18)</strong> What are the differences between <code><</code> and <code>|</code> shell operators, if any?<p><strong>19)</strong> Which character is used to represent <code>stdin</code> data as a file argument?<p><strong>20)</strong> What do the following operators do?<p><em>a)</em> <code>1></code><br> <em>b)</em> <code>2></code><br> <em>c)</em> <code>&></code><br> <em>d)</em> <code>&>></code><br> <em>e)</em> <code>|&</code></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=managing-files-directories.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=viewing-part-or-whole-file-contents.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=managing-files-directories.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=viewing-part-or-whole-file-contents.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
             window.playground_copyable = true;
         </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>
