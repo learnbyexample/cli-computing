@@ -38,7 +38,7 @@
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
                         link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
                     });
-                </script><div id=content class=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=viewing-part-or-whole-file-contents><a class=header href=#viewing-part-or-whole-file-contents>Viewing Part or Whole File Contents</a></h1><p>In this chapter, you'll learn how to view contents of file(s) from within the terminal. If the contents are too long, you can choose to view one screenful at a time or get only the starting/ending portions of the input. The commands used for these purposes also have other functionalities, some of which will be discussed in this chapter as well.<blockquote><p><img src=./images/info.svg alt=info> The <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files>example_files</a> directory has the sample input files used in this chapter.</blockquote><h2 id=cat><a class=header href=#cat>cat</a></h2><p>The <code>cat</code> command derives its name from con<strong>cat</strong>enate. It is primarily used to combine the contents of multiple files to be saved in a file or sent as input to another command.<p><strong>Options</strong><ul><li><code>-n</code> prefix line number and a tab character to each input line<li><code>-s</code> squeeze consecutive empty lines to a single empty line<li><code>-v</code> view special characters like NUL using the <a href=https://en.wikipedia.org/wiki/ASCII_control_characters#Control_code_chart>caret notation</a><li><code>-e</code> view special characters as well as mark the end of line<li><code>-A</code> includes <code>-e</code> and also helps to spot tab characters</ul><p><strong>Examples</strong><p>Here are some examples to showcase <code>cat</code>'s main utility. One or more files can be given as arguments.<blockquote><p><img src=./images/info.svg alt=info> As mentioned earlier, the <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files>example_files</a> directory has the sample input files used in this chapter. You need to <code>cd</code> into the <code>example_files/text_files</code> directory to follow along the examples shown in this chapter.</blockquote><pre><code class=language-bash># view contents of a single file
+                </script><div id=content class=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=viewing-part-or-whole-file-contents><a class=header href=#viewing-part-or-whole-file-contents>Viewing Part or Whole File Contents</a></h1><p>In this chapter, you'll learn how to view contents of file(s) from within the terminal. If the contents are too long, you can choose to view one screenful at a time or get only the starting/ending portions of the input. The commands used for these purposes also have other functionalities, some of which will be discussed in this chapter as well.<blockquote><p><img src=./images/info.svg alt=info> The <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files>example_files</a> directory has the sample input files used in this chapter.</blockquote><h2 id=cat><a class=header href=#cat>cat</a></h2><p>The <code>cat</code> command derives its name from con<strong>cat</strong>enate. It is primarily used to combine the contents of multiple files to be saved in a file or sent as input to another command.<p><strong>Options</strong><ul><li><code>-n</code> prefix line number and a tab character to each input line<li><code>-b</code> like <code>-n</code> but doesn't number empty lines<li><code>-s</code> squeeze consecutive empty lines to a single empty line<li><code>-v</code> view special characters like NUL using the <a href=https://en.wikipedia.org/wiki/ASCII_control_characters#Control_code_chart>caret notation</a><li><code>-e</code> view special characters as well as mark the end of line<li><code>-A</code> includes <code>-e</code> and also helps to spot tab characters</ul><p><strong>Examples</strong><p>Here are some examples to showcase <code>cat</code>'s main utility. One or more files can be given as arguments.<blockquote><p><img src=./images/info.svg alt=info> As mentioned earlier, the <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files>example_files</a> directory has the sample input files used in this chapter. You need to <code>cd</code> into the <code>example_files/text_files</code> directory to follow along the examples shown in this chapter.</blockquote><pre><code class=language-bash># view contents of a single file
 $ cat greeting.txt
 Hi there
 Have a nice day
@@ -70,11 +70,11 @@ Hi there
 Have a nice day
 apple banana cherry
 </code></pre><blockquote><p><img src=./images/info.svg alt=info> Using <code>cat</code> to view the contents of a file, to concatenate them, etc is well and good. But, using <code>cat</code> when it is not needed is a bad habit that you should avoid. See <a href=https://en.wikipedia.org/wiki/Cat_(Unix)#Useless_use_of_cat>wikipedia: UUOC</a> and <a href=https://porkmail.org/era/unix/award.html>Useless Use of Cat Award</a> for more details.</blockquote><p><code>cat</code> is also handy to spot special characters:<pre><code class=language-bash># example for backspace and carriage return characters
-$ printf 'car\bt\nbike\rp\n'
-cat
+$ printf 'car\bd\nbike\rp\n'
+cad
 pike
-$ printf 'car\bt\nbike\rp\n' | cat -v
-car^Ht
+$ printf 'car\bd\nbike\rp\n' | cat -v
+car^Hd
 bike^Mp
 
 # example with tab characters and end-of-line marker
@@ -172,6 +172,71 @@ app
 $ printf 'car\njeep\nbus\n' | head -c -4
 car
 jeep
+</code></pre><h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><blockquote><p><img src=./images/info.svg alt=info> Use <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files>example_files/text_files</a> directory for input files used in the following exercises.</blockquote><p><strong>1)</strong> Which option(s) would you use to get the output shown below?<pre><code class=language-bash>$ printf '\n\n\ndragon\n\n\nunicorn\n\n\n' | cat # ???
+
+     1	dragon
+
+     2	unicorn
+
+</code></pre><p><strong>2)</strong> Pass appropriate arguments to the <code>cat</code> command to get the output shown below.<pre><code class=language-bash>$ cat greeting.txt
+Hi there
+Have a nice day
+
+$ echo '42 apples and 100 bananas' | cat # ???
+42 apples and 100 bananas
+Hi there
+Have a nice day
+</code></pre><p><strong>3)</strong> Will the two commands shown below produce the same output? If not, why not?<pre><code class=language-bash>$ cat fruits.txt ip.txt | tac
+
+$ tac fruits.txt ip.txt 
+</code></pre><p><strong>4)</strong> Go through the manual for the <code>tac</code> command and use appropriate options and arguments to get the output shown below.<pre><code class=language-bash>$ cat blocks.txt
+%=%=
+apple
+banana
+%=%=
+brown
+green
+
+# ???
+%=%=
+brown
+green
+%=%=
+apple
+banana
+</code></pre><p><strong>5)</strong> What is the difference between <code>less -n</code> and <code>less -N</code> options? Do <code>cat -n</code> and <code>less -n</code> have similar functionality?<p><strong>6)</strong> Which command would you use to open another file from within an existing <code>less</code> session? And which commands would you use to navigate between previous and next files?<p><strong>7)</strong> Use appropriate commands and shell features to get the output shown below.<pre><code class=language-bash>$ printf 'carpet\njeep\nbus\n'
+carpet
+jeep
+bus
+
+# use the above 'printf' command for input data
+$ c=# ???
+$ echo "$c"
+car
+</code></pre><p><strong>8)</strong> How would you display all the input lines except the first one?<pre><code class=language-bash>$ printf 'apple\nfig\ncarpet\njeep\nbus\n' | # ???
+fig
+carpet
+jeep
+bus
+</code></pre><p><strong>9)</strong> Which command(s) would you use to get the output shown below?<pre><code class=language-bash>$ cat fruits.txt
+banana
+papaya
+mango
+$ cat blocks.txt
+%=%=
+apple
+banana
+%=%=
+brown
+green
+
+# ???
+banana
+papaya
+%=%=
+apple
+</code></pre><p><strong>10)</strong> Use a combination of <code>head</code> and <code>tail</code> commands to get the 11th to 14th characters from the given input.<pre><code class=language-bash>$ printf 'apple\nfig\ncarpet\njeep\nbus\n' | # ???
+carp
 </code></pre></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=shell-features.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=searching-files-and-filenames.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=shell-features.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=searching-files-and-filenames.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
             window.playground_copyable = true;
         </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>
