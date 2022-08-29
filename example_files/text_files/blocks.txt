@@ -1,0 +1,6 @@
+%=%=
+apple
+banana
+%=%=
+brown
+green
