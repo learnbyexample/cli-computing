@@ -83,7 +83,7 @@ mesdames
 respires
 restores
 testates
-</code></pre><p>The <code>-f</code> and <code>-x</code> options can be combined to get common lines between two files or the difference when <code>-v</code> is used as well. Add <code>-F</code> if you want to treat the search strings literally (recall that regexp is the default).<pre><code class=language-bash># change to the 'scripts' directory and source the 'grep.sh' script
+</code></pre><h3 id=line-comparisons-between-files><a class=header href=#line-comparisons-between-files>Line comparisons between files</a></h3><p>The <code>-f</code> and <code>-x</code> options can be combined to get common lines between two files or the difference when <code>-v</code> is used as well. Add <code>-F</code> if you want to treat the search strings literally (recall that regexp is the default).<pre><code class=language-bash># change to the 'scripts' directory and source the 'grep.sh' script
 $ source grep.sh
 
 # common lines between two files
@@ -182,7 +182,14 @@ grep: list.txt: No such file or directory
 # match files containing both 'blue' and 'teal'
 $ grep -rlZ 'blue' | xargs -0 grep -l 'teal'
 colors_1
-</code></pre><blockquote><p><img src=./images/info.svg alt=info> You can use <code>xargs -r</code> to avoid running the command when the filename list doesn't have any non-blank character (i.e. when the list is empty).</blockquote><blockquote><p><img src=images/warning.svg alt=warning> <img src=images/warning.svg alt=warning> Do not use <code>xargs -P</code> to combine the output of parallel runs, as you are likely to get a mangled result. The <a href=https://www.gnu.org/software/parallel/>parallel</a> command would be a better option. See <a href=https://unix.stackexchange.com/q/104778/109046>unix.stackexchange: xargs vs parallel</a> for more details.</blockquote><h3 id=further-reading><a class=header href=#further-reading>Further Reading</a></h3><ul><li>My ebook <a href=https://github.com/learnbyexample/learn_gnugrep_ripgrep>GNU GREP and RIPGREP</a> <ul><li>See also my blog post <a href=https://learnbyexample.github.io/gnu-bre-ere-cheatsheet/>GNU BRE/ERE cheatsheet</a></ul><li><a href=https://lists.freebsd.org/pipermail/freebsd-current/2010-August/019310.html>Why GNU grep is fast</a><li><a href=https://unix.stackexchange.com/q/131535/109046>unix.stackexchange: grep -r vs find+grep</a></ul><h2 id=find><a class=header href=#find>find</a></h2><p>The <code>find</code> command has comprehensive features to narrow down files and directories based on name, size, date and so on. And more importantly, <code>find</code> helps you to perform actions on such filtered files.<h3 id=filenames><a class=header href=#filenames>Filenames</a></h3><p>By default, you'll get every entry (including hidden ones) in the current directory and sub-directories when you use <code>find</code> without any options or paths. To search within specific path(s), they should be immediately mentioned after <code>find</code>, i.e. before any options.<pre><code class=language-bash># change to the 'scripts' directory and source the 'find.sh' script
+</code></pre><blockquote><p><img src=./images/info.svg alt=info> You can use <code>xargs -r</code> to avoid running the command when the filename list doesn't have any non-blank character (i.e. when the list is empty).<pre><code class=language-bash># there's no file containing 'violet'
+# so, xargs doesn't get any filename, but grep is still run
+$ grep -rlZ 'violet' | xargs -0 grep -L 'brown'
+(standard input)
+
+# using -r option avoids running the command in such cases
+$ grep -rlZ 'violet' | xargs -r0 grep -L 'brown'
+</code></pre></blockquote><blockquote><p><img src=images/warning.svg alt=warning> <img src=images/warning.svg alt=warning> Do not use <code>xargs -P</code> to combine the output of parallel runs, as you are likely to get a mangled result. The <a href=https://www.gnu.org/software/parallel/>parallel</a> command would be a better option. See <a href=https://unix.stackexchange.com/q/104778/109046>unix.stackexchange: xargs vs parallel</a> for more details.</blockquote><h3 id=further-reading><a class=header href=#further-reading>Further Reading</a></h3><ul><li>My ebook <a href=https://github.com/learnbyexample/learn_gnugrep_ripgrep>GNU GREP and RIPGREP</a> <ul><li>See also my blog post <a href=https://learnbyexample.github.io/gnu-bre-ere-cheatsheet/>GNU BRE/ERE cheatsheet</a></ul><li><a href=https://lists.freebsd.org/pipermail/freebsd-current/2010-August/019310.html>Why GNU grep is fast</a><li><a href=https://unix.stackexchange.com/q/131535/109046>unix.stackexchange: grep -r vs find+grep</a></ul><h2 id=find><a class=header href=#find>find</a></h2><p>The <code>find</code> command has comprehensive features to narrow down files and directories based on name, size, date and so on. And more importantly, <code>find</code> helps you to perform actions on such filtered files.<h3 id=filenames><a class=header href=#filenames>Filenames</a></h3><p>By default, you'll get every entry (including hidden ones) in the current directory and sub-directories when you use <code>find</code> without any options or paths. To search within specific path(s), they should be immediately mentioned after <code>find</code>, i.e. before any options.<pre><code class=language-bash># change to the 'scripts' directory and source the 'find.sh' script
 $ source find.sh
 $ ls -F
 backups/    hello_world.py*  ip.txt     report.log  todos/
@@ -375,6 +382,101 @@ $ find -type f -not -path './backups/*' -prune -name '*.log'
 # for the filtered files, replace all occurrences of 'apple' with 'fig'
 # 'sed -i' will edit the files inplace, so no output on the terminal
 $ find -name '*.log' -print0 | xargs -r0 -n2 -P2 sed -i 's/apple/fig/g'
-</code></pre><p>In the above example, <code>-P2</code> is used to allow <code>xargs</code> to run two processes at a time (default is one process). You can use <code>-P0</code> to allow <code>xargs</code> to launch as many processes as possible. The <code>-n2</code> option is used to limit the number of file arguments passed to each <code>sed</code> call to <code>2</code>, otherwise <code>xargs</code> is likely to pass as many arguments as possible and thus reduce/negate the effect of parallelism. Note that the values used for <code>-n</code> and <code>-P</code> in the above illustration are just random examples, you'll have to tune them for your particular use case.<h3 id=further-reading-1><a class=header href=#further-reading-1>Further Reading</a></h3><ul><li><a href=https://mywiki.wooledge.org/UsingFind>mywiki.wooledge: using find</a><li><a href=https://unix.stackexchange.com/q/282762/109046>unix.stackexchange: find and tar example</a><li><a href=https://unix.stackexchange.com/q/321697/109046>unix.stackexchange: Why is looping over find's output bad practice?</a></ul><h2 id=locate><a class=header href=#locate>locate</a></h2><p><code>locate</code> is a faster alternative to the <code>find</code> command for searching files by name. It is based on a database, which gets updated by a <code>cron</code> job. So, newer files may be not present in results unless you update the database. Use this command if it is available in your distro and you remember some part of filename. Very useful if you have to search the entire filesystem in which case <code>find</code> command will take a very long time compared to <code>locate</code>.<p><strong>Examples</strong><ul><li><code>locate 'power'</code> print path of filenames containing <code>power</code> in the whole filesystem <ul><li>implicitly, <code>locate</code> would change the string to <code>*power*</code> as no globbing characters are present in the string specified</ul><li><code>locate -b '\power.log'</code> print path matching the string <code>power.log</code> exactly at the end of the path <ul><li><code>/home/learnbyexample/power.log</code> matches<li><code>/home/learnbyexample/lowpower.log'</code> will not match since there are other characters at the start of the filename<li>use of <code>\</code> prevents the search string from implicitly being replaced by <code>*power.log*</code></ul><li><code>locate -b '\proj_adder'</code> the <code>-b</code> option is also handy to print only the matching directory name, otherwise every file under that folder would also be displayed</ul><blockquote><p><img src=./images/info.svg alt=info> See also <a href=https://unix.stackexchange.com/q/60205/109046>unix.stackexchange: pros and cons of find and locate</a>.</blockquote></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=viewing-part-or-whole-file-contents.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=file-properties.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=viewing-part-or-whole-file-contents.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=file-properties.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
+</code></pre><p>In the above example, <code>-P2</code> is used to allow <code>xargs</code> to run two processes at a time (default is one process). You can use <code>-P0</code> to allow <code>xargs</code> to launch as many processes as possible. The <code>-n2</code> option is used to limit the number of file arguments passed to each <code>sed</code> call to <code>2</code>, otherwise <code>xargs</code> is likely to pass as many arguments as possible and thus reduce/negate the effect of parallelism. Note that the values used for <code>-n</code> and <code>-P</code> in the above illustration are just random examples, you'll have to tune them for your particular use case.<h3 id=further-reading-1><a class=header href=#further-reading-1>Further Reading</a></h3><ul><li><a href=https://mywiki.wooledge.org/UsingFind>mywiki.wooledge: using find</a><li><a href=https://unix.stackexchange.com/q/282762/109046>unix.stackexchange: find and tar example</a><li><a href=https://unix.stackexchange.com/q/321697/109046>unix.stackexchange: Why is looping over find's output bad practice?</a></ul><h2 id=locate><a class=header href=#locate>locate</a></h2><p><code>locate</code> is a faster alternative to the <code>find</code> command for searching files by name. It is based on a database, which gets updated by a <code>cron</code> job. So, newer files may be not present in results unless you update the database. Use this command if it is available in your distro and you remember some part of filename. Very useful if you have to search the entire filesystem in which case <code>find</code> command will take a very long time compared to <code>locate</code>.<p><strong>Examples</strong><ul><li><code>locate 'power'</code> print path of filenames containing <code>power</code> in the whole filesystem <ul><li>implicitly, <code>locate</code> would change the string to <code>*power*</code> as no globbing characters are present in the string specified</ul><li><code>locate -b '\power.log'</code> print path matching the string <code>power.log</code> exactly at the end of the path <ul><li><code>/home/learnbyexample/power.log</code> matches<li><code>/home/learnbyexample/lowpower.log'</code> will not match since there are other characters at the start of the filename<li>use of <code>\</code> prevents the search string from implicitly being replaced by <code>*power.log*</code></ul><li><code>locate -b '\proj_adder'</code> the <code>-b</code> option is also handy to print only the matching directory name, otherwise every file under that folder would also be displayed</ul><blockquote><p><img src=./images/info.svg alt=info> See also <a href=https://unix.stackexchange.com/q/60205/109046>unix.stackexchange: pros and cons of find and locate</a>.</blockquote><h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><blockquote><p><img src=./images/info.svg alt=info> For <code>grep</code> exercises, use <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files>example_files/text_files</a> directory for input files, unless otherwise specified.</blockquote><p><strong>1)</strong> Display all lines containing <code>an</code> from the input files <code>blocks.txt</code>, <code>ip.txt</code> and <code>uniform.txt</code>.<pre><code class=language-bash># ???
+blocks.txt:banana
+ip.txt:light orange
+uniform.txt:mango
+
+# ???
+banana
+light orange
+mango
+</code></pre><p><strong>2)</strong> Display lines containing the whole word <code>he</code> from the <code>sample.txt</code> input file.<pre><code class=language-bash># ???
+14) He he he
+</code></pre><p><strong>3)</strong> Match only whole lines containing <code>car</code> irrespective of case. The matching lines should be displayed with line number prefix as well.<pre><code class=language-bash>$ printf 'car\nscared\ntar car par\nCar\n' | grep # ???
+1:car
+4:Car
+</code></pre><p><strong>4)</strong> Display all lines from <code>purchases.txt</code> except those that contain <code>tea</code>.<pre><code class=language-bash># ???
+coffee
+washing powder
+coffee
+toothpaste
+soap
+</code></pre><p><strong>5)</strong> Display all lines from <code>sample.txt</code> that contain <code>do</code> but not <code>it</code>.<pre><code class=language-bash># ???
+13) Much ado about nothing
+</code></pre><p><strong>6)</strong> For the input file <code>sample.txt</code>, filter lines containing <code>do</code> as well as the line that comes after such a matching line.<pre><code class=language-bash># ???
+ 6) Just do-it
+ 7) Believe it
+--
+13) Much ado about nothing
+14) He he he
+</code></pre><p><strong>7)</strong> For the input file <code>sample.txt</code>, filter lines containing <code>are</code> or <code>he</code> as whole words as well as the line that comes before such a matching line. Go through <code>info grep</code> or the <a href=https://www.gnu.org/software/grep/manual/grep.html>online manual</a> and use appropriate options such that there's no separator between the groups of matching lines in the output.<pre><code class=language-bash># ???
+ 3) Hi there
+ 4) How are you
+13) Much ado about nothing
+14) He he he
+</code></pre><p><strong>8)</strong> Extract all pairs of <code>()</code> with/without text inside them, provided they do not contain <code>()</code> characters inside.<pre><code class=language-bash>$ echo 'I got (12) apples' | grep # ???
+(12)
+
+$ echo '((2 +3)*5)=25 and (4.3/2*()' | grep # ???
+(2 +3)
+()
+</code></pre><p><strong>9)</strong> For the given input, match all lines that start with <code>den</code> or end with <code>ly</code>.<pre><code class=language-bash>$ lines='reply\n1 dentist\n2 lonely\neden\nfly away\ndent\n'
+
+$ printf '%b' "$lines" | grep # ???
+reply
+2 lonely
+dent
+</code></pre><p><strong>10)</strong> Extract words starting with <code>s</code> and containing both <code>e</code> and <code>t</code> in any order.<pre><code class=language-bash>$ words='sequoia subtle exhibit sets tests sit store_2'
+
+$ echo "$words" | grep # ???
+subtle
+sets
+store_2
+</code></pre><p><strong>11)</strong> Extract all whole words having the same first and last character.<pre><code class=language-bash>$ echo 'oreo not a _oh_ pip roar took 22' | grep # ???
+oreo
+a
+_oh_
+pip
+roar
+22
+</code></pre><p><strong>12)</strong> Match all input lines containing <code>*[5]</code> literally.<pre><code class=language-bash>$ printf '4*5]\n(9-2)*[5]\n[5]*3\nr*[5\n' | grep # ???
+(9-2)*[5]
+</code></pre><p><strong>13)</strong> Display all lines that start with <code>hand</code> and ends with no further character or <code>s</code> or <code>y</code> or <code>le</code>.<pre><code class=language-bash>$ lines='handed\nhand\nhandy\nunhand\nhands\nhandle\n'
+
+$ printf '%b' "$lines" | grep # ???
+hand
+handy
+hands
+handle
+</code></pre><p><strong>14)</strong> Input lines have three or more fields separated by a <code>,</code> delimiter. Extract second field to second last field. In other words, extract fields other than first and last.<pre><code class=language-bash>$ printf 'apple,fig,cherry\ncat,dog,bat\n' | grep # ???
+fig
+dog
+
+$ echo 'dragon,42,unicorn,3.14,shapeshifter\n' | grep # ???
+42,unicorn,3.14
+</code></pre><p><strong>15)</strong> Recursively search for files containing <code>ello</code>.<pre><code class=language-bash># change to the 'scripts' directory and source the 'grep.sh' script
+$ source grep.sh
+
+# ???
+projects/python/hello.py
+projects/shell/hello.sh
+colors_1
+colors_2
+</code></pre><p><strong>16)</strong> Search for files containing <code>blue</code> recursively, but do not search within the <code>backups</code> directory.<pre><code class=language-bash># change to the 'scripts' directory and source the 'grep.sh' script
+$ source grep.sh
+
+# ???
+.hidden
+colors_1
+colors_2
+</code></pre><p><strong>17)</strong> Search for files containing <code>blue</code> recursively, but not if the file also contains <code>teal</code>.<pre><code class=language-bash># change to the 'scripts' directory and source the 'grep.sh' script
+$ source grep.sh
+
+# ???
+.hidden
+colors_2
+backups/color list.txt
+</code></pre></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=viewing-part-or-whole-file-contents.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=file-properties.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=viewing-part-or-whole-file-contents.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=file-properties.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
             window.playground_copyable = true;
         </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>
