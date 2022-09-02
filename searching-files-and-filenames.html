@@ -357,10 +357,12 @@ $ find -name '*sc*' -or -size +10k
 ./scripts
 ./errors.log
 
-# except names containing 'o' or 'p'
-$ find projects -not \( -name '*o*' -or -name '*p*' \)
-projects/.venv
-projects/calculator/calc.sh
+# except filenames containing 'o' or `r` or 'txt'
+$ find -type f -not \( -name '*[or]*' -or -name '*txt*' \)
+./projects/tictactoe/game.py
+./projects/calculator/calc.sh
+./.hidden
+./hi.sh
 </code></pre><h3 id=prune><a class=header href=#prune>Prune</a></h3><p>The <code>-prune</code> option is helpful when you want to prevent <code>find</code> from descending into specific directories. By default, <code>find</code> will traverse all the files even if the given conditions will result in throwing away those results from the output. So, using <code>-prune</code> not only helps in speeding up the process, it could also help in cases where trying to access a file within the exclusion path would've resulted in an error.<pre><code class=language-bash># regular files ending with '.log'
 $ find -type f -name '*.log'
 ./report.log
@@ -382,7 +384,7 @@ $ find -type f -not -path './backups/*' -prune -name '*.log'
 # for the filtered files, replace all occurrences of 'apple' with 'fig'
 # 'sed -i' will edit the files inplace, so no output on the terminal
 $ find -name '*.log' -print0 | xargs -r0 -n2 -P2 sed -i 's/apple/fig/g'
-</code></pre><p>In the above example, <code>-P2</code> is used to allow <code>xargs</code> to run two processes at a time (default is one process). You can use <code>-P0</code> to allow <code>xargs</code> to launch as many processes as possible. The <code>-n2</code> option is used to limit the number of file arguments passed to each <code>sed</code> call to <code>2</code>, otherwise <code>xargs</code> is likely to pass as many arguments as possible and thus reduce/negate the effect of parallelism. Note that the values used for <code>-n</code> and <code>-P</code> in the above illustration are just random examples, you'll have to tune them for your particular use case.<h3 id=further-reading-1><a class=header href=#further-reading-1>Further Reading</a></h3><ul><li><a href=https://mywiki.wooledge.org/UsingFind>mywiki.wooledge: using find</a><li><a href=https://unix.stackexchange.com/q/282762/109046>unix.stackexchange: find and tar example</a><li><a href=https://unix.stackexchange.com/q/321697/109046>unix.stackexchange: Why is looping over find's output bad practice?</a></ul><h2 id=locate><a class=header href=#locate>locate</a></h2><p><code>locate</code> is a faster alternative to the <code>find</code> command for searching files by name. It is based on a database, which gets updated by a <code>cron</code> job. So, newer files may be not present in results unless you update the database. Use this command if it is available in your distro and you remember some part of filename. Very useful if you have to search the entire filesystem in which case <code>find</code> command will take a very long time compared to <code>locate</code>.<p><strong>Examples</strong><ul><li><code>locate 'power'</code> print path of filenames containing <code>power</code> in the whole filesystem <ul><li>implicitly, <code>locate</code> would change the string to <code>*power*</code> as no globbing characters are present in the string specified</ul><li><code>locate -b '\power.log'</code> print path matching the string <code>power.log</code> exactly at the end of the path <ul><li><code>/home/learnbyexample/power.log</code> matches<li><code>/home/learnbyexample/lowpower.log'</code> will not match since there are other characters at the start of the filename<li>use of <code>\</code> prevents the search string from implicitly being replaced by <code>*power.log*</code></ul><li><code>locate -b '\proj_adder'</code> the <code>-b</code> option is also handy to print only the matching directory name, otherwise every file under that folder would also be displayed</ul><blockquote><p><img src=./images/info.svg alt=info> See also <a href=https://unix.stackexchange.com/q/60205/109046>unix.stackexchange: pros and cons of find and locate</a>.</blockquote><h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><blockquote><p><img src=./images/info.svg alt=info> For <code>grep</code> exercises, use <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files>example_files/text_files</a> directory for input files, unless otherwise specified.</blockquote><p><strong>1)</strong> Display all lines containing <code>an</code> from the input files <code>blocks.txt</code>, <code>ip.txt</code> and <code>uniform.txt</code>.<pre><code class=language-bash># ???
+</code></pre><p>In the above example, <code>-P2</code> is used to allow <code>xargs</code> to run two processes at a time (default is one process). You can use <code>-P0</code> to allow <code>xargs</code> to launch as many processes as possible. The <code>-n2</code> option is used to limit the number of file arguments passed to each <code>sed</code> call to <code>2</code>, otherwise <code>xargs</code> is likely to pass as many arguments as possible and thus reduce/negate the effect of parallelism. Note that the values used for <code>-n</code> and <code>-P</code> in the above illustration are just random examples, you'll have to tune them for your particular use case.<h3 id=further-reading-1><a class=header href=#further-reading-1>Further Reading</a></h3><ul><li><a href=https://mywiki.wooledge.org/UsingFind>mywiki.wooledge: using find</a><li><a href=https://unix.stackexchange.com/q/282762/109046>unix.stackexchange: find and tar example</a><li><a href=https://unix.stackexchange.com/q/321697/109046>unix.stackexchange: Why is looping over find's output bad practice?</a></ul><h2 id=locate><a class=header href=#locate>locate</a></h2><p><code>locate</code> is a faster alternative to the <code>find</code> command for searching files by name. It is based on a database, which gets updated by a <code>cron</code> job. So, newer files may be not present in results unless you update the database. Use this command if it is available in your distro and you remember some part of filename. Very useful if you have to search the entire filesystem in which case <code>find</code> command will take a very long time compared to <code>locate</code>.<p><strong>Examples</strong><ul><li><code>locate 'power'</code> print path of filenames containing <code>power</code> in the whole filesystem <ul><li>implicitly, <code>locate</code> would change the string to <code>*power*</code> as no globbing characters are present in the string specified</ul><li><code>locate -b '\power.log'</code> print path matching the string <code>power.log</code> exactly at the end of the path <ul><li><code>/home/learnbyexample/power.log</code> matches<li><code>/home/learnbyexample/lowpower.log'</code> will not match since there are other characters at the start of the filename<li>use of <code>\</code> prevents the search string from implicitly being replaced by <code>*power.log*</code></ul><li><code>locate -b '\proj_adder'</code> the <code>-b</code> option is also handy to print only the matching directory name, otherwise every file under that folder would also be displayed</ul><blockquote><p><img src=./images/info.svg alt=info> See also <a href=https://unix.stackexchange.com/q/60205/109046>unix.stackexchange: pros and cons of find and locate</a>.</blockquote><h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><blockquote><p><img src=./images/info.svg alt=info> For <code>grep</code> exercises, use <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files>example_files/text_files</a> directory for input files, unless otherwise specified.</blockquote><blockquote><p><img src=./images/info.svg alt=info> For <code>find</code> exercises, use the <code>find.sh</code> script, unless otherwise specified.</blockquote><p><strong>1)</strong> Display all lines containing <code>an</code> from the input files <code>blocks.txt</code>, <code>ip.txt</code> and <code>uniform.txt</code>.<pre><code class=language-bash># ???
 blocks.txt:banana
 ip.txt:light orange
 uniform.txt:mango
@@ -477,6 +479,44 @@ $ source grep.sh
 .hidden
 colors_2
 backups/color list.txt
-</code></pre></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=viewing-part-or-whole-file-contents.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=file-properties.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=viewing-part-or-whole-file-contents.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=file-properties.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
+</code></pre><p><strong>18)</strong> Find all regular files within the <code>backups</code> directory.<pre><code class=language-bash># change to the 'scripts' directory and source the 'find.sh' script
+$ source find.sh
+
+# ???
+backups/dot_files/.bashrc
+backups/dot_files/.inputrc
+backups/dot_files/.vimrc
+backups/aug.log
+backups/bookmarks.html
+backups/jan.log
+</code></pre><p><strong>19)</strong> Find all regular files whose extension starts with <code>l</code> or <code>p</code>.<pre><code class=language-bash># ???
+./projects/tictactoe/game.py
+./report.log
+./backups/aug.log
+./backups/jan.log
+./errors.log
+./hello_world.py
+</code></pre><p><strong>20)</strong> Find all regular files whose name do <em>not</em> have the lower case alphabets <code>g</code> to <code>l</code>.<pre><code class=language-bash># ???
+./todos/TRIP.txt
+./todos/wow.txt
+</code></pre><p><strong>21)</strong> Find all regular files whose path has at least one directory name starting with <code>p</code> or <code>d</code>.<pre><code class=language-bash># ???
+./projects/tictactoe/game.py
+./projects/calculator/calc.sh
+./backups/dot_files/.bashrc
+./backups/dot_files/.inputrc
+./backups/dot_files/.vimrc
+</code></pre><p><strong>22)</strong> Find all directories whose name contains <code>b</code> or <code>d</code>.<pre><code class=language-bash>./todos
+./backups
+./backups/dot_files
+</code></pre><p><strong>23)</strong> Find all hidden directories.<pre><code class=language-bash># ???
+./projects/.venv
+</code></pre><p><strong>24)</strong> Find all regular files at exact depth of <code>2</code>.<pre><code class=language-bash># ???
+./todos/books.txt
+./todos/TRIP.txt
+./todos/wow.txt
+./backups/aug.log
+./backups/bookmarks.html
+./backups/jan.log
+</code></pre><p><strong>25)</strong> What's the difference between <code>find -mtime</code> and <code>find -atime</code>? And, what is the time period these options work with?</main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=viewing-part-or-whole-file-contents.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=file-properties.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=viewing-part-or-whole-file-contents.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=file-properties.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
             window.playground_copyable = true;
         </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>
