@@ -517,6 +517,26 @@ backups/jan.log
 ./backups/aug.log
 ./backups/bookmarks.html
 ./backups/jan.log
-</code></pre><p><strong>25)</strong> What's the difference between <code>find -mtime</code> and <code>find -atime</code>? And, what is the time period these options work with?</main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=viewing-part-or-whole-file-contents.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=file-properties.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=viewing-part-or-whole-file-contents.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=file-properties.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
+</code></pre><p><strong>25)</strong> What's the difference between <code>find -mtime</code> and <code>find -atime</code>? And, what is the time period these options work with?<p><strong>26)</strong> Find all empty regular files.<pre><code class=language-bash># ???
+./projects/tictactoe/game.py
+./projects/calculator/calc.sh
+./todos/books.txt
+./todos/TRIP.txt
+./todos/wow.txt
+./backups/dot_files/.bashrc
+./backups/dot_files/.inputrc
+./backups/dot_files/.vimrc
+./backups/aug.log
+./backups/bookmarks.html
+./backups/jan.log
+</code></pre><p><strong>27)</strong> Create a directory named <code>filtered_files</code>. Then, copy all regular files that are greater than <code>1</code> byte in size but whose name don't end with <code>.log</code> to this directory.<pre><code class=language-bash># ???
+$ ls -A filtered_files
+hello_world.py  .hidden  hi.sh  ip.txt
+</code></pre><p><strong>28)</strong> List all hidden files, but not if they are part of the <code>filtered_files</code> directory created earlier.<pre><code class=language-bash># ???
+./.hidden
+./backups/dot_files/.bashrc
+./backups/dot_files/.inputrc
+./backups/dot_files/.vimrc
+</code></pre><p><strong>29)</strong> List at least one use case for piping the <code>find</code> output to the <code>xargs</code> command instead of using the <code>find -exec</code> option.<p><strong>30)</strong> How does the <code>locate</code> command work faster than the equivalent <code>find</code> command?</main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=viewing-part-or-whole-file-contents.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=file-properties.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=viewing-part-or-whole-file-contents.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=file-properties.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
             window.playground_copyable = true;
         </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>
