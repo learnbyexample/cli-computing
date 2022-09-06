@@ -138,7 +138,7 @@ $ df -h --output=pcent,fstype,target | awk 'NR>1 && $1>=30'
  63% ext3     /
  38% ext4     /media/learnbyexample/projs
  51% ext4     /media/learnbyexample/backups
-</code></pre><p><strong>Further Reading</strong><ul><li><a href=https://stackoverflow.com/questions/tagged/df?sort=votes&pageSize=15>df Q&A on stackoverflow</a></ul><h2 id=stat><a class=header href=#stat>stat</a></h2><p>The <code>stat</code> command is useful to get details like file type, size, inode, permissions, last accessed and modified timestamps, etc. You'll get all of these details by default. The <code>-c</code> and <code>--printf</code> options can be used to display only the required details in a particular format.<pre><code class=language-bash># change to the 'scripts' directory and source the 'stat.sh' script
+</code></pre><h2 id=stat><a class=header href=#stat>stat</a></h2><p>The <code>stat</code> command is useful to get details like file type, size, inode, permissions, last accessed and modified timestamps, etc. You'll get all of these details by default. The <code>-c</code> and <code>--printf</code> options can be used to display only the required details in a particular format.<pre><code class=language-bash># change to the 'scripts' directory and source the 'stat.sh' script
 $ source stat.sh
 
 # last accessed timestamp
@@ -221,6 +221,7 @@ moon.png:    PNG image data, 76 x 76, 8-bit colormap, non-interlaced
 </code></pre><p>You can use the <code>-b</code> option to avoid filenames in the output:<pre><code class=language-bash>$ file -b ip.txt 
 ASCII text
 </code></pre><p>Here is an example of finding particular type of files, say <code>image</code> files.<pre><code class=language-bash># assuming filenames do not contain ':' or newline characters
+# awk here helps to print first field of lines containing 'image data'
 $ find -type f -exec file {} + | awk -F: '/\&LTimage data\>/{print $1}'
 ./sunset.jpg
 ./moon.png
@@ -323,6 +324,92 @@ $ chmod a=rw hi.sh
 </code></pre><p>You can use <code>,</code> to separate multiple permissions:<pre><code class=language-bash># remove execute permission for 'group' and 'others'
 # remove write permission for 'others'
 $ chmod go-x,o-w hi.sh
-</code></pre><p><strong>Further Reading</strong><ul><li><a href=https://danielmiessler.com/study/unixlinux_permissions/>Linux Permissions Primer</a><li><a href=https://unix.stackexchange.com/q/429421/109046>unix.stackexchange: why chmod +w filename not giving write permission to other</a></ul></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=searching-files-and-filenames.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=managing-processes.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=searching-files-and-filenames.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=managing-processes.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
+</code></pre><p><strong>Further Reading</strong><ul><li><a href=https://danielmiessler.com/study/unixlinux_permissions/>Linux Permissions Primer</a><li><a href=https://unix.stackexchange.com/q/429421/109046>unix.stackexchange: why chmod +w filename not giving write permission to other</a></ul><h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><blockquote><p><img src=./images/info.svg alt=info> Use <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files>example_files/text_files</a> directory for input files used in the following exercises, unless otherwise specified.</blockquote><blockquote><p><img src=./images/info.svg alt=info> Create a temporary directory for exercises that may require you to create some files and directories. You can delete such practice directories afterwards.</blockquote><p><strong>1)</strong> Save the number of lines in the <code>greeting.txt</code> input file to the <code>lines</code> shell variable.<pre><code class=language-bash># ???
+$ echo "$lines"
+2
+</code></pre><p><strong>2)</strong> What do you think will be the output of the following command?<pre><code class=language-bash>$ echo 'dragons:2 ; unicorns:10' | wc -w
+</code></pre><p><strong>3)</strong> Use appropriate options and arguments to get the output shown below.<pre><code class=language-bash>$ printf 'apple\nbanana\ncherry' | wc # ???
+     15     183 sample.txt
+      2      19 -
+     17     202 total
+</code></pre><p><strong>4)</strong> Go through the <code>wc</code> manual and use appropriate options and arguments to get the output shown below.<pre><code class=language-bash>$ printf 'greeting.txt\0scores.csv' | wc # ???
+2 6 25 greeting.txt
+4 4 70 scores.csv
+6 10 95 total
+</code></pre><p><strong>5)</strong> What is the difference between <code>wc -c</code> and <code>wc -m</code> options? And which option would you use to get the longest line length?<p><strong>6)</strong> Find filenames ending with <code>.log</code> and report their sizes in human readable format. Use <code>find+du</code> combination for the first case and <code>ls</code> command (with appropriate shell features) for the second case.<pre><code class=language-bash># change to the 'scripts' directory and source the 'du.sh' script
+$ source du.sh
+
+# ??? find+du
+16K     ./projects/errors.log
+7.4M    ./report.log
+
+# ??? ls and shell features
+ 16K projects/errors.log
+7.4M report.log
+</code></pre><p><strong>7)</strong> Report sizes of files/directories in the current path in powers of <code>1000</code> without descending into sub-directories. Also, show a total at the end.<pre><code class=language-bash># change to the 'scripts' directory and source the 'du.sh' script
+$ source du.sh
+
+# ???
+50k     projects
+7.7M    report.log
+8.2k    todos
+7.8M    total
+</code></pre><p><strong>8)</strong> When will you use the <code>df</code> command instead of <code>du</code>? Which <code>df</code> command option will help you to report only specific fields of interest?<p><strong>9)</strong> Display the size of <code>scores.csv</code> and <code>timings.txt</code> files in the format shown below.<pre><code class=language-bash>$ stat # ???
+scores.csv: 70
+timings.txt: 49
+</code></pre><p><strong>10)</strong> Which <code>touch</code> option will help you prevent file creation if it doesn't exist yet?<p><strong>11)</strong> Assume <code>new_file.txt</code> doesn't exist in the current working directory. What would be the output of the <code>stat</code> command shown below?<pre><code class=language-bash>$ touch -t '202010052010.05' new_file.txt
+$ stat -c '%y' new_file.txt
+# ???
+</code></pre><p><strong>12)</strong> Is the following <code>touch</code> command valid? If so, what would be the output of the <code>stat</code> command that follows?<pre><code class=language-bash># change to the 'scripts' directory and source the 'touch.sh' script
+$ source touch.sh
+
+$ touch -r fruits.txt f{1..3}.txt
+$ stat -c '%n: %y' f*.txt
+# ???
+</code></pre><p><strong>13)</strong> Use appropriate option(s) to get the output shown below.<pre><code class=language-bash>$ printf 'αλεπού\n' | file -
+/dev/stdin: UTF-8 Unicode text
+
+$ printf 'αλεπού\n' | file # ???
+UTF-8 Unicode text
+</code></pre><p><strong>14)</strong> Is the following command valid? If so, what would be the output?<pre><code class=language-bash>$ basename -s.txt ~///test.txt///
+# ???
+</code></pre><p><strong>15)</strong> Given the file path in the shell variable <code>p</code>, how'd you obtain the output shown below?<pre><code class=language-bash>$ p='~/projects/square_tictactoe/python/game.py'
+$ dirname # ???
+~/projects/square_tictactoe
+</code></pre><p><strong>16)</strong> Explain what each of the characters mean in the following output.<pre><code class=language-bash>$ stat -c '%A' ../scripts/
+drwxrwxr-x
+</code></pre><p><strong>17)</strong> What would be the output of the second <code>stat</code> command shown below?<pre><code class=language-bash>$ touch new_file.txt
+$ stat -c '%a %A' new_file.txt
+664 -rw-rw-r--
+
+$ chmod 546 new_file.txt
+$ stat -c '%a %A' new_file.txt
+# ???
+</code></pre><p><strong>18)</strong> How would you specify directory permissions using the <code>mkdir</code> command?<pre><code class=language-bash># instead of this
+$ mkdir back_up
+$ chmod 750 back_up
+$ stat -c '%a %A' back_up
+750 drwxr-x---
+$ rm -r back_up
+
+# do this
+$ mkdir # ???
+$ stat -c '%a %A' back_up
+750 drwxr-x---
+</code></pre><p><strong>19)</strong> Change the file permission of <code>book_list.txt</code> to match the output of the second <code>stat</code> command shown below. Don't use the number <code>220</code>, specify the changes in terms of <code>rwx</code> characters.<pre><code class=language-bash>$ touch book_list.txt
+$ stat -c '%a %A' book_list.txt
+664 -rw-rw-r--
+
+# ???
+$ stat -c '%a %A' book_list.txt
+220 --w--w----
+</code></pre><p><strong>20)</strong> Change the permissions of <code>test_dir</code> to match the output of the second <code>stat</code> command shown below. Don't use the number <code>757</code>, specify the changes in terms of <code>rwx</code> characters.<pre><code class=language-bash>$ mkdir test_dir
+$ stat -c '%a %A' test_dir
+775 drwxrwxr-x
+
+# ???
+$ stat -c '%a %A' test_dir
+757 drwxr-xrwx
+</code></pre></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=searching-files-and-filenames.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=managing-processes.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=searching-files-and-filenames.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=managing-processes.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
             window.playground_copyable = true;
         </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>
