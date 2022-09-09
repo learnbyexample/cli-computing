@@ -38,7 +38,7 @@
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
                         link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
                     });
-                </script><div id=content class=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=multipurpose-text-processing-tools><a class=header href=#multipurpose-text-processing-tools>Multipurpose Text Processing Tools</a></h1><p>Many CLI text processing tools have been in existence for about half a century. And newer tools are being written to solve ever expanding text processing problems. Just knowing that a particular tool exists or searching for a tool before attempting to write your own solution can be a time saver. Also, popular tools are likely to be optimized for speed, hardened against bugs from wide usage, discussed on forums, and so on.<p><code>grep</code> was already covered in a previous chapter. In addition, <code>sed</code>, <code>awk</code> and <code>perl</code> are essential tools to solve a wide variety of text processing problems from the command line. In this chapter, you'll learn field processing, use regular expressions for search and replace requirements, perform operations based on multiple lines and files, etc.<blockquote><p><img src=./images/info.svg alt=info> Examples presented in this chapter only cover some of the functionalities. I've written separate books to cover such tools with more detailed explanations, examples and exercises. See <a href=https://learnbyexample.github.io/books/>https://learnbyexample.github.io/books/</a> for links to these books.</blockquote><blockquote><p><img src=./images/info.svg alt=info> The <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files>example_files</a> directory has the sample input files used in this chapter. Change to the <code>example_files/text_files</code> directory to follow along the examples shown in this chapter.</blockquote><h2 id=sed><a class=header href=#sed>sed</a></h2><p>The command name <code>sed</code> is derived from <strong>s</strong>tream <strong>ed</strong>itor. Here, stream refers to data being passed via shell pipes. Thus, the command's primary functionality is to act as a text editor for <strong>stdin</strong> data with <strong>stdout</strong> as the output target. You can also edit file input and save the changes back to the same file if needed.<h3 id=literal-substitution><a class=header href=#literal-substitution>Literal substitution</a></h3><p><code>sed</code> has various commands to manipulate text input. <strong>substitute</strong> command is most commonly used, whose syntax is <code>s/REGEXP/REPLACEMENT/FLAGS</code>. Here are some string substitution examples:<pre><code class=language-bash># for each input line, change only the first ',' to '-'
+                </script><div id=content class=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=multipurpose-text-processing-tools><a class=header href=#multipurpose-text-processing-tools>Multipurpose Text Processing Tools</a></h1><p>Many CLI text processing tools have been in existence for about half a century. And newer tools are being written to solve ever expanding text processing problems. Just knowing that a particular tool exists or searching for a tool before attempting to write your own solution can be a time saver. Also, popular tools are likely to be optimized for speed, hardened against bugs from wide usage, discussed on forums, and so on.<p><code>grep</code> was already covered in a previous chapter. In addition, <code>sed</code>, <code>awk</code> and <code>perl</code> are essential tools to solve a wide variety of text processing problems from the command line. In this chapter, you'll learn field processing, use regular expressions for search and replace requirements, perform operations based on multiple lines and files, etc.<blockquote><p><img src=./images/info.svg alt=info> Examples presented in this chapter only cover some of the functionalities. I've written separate books to cover such tools with more detailed explanations, examples and exercises. See <a href=https://learnbyexample.github.io/books/>https://learnbyexample.github.io/books/</a> for links to these books.</blockquote><blockquote><p><img src=./images/info.svg alt=info> The <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files>example_files</a> directory has the sample input files used in this chapter. Change to the <code>example_files/text_files</code> directory to follow along the examples shown in this chapter.</blockquote><h2 id=sed><a class=header href=#sed>sed</a></h2><p>The command name <code>sed</code> is derived from <strong>s</strong>tream <strong>ed</strong>itor. Here, stream refers to data being passed via shell pipes. Thus, the command's primary functionality is to act as a text editor for <strong>stdin</strong> data with <strong>stdout</strong> as the output target. You can also edit file input and save the changes back to the same file if needed.<h3 id=substitution><a class=header href=#substitution>Substitution</a></h3><p><code>sed</code> has various commands to manipulate text input. <strong>substitute</strong> command is most commonly used, whose syntax is <code>s/REGEXP/REPLACEMENT/FLAGS</code>. Here are some examples:<pre><code class=language-bash># for each input line, change only the first ',' to '-'
 $ printf '1,2,3,4\na,b,c,d\n' | sed 's/,/-/'
 1-2,3,4
 a-b,c,d
@@ -47,15 +47,24 @@ a-b,c,d
 $ printf '1,2,3,4\na,b,c,d\n' | sed 's/,/-/g'
 1-2-3-4
 a-b-c-d
-
-# example with file input
-$ cat greeting.txt
+</code></pre><p>Here's an example with file input:<pre><code class=language-bash>$ cat greeting.txt
 Hi there
 Have a nice day
+
 # change first occurrence of 'day' with 'weekend'
 $ sed 's/day/weekend/' greeting.txt
 Hi there
 Have a nice weekend
+</code></pre><p>What if you want to issue multiple substitute commands (or use several other <code>sed</code> commands)? It will depend on the command being used. Here's an example where you can use the <code>-e</code> option or separate the commands with a <code>;</code> character.<pre><code class=language-bash># change all occurrences of 'day' to 'weekend'
+# add '.' to the end of each line
+$ sed 's/day/weekend/g; s/$/./' greeting.txt
+Hi there.
+Have a nice weekend.
+
+# same thing with -e option
+$ sed -e 's/day/weekend/' -e 's/$/./' greeting.txt
+Hi there.
+Have a nice weekend.
 </code></pre><h3 id=inplace-editing><a class=header href=#inplace-editing>Inplace editing</a></h3><p>You can use the <code>-i</code> option for inplace editing. Pass an argument to this option to save the original input as a backup.<pre><code class=language-bash>$ cat ip.txt
 deep blue
 light orange
@@ -114,6 +123,12 @@ $ seq 15 24 | sed '3,8d'
 16
 23
 24
+</code></pre><p>If you need to issue multiple commands for filtered lines, you can group those commands within <code>{}</code> characters. Here's an example:<pre><code class=language-bash># for lines containing 'e', replace 's' with '*' and 't' with '='
+# note that the second line isn't changed as there's no 'e'
+$ printf 'gates\nnot\nused\n' | sed '/e/{s/s/*/g; s/t/=/g}'
+ga=e*
+not
+u*ed
 </code></pre><h3 id=regexp-substitution><a class=header href=#regexp-substitution>Regexp substitution</a></h3><p>Here are some regexp based substitution examples. The <code>-E</code> option enables <strong>ERE</strong> (default is <strong>BRE</strong>).<pre><code class=language-bash># replace all sequences of non-digit characters with '-'
 $ echo 'Sample123string42with777numbers' | sed -E 's/[^0-9]+/-/g'
 -123-42-777-
@@ -139,6 +154,9 @@ Hello There. How Are You?
 # replace only the third matching occurrence
 $ echo 'foo:123:bar:baz' | sed 's/:/-/3'
 foo:123:bar-baz
+# change all ':' to ',' only from the second occurrence
+$ echo 'foo:123:bar:baz' | sed 's/:/,/2g'
+foo:123,bar,baz
 </code></pre><p>The <code>/</code> character is idiomatically used as the regexp delimiter. But any character other than <code>\</code> and the newline character can be used instead. This helps to avoid or reduce the need for escaping delimiter characters.<pre><code class=language-bash>$ echo '/home/learnbyexample/reports' | sed 's#/home/learnbyexample/#~/#'
 ~/reports
 
@@ -232,11 +250,17 @@ b
 c
 **end 2**
 par,far,mar,tar
-</code></pre><p>Here are some examples of processing such bounded records:<pre><code class=language-bash>$ awk '/start/{f=1} f; /end/{f=0}' uniform.txt
+</code></pre><p>Here are some examples of processing such bounded records:<pre><code class=language-bash># same as: sed -n '/start/,/end/p' uniform.txt
+$ awk '/start/{f=1} f; /end/{f=0}' uniform.txt
 --start 1--
 1234
 6789
 **end 1**
+--start 2--
+a
+b
+c
+**end 2**
 
 # you can re-arrange and invert the conditions to create other combinations
 # for example, exclude ending match
@@ -244,6 +268,10 @@ $ awk '/start/{f=1} /end/{f=0} f' uniform.txt
 --start 1--
 1234
 6789
+--start 2--
+a
+b
+c
 </code></pre><p>Here's an example of printing two consecutive records only if the first record contains <code>ar</code> and the second one contains <code>nice</code>:<pre><code class=language-bash>$ awk 'p ~ /ar/ && /nice/{print p ORS $0} {p=$0}' uniform.txt
 how are you
 have a nice day
@@ -353,6 +381,134 @@ bat:dubious:floor:four:to
 $ s='3,b,a,3,c,d,1,d,c,2,2,2,3,1,b'
 $ echo "$s" | perl -MList::Util=uniq -F, -lanE 'say join ",", uniq @F'
 3,b,a,c,d,1,2
-</code></pre><h3 id=further-reading-2><a class=header href=#further-reading-2>Further Reading</a></h3><ul><li><a href=https://perldoc.perl.org/perlintro>perldoc: Perl introduction</a><li><a href=https://perldoc.perl.org/perlretut>perldoc: Regexp tutorial</a><li>My ebook <a href=https://github.com/learnbyexample/learn_perl_oneliners>Perl one-liners</a></ul></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=managing-processes.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=sorting-stuff.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=managing-processes.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=sorting-stuff.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
+</code></pre><h3 id=further-reading-2><a class=header href=#further-reading-2>Further Reading</a></h3><ul><li><a href=https://perldoc.perl.org/perlintro>perldoc: Perl introduction</a><li><a href=https://perldoc.perl.org/perlretut>perldoc: Regexp tutorial</a><li>My ebook <a href=https://github.com/learnbyexample/learn_perl_oneliners>Perl one-liners</a></ul><h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><blockquote><p><img src=./images/info.svg alt=info> Use <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files>example_files/text_files</a> directory for input files used in the following exercises.</blockquote><p><strong>1)</strong> Replace all occurrences of <code>0xA0</code> with <code>0x50</code> and <code>0xFF</code> with <code>0x7F</code> for the given input.<pre><code class=language-bash>$ printf 'a1:0xA0, a2:0xA0A1\nb1:0xFF, b2:0xBE\n'
+a1:0xA0, a2:0xA0A1
+b1:0xFF, b2:0xBE
+
+$ printf 'a1:0xA0, a2:0xA0A1\nb1:0xFF, b2:0xBE\n' | sed # ???
+a1:0x50, a2:0x50A1
+b1:0x7F, b2:0xBE
+</code></pre><p><strong>2)</strong> Remove only the third line of the given input.<pre><code class=language-bash>$ seq 34 37 | # ???
+34
+35
+37
+</code></pre><p><strong>3)</strong> For the input file <code>sample.txt</code>, display all lines that contain <code>it</code> but not <code>do</code>.<pre><code class=language-bash># ???
+ 7) Believe it
+</code></pre><p><strong>4)</strong> For the input file <code>purchases.txt</code>, delete all lines containing <code>tea</code>. Also, replace all occurrences of <code>coffee</code> with <code>milk</code>. Write back the changes to the input file itself. The original contents should get saved to <code>purchases.txt.orig</code>. Afterwards, restore the contents from this backup file.<pre><code class=language-bash># make the changes
+# ???
+$ ls purchases*
+purchases.txt  purchases.txt.orig
+$ cat purchases.txt
+milk
+washing powder
+milk
+toothpaste
+soap
+
+# restore the contents
+# ???
+$ ls purchases*
+purchases.txt
+$ cat purchases.txt
+coffee
+tea
+washing powder
+coffee
+toothpaste
+tea
+soap
+tea
+</code></pre><p><strong>5)</strong> For the input file <code>sample.txt</code>, display all lines from the start of the file till the first occurrence of <code>are</code>.<pre><code class=language-bash># ???
+ 1) Hello World
+ 2) 
+ 3) Hi there
+ 4) How are you
+</code></pre><p><strong>6)</strong> Delete all groups of lines from a line containing <code>start</code> to a line containing <code>end</code> for the <code>uniform.txt</code> input file.<pre><code class=language-bash># ???
+mango
+icecream
+how are you
+have a nice day
+par,far,mar,tar
+</code></pre><p><strong>7)</strong> Replace all occurrences of <code>42</code> with <code>[42]</code> unless it is at the edge of a word.<pre><code class=language-bash>$ echo 'hi42bye nice421423 bad42 cool_42a 42c' | sed # ???
+hi[42]bye nice[42]1[42]3 bad42 cool_[42]a 42c
+</code></pre><p><strong>8)</strong> Replace all whole words with <code>X</code> that start and end with the same word character.<pre><code class=language-bash>$ echo 'oreo not a _a2_ roar took 22' | sed # ???
+X not X X X took X
+</code></pre><p><strong>9)</strong> For the input file <code>anchors.txt</code>, convert markdown anchors to hyperlinks as shown below.<pre><code class=language-bash>$ cat anchors.txt
+# &LTa name="regular-expressions">&LT/a>Regular Expressions
+## &LTa name="subexpression-calls">&LT/a>Subexpression calls
+## &LTa name="the-dot-meta-character">&LT/a>The dot meta character
+
+$ sed # ???
+[Regular Expressions](#regular-expressions)
+[Subexpression calls](#subexpression-calls)
+[The dot meta character](#the-dot-meta-character)
+</code></pre><p><strong>10)</strong> Replace all occurrences of <code>e</code> with <code>3</code> except the first two matches.<pre><code class=language-bash>$ echo 'asset sets tests site' | sed # ???
+asset sets t3sts sit3
+
+$ echo 'sample item teem eel' | sed # ???
+sample item t33m 33l
+</code></pre><p><strong>11)</strong> The below sample strings use <code>,</code> as the delimiter and the field values can be empty as well. Use <code>sed</code> to replace only the third field with <code>42</code>.<pre><code class=language-bash>$ echo 'lion,,ant,road,neon' | sed # ???
+lion,,42,road,neon
+
+$ echo ',,,' | sed # ???
+,,42,
+</code></pre><p><strong>12)</strong> For the input file <code>table.txt</code>, calculate and display the product of numbers in the last field of each line. Consider space as the field separator for this file.<pre><code class=language-bash>$ cat table.txt
+brown bread mat hair 42
+blue cake mug shirt -7
+yellow banana window shoes 3.14
+
+# ???
+-923.16
+</code></pre><p><strong>13)</strong> Extract the contents between <code>()</code> or <code>)(</code> from each of the input lines. Assume that the <code>()</code> characters will be present only once every line.<pre><code class=language-bash>$ printf 'apple(ice)pie\n(almond)pista\nyo)yoyo(yo\n'
+apple(ice)pie
+(almond)pista
+yo)yoyo(yo
+
+$ printf 'apple(ice)pie\n(almond)pista\nyo)yoyo(yo\n' | awk # ???
+ice
+almond
+yoyo
+</code></pre><p><strong>14)</strong> For the input file <code>scores.csv</code>, display the <code>Name</code> and <code>Physics</code> fields in the format shown below.<pre><code class=language-bash>$ cat scores.csv
+Name,Maths,Physics,Chemistry
+Ith,100,100,100
+Cy,97,98,95
+Lin,78,83,80
+
+# ???
+Name:Physics
+Ith:100
+Cy:98
+Lin:83
+</code></pre><p><strong>15)</strong> Extract and display third and first words in the format shown below.<pre><code class=language-bash>$ echo '%whole(Hello)--{doubt}==ado==' | # ???
+doubt:whole
+
+$ echo 'just,\joint*,concession_42<=nice' | # ???
+concession_42:just
+</code></pre><p><strong>16)</strong> For the input file <code>scores.csv</code>, add another column named <code>GP</code> which is calculated out of <code>100</code> by giving <code>50%</code> weightage to <code>Maths</code> and <code>25%</code> each for <code>Physics</code> and <code>Chemistry</code>.<pre><code class=language-bash># ???
+Name,Maths,Physics,Chemistry,GP
+Ith,100,100,100,100
+Cy,97,98,95,96.75
+Lin,78,83,80,79.75
+</code></pre><p><strong>17)</strong> From the <code>para.txt</code> input file, display all paragraphs containing any digit character.<pre><code class=language-bash>$ cat para.txt
+hi there
+how are you
+
+2 apples
+12 bananas
+
+
+blue sky
+yellow sun
+brown earth
+
+$ awk # ???
+2 apples
+12 bananas
+</code></pre><p><strong>18)</strong> Input has the ASCII NUL character as the record separator. Change it to dot and newline characters as shown below.<pre><code class=language-bash>$ printf 'apple\npie\0banana\ncherry\0' | awk # ???
+apple
+pie.
+banana
+cherry.
+</code></pre></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=managing-processes.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=sorting-stuff.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=managing-processes.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=sorting-stuff.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
             window.playground_copyable = true;
         </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>
