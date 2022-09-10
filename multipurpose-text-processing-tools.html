@@ -275,18 +275,18 @@ c
 </code></pre><p>Here's an example of printing two consecutive records only if the first record contains <code>ar</code> and the second one contains <code>nice</code>:<pre><code class=language-bash>$ awk 'p ~ /ar/ && /nice/{print p ORS $0} {p=$0}' uniform.txt
 how are you
 have a nice day
-</code></pre><h3 id=two-files-processing><a class=header href=#two-files-processing>Two files processing</a></h3><p>The <em>key</em> features used in the solution below:<ul><li>For two files as input, <code>NR==FNR</code> will be <em>true</em> only when the first file is being processed <ul><li><code>FNR</code> is record number like <code>NR</code> but resets for each input file</ul><li><code>next</code> will skip the rest of the code and fetch the next record<li><code>a[$0]</code> by itself is a valid statement. It will create an uninitialized element in array <code>a</code> with <code>$0</code> as the key (if the key doesn't exist yet)<li><code>$0 in a</code> checks if the given string (<code>$0</code> here) exists as a key in the array <code>a</code></ul><pre><code class=language-bash>$ printf 'teal\nblue\ngreen\nyellow\n' > colors_1
-$ printf 'yellow\nblack\ndark green\nblue\n' > colors_2
+</code></pre><h3 id=two-files-processing><a class=header href=#two-files-processing>Two files processing</a></h3><p>The <em>key</em> features used in the solution below:<ul><li>For two files as input, <code>NR==FNR</code> will be <em>true</em> only when the first file is being processed <ul><li><code>FNR</code> is record number like <code>NR</code> but resets for each input file</ul><li><code>next</code> will skip the rest of the code and fetch the next record<li><code>a[$0]</code> by itself is a valid statement. It will create an uninitialized element in array <code>a</code> with <code>$0</code> as the key (if the key doesn't exist yet)<li><code>$0 in a</code> checks if the given string (<code>$0</code> here) exists as a key in the array <code>a</code></ul><pre><code class=language-bash># common lines, same as: grep -Fxf c1.txt c2.txt
+$ awk 'NR==FNR{a[$0]; next} $0 in a' c1.txt c2.txt
+Blue
+Orange
+Red
+White
 
-# common lines, same as: grep -Fxf colors_1 colors_2
-$ awk 'NR==FNR{a[$0]; next} $0 in a' colors_1 colors_2
-yellow
-blue
-
-# lines present in colors_2 but not in colors_1
-$ awk 'NR==FNR{a[$0]; next} !($0 in a)' colors_1 colors_2
-black
-dark green
+# lines present in c2.txt but not in c1.txt
+$ awk 'NR==FNR{a[$0]; next} !($0 in a)' c1.txt c2.txt
+Black
+Green
+Pink
 </code></pre><blockquote><p><img src=images/warning.svg alt=warning> Note that the <code>NR==FNR</code> logic will fail if the first file is empty. See <a href=https://unix.stackexchange.com/a/237110/109046>this unix.stackexchange thread</a> for workarounds.</blockquote><h3 id=removing-duplicates><a class=header href=#removing-duplicates>Removing duplicates</a></h3><p><code>awk '!a[$0]++'</code> is one of the most famous <code>awk</code> one-liners. It eliminates line based duplicates while retaining input order. The following example shows this feature in action along with an illustration of how the logic works.<pre><code class=language-bash>$ cat purchases.txt
 coffee
 tea
@@ -509,6 +509,49 @@ apple
 pie.
 banana
 cherry.
+</code></pre><p><strong>19)</strong> For the input file <code>sample.txt</code>, print a matching line containing <code>do</code> only if <code>you</code> is found two lines before. For example, if <code>do</code> is found on line number 10 and 8th line contains <code>you</code>, then 10th line should be printed.<pre><code class=language-bash># ???
+ 6) Just do-it
+</code></pre><p><strong>20)</strong> For the input file <code>blocks.txt</code>, extract contents from a line containing exactly <code>%=%=</code> until but not including the next such line. The block to be extracted is indicated by variable <code>n</code> passed via the <code>-v</code> option.<pre><code class=language-bash>$ cat blocks.txt
+%=%=
+apple
+banana
+%=%=
+brown
+green
+
+$ awk -v n=1 # ???
+%=%=
+apple
+banana
+$ awk -v n=2 # ???
+%=%=
+brown
+green
+</code></pre><p><strong>21)</strong> Display lines present in <code>c1.txt</code> but not in <code>c2.txt</code> using the <code>awk</code> command.<pre><code class=language-bash># ???
+Brown
+Purple
+Teal
+</code></pre><p><strong>22)</strong> Display lines from <code>scores.csv</code> by matching the first field based on a list of names from the <code>names.txt</code> file.<pre><code class=language-bash>$ printf 'Ith\nLin\n' > names.txt
+
+$ awk # ???
+Ith,100,100,100
+Lin,78,83,80
+
+$ rm names.txt
+</code></pre><p><strong>23)</strong> Retain only the first copy of duplicate lines from the <code>duplicates.txt</code> input file. Use only the contents of the last field for determining duplicates.<pre><code class=language-bash>$ cat duplicates.txt
+brown,toy,bread,42
+dark red,ruby,rose,111
+blue,ruby,water,333
+dark red,sky,rose,555
+yellow,toy,flower,333
+white,sky,bread,111
+light red,purse,rose,333
+
+# ???
+brown,toy,bread,42
+dark red,ruby,rose,111
+blue,ruby,water,333
+dark red,sky,rose,555
 </code></pre></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=managing-processes.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=sorting-stuff.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=managing-processes.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=sorting-stuff.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
             window.playground_copyable = true;
         </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>
