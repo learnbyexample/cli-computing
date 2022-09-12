@@ -170,7 +170,7 @@ what
 # same as: grep -v 'e' and sed -n '/e/!p'
 $ printf 'gate\napple\nwhat\nkite\n' | awk '!/e/'
 what
-</code></pre><h3 id=special-variables><a class=header href=#special-variables>Special variables</a></h3><p>Brief description for some of the special variables are given below:<ul><li><code>$0</code> contains input record content<li><code>$1</code> first field<li><code>$2</code> second field and so on<li><code>FS</code> input field separator<li><code>OFS</code> output field separator<li><code>NF</code> number of fields<li><code>RS</code> input record separator<li><code>ORS</code> output record separator<li><code>NR</code> number of records (i.e. line number)</ul><h3 id=default-field-processing><a class=header href=#default-field-processing>Default field processing</a></h3><p><code>awk</code> automatically splits input into fields based on one or more sequence of <strong>space</strong> or <strong>tab</strong> or <strong>newline</strong> characters. In addition, any of these three characters at the start or end of input gets trimmed and won't be part of field contents. The fields are accessible using <code>$N</code> where <code>N</code> is the field number you need. You can also pass an expression instead of numeric literal to specify the field required.<p>Here are some examples:<pre><code class=language-bash>$ cat table.txt
+</code></pre><h3 id=awk-special-variables><a class=header href=#awk-special-variables>Awk special variables</a></h3><p>Brief description for some of the special variables are given below:<ul><li><code>$0</code> contains input record content<li><code>$1</code> first field<li><code>$2</code> second field and so on<li><code>FS</code> input field separator<li><code>OFS</code> output field separator<li><code>NF</code> number of fields<li><code>RS</code> input record separator<li><code>ORS</code> output record separator<li><code>NR</code> number of records (i.e. line number)</ul><h3 id=default-field-processing><a class=header href=#default-field-processing>Default field processing</a></h3><p><code>awk</code> automatically splits input into fields based on one or more sequence of <strong>space</strong> or <strong>tab</strong> or <strong>newline</strong> characters. In addition, any of these three characters at the start or end of input gets trimmed and won't be part of field contents. The fields are accessible using <code>$N</code> where <code>N</code> is the field number you need. You can also pass an expression instead of numeric literal to specify the field required.<p>Here are some examples:<pre><code class=language-bash>$ cat table.txt
 brown bread mat hair 42
 blue cake mug shirt -7
 yellow banana window shoes 3.14
@@ -324,7 +324,7 @@ what
 # same as: grep -v 'e' and sed -n '/e/!p' and awk '!/e/'
 $ printf 'gate\napple\nwhat\nkite\n' | perl -ne 'print if !/e/'
 what
-</code></pre><p>The <code>-e</code> option accepts code as a command line argument. Many shortcuts are available to reduce the amount of typing needed. In the above examples, a regular expression has been used to filter the input. When the input string isn't specified, the test is performed against special variable <code>$_</code>, which has the contents of the current input line. <code>$_</code> is also the default argument for many functions like <code>print</code> and <code>say</code>. To summarize:<ul><li><code>/REGEXP/FLAGS</code> is a shortcut for <code>$_ =~ m/REGEXP/FLAGS</code><li><code>!/REGEXP/FLAGS</code> is a shortcut for <code>$_ !~ m/REGEXP/FLAGS</code></ul><p>For the following examples, <code>-p</code> option is used instead of <code>-n</code> option. This helps to automatically print the value of <code>$_</code> after processing each input line.<pre><code class=language-bash># same as: sed 's/:/-/' and awk '{sub(/:/, "-")} 1'
+</code></pre><p>The <code>-e</code> option accepts code as a command line argument. Many shortcuts are available to reduce the amount of typing needed. In the above examples, a regular expression has been used to filter the input. When the input string isn't specified, the test is performed against special variable <code>$_</code>, which has the contents of the current input line. <code>$_</code> is also the default argument for many functions like <code>print</code> and <code>say</code>. To summarize:<ul><li><code>/REGEXP/FLAGS</code> is a shortcut for <code>$_ =~ m/REGEXP/FLAGS</code><li><code>!/REGEXP/FLAGS</code> is a shortcut for <code>$_ !~ m/REGEXP/FLAGS</code></ul><p>In the examples below, <code>-p</code> option is used instead of <code>-n</code> option. This helps to automatically print the value of <code>$_</code> after processing each input line.<pre><code class=language-bash># same as: sed 's/:/-/' and awk '{sub(/:/, "-")} 1'
 $ printf '1:2:3:4\na:b:c:d\n' | perl -pe 's/:/-/'
 1-2:3:4
 a-b:c:d
@@ -333,7 +333,7 @@ a-b:c:d
 $ printf '1:2:3:4\na:b:c:d\n' | perl -pe 's/:/-/g'
 1-2-3-4
 a-b-c-d
-</code></pre><h3 id=auto-split><a class=header href=#auto-split>Auto split</a></h3><p>Here are some examples based on specific fields rather than the entire line. The <code>-a</code> option will cause the input line to be split based on whitespaces and the field contents can be accessed using the <code>@F</code> special array variable. Leading and trailing whitespaces will be suppressed, so there's no possibility of empty fields.<pre><code class=language-bash>$ cat table.txt
+</code></pre><blockquote><p><img src=./images/info.svg alt=info> Similar to <code>sed</code>, you can use the <code>-i</code> option for inplace editing.</blockquote><h3 id=perl-special-variables><a class=header href=#perl-special-variables>Perl special variables</a></h3><p>Brief description for some of the special variables are given below:<ul><li><code>$_</code> contains input record content<li><code>@F</code> array containing fields (with <code>-a</code> and <code>-F</code> options) <ul><li><code>$F[0]</code> first field<li><code>$F[1]</code> second field and so on<li><code>$F[-1]</code> last field<li><code>$#F</code> index of the last field</ul><li><code>$.</code> number of records (i.e. line number)<li><code>$1</code> backreference to the first capture group<li><code>$2</code> backreference to the second capture group and so on<li><code>$&</code> backreference to the entire matched portion</ul><p>You'll see examples using such variables in the sections to follow.<h3 id=auto-split><a class=header href=#auto-split>Auto split</a></h3><p>Here are some examples based on specific fields rather than the entire line. The <code>-a</code> option will cause the input line to be split based on whitespaces and the field contents can be accessed using the <code>@F</code> special array variable. Leading and trailing whitespaces will be suppressed, so there's no possibility of empty fields.<pre><code class=language-bash>$ cat table.txt
 brown bread mat hair 42
 blue cake mug shirt -7
 yellow banana window shoes 3.14
@@ -353,7 +353,19 @@ $ perl -lane '$F[0] =~ s/b/B/g; print "@F"' table.txt
 Brown bread mat hair 42
 Blue cake mug shirt -7
 yellow banana window shoes 3.14
+</code></pre><p>When you use an array within double quotes (like <code>"@F"</code> in the example above), the fields will be printed with a space character in between. The <code>join</code> function is one of the ways to print the contents of an array with a custom field separator. Here's an example:<pre><code class=language-bash># print contents of @F array with colon as the separator
+$ perl -lane 'print join ":", @F' table.txt
+brown:bread:mat:hair:42
+blue:cake:mug:shirt:-7
+yellow:banana:window:shoes:3.14
+</code></pre><blockquote><p><img src=./images/info.svg alt=info> In the above examples, the <code>-l</code> option has been used to remove the record separator (which is newline by default) from the input line. The record separator thus removed is added back when the <code>print</code> function is used.</blockquote><h3 id=regexp-field-separator><a class=header href=#regexp-field-separator>Regexp field separator</a></h3><p>You can use the <code>-F</code> option to specify a regexp pattern for input field separation.<pre><code class=language-bash>$ echo 'apple,banana,cherry' | perl -F, -lane 'print $F[1]'
+banana
+
+$ s='Sample123string42with777numbers'
+$ echo "$s" | perl -F'\d+' -lane 'print join ",", @F'
+Sample,string,with,numbers
 </code></pre><h3 id=powerful-features><a class=header href=#powerful-features>Powerful features</a></h3><p>I reach for Perl over <code>grep</code>, <code>sed</code> and <code>awk</code> when I need powerful regexp features and make use of the vast builtin functions and libraries.<p>Here are some examples showing regexp features not present in BRE/ERE:<pre><code class=language-bash># reverse lowercase alphabets at the end of input lines
+# 'e' flag allows you to use Perl code in the replacement section
 $ echo 'fig 42apples' | perl -pe 's/[a-z]+$/reverse $&/e'
 fig 42selppa
 
@@ -361,25 +373,29 @@ fig 42selppa
 $ echo '42*10 200+100 22/7' | perl -pe 's|\d+[+/*-]\d+|$&|gee'
 420 300 3.14285714285714
 
-# exclude terms while substituting
+# exclude terms in the search pattern
 $ s='orange apple appleseed'
 $ echo "$s" | perl -pe 's#\bapple\b(*SKIP)(*F)|\w+#($&)#g'
 (orange) apple (appleseed)
-</code></pre><p>And here are some examples showing off builtin features:<pre><code class=language-bash># fields containing 'in' or 'it' or 'is'
+</code></pre><p>And here are some examples showing off builtin features:<pre><code class=language-bash># filter fields containing 'in' or 'it' or 'is'
 $ s='goal:amazing:42:whistle:kwality:3.14'
 $ echo "$s" | perl -F: -lane 'print join ":", grep {/i[nts]/} @F'
 amazing:whistle:kwality
 
-# sorting examples
+# sort numbers in ascending order
+# use {$b <=> $a} for descending order
 $ echo '23 756 -983 5' | perl -lane 'print join " ", sort {$a <=> $b} @F'
 -983 5 23 756
+
+# sort strings in ascending order
 $ s='floor bat to dubious four'
 $ echo "$s" | perl -lane 'print join ":", sort @F'
 bat:dubious:floor:four:to
 
 # unique fields, maintains input order of elements
+# -M option helps you load modules
 $ s='3,b,a,3,c,d,1,d,c,2,2,2,3,1,b'
-$ echo "$s" | perl -MList::Util=uniq -F, -lanE 'say join ",", uniq @F'
+$ echo "$s" | perl -MList::Util=uniq -F, -lanE 'print join ",", uniq @F'
 3,b,a,c,d,1,2
 </code></pre><h3 id=further-reading-2><a class=header href=#further-reading-2>Further Reading</a></h3><ul><li><a href=https://perldoc.perl.org/perlintro>perldoc: Perl introduction</a><li><a href=https://perldoc.perl.org/perlretut>perldoc: Regexp tutorial</a><li>My ebook <a href=https://github.com/learnbyexample/learn_perl_oneliners>Perl one-liners</a></ul><h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><blockquote><p><img src=./images/info.svg alt=info> Use <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files>example_files/text_files</a> directory for input files used in the following exercises.</blockquote><p><strong>1)</strong> Replace all occurrences of <code>0xA0</code> with <code>0x50</code> and <code>0xFF</code> with <code>0x7F</code> for the given input.<pre><code class=language-bash>$ printf 'a1:0xA0, a2:0xA0A1\nb1:0xFF, b2:0xBE\n'
 a1:0xA0, a2:0xA0A1
@@ -552,6 +568,62 @@ brown,toy,bread,42
 dark red,ruby,rose,111
 blue,ruby,water,333
 dark red,sky,rose,555
+</code></pre><p><strong>24)</strong> For the input file <code>table.txt</code>, print input lines if the second field starts with <code>b</code>. Construct solutions using <code>awk</code> and <code>perl</code>.<pre><code class=language-bash>$ awk # ???
+brown bread mat hair 42
+yellow banana window shoes 3.14
+
+$ perl # ???
+brown bread mat hair 42
+yellow banana window shoes 3.14
+</code></pre><p><strong>25)</strong> For the input file <code>table.txt</code>, retain only the second last field. Write back the changes to the input file itself. The original contents should get saved to <code>table.txt.bkp</code>. Afterwards, restore the contents from this backup file.<pre><code class=language-bash># make the changes
+$ perl # ???
+$ ls table*
+table.txt  table.txt.bkp
+$ cat table.txt
+hair
+shirt
+shoes
+
+# restore the contents
+# ???
+$ ls table*
+table.txt
+$ cat table.txt
+brown bread mat hair 42
+blue cake mug shirt -7
+yellow banana window shoes 3.14
+</code></pre><p><strong>26)</strong> Reverse the first field contents of <code>table.txt</code> input file.<pre><code class=language-bash># ???
+nworb bread mat hair 42
+eulb cake mug shirt -7
+wolley banana window shoes 3.14
+</code></pre><p><strong>27)</strong> Sort the given comma separated input based on alphabetic order. Change the output field separator to a <code>:</code> character.<pre><code class=language-bash>$ ip='floor,bat,to,dubious,four'
+$ echo "$ip" | perl # ???
+bat:dubious:floor:four:to
+</code></pre><p><strong>28)</strong> Retain only fields containing a digit character.<pre><code class=language-bash>$ ip='5pearl 42 east 1337 raku_6 lion 3.14'
+$ echo "$ip" | perl # ???
+5pearl 42 1337 raku_6 3.14
+</code></pre><p><strong>29)</strong> The input shown below has several words ending with digit characters. Change the words containing <code>test</code> to match the output shown below. That is, renumber the matching portions to <code>1</code>, <code>2</code>, etc. Words not containing <code>test</code> should not changed.<pre><code class=language-bash>$ ip='test_12:test123\nanother_test_4,no_42\n'
+$ printf '%b' "$ip"
+test_12:test123
+another_test_4,no_42
+
+$ printf '%b' "$ip" | perl # ???
+test_1:test2
+another_test_3,no_42
+</code></pre><p><strong>30)</strong> For the input file <code>table.txt</code>, change contents of the third field to all uppercase. Construct solutions using <code>sed</code>, <code>awk</code> and <code>perl</code>.<pre><code class=language-bash>$ sed # ???
+brown bread MAT hair 42
+blue cake MUG shirt -7
+yellow banana WINDOW shoes 3.14
+
+$ awk # ???
+brown bread MAT hair 42
+blue cake MUG shirt -7
+yellow banana WINDOW shoes 3.14
+
+$ perl # ???
+brown bread MAT hair 42
+blue cake MUG shirt -7
+yellow banana WINDOW shoes 3.14
 </code></pre></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=managing-processes.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=sorting-stuff.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=managing-processes.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=sorting-stuff.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
             window.playground_copyable = true;
         </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>
