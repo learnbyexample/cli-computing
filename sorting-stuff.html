@@ -208,6 +208,74 @@ a f1_x f2_x
 a f1_x f2_y
 a f1_y f2_x
 a f1_y f2_y
-</code></pre><blockquote><p><img src=./images/info.svg alt=info> There are many more features such as specifying field delimiter, selecting specific fields from each input file in a particular order, filling fields for non-matching lines and so on. See <a href=https://learnbyexample.github.io/cli_text_processing_coreutils/join.html>join chapter</a> from my "Command line text processing with GNU Coreutils" ebook for explanations and examples.</blockquote></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=multipurpose-text-processing-tools.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=comparing-files.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=multipurpose-text-processing-tools.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=comparing-files.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
+</code></pre><blockquote><p><img src=./images/info.svg alt=info> There are many more features such as specifying field delimiter, selecting specific fields from each input file in a particular order, filling fields for non-matching lines and so on. See <a href=https://learnbyexample.github.io/cli_text_processing_coreutils/join.html>join chapter</a> from my "Command line text processing with GNU Coreutils" ebook for explanations and examples.</blockquote><h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><blockquote><p><img src=./images/info.svg alt=info> Use <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files>example_files/text_files</a> directory for input files used in the following exercises.</blockquote><p><strong>1)</strong> Default <code>sort</code> doesn't work for numbers. Correct the command used below:<pre><code class=language-bash># wrong output
+$ printf '100\n10\n20\n3000\n2.45\n' | sort
+10
+100
+20
+2.45
+3000
+
+# expected output
+$ printf '100\n10\n20\n3000\n2.45\n' | sort # ???
+2.45
+10
+20
+100
+3000
+</code></pre><p><strong>2)</strong> Which <code>sort</code> option will help you ignore case?<pre><code class=language-bash>$ printf 'Super\nover\nRUNE\ntea\n' | LC_ALL=C sort # ???
+over
+RUNE
+Super
+tea
+</code></pre><p><strong>3)</strong> Go through the <code>sort</code> manual and use appropriate options to get the output shown below.<pre><code class=language-bash># wrong output
+$ printf '+120\n-1.53\n3.14e+4\n42.1e-2' | sort -n
+-1.53
++120
+3.14e+4
+42.1e-2
+
+# expected output
+$ printf '+120\n-1.53\n3.14e+4\n42.1e-2' | sort # ???
+-1.53
+42.1e-2
++120
+3.14e+4
+</code></pre><p><strong>4)</strong> Sort the <code>scores.csv</code> file numerically in ascending order using the contents of the second field. Header line should be preserved as the first line as shown below. <em>Hint</em>: see <a href=./shell-features.html>Shell Features</a> chapter.<pre><code class=language-bash># ???
+Name,Maths,Physics,Chemistry
+Lin,78,83,80
+Cy,97,98,95
+Ith,100,100,100
+</code></pre><p><strong>5)</strong> Sort the contents of <code>duplicates.txt</code> by the fourth column numbers in descending order. Retain only the first copy of lines with the same number.<pre><code class=language-bash># ???
+dark red,sky,rose,555
+blue,ruby,water,333
+dark red,ruby,rose,111
+brown,toy,bread,42
+</code></pre><p><strong>6)</strong> Will <code>uniq</code> throw an error if the input is not sorted? What do you think will be the output for the following input?<pre><code class=language-bash>$ printf 'red\nred\nred\ngreen\nred\nblue\nblue' | uniq
+# ???
+</code></pre><p><strong>7)</strong> Retain only unique entries based on the first two characters of the input lines. Sort the input if necessary.<pre><code class=language-bash>$ printf '3) cherry\n1) apple\n2) banana\n1) almond\n'
+3) cherry
+1) apple
+2) banana
+1) almond
+
+$ printf '3) cherry\n1) apple\n2) banana\n1) almond\n' | # ???
+2) banana
+3) cherry
+</code></pre><p><strong>8)</strong> Count the number of times input lines are repeated and display the results in the format shown below.<pre><code class=language-bash>$ printf 'red\nred\nred\ngreen\nred\nblue\nblue' | # ???
+      1 green
+      2 blue
+      4 red
+</code></pre><p><strong>9)</strong> Display lines present in <code>c1.txt</code> but not in <code>c2.txt</code> using the <code>comm</code> command. Assume that the input files are already sorted<pre><code class=language-bash># ???
+Brown
+Purple
+Teal
+</code></pre><p><strong>10)</strong> Use appropriate options to get the expected output shown below.<pre><code class=language-bash># wrong usage, no output
+$ join <(printf 'apple 2\nfig 5') <(printf 'Fig 10\nmango 4')
+
+# expected output
+# ???
+fig 5 10
+</code></pre></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=multipurpose-text-processing-tools.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=comparing-files.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=multipurpose-text-processing-tools.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=comparing-files.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
             window.playground_copyable = true;
         </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>
