@@ -81,7 +81,7 @@ hello
 
 $ echo "$name"
 learnbyexample
-</code></pre><p>As seen above, you need to use the <code>$</code> prefix while accessing the value stored in a variable. You can use <code>${variable}</code> syntax to distinguish between the variable and other parts of the string. Using appropriate quotes is recommended, unless otherwise needed.<p>You can append to a variable by using the <code>+=</code> operator. Here's an example:<pre><code class=language-bash>$ colors='blue'
+</code></pre><p>As seen above, you need to use the <code>$</code> prefix while accessing the value stored in a variable. You can use <code>${variable}</code> syntax to distinguish between the variable and other parts of the string. Using appropriate quotes is recommended, unless otherwise necessary.<p>You can append to a variable by using the <code>+=</code> operator. Here's an example:<pre><code class=language-bash>$ colors='blue'
 $ echo "$colors"
 blue
 
@@ -167,15 +167,20 @@ $ echo "${#city}"
 $ fruits=('apple' 'fig' 'mango')
 $ echo "${#fruits[@]}"
 3
-</code></pre><p><code>${parameter#glob}</code> will remove the shortest match from the start of the string. <code>${parameter##glob}</code> will remove the longest match from the start of the string. Here are some examples:<pre><code class=language-bash>$ s='this is his life history'
+</code></pre><p><code>${parameter#glob}</code> will remove the shortest match from the start of the string. You can also use extended globs if enabled via <code>shopt</code> builtin. <code>${parameter##glob}</code> will remove the longest match from the start of the string. Here are some examples:<pre><code class=language-bash>$ s='this is his life history'
 
 # shortest match is deleted
 $ echo "${s#*is}"
  is his life history
-
 # longest match is deleted
 $ echo "${s##*is}"
 tory
+
+# assuming extglob is enabled
+$ echo "${s#+([^ ])}"
+his is his life history
+$ echo "${s##+([^ ])}"
+ is his life history
 
 # for arrays, the processing is applied to each element
 $ fruits=('apple' 'fig' 'mango')
@@ -199,6 +204,10 @@ th123 is a sample string
 # all occurrences of 'is' are replaced with '123'
 $ echo "${ip//is/123}"
 th123 123 a sample string
+
+# replace all occurrences of 'am' or 'in' with '-'
+$ echo "${ip//@(am|in)/-}"
+this is a s-ple str-g
 
 # matches from the first 'is' to the last 's' in the input
 $ echo "${ip/is*s/ X }"
@@ -549,6 +558,85 @@ greeting = 'hello world'
 
 For more information:
   https://www.shellcheck.net/wiki/SC1068 -- Don't put spaces around the = in ...
-</code></pre><blockquote><p><img src=images/info.svg alt=info> Use the <code>-s</code> option (<code>shellcheck -s bash</code> for example) to specify the shell being used, if the script doesn't have a shebang.</blockquote><blockquote><p><img src=images/info.svg alt=info> <img src=./images/warning.svg alt=warning> Note that <code>shellcheck</code> will not catch all types of issues. And suggestions should not be blindly accepted without understanding if that makes sense in the given context.</blockquote><h2 id=resource-lists><a class=header href=#resource-lists>Resource lists</a></h2><p>Here are some more learning resources:<p><strong>Shell Scripting</strong><ul><li><a href=https://mywiki.wooledge.org/BashGuide>Bash Guide</a> — aspires to teach good practice techniques for using Bash, and writing simple scripts<li><a href=https://ryanstutorials.net/bash-scripting-tutorial/>Bash Scripting Tutorial</a> — solid foundation in how to write Bash scripts, to get the computer to do complex, repetitive tasks for you<li><a href=https://github.com/denysdovhan/bash-handbook>bash-handbook</a> — for those who want to learn Bash without diving in too deeply<li><a href=https://freebsdfrau.gitbook.io/serious-shell-programming/>Serious Shell Programming</a> — focuses on POSIX-compliant Bourne Shell for portability</ul><p><strong>Handy tools, tips and reference</strong><ul><li><a href=https://www.shellcheck.net/>shellcheck</a> — linting tool to avoid common mistakes and improve your script<li><a href=https://devmanual.gentoo.org/tools-reference/bash/index.html>Bash reference cheatsheet</a> — nicely formatted and explained well<li><a href=https://devhints.io/bash>Bash scripting cheatsheet</a> — quick reference to getting started with Bash scripting<li>Comprehensive lists on <code>mywiki.wooledge.org</code> website: <ul><li><a href=https://mywiki.wooledge.org/BashFAQ>Bash FAQ</a><li><a href=https://mywiki.wooledge.org/BashGuide/Practices>Bash Practices</a><li><a href=https://mywiki.wooledge.org/BashPitfalls>Bash Pitfalls</a></ul><li><a href=https://google.github.io/styleguide/shellguide.html>Google shell style guide</a><li>Reliability and robustness <ul><li><a href=https://github.com/anordal/shellharden/blob/master/how_to_do_things_safely_in_bash.md>safe ways to do things in bash</a><li><a href=https://robertmuth.blogspot.in/2012/08/better-bash-scripting-in-15-minutes.html>better scripting</a><li><a href=https://www.davidpashley.com/articles/writing-robust-shell-scripts/>robust scripting</a></ul></ul><p><strong>Specific topics</strong><ul><li>Reading file(s) <ul><li><a href=https://mywiki.wooledge.org/BashFAQ/001>Reading file</a><li><a href=https://unix.stackexchange.com/q/82541/109046>Loop through the lines of two files in parallel</a></ul><li><a href=https://mywiki.wooledge.org/BashGuide/Arrays>arrays</a><li><a href=https://unix.stackexchange.com/q/288886/109046>nameref</a> <ul><li>also see this <a href=https://mywiki.wooledge.org/BashFAQ/006>FAQ</a></ul><li>getopts <ul><li><a href=https://wiki.bash-hackers.org/howto/getopts_tutorial>getopts tutorial</a><li><a href=https://mywiki.wooledge.org/BashFAQ/035>handling command-line arguments</a><li><a href=https://stackoverflow.com/q/16483119/4082052>stackoverflow: getopts example</a></ul></ul></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=assorted-text-processing-tools.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=shell-customization.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=assorted-text-processing-tools.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=shell-customization.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
+</code></pre><blockquote><p><img src=images/info.svg alt=info> Use the <code>-s</code> option (<code>shellcheck -s bash</code> for example) to specify the shell being used, if the script doesn't have a shebang.</blockquote><blockquote><p><img src=images/info.svg alt=info> <img src=./images/warning.svg alt=warning> Note that <code>shellcheck</code> will not catch all types of issues. And suggestions should not be blindly accepted without understanding if that makes sense in the given context.</blockquote><h2 id=resource-lists><a class=header href=#resource-lists>Resource lists</a></h2><p>Here are some more learning resources:<p><strong>Shell Scripting</strong><ul><li><a href=https://mywiki.wooledge.org/BashGuide>Bash Guide</a> — aspires to teach good practice techniques for using Bash, and writing simple scripts<li><a href=https://ryanstutorials.net/bash-scripting-tutorial/>Bash Scripting Tutorial</a> — solid foundation in how to write Bash scripts, to get the computer to do complex, repetitive tasks for you<li><a href=https://github.com/denysdovhan/bash-handbook>bash-handbook</a> — for those who want to learn Bash without diving in too deeply<li><a href=https://freebsdfrau.gitbook.io/serious-shell-programming/>Serious Shell Programming</a> — focuses on POSIX-compliant Bourne Shell for portability</ul><p><strong>Handy tools, tips and reference</strong><ul><li><a href=https://www.shellcheck.net/>shellcheck</a> — linting tool to avoid common mistakes and improve your script<li><a href=https://devmanual.gentoo.org/tools-reference/bash/index.html>Bash reference cheatsheet</a> — nicely formatted and explained well<li><a href=https://devhints.io/bash>Bash scripting cheatsheet</a> — quick reference to getting started with Bash scripting<li>Comprehensive lists on <code>mywiki.wooledge.org</code> website: <ul><li><a href=https://mywiki.wooledge.org/BashFAQ>Bash FAQ</a><li><a href=https://mywiki.wooledge.org/BashGuide/Practices>Bash Practices</a><li><a href=https://mywiki.wooledge.org/BashPitfalls>Bash Pitfalls</a></ul><li><a href=https://google.github.io/styleguide/shellguide.html>Google shell style guide</a><li>Reliability and robustness <ul><li><a href=https://github.com/anordal/shellharden/blob/master/how_to_do_things_safely_in_bash.md>safe ways to do things in bash</a><li><a href=https://robertmuth.blogspot.in/2012/08/better-bash-scripting-in-15-minutes.html>better scripting</a><li><a href=https://www.davidpashley.com/articles/writing-robust-shell-scripts/>robust scripting</a></ul></ul><p><strong>Specific topics</strong><ul><li>Reading file(s) <ul><li><a href=https://mywiki.wooledge.org/BashFAQ/001>Reading file</a><li><a href=https://unix.stackexchange.com/q/82541/109046>Loop through the lines of two files in parallel</a></ul><li><a href=https://mywiki.wooledge.org/BashGuide/Arrays>arrays</a><li><a href=https://unix.stackexchange.com/q/288886/109046>nameref</a> <ul><li>also see this <a href=https://mywiki.wooledge.org/BashFAQ/006>FAQ</a></ul><li>getopts <ul><li><a href=https://wiki.bash-hackers.org/howto/getopts_tutorial>getopts tutorial</a><li><a href=https://mywiki.wooledge.org/BashFAQ/035>handling command-line arguments</a><li><a href=https://stackoverflow.com/q/16483119/4082052>stackoverflow: getopts example</a></ul></ul><h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><blockquote><p><img src=./images/info.svg alt=info> Use a temporary working directory before attempting the exercises. You can delete such practice directories afterwards.</blockquote><p><strong>1)</strong> What's wrong with the script shown below? Also, will the error go away if you use <code>bash try.sh</code> instead?<pre><code class=language-bash>$ printf '    \n!#/bin/bash\n\necho hello\n' > try.sh
+$ chmod +x try.sh
+$ ./try.sh
+./try.sh: line 2: !#/bin/bash: No such file or directory
+hello
+
+# expected output
+$ ./try.sh
+hello
+</code></pre><p><strong>2)</strong> Will the command shown below work? If so, what would be the output?<pre><code class=language-bash>$ echo echo hello | bash
+</code></pre><p><strong>3)</strong> When would you <code>source</code> a script instead of using <code>bash</code> or creating an executable using shebang?<p><strong>4)</strong> How would you display the contents of a variable with <code>shake</code> appended?<pre><code class=language-bash>$ fruit='banana'
+
+$ echo # ???
+bananashake
+</code></pre><p><strong>5)</strong> What changes would you make to the code shown below to get the expected output?<pre><code class=language-bash># default behavior
+$ n=100
+$ n+=100
+$ echo "$n"
+100100
+
+# expected output
+$ echo "$n"
+200
+</code></pre><p><strong>6)</strong> Is the following code valid? If so, what would be the output of the <code>echo</code> command?<pre><code class=language-bash>$ declare -a colors
+$ colors[3]='green'
+$ colors[1]='blue'
+
+# ???
+$ echo "${colors[@]}"
+</code></pre><p><strong>7)</strong> How would you get the last three characters of a variable's contents?<pre><code class=language-bash>$ fruit='banana'
+
+# ???
+ana
+</code></pre><p><strong>8)</strong> Will the second <code>echo</code> command give an error? If not, what will be the output?<pre><code class=language-bash>$ fruits=('apple' 'fig' 'mango')
+$ echo "${#fruits[@]}"
+3
+
+$ echo "${#fruits}"
+# ???
+</code></pre><p><strong>9)</strong> For the given the array, use parameter expansion to remove characters until first/last space.<pre><code class=language-bash>$ colors=('green' 'dark brown' 'deep sky blue white')
+
+# remove till first space
+$ printf '%s\n' # ???
+green
+brown
+sky blue white
+
+# remove till last space
+$ printf '%s\n' # ???
+green
+brown
+white
+</code></pre><p><strong>10)</strong> Use parameter expansion to get the expected outputs shown below.<pre><code class=language-bash>$ ip='apple:banana:cherry:dragon'
+
+$ echo # ???
+apple:banana:cherry
+
+$ echo # ???
+apple
+</code></pre><p><strong>11)</strong> Is it possible to achieve the expected outputs shown below using parameter expansion? If so, how?<pre><code class=language-bash>$ ip='apple:banana:cherry:dragon'
+
+$ echo # ???
+apple 42 dragon
+
+$ echo # ???
+fig:banana:cherry:dragon
+
+$ echo # ???
+apple:banana:cherry:end
+</code></pre><p><strong>12)</strong> For the given input, change case as per the expected outputs shown below.<pre><code class=language-bash>$ ip='This is a Sample STRING'
+
+$ echo # ???
+THIS IS A SAMPLE STRING
+
+$ echo # ???
+this is a sample string
+
+$ echo # ???
+tHIS IS A sAMPLE string
+</code></pre></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=assorted-text-processing-tools.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=shell-customization.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=assorted-text-processing-tools.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=shell-customization.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
             window.playground_copyable = true;
         </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>
