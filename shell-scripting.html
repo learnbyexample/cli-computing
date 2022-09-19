@@ -637,6 +637,69 @@ this is a sample string
 
 $ echo # ???
 tHIS IS A sAMPLE string
+</code></pre><p><strong>13)</strong> Why does the conditional expression shown below fail?<pre><code class=language-bash>$ touch ip.txt
+$ [[-f ip.txt]] && echo 'file exists'
+[[-f: command not found
+</code></pre><p><strong>14)</strong> What is the difference between <code>==</code> and <code>=~</code> string comparison operators?<p><strong>15)</strong> Why does the conditional expression used below show <code>failed</code> both times? Modify the expression such that the first one correctly says <code>matched</code> instead of <code>failed</code>.<pre><code class=language-bash>$ f1='1234.txt'
+$ f2='report_2.txt'
+
+$ [[ $f1 == '+([0-9]).txt' ]] && echo 'matched' || echo 'failed'
+failed
+$ [[ $f2 == '+([0-9]).txt' ]] && echo 'matched' || echo 'failed'
+failed
+</code></pre><p><strong>16)</strong> Extract the digits that follow a <code>:</code> character for the given variable contents.<pre><code class=language-bash>$ item='chocolate:50'
+# ???
+50
+
+$ item='50 apples, fig:100, books-12'
+# ???
+100
+</code></pre><p><strong>17)</strong> Modify the conditional expression shown below such that it correctly reports <code>true</code> instead of <code>false</code>.<pre><code class=language-bash>$ num=12345
+$ [[ $num > 3 ]] && echo 'true' || echo 'false'
+false
+</code></pre><p><strong>18)</strong> Write a shell script named <code>array.sh</code> that accepts array input from the user followed by another input as index. Display the corresponding value at that index. Couple of examples are shown below.<pre><code class=language-bash>$ bash array.sh
+enter array elements: apple banana cherry
+enter array index: 1
+element at index '1' is: banana
+
+$ bash array.sh
+enter array elements: dragon unicorn centaur
+enter array index: -1
+element at index '-1' is: centaur
+</code></pre><p><strong>19)</strong> Write a shell script named <code>case.sh</code> that accepts exactly two command line arguments. The first argument can be <code>lower</code>, <code>upper</code> or <code>swap</code> and this should be used to transform the contents of the second argument. Examples script invocations are shown below, including what should happen if the command line arguments do not meet the script expectations.<pre><code class=language-bash>$ ./case.sh upper 'how are you?'
+HOW ARE YOU?
+
+$ ./case.sh lower PineAPPLE
+pineapple
+
+$ ./case.sh swap 'HeLlo WoRlD'
+hElLO wOrLd
+
+$ ./case.sh lower
+Error! Two arguments expected.
+$ echo $?
+1
+
+$ ./case.sh upper apple fig
+Error! Two arguments expected.
+
+$ ./case.sh lowercase DRAGON
+Error! 'lowercase' command not recognized.
+$ echo $?
+1
+
+$ ./case.sh apple lower 2> /dev/null
+$ echo $?
+1
+</code></pre><p><strong>20)</strong> Write a shell script named <code>loop.sh</code> that displays the number of lines for each of the files passed as command line arguments.<pre><code class=language-bash>$ printf 'apple\nbanana\ncherry\n' > items_1.txt
+$ printf 'dragon\nowl\nunicorn\ntroll\ncentaur\n' > items_2.txt
+
+$ bash loop.sh items_1.txt
+number of lines in 'items_1.txt' is: 3
+
+$ bash loop.sh items_1.txt items_2.txt
+number of lines in 'items_1.txt' is: 3
+number of lines in 'items_2.txt' is: 5
 </code></pre></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=assorted-text-processing-tools.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=shell-customization.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=assorted-text-processing-tools.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=shell-customization.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
             window.playground_copyable = true;
         </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>
