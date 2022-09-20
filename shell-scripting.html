@@ -549,7 +549,7 @@ match not found
 
 greeting = 'hello world'
 echo "$greeting"
-</code></pre><p>Here's how <code>shellcheck</code> reports the issue:<pre><code class=language-bash>$ shellcheck bad_script.sh
+</code></pre><p>Here's how <code>shellcheck</code> reports the issue:<pre><code class=language-nohighlight>$ shellcheck bad_script.sh
 
 In bad_script.sh line 3:
 greeting = 'hello world'
@@ -700,6 +700,30 @@ number of lines in 'items_1.txt' is: 3
 $ bash loop.sh items_1.txt items_2.txt
 number of lines in 'items_1.txt' is: 3
 number of lines in 'items_2.txt' is: 5
-</code></pre></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=assorted-text-processing-tools.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=shell-customization.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=assorted-text-processing-tools.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=shell-customization.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
+</code></pre><p><strong>21)</strong> Write a shell script named <code>read_file.sh</code> that reads a file line by line to be passed as argument to the <code>paste -sd,</code> command. Can you also write a solution using the <code>xargs</code> command instead of a script?<pre><code class=language-bash>$ printf 'apple\nbanana\ncherry\n' > items_1.txt
+$ printf 'dragon\nowl\nunicorn\ntroll\ncentaur\n' > items_2.txt
+$ printf 'items_1.txt\nitems_2.txt\n' > list.txt
+
+$ bash read_file.sh list.txt
+apple,banana,cherry
+dragon,owl,unicorn,troll,centaur
+
+$ xargs # ???
+apple,banana,cherry
+dragon,owl,unicorn,troll,centaur
+</code></pre><p><strong>22)</strong> Write a function named <code>add_path</code> which prefixes the path of the current working directory to the arguments it receives and displays the results. Examples are shown below.<pre><code class=language-bash>$ add_path() # ???
+
+$ cd
+$ pwd
+/home/learnbyexample
+$ add_path ip.txt report.log
+/home/learnbyexample/ip.txt /home/learnbyexample/report.log
+
+$ cd cli-computing
+$ pwd
+/home/learnbyexample/cli-computing
+$ add_path f1
+/home/learnbyexample/cli-computing/f1
+</code></pre><p><strong>23)</strong> What do the options <code>bash -x</code> and <code>bash -v</code> do?<p><strong>24)</strong> What is <code>shellcheck</code> and when would you use it?</main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=assorted-text-processing-tools.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=shell-customization.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=assorted-text-processing-tools.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=shell-customization.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
             window.playground_copyable = true;
         </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>
