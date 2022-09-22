@@ -399,7 +399,47 @@ toothpaste
 tea
 soap
 tea
-</code></pre><blockquote><p><img src=./images/info.svg alt=info> For more examples, customization options and other details, see <a href=https://learnbyexample.github.io/cli_text_processing_coreutils/csplit.html>csplit chapter</a> from my <strong>Command line text processing with GNU Coreutils</strong> ebook.</blockquote><h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><blockquote><p><img src=./images/info.svg alt=info> Use <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files>example_files/text_files</a> directory for input files used in the following exercises.</blockquote><p><strong>1)</strong> Generate the following sequence.<pre><code class=language-bash># ???
+</code></pre><blockquote><p><img src=./images/info.svg alt=info> For more examples, customization options and other details, see <a href=https://learnbyexample.github.io/cli_text_processing_coreutils/csplit.html>csplit chapter</a> from my <strong>Command line text processing with GNU Coreutils</strong> ebook.</blockquote><h2 id=xargs><a class=header href=#xargs>xargs</a></h2><p>By default, <code>xargs</code> executes the <code>echo</code> command for the arguments extracted from <code>stdin</code> data (or file input via the <code>-a</code> option). The <code>-n</code> option helps to customize how many arguments should be passed at a time. Together, these features can be used to reshape whitespace separated data as shown in the examples below:<pre><code class=language-bash>$ printf '  apple   banana cherry\n\t\tdragon unicorn   \n'
+  apple   banana cherry
+                dragon unicorn   
+$ printf '  apple   banana cherry\n\t\tdragon unicorn   \n' | xargs -n2
+apple banana
+cherry dragon
+unicorn
+
+$ cat ip.txt
+deep blue
+light orange
+blue delight
+$ xargs -a ip.txt -n3
+deep blue light
+orange blue delight
+</code></pre><p>You can use the <code>-L</code> option to specify how many input lines should be combined at a time:<pre><code class=language-bash># same as: pr -3ats' ' or paste -d' ' - - -
+$ seq 9 | xargs -L3
+1 2 3
+4 5 6
+7 8 9
+
+$ xargs -a ip.txt -L2
+deep blue light orange
+blue delight
+
+# you can also use -l instead of -L1
+$ printf '  apple   banana cherry\n\t\tdragon unicorn   \n' | xargs -L1
+apple banana cherry
+dragon unicorn
+</code></pre><blockquote><p><img src=./images/info.svg alt=info> Note that <code>xargs -L1</code> is not the same as <code>awk '{$1=$1} 1'</code> since <code>xargs</code> will discard blank lines. Also, trailing blank characters will cause the next line to be considered as part of the current line. For example:<pre><code class=language-bash># no trailing blanks
+$ printf 'xerox apple\nregex   go  sea\n' | xargs -L1
+xerox apple
+regex go sea
+
+# with trailing blanks
+$ printf 'xerox apple  \nregex   go  sea\n' | xargs -L1
+xerox apple regex go sea
+</code></pre></blockquote><p>Use <code>-d</code> option to change the input delimiter from whitespace to some other single character. For example:<pre><code class=language-bash>$ printf '1,2,3,4,5,6' | xargs -d, -n3
+1 2 3
+4 5 6
+</code></pre><h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><blockquote><p><img src=./images/info.svg alt=info> Use <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files>example_files/text_files</a> directory for input files used in the following exercises.</blockquote><p><strong>1)</strong> Generate the following sequence.<pre><code class=language-bash># ???
 100
 95
 90
@@ -554,6 +594,16 @@ Name,Ith,Cy,Lin
 Maths,100,97,78
 Physics,100,98,83
 Chemistry,100,95,80
+</code></pre><p><strong>22)</strong> Reshape the contents of <code>table.txt</code> to the expected output shown below.<pre><code class=language-bash>$ cat table.txt
+brown bread mat hair 42
+blue cake mug shirt -7
+yellow banana window shoes 3.14
+
+# ???
+brown   bread  mat     hair
+42      blue   cake    mug
+shirt   -7     yellow  banana
+window  shoes  3.14
 </code></pre></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=comparing-files.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=shell-scripting.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=comparing-files.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=shell-scripting.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
             window.playground_copyable = true;
         </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>
