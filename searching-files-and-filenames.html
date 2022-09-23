@@ -139,7 +139,7 @@ alias c=clear
 $ grep -rl 'clear'
 .hidden
 backups/dot_files/.bash_aliases
-</code></pre><p>You can further prune the files to be searched using the <em>include/exclude</em> options. Note that these options will work even if recursive search is not active.<table><thead><tr><th>Option<th>Description<tbody><tr><td>--include=GLOB<td>search only files that match GLOB<tr><td>--exclude=GLOB<td>skip files that match GLOB<tr><td>--exclude-from=FILE<td>skip files that match any file pattern from FILE<tr><td>--exclude-dir=GLOB<td>skip directories that match GLOB</table><pre><code class=language-bash># default recursive search
+</code></pre><p>You can further prune the files to be searched using the <em>include/exclude</em> options. Note that these options will work even if recursive search is not active.<div class=table-wrapper><table><thead><tr><th>Option<th>Description<tbody><tr><td>--include=GLOB<td>search only files that match GLOB<tr><td>--exclude=GLOB<td>skip files that match GLOB<tr><td>--exclude-from=FILE<td>skip files that match any file pattern from FILE<tr><td>--exclude-dir=GLOB<td>skip directories that match GLOB</table></div><pre><code class=language-bash># default recursive search
 $ grep -r 'Hello'
 projects/python/hello.py:print("Hello, Python!")
 projects/shell/hello.sh:echo "Hello, Bash!"
@@ -337,7 +337,7 @@ $ find -type f -size +9k -exec wc -c {} +
 1234567 ./report.log
   54321 ./errors.log
 1288888 total
-</code></pre><p>As mentioned in an earlier chapter, the <code>-t</code> option for <code>cp</code> and <code>mv</code> commands will help you specify the target directory before the source files. Here's an example:<pre><code class=language-bash>$ mkdir rc_files
+</code></pre><p>As mentioned in <a href=./managing-files-directories.html>Managing Files and Directories</a> chapter, the <code>-t</code> option for <code>cp</code> and <code>mv</code> commands will help you specify the target directory before the source files. Here's an example:<pre><code class=language-bash>$ mkdir rc_files
 $ find backups/dot_files -type f -exec cp -t rc_files {} +
 
 $ find rc_files -type f
@@ -375,7 +375,7 @@ $ find -type f -name '*.log'
 $ find -type f -not -path './backups/*' -prune -name '*.log'
 ./report.log
 ./errors.log
-</code></pre><p>Using <code>-not -path '*/.git/*' -prune</code> is a common practice when dealing with Git based version control projects.<h3 id=find-and-xargs><a class=header href=#find-and-xargs>find and xargs</a></h3><p>Similar to <code>grep -Z</code> and <code>xargs -0</code> combination seen earlier, you can use <code>find -print0</code> and <code>xargs -0</code> combination. The <code>-exec</code> option is sufficient for most use cases, but <code>xargs -P</code> (or the <a href=https://www.gnu.org/software/parallel/>parallel</a> command) can be handy if you need parallel execution for performance reasons.<p>Here's an example of passing filtered files to <code>sed</code> (<strong>s</strong>tream <strong>ed</strong>itor, will be discussed in a later chapter):<pre><code class=language-bash>$ find -name '*.log'
+</code></pre><p>Using <code>-not -path '*/.git/*' -prune</code> is a common practice when dealing with Git based version control projects.<h3 id=find-and-xargs><a class=header href=#find-and-xargs>find and xargs</a></h3><p>Similar to <code>grep -Z</code> and <code>xargs -0</code> combination seen earlier, you can use <code>find -print0</code> and <code>xargs -0</code> combination. The <code>-exec</code> option is sufficient for most use cases, but <code>xargs -P</code> (or the <a href=https://www.gnu.org/software/parallel/>parallel</a> command) can be handy if you need parallel execution for performance reasons.<p>Here's an example of passing filtered files to <code>sed</code> (<strong>s</strong>tream <strong>ed</strong>itor, will be discussed in <a href=./multipurpose-text-processing-tools.html>Multipurpose Text Processing Tools</a> chapter):<pre><code class=language-bash>$ find -name '*.log'
 ./report.log
 ./backups/aug.log
 ./backups/jan.log
