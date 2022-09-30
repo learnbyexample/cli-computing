@@ -48,7 +48,7 @@ $ wc -wc greeting.txt
  6 25 greeting.txt
 </code></pre><p>Filename won't be printed for stdin data. This is helpful to save the results in a variable for scripting purposes.<pre><code class=language-bash>$ wc -l &LTgreeting.txt
 2
-</code></pre><p>Word count is based on whitespace separation. You'll have to pre-process the input if you do not want certain non-whitespace characters to influence the results. <code>tr</code> can be used to remove a particular set of characters (this command will be discussed in <a href=/assorted-text-processing-tools.html>Assorted Text Processing Tools</a> chapter).<pre><code class=language-bash>$ echo 'apple ; banana ; cherry' | wc -w
+</code></pre><p>Word count is based on whitespace separation. You'll have to pre-process the input if you do not want certain non-whitespace characters to influence the results. <code>tr</code> can be used to remove a particular set of characters (this command will be discussed in the <a href=/assorted-text-processing-tools.html>Assorted Text Processing Tools</a> chapter).<pre><code class=language-bash>$ echo 'apple ; banana ; cherry' | wc -w
 5
 
 # remove characters other than alphabets and whitespace
@@ -180,7 +180,7 @@ $ stat -c '%y' hi.sh
 $ touch -m -d '2000-01-01 00:00:01' hi.sh
 $ stat -c '%y' hi.sh
 2000-01-01 00:00:01.000000000 +0530
-</code></pre><p>As seen in <a href=./managing-files-directories.html>Managing Files and Directories</a> chapter, <code>touch</code> creates a new file if the target file doesn't exist yet. You can use the <code>-c</code> option to prevent this behavior.<pre><code class=language-bash>$ ls report.txt
+</code></pre><p>As seen in the <a href=./managing-files-directories.html>Managing Files and Directories</a> chapter, <code>touch</code> creates a new file if the target file doesn't exist yet. You can use the <code>-c</code> option to prevent this behavior.<pre><code class=language-bash>$ ls report.txt
 ls: cannot access 'report.txt': No such file or directory
 $ touch report.txt
 $ ls report.txt
@@ -344,38 +344,38 @@ $ source du.sh
 7.7M    report.log
 8.2k    todos
 7.8M    total
-</code></pre><p><strong>8)</strong> When will you use the <code>df</code> command instead of <code>du</code>? Which <code>df</code> command option will help you to report only specific fields of interest?<p><strong>9)</strong> Display the size of <code>scores.csv</code> and <code>timings.txt</code> files in the format shown below.<pre><code class=language-bash>$ stat # ???
+</code></pre><p><strong>8)</strong> What does the <code>du --apparent-size</code> option do?<p><strong>9)</strong> When will you use the <code>df</code> command instead of <code>du</code>? Which <code>df</code> command option will help you to report only specific fields of interest?<p><strong>10)</strong> Display the size of <code>scores.csv</code> and <code>timings.txt</code> files in the format shown below.<pre><code class=language-bash>$ stat # ???
 scores.csv: 70
 timings.txt: 49
-</code></pre><p><strong>10)</strong> Which <code>touch</code> option will help you prevent file creation if it doesn't exist yet?<p><strong>11)</strong> Assume <code>new_file.txt</code> doesn't exist in the current working directory. What would be the output of the <code>stat</code> command shown below?<pre><code class=language-bash>$ touch -t '202010052010.05' new_file.txt
+</code></pre><p><strong>11)</strong> Which <code>touch</code> option will help you prevent file creation if it doesn't exist yet?<p><strong>12)</strong> Assume <code>new_file.txt</code> doesn't exist in the current working directory. What would be the output of the <code>stat</code> command shown below?<pre><code class=language-bash>$ touch -t '202010052010.05' new_file.txt
 $ stat -c '%y' new_file.txt
 # ???
-</code></pre><p><strong>12)</strong> Is the following <code>touch</code> command valid? If so, what would be the output of the <code>stat</code> command that follows?<pre><code class=language-bash># change to the 'scripts' directory and source the 'touch.sh' script
+</code></pre><p><strong>13)</strong> Is the following <code>touch</code> command valid? If so, what would be the output of the <code>stat</code> command that follows?<pre><code class=language-bash># change to the 'scripts' directory and source the 'touch.sh' script
 $ source touch.sh
 
 $ touch -r fruits.txt f{1..3}.txt
 $ stat -c '%n: %y' f*.txt
 # ???
-</code></pre><p><strong>13)</strong> Use appropriate option(s) to get the output shown below.<pre><code class=language-bash>$ printf 'αλεπού\n' | file -
+</code></pre><p><strong>14)</strong> Use appropriate option(s) to get the output shown below.<pre><code class=language-bash>$ printf 'αλεπού\n' | file -
 /dev/stdin: UTF-8 Unicode text
 
 $ printf 'αλεπού\n' | file # ???
 UTF-8 Unicode text
-</code></pre><p><strong>14)</strong> Is the following command valid? If so, what would be the output?<pre><code class=language-bash>$ basename -s.txt ~///test.txt///
+</code></pre><p><strong>15)</strong> Is the following command valid? If so, what would be the output?<pre><code class=language-bash>$ basename -s.txt ~///test.txt///
 # ???
-</code></pre><p><strong>15)</strong> Given the file path in the shell variable <code>p</code>, how'd you obtain the output shown below?<pre><code class=language-bash>$ p='~/projects/square_tictactoe/python/game.py'
+</code></pre><p><strong>16)</strong> Given the file path in the shell variable <code>p</code>, how'd you obtain the output shown below?<pre><code class=language-bash>$ p='~/projects/square_tictactoe/python/game.py'
 $ dirname # ???
 ~/projects/square_tictactoe
-</code></pre><p><strong>16)</strong> Explain what each of the characters mean in the following output.<pre><code class=language-bash>$ stat -c '%A' ../scripts/
+</code></pre><p><strong>17)</strong> Explain what each of the characters mean in the following output.<pre><code class=language-bash>$ stat -c '%A' ../scripts/
 drwxrwxr-x
-</code></pre><p><strong>17)</strong> What would be the output of the second <code>stat</code> command shown below?<pre><code class=language-bash>$ touch new_file.txt
+</code></pre><p><strong>18)</strong> What would be the output of the second <code>stat</code> command shown below?<pre><code class=language-bash>$ touch new_file.txt
 $ stat -c '%a %A' new_file.txt
 664 -rw-rw-r--
 
 $ chmod 546 new_file.txt
 $ stat -c '%a %A' new_file.txt
 # ???
-</code></pre><p><strong>18)</strong> How would you specify directory permissions using the <code>mkdir</code> command?<pre><code class=language-bash># instead of this
+</code></pre><p><strong>19)</strong> How would you specify directory permissions using the <code>mkdir</code> command?<pre><code class=language-bash># instead of this
 $ mkdir back_up
 $ chmod 750 back_up
 $ stat -c '%a %A' back_up
@@ -386,14 +386,14 @@ $ rm -r back_up
 $ mkdir # ???
 $ stat -c '%a %A' back_up
 750 drwxr-x---
-</code></pre><p><strong>19)</strong> Change the file permission of <code>book_list.txt</code> to match the output of the second <code>stat</code> command shown below. Don't use the number <code>220</code>, specify the changes in terms of <code>rwx</code> characters.<pre><code class=language-bash>$ touch book_list.txt
+</code></pre><p><strong>20)</strong> Change the file permission of <code>book_list.txt</code> to match the output of the second <code>stat</code> command shown below. Don't use the number <code>220</code>, specify the changes in terms of <code>rwx</code> characters.<pre><code class=language-bash>$ touch book_list.txt
 $ stat -c '%a %A' book_list.txt
 664 -rw-rw-r--
 
 # ???
 $ stat -c '%a %A' book_list.txt
 220 --w--w----
-</code></pre><p><strong>20)</strong> Change the permissions of <code>test_dir</code> to match the output of the second <code>stat</code> command shown below. Don't use the number <code>757</code>, specify the changes in terms of <code>rwx</code> characters.<pre><code class=language-bash>$ mkdir test_dir
+</code></pre><p><strong>21)</strong> Change the permissions of <code>test_dir</code> to match the output of the second <code>stat</code> command shown below. Don't use the number <code>757</code>, specify the changes in terms of <code>rwx</code> characters.<pre><code class=language-bash>$ mkdir test_dir
 $ stat -c '%a %A' test_dir
 775 drwxrwxr-x
 

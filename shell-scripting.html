@@ -33,7 +33,7 @@
 echo "Hello $USER"
 echo "Today is $(date -u +%A)"
 echo 'Have a nice day'
-</code></pre><p>The first line in the above script has two parts:<ul><li><code>/bin/bash</code> is the path of <code>bash</code> interpreter <ul><li>you can use <code>type bash</code> to get the path on your system</ul><li><code>#!</code> is known as <a href=https://en.wikipedia.org/wiki/Shebang_(Unix)>shebang or hashbang</a> which directs the program loader to use the interpreter path provided <ul><li>see also <a href=https://stackoverflow.com/q/21612980>stackoverflow: comparison between #!/usr/bin/env and #!/bin/bash?</a><li>the <code>#</code> character starts a comment, <code>#!</code> is only special at the start of the script</ul></ul><p>Use <code>chmod</code> to add executable permission to the file and then run the script:<pre><code class=language-bash>$ chmod +x hello.sh
+</code></pre><p>The first line in the above script has two parts:<ul><li><code>/bin/bash</code> is the path of <code>bash</code> interpreter <ul><li>you can use <code>type bash</code> to get the path on your system</ul><li><code>#!</code> is known as <a href=https://en.wikipedia.org/wiki/Shebang_(Unix)>shebang or hashbang</a> which directs the program loader to use the interpreter path provided <ul><li>see also <a href=https://stackoverflow.com/q/21612980/4082052>stackoverflow: comparison between #!/usr/bin/env and #!/bin/bash?</a><li>the <code>#</code> character starts a comment, <code>#!</code> is only special at the start of the script</ul></ul><p>Use <code>chmod</code> to add executable permission to the file and then run the script:<pre><code class=language-bash>$ chmod +x hello.sh
 
 $ ./hello_world.sh 
 Hello learnbyexample
