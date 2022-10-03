@@ -75,11 +75,11 @@ $ echo 'apple banana' > "$f"
 $ cat "$f"
 apple banana
 $ rm "$f"
-</code></pre><blockquote><p><img alt=info src=./images/info.svg> See also <a href=https://unix.stackexchange.com/q/131766/109046>unix.stackexchange: Why does my shell script choke on whitespace or other special characters?</a>.</blockquote><p><strong>ANSI-C Quoting</strong><blockquote><p>Words of the form <code>$'string'</code> are treated specially. The word expands to string, with backslash-escaped characters replaced as specified by the ANSI C standard.</blockquote><p>This form of quoting helps you use escape sequences like <code>\t</code> for tab, <code>\n</code> for newline and so on. You can also represent characters using their codepoint values in octal and hexademical formats.<pre><code class=language-bash># can also use echo -e 'fig:\t42' or printf 'fig:\t42\n'
+</code></pre><blockquote><p><img alt=info src=./images/info.svg> See also <a href=https://unix.stackexchange.com/q/131766/109046>unix.stackexchange: Why does my shell script choke on whitespace or other special characters?</a>.</blockquote><p><strong>ANSI-C Quoting</strong><blockquote><p>Words of the form <code>$'string'</code> are treated specially. The word expands to string, with backslash-escaped characters replaced as specified by the ANSI C standard.</blockquote><p>This form of quoting helps you use escape sequences like <code>\t</code> for tab, <code>\n</code> for newline and so on. You can also represent characters using their codepoint values in octal and hexadecimal formats.<pre><code class=language-bash># can also use echo -e 'fig:\t42' or printf 'fig:\t42\n'
 $ echo $'fig:\t42'
 fig:    42
 
-# \x27 represents single quote character in hexademical format
+# \x27 represents single quote character in hexadecimal format
 $ echo $'$fruits = \x27apple and banana\x27'
 $fruits = 'apple and banana'
 
