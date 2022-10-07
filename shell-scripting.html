@@ -139,12 +139,17 @@ ow
 </code></pre><p>Substring extraction using <code>${parameter:offset:length}</code> syntax to get specific number of characters from the given index:<pre><code class=language-bash>$ city='Lucknow'
 
 # 4 characters starting from index 0
+# can also use: echo "${city::4}"
 $ echo "${city:0:4}"
 Luck
 
 # 2 characters starting from index -4 (4th character from the end)
 $ echo "${city: -4:2}"
 kn
+
+# except last 2 characters
+$ echo "${city::-2}"
+Luckn
 </code></pre><p>When applied to arrays, substring extraction will give you those elements:<pre><code class=language-bash>$ fruits=('apple' 'fig' 'mango')
 
 # all elements from index 1
