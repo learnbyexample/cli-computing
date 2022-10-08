@@ -28,20 +28,21 @@
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
                         link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
-                    });</script><div class=content id=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=shell-features><a class=header href=#shell-features>Shell Features</a></h1><p>This chapter will help you familiarize with some of the Bash shell features like quoting mechanisms, wildcards, redirections, command grouping, process substitution, command substitution, etc. Others will be discussed in later chapters.<blockquote><p><img alt=info src=./images/info.svg> The <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files>example_files</a> directory has the scripts and sample input files used in this chapter.</blockquote><blockquote><p><img alt=info src=./images/info.svg> Some of the examples in this chapter use commands that will be discussed in later chapters. Description of what such commands do have been added here and you'll also see more examples in the rest of the chapters.</blockquote><h2 id=quoting-mechanisms><a class=header href=#quoting-mechanisms>Quoting mechanisms</a></h2><p>This section will quote (<em>heh</em>) the relevant definitions from the <a href=https://www.gnu.org/software/bash/manual/bash.html#Quoting>bash manual</a> and show some examples for each of the four mechanisms.<p><strong>Escape Character</strong><blockquote><p>A non-quoted backslash <code>\</code> is the Bash escape character. It preserves the literal value of the next character that follows, with the exception of newline.<p><strong>metacharacter</strong>: A character that, when unquoted, separates words. A metacharacter is a space, tab, newline, or one of the following characters: <code>|</code>, <code>&</code>, <code>;</code>, <code>(</code>, <code>)</code>, <code><</code>, or <code>></code>.</blockquote><pre><code class=language-bash># error because ';' is a shell metacharacter
-$ echo apple;cherry
+                    });</script><div class=content id=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=shell-features><a class=header href=#shell-features>Shell Features</a></h1><p>This chapter focuses on Bash shell features like quoting mechanisms, wildcards, redirections, command grouping, process substitution, command substitution, etc. Others will be discussed in later chapters.<blockquote><p><img alt=info src=./images/info.svg> The <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files>example_files</a> directory has the scripts and sample input files used in this chapter.</blockquote><blockquote><p><img alt=info src=./images/info.svg> Some of the examples in this chapter use commands that will be discussed in later chapters. Basic description of what such commands do have been added here and you'll also see more examples in the rest of the chapters.</blockquote><h2 id=quoting-mechanisms><a class=header href=#quoting-mechanisms>Quoting mechanisms</a></h2><p>This section will quote (<em>heh</em>) the relevant definitions from the <a href=https://www.gnu.org/software/bash/manual/bash.html#Quoting>bash manual</a> and provide some examples for each of the four mechanisms.<p><strong>Escape Character</strong><blockquote><p>A non-quoted backslash <code>\</code> is the Bash escape character. It preserves the literal value of the next character that follows, with the exception of newline.<p><strong>metacharacter</strong>: A character that, when unquoted, separates words. A metacharacter is a space, tab, newline, or one of the following characters: <code>|</code>, <code>&</code>, <code>;</code>, <code>(</code>, <code>)</code>, <code><</code>, or <code>></code>.</blockquote><p>Here's an example where unquoted shell metacharacter causes an error:<pre><code class=language-bash>$ echo apple;cherry
 apple
 cherry: command not found
-# using '\;' means you want to use ';' as an ordinary character
+
+# using '\;' helps you use ';' as an ordinary character
 $ echo apple\;cherry
 apple;cherry
-
-# this will create two files named 'new' and 'file.txt'
+</code></pre><p>And here's an example where the subtler issue might not be apparent at first glance:<pre><code class=language-bash># this will create two files named 'new' and 'file.txt'
+# aim was to create a single file named 'new file.txt'
 $ touch new file.txt
 $ ls new*txt
 ls: cannot access 'new*txt': No such file or directory
-$ rm new file.txt
-# this will create a single file named 'new file.txt'
+$ rm file.txt new
+
+# escaping the space will create a single file named 'new file.txt'
 $ touch new\ file.txt
 $ ls new*txt
 'new file.txt'
@@ -49,19 +50,19 @@ $ rm new\ file.txt
 </code></pre><p><strong>Single Quotes</strong><blockquote><p>Enclosing characters in single quotes (<code>'</code>) preserves the literal value of each character within the quotes. A single quote may not occur between single quotes, even when preceded by a backslash.</blockquote><p>No character is special within single quoted strings. Here's an example:<pre><code class=language-bash>$ echo 'apple;cherry'
 apple;cherry
 </code></pre><p>You can place strings represented by different quoting mechanisms next to each other to concatenate them together. Here's an example:<pre><code class=language-bash># concatenation of four strings
-# 1: '$fruits = '
+# 1: '@fruits = '
 # 2: \'
 # 3: 'apple and banana'
 # 4: \'
-$ echo '$fruits = '\''apple and banana'\'
-$fruits = 'apple and banana'
+$ echo '@fruits = '\''apple and banana'\'
+@fruits = 'apple and banana'
 </code></pre><p><strong>Double Quotes</strong><blockquote><p>Enclosing characters in double quotes (<code>"</code>) preserves the literal value of all characters within the quotes, with the exception of <code>$</code>, <code>`</code>, <code>\</code>, and, when history expansion is enabled, <code>!</code>.</blockquote><p>Here's an example showing variable interpolation within double quotes:<pre><code class=language-bash>$ qty='5'
 
 # as seen earlier, no character is special within single quotes
 $ echo 'I bought $qty apples'
 I bought $qty apples
 
-# one use of double quotes is to enable variable interpolation
+# a typical use of double quotes is to enable variable interpolation
 $ echo "I bought $qty apples"
 I bought 5 apples
 </code></pre><p>Unless you specifically want the shell to interpret the contents of a variable, you should always quote the variable to avoid issues due to the presence of shell metacharacters.<pre><code class=language-bash>$ f='new file.txt'
@@ -80,8 +81,8 @@ $ echo $'fig:\t42'
 fig:    42
 
 # \x27 represents single quote character in hexadecimal format
-$ echo $'$fruits = \x27apple and banana\x27'
-$fruits = 'apple and banana'
+$ echo $'@fruits = \x27apple and banana\x27'
+@fruits = 'apple and banana'
 
 # 'grep' helps you to filter lines based on the given pattern
 # but it doesn't recognize escapes like '\t' for tab characters
@@ -90,7 +91,7 @@ $ printf 'fig\t42\napple 100\nball\t20\n' | grep '\t'
 $ printf 'fig\t42\napple 100\nball\t20\n' | grep $'\t'
 fig     42
 ball    20
-</code></pre><p><code>printf</code> is a shell builtin which you can use to format arguments (similar to <code>C</code> programming language <code>printf()</code> function). This command will be used in many more examples to come.<blockquote><p><img alt=info src=./images/info.svg> See <a href=https://www.gnu.org/software/bash/manual/bash.html#ANSI_002dC-Quoting>bash manual: ANSI-C Quoting</a> for complete list of supported escape sequences. See <code>man ascii</code> for a table of ASCII characters and their numerical representations.</blockquote><h2 id=wildcards><a class=header href=#wildcards>Wildcards</a></h2><p>It is relatively easy to specify complete filenames as command arguments when they are few in number. And you could use features like tab completion and middle mouse button click to assist you for such cases.<p>But what to do if you have to deal with tens and hundreds of files (or even more)? If applicable, one way is to match all the files based on a common pattern in their filenames, for example extensions like <code>.py</code>, <code>.txt</code> and so on. Wildcards (globs) will help in such cases. This feature is provided by the shell, and thus individual commands need not worry about implementing them. Pattern matching supported by wildcards are somewhat similar to regular expressions, but there are fundamental and syntactical differences too.<p>Some of the commonly used wildcards are listed below:<ul><li><code>*</code> match any character, zero or more times <ul><li>as a special case, <code>*</code> won't match the starting <code>.</code> of hidden files unless the <code>dotglob</code> shell option is set</ul><li><code>?</code> match any character exactly once<li><code>[set]</code> match any of these characters once<li><code>[^set]</code> match any characters <em>except</em> the given set of characters <ul><li>you can also use <code>[!set]</code> to negate the character class</ul><li><code>[a-z]</code> match a range of characters from <code>a</code> to <code>z</code><li><code>[0-9a-fA-F]</code> match any hexademical character</ul><p>And here are some examples:<pre><code class=language-bash># change to the 'scripts' directory and source the 'globs.sh' script
+</code></pre><p><code>printf</code> is a shell builtin which you can use to format arguments (similar to <code>C</code> programming language <code>printf()</code> function). This command will be used in many more examples to come.<blockquote><p><img alt=info src=./images/info.svg> See <a href=https://www.gnu.org/software/bash/manual/bash.html#ANSI_002dC-Quoting>bash manual: ANSI-C Quoting</a> for complete list of supported escape sequences. See <code>man ascii</code> for a table of ASCII characters and their numerical representations.</blockquote><h2 id=wildcards><a class=header href=#wildcards>Wildcards</a></h2><p>It is relatively easy to specify complete filenames as command arguments when they are few in number. And you could use features like tab completion and middle mouse button click (pastes the last highlighted text) to assist in such cases.<p>But what to do if you have to deal with tens and hundreds of files (or even more)? If applicable, one way is to match all the files based on a common pattern in their filenames, for example extensions like <code>.py</code>, <code>.txt</code> and so on. Wildcards (globs) will help in such cases. This feature is provided by the shell, and thus individual commands need not worry about implementing them. Pattern matching supported by wildcards are somewhat similar to regular expressions, but there are fundamental and syntactical differences between them.<p>Some of the commonly used wildcards are listed below:<ul><li><code>*</code> match any character, zero or more times <ul><li>as a special case, <code>*</code> won't match the starting <code>.</code> of hidden files unless the <code>dotglob</code> shell option is set</ul><li><code>?</code> match any character exactly once<li><code>[set]</code> match any of these characters once<li><code>[^set]</code> match any characters <em>except</em> the given set of characters <ul><li>you can also use <code>[!set]</code> to negate the character class</ul><li><code>[a-z]</code> match a range of characters from <code>a</code> to <code>z</code><li><code>[0-9a-fA-F]</code> match any hexademical character</ul><p>And here are some examples:<pre><code class=language-bash># change to the 'scripts' directory and source the 'globs.sh' script
 $ source globs.sh
 $ ls
 100.sh   f1.txt      f4.txt    hi.sh   math.h         report-02.log
@@ -117,14 +118,14 @@ f2_old.txt  hello.py  notes.txt
 $ ls *.??
 100.sh  calc.py  hello.py  hi.sh
 
-# ending with '.txt' but not starting with 'f'
+# shouldn't start with 'f' and ends with '.txt'
 $ ls [^f]*.txt
 42.txt  ip.txt  notes.txt
 
 # containing digits '1' to '5' and ending with 'log'
 $ ls *[1-5]*log
 report-02.log  report-04.log
-</code></pre><p>Since some characters are special inside the character class, you need to arrange them differently to treat them as ordinary characters:<ul><li><code>-</code> should be the first or the last character in the set<li><code>^</code> should be other than the first character<li><code>]</code> should be the first character</ul><pre><code class=language-bash>$ ls *[ns-]*
+</code></pre><p>Since some characters are special inside the character class, you need special placement to treat them as ordinary characters:<ul><li><code>-</code> should be the first or the last character in the set<li><code>^</code> should be other than the first character<li><code>]</code> should be the first character</ul><pre><code class=language-bash>$ ls *[ns-]*
 100.sh  main.c     report-00.log  report-04.log
 hi.sh   notes.txt  report-02.log  report-98.log
 
@@ -144,7 +145,7 @@ $ ls [[:digit:]c]*
 # starting with a non-alphabet character
 $ ls [^[:alpha:]]*
 100.sh  42.txt
-</code></pre><blockquote><p><img alt=info src=images/info.svg> You can use <code>echo</code> to test how the wildcards will expand before using a command to act upon the matching files. For example, <code>echo *.txt</code> before using commands like <code>rm *.txt</code>. One difference compared to <code>ls</code> is that <code>echo</code> will display the wildcard as is instead of showing an error if there's no match.</blockquote><blockquote><p><img alt=info src=./images/info.svg> See <a href=https://www.gnu.org/software/bash/manual/bash.html#Pattern-Matching>bash manual: Pattern Matching</a> for more details, information on locale stuff and so on.</blockquote><h2 id=brace-expansion><a class=header href=#brace-expansion>Brace Expansion</a></h2><p>This is not a wildcard feature, you just get expanded strings. Brace expansion has two mechanisms for reducing typing:<ul><li>taking out common portions among multiple strings<li>generating a range of characters</ul><p>Say you want to create two files named <code>test_x.txt</code> and <code>test_y.txt</code>. These two strings have something in common at the start and the end. You can specify the unique portions as comma separated strings within a pair of curly braces and use the common parts around the braces. Multiple braces can be used as needed. Use <code>echo</code> for testing purposes.<pre><code class=language-bash>$ mkdir practice_brace
+</code></pre><blockquote><p><img alt=info src=images/info.svg> As mentioned before, you can use <code>echo</code> to test how the wildcards will expand before using a command to act upon the matching files. For example, <code>echo *.txt</code> before using commands like <code>rm *.txt</code>. One difference compared to <code>ls</code> is that <code>echo</code> will display the wildcard as is instead of showing an error if there's no match.</blockquote><blockquote><p><img alt=info src=./images/info.svg> See <a href=https://www.gnu.org/software/bash/manual/bash.html#Pattern-Matching>bash manual: Pattern Matching</a> for more details, information on locale stuff and so on.</blockquote><h2 id=brace-expansion><a class=header href=#brace-expansion>Brace Expansion</a></h2><p>This is not a wildcard feature, you just get expanded strings. Brace expansion has two mechanisms for reducing typing:<ul><li>taking out common portions among multiple strings<li>generating a range of characters</ul><p>Say you want to create two files named <code>test_x.txt</code> and <code>test_y.txt</code>. These two strings have something in common at the start and the end. You can specify the unique portions as comma separated strings within a pair of curly braces and use the common parts around the braces. Multiple braces can be used as needed. Use <code>echo</code> for testing purposes.<pre><code class=language-bash>$ mkdir practice_brace
 $ cd practice_brace
 
 # same as: touch ip1.txt ip3.txt ip7.txt

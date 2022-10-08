@@ -129,7 +129,7 @@ drwxrwxr-x 4 learnbyexample    4096 Mar  5 11:21 projects
 -rw-rw-r-- 1 learnbyexample 7654321 Jan  1 01:01 report.log
 lrwxrwxrwx 1 learnbyexample      13 May  7 15:17 scripts -> ../../scripts
 drwxrwxr-x 2 learnbyexample    4096 Apr  6 13:19 todos
-</code></pre><p>Use the <code>-h</code> option to show file sizes in human readable format (default is byte count).<pre><code class=language-bash>$ ls -lG report.log
+</code></pre><blockquote><p><img alt=info src=./images/info.svg> <img alt=warning src=./images/warning.svg> Note that the timestamps showing hours and minutes instead of year depends on the relative difference with respect to the current time. So, for example, you might get <code>Feb  4  2022</code> instead of <code>Feb  4 09:23</code>.</blockquote><p>Use the <code>-h</code> option to show file sizes in human readable format (default is byte count).<pre><code class=language-bash>$ ls -lG report.log
 -rw-rw-r-- 1 learnbyexample 7654321 Jan  1 01:01 report.log
 
 $ ls -lhG report.log
@@ -580,39 +580,51 @@ $ tree
 
 $ cd ..
 $ rm -r test_extract
-</code></pre><p><code>tar</code> has lots and lots of options for various needs. Some are listed below, see documentation for complete details.<ul><li><code>-v</code> verbose option<li><code>-r</code> to append files to an existing archive<li><code>--exclude=</code> specify files to be ignored from archiving</ul><p>There are also commands starting with <code>z</code> to work with compressed files, for example:<ul><li><code>zcat</code> to display file contents of a compressed file<li><code>zless</code> to display file contents of a compressed file one screenful at a time<li><code>zgrep</code> to search compressed files</ul><blockquote><p><img alt=info src=images/info.svg> If you need to work with <code>.zip</code> files, use <code>zip</code> and <code>unzip</code> commands.</blockquote><p><strong>Further Reading</strong><ul><li><a href=https://unix.stackexchange.com/q/178127/109046>unix.stackexchange: tar files with a sorted order</a><li><a href=https://superuser.com/questions/252065/gzip-without-tar-why-are-they-used-together>superuser: gzip without tar? Why are they used together?</a></ul><h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><p><strong>1)</strong> Which of these commands will always display the absolute path of the home directory?<p><em>a)</em> <code>pwd</code><br> <em>b)</em> <code>echo "$PWD"</code><br> <em>c)</em> <code>echo "$HOME"</code><p><strong>2)</strong> The current working directory has a folder named <code>-dash</code>. How would you switch to that directory?<p><em>a)</em> <code>cd -- -dash</code><br> <em>b)</em> <code>cd -dash</code><br> <em>c)</em> <code>cd ./-dash</code><br> <em>d)</em> <code>cd \-dash</code><br> <em>e)</em> <code>cd '-dash'</code><br> <em>f)</em> all of the above<br> <em>g)</em> only <em>a)</em> and <em>c)</em><p><strong>3)</strong> Given the directory structure as shown below, how would you change to the <code>learning</code> directory?<pre><code class=language-bash>$ pwd
-/home/learnbyexample/all
-$ ls -1F
-colors.txt
-learning/
-notes.txt
-projects/
-reports/
+</code></pre><p><code>tar</code> has lots and lots of options for various needs. Some are listed below, see documentation for complete details.<ul><li><code>-v</code> verbose option<li><code>-r</code> to append files to an existing archive<li><code>--exclude=</code> specify files to be ignored from archiving</ul><p>There are also commands starting with <code>z</code> to work with compressed files, for example:<ul><li><code>zcat</code> to display file contents of a compressed file<li><code>zless</code> to display file contents of a compressed file one screenful at a time<li><code>zgrep</code> to search compressed files</ul><blockquote><p><img alt=info src=images/info.svg> If you need to work with <code>.zip</code> files, use <code>zip</code> and <code>unzip</code> commands.</blockquote><p><strong>Further Reading</strong><ul><li><a href=https://unix.stackexchange.com/q/178127/109046>unix.stackexchange: tar files with a sorted order</a><li><a href=https://superuser.com/questions/252065/gzip-without-tar-why-are-they-used-together>superuser: gzip without tar? Why are they used together?</a></ul><h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><blockquote><p><img alt=info src=./images/info.svg> The <code>ls.sh</code> script will be used for some of the exercises.</blockquote><p><strong>1)</strong> Which of these commands will always display the absolute path of the home directory?<p><em>a)</em> <code>pwd</code><br> <em>b)</em> <code>echo "$PWD"</code><br> <em>c)</em> <code>echo "$HOME"</code><p><strong>2)</strong> The current working directory has a folder named <code>-dash</code>. How would you switch to that directory?<p><em>a)</em> <code>cd -- -dash</code><br> <em>b)</em> <code>cd -dash</code><br> <em>c)</em> <code>cd ./-dash</code><br> <em>d)</em> <code>cd \-dash</code><br> <em>e)</em> <code>cd '-dash'</code><br> <em>f)</em> all of the above<br> <em>g)</em> only <em>a)</em> and <em>c)</em><p><strong>3)</strong> Given the directory structure as shown below, how would you change to the <code>todos</code> directory?<pre><code class=language-bash># change to the 'scripts' directory and source the 'ls.sh' script
+$ source ls.sh
 
+$ ls -F
+backups/    hello_world.py*  ip.txt     report.log  todos/
+errors.log  hi*              projects/  scripts@
 $ cd projects
 $ pwd
-/home/learnbyexample/all/projects
+/home/learnbyexample/cli-computing/example_files/scripts/ls_examples/projects
 
 # ???
 $ pwd
-/home/learnbyexample/all/learning
-</code></pre><p><strong>4)</strong> As per the scenario shown below, how would you change to the <code>cli-computing</code> directory under the user's home directory?<pre><code class=language-bash>$ pwd
+/home/learnbyexample/cli-computing/example_files/scripts/ls_examples/todos
+</code></pre><p><strong>4)</strong> As per the scenario shown below, how would you change to the <code>cli-computing</code> directory under the user's home directory? And then, how would you go back to the previous working directory?<pre><code class=language-bash>$ pwd
 /home/learnbyexample/all/projects/square_tictactoe
 
 # ???
 $ pwd
 /home/learnbyexample/cli-computing
-</code></pre><p><strong>5)</strong> How'd you list the contents of the current directory, one per line, along with size of the entries in human readable format?<p><strong>6)</strong> Which <code>ls</code> command option would you use for version based sorting of entries?<p><strong>7)</strong> Which <code>ls</code> command option would you use for sorting based on entry size?<p><strong>8)</strong> Which <code>ls</code> command option would you use for sorting based on file extension?<p><strong>9)</strong> What does the <code>-G</code> option of <code>ls</code> command do?<p><strong>10)</strong> What does the <code>-i</code> option of <code>ls</code> command do?<p><strong>11)</strong> List only the directories as one entry per line.<pre><code class=language-bash>$ ls -1F
-colors.txt
-learning/
-notes.txt
-projects/
-reports/
 
 # ???
-learning/
+$ pwd
+/home/learnbyexample/all/projects/square_tictactoe
+</code></pre><p><strong>5)</strong> How'd you list the contents of the current directory, one per line, along with the size of the entries in human readable format?<pre><code class=language-bash># change to the 'scripts' directory and source the 'ls.sh' script
+$ source ls.sh
+
+# ???
+total 7.4M
+4.0K backups
+ 16K errors.log
+4.0K hello_world.py
+4.0K hi
+4.0K ip.txt
+4.0K projects
+7.4M report.log
+   0 scripts
+4.0K todos
+</code></pre><p><strong>6)</strong> Which <code>ls</code> command option would you use for version based sorting of entries?<p><strong>7)</strong> Which <code>ls</code> command option would you use for sorting based on entry size?<p><strong>8)</strong> Which <code>ls</code> command option would you use for sorting based on file extension?<p><strong>9)</strong> What does the <code>-G</code> option of <code>ls</code> command do?<p><strong>10)</strong> What does the <code>-i</code> option of <code>ls</code> command do?<p><strong>11)</strong> List only the directories as one entry per line.<pre><code class=language-bash># change to the 'scripts' directory and source the 'ls.sh' script
+$ source ls.sh
+
+# ???
+backups/
 projects/
-reports/
+scripts/
+todos/
 </code></pre><p><strong>12)</strong> Assume that a regular file named <code>notes</code> already exists. What would happen if you use the <code>mkdir -p notes</code> command?<pre><code class=language-bash>$ ls -1F notes
 notes
 
@@ -646,7 +658,7 @@ $ tree -F
     └── festival.xlsx
 
 5 directories, 3 files
-</code></pre><p><strong>15)</strong> If directories to create already exist, which <code>mkdir</code> command option would you use to not show an error?<p><strong>16)</strong> Use one or more commands to match the scenario shown below:<pre><code class=language-bash>$ ls -1F
+</code></pre><blockquote><p><img alt=info src=./images/info.svg> Don't delete this directory, will be needed in a later exercise.</blockquote><p><strong>15)</strong> If directories to create already exist, which <code>mkdir</code> command option would you use to not show an error?<p><strong>16)</strong> Use one or more commands to match the scenario given below:<pre><code class=language-bash>$ ls -1F
 cost.txt
 ghost/
 quest/
@@ -659,7 +671,7 @@ quest/
 </code></pre><p><strong>17)</strong> What does the <code>-f</code> option of <code>rm</code> command do?<p><strong>18)</strong> Which option would you use to interactively delete files using the <code>rm</code> command?<p><strong>19)</strong> Can the files removed by <code>rm</code> easily be restored? Do you need to take some extra steps or use special commands to make the files more difficult to recover?<p><strong>20)</strong> Does your Linux distribution provide a tool to send deleted files to the trash (which would help to recover deleted files)?<p><strong>21)</strong> Which option would you use to interactively accept/prevent the <code>cp</code> command from overwriting a file of the same name? And which option would prevent overwriting without needing manual confirmation?<p><strong>22)</strong> Does the <code>cp</code> command allow you to rename the file or directory being copied? If so, can you rename multiple files/directories being copied?<p><strong>23)</strong> What do the <code>-u</code>, <code>-b</code> and <code>-t</code> options of <code>cp</code> command do?<p><strong>24)</strong> What's the difference between the two commands shown below?<pre><code class=language-bash>$ cp ip.txt op.txt
 
 $ mv ip.txt op.txt
-</code></pre><p><strong>25)</strong> Which option would you use to interactively accept/prevent the <code>mv</code> command from overwriting a file of the same name?<p><strong>26)</strong> Use one or more commands to match the scenario shown below:<pre><code class=language-bash>$ tree -F
+</code></pre><p><strong>25)</strong> Which option would you use to interactively accept/prevent the <code>mv</code> command from overwriting a file of the same name?<p><strong>26)</strong> Use one or more commands to match the scenario shown below. You should have already created this directory structure in an earlier exercise.<pre><code class=language-bash>$ tree -F
 .
 ├── hobbies/
 │   ├── painting/
