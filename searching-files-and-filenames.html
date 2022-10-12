@@ -28,19 +28,22 @@
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
                         link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
-                    });</script><div class=content id=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=searching-files-and-filenames><a class=header href=#searching-files-and-filenames>Searching Files and Filenames</a></h1><p>In this chapter, you'll learn how to search file contents based on literal strings or regular expressions. After that, you'll learn how to locate files based on their names and other properties like size, last modified, etc.<blockquote><p><img alt=info src=./images/info.svg> The <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files>example_files</a> directory has the scripts used in this chapter.</blockquote><h2 id=grep><a class=header href=#grep>grep</a></h2><p>Quoting from <a href=https://en.wikipedia.org/wiki/Grep>wikipedia</a>:<blockquote><p><strong><code>grep</code></strong> is a command-line utility for searching plain-text data sets for lines that match a regular expression. Its name comes from the <code>ed</code> command <code>g/re/p</code> (<strong>g</strong>lobally search a <strong>r</strong>egular <strong>e</strong>xpression and <strong>p</strong>rint), which has the same effect.</blockquote><p>The <code>grep</code> command has lots and lots of features, so much so that I wrote <a href=https://github.com/learnbyexample/learn_gnugrep_ripgrep>a book</a> about it. The most common usage is filtering lines from the input using a regular expression (regexp).<h3 id=common-options><a class=header href=#common-options>Common options</a></h3><p>Commonly used options are shown below. Examples will be discussed in later sections.<ul><li><code>--color=auto</code> highlight the matching portions, filenames, line numbers, etc using colors<li><code>-i</code> ignore case while matching<li><code>-v</code> print non-matching lines<li><code>-n</code> prefix line numbers for matching lines<li><code>-c</code> display only the count of number of matching lines<li><code>-l</code> print only the filenames matching the given expression<li><code>-L</code> print filenames NOT matching the pattern<li><code>-w</code> match pattern only as whole words<li><code>-x</code> match pattern only as whole lines<li><code>-F</code> interpret pattern as a fixed string (i.e. not a regular expression)<li><code>-o</code> print only matching parts<li><code>-A N</code> print matching line and <code>N</code> number of lines after the matched line<li><code>-B N</code> print matching line and <code>N</code> number of lines before the matched line<li><code>-C N</code> print matching line and <code>N</code> number of lines before and after the matched line<li><code>-m N</code> print a maximum of <code>N</code> matching lines<li><code>-q</code> no standard output, quit immediately if match found, useful in scripts<li><code>-s</code> suppress error messages, useful in scripts<li><code>-r</code> recursively search all files in the specified input folders (by default searches current directory)<li><code>-R</code> like <code>-r</code>, but follows symbolic links as well<li><code>-h</code> do not prefix filename for matching lines (default behavior for single input file)<li><code>-H</code> prefix filename for matching lines (default behavior for multiple input files)</ul><h3 id=literal-search><a class=header href=#literal-search>Literal search</a></h3><p>All of the following examples would be suited for <code>-F</code> option as these do not use regular expressions. <code>grep</code> is smart enough to do the right thing in such cases.<pre><code class=language-bash># lines containing 'an'
-$ printf 'apple\nbanana\nmango' | grep 'an'
+                    });</script><div class=content id=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=searching-files-and-filenames><a class=header href=#searching-files-and-filenames>Searching Files and Filenames</a></h1><p>This chapter will show how to search file contents based on literal strings or regular expressions. After that, you'll learn how to locate files based on their names and other properties like size, last modified, etc.<blockquote><p><img alt=info src=./images/info.svg> The <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files>example_files</a> directory has the scripts used in this chapter.</blockquote><h2 id=grep><a class=header href=#grep>grep</a></h2><p>Quoting from <a href=https://en.wikipedia.org/wiki/Grep>wikipedia</a>:<blockquote><p><strong><code>grep</code></strong> is a command-line utility for searching plain-text data sets for lines that match a regular expression. Its name comes from the <code>ed</code> command <code>g/re/p</code> (<strong>g</strong>lobally search a <strong>r</strong>egular <strong>e</strong>xpression and <strong>p</strong>rint), which has the same effect.</blockquote><p>The <code>grep</code> command has lots and lots of features, so much so that I wrote <a href=https://github.com/learnbyexample/learn_gnugrep_ripgrep>a book</a> about it. The most common usage is filtering lines from the input using a regular expression (regexp).<h3 id=common-options><a class=header href=#common-options>Common options</a></h3><p>Commonly used options are shown below. Examples will be discussed in later sections.<ul><li><code>--color=auto</code> highlight the matching portions, filenames, line numbers, etc using colors<li><code>-i</code> ignore case while matching<li><code>-v</code> print non-matching lines<li><code>-n</code> prefix line numbers for matching lines<li><code>-c</code> display only the count of number of matching lines<li><code>-l</code> print only the filenames matching the given expression<li><code>-L</code> print filenames NOT matching the pattern<li><code>-w</code> match pattern only as whole words<li><code>-x</code> match pattern only as whole lines<li><code>-F</code> interpret pattern as a fixed string (i.e. not a regular expression)<li><code>-o</code> print only matching parts<li><code>-A N</code> print matching line and <code>N</code> number of lines after the matched line<li><code>-B N</code> print matching line and <code>N</code> number of lines before the matched line<li><code>-C N</code> print matching line and <code>N</code> number of lines before and after the matched line<li><code>-m N</code> print a maximum of <code>N</code> matching lines<li><code>-q</code> no standard output, quit immediately if match found, useful in scripts<li><code>-s</code> suppress error messages, useful in scripts<li><code>-r</code> recursively search all files in the specified input folders (by default searches current directory)<li><code>-R</code> like <code>-r</code>, but follows symbolic links as well<li><code>-h</code> do not prefix filename for matching lines (default behavior for single input file)<li><code>-H</code> prefix filename for matching lines (default behavior for multiple input files)</ul><h3 id=literal-search><a class=header href=#literal-search>Literal search</a></h3><p>The following examples would all be suited for <code>-F</code> option as these do not use regular expressions. <code>grep</code> is smart enough to do the right thing in such cases.<pre><code class=language-bash># lines containing 'an'
+$ printf 'apple\nbanana\nmango\nfig\ntango\n' | grep 'an'
 banana
 mango
+tango
 
 # case insensitive matching
-$ printf 'Cat\ncut\ncOnCaT\n' | grep -i 'cat'
+$ printf 'Cat\ncut\ncOnCaT\nfour cats\n' | grep -i 'cat'
 Cat
 cOnCaT
+four cats
 
 # match only whole words
-$ printf 'par value\nheir apparent\n' | grep -w 'par'
+$ printf 'par value\nheir apparent\ntar-par' | grep -w 'par'
 par value
+tar-par
 
 # count empty lines
 $ printf 'hi\n\nhello\n\n\n\nbye\n' | grep -cx ''
@@ -91,29 +94,29 @@ $ grep -Fvxf colors_2 colors_1
 teal
 light blue
 brown
-</code></pre><h3 id=perl-compatible-regular-expression><a class=header href=#perl-compatible-regular-expression>Perl Compatible Regular Expression</a></h3><p>PCRE has lot more features compared to BRE/ERE. Here are some examples:<pre><code class=language-bash># numbers >= 100, uses possessive quantifiers
+</code></pre><h3 id=perl-compatible-regular-expression><a class=header href=#perl-compatible-regular-expression>Perl Compatible Regular Expression</a></h3><p>PCRE has many advaced features compared to BRE/ERE. Here are some examples:<pre><code class=language-bash># numbers >= 100, uses possessive quantifiers
 $ echo '0501 035 154 12 26 98234' | grep -oP '0*+\d{3,}'
 0501
 154
 98234
 
 # extract digits only if preceded by =
-$ echo '100 foo=42, bar=314' | grep -oP '=\K\d+'
+$ echo '100 apple=42, fig=314 red:255' | grep -oP '=\K\d+'
 42
 314
 
-# all digits and optional hyphen combo from the start of string
-$ echo '123-87-593 42 foo' | grep -oP '\G\d+-?'
+# all digits and optional hyphen combo from the start of the line
+$ echo '123-87-593 42 fig 314-12-111' | grep -oP '\G\d+-?'
 123-
 87-
 593
 
 # all whole words except 'bat' and 'map'
-$ echo 'car bat cod map combat' | grep -oP '\b(bat|map)\b(*SKIP)(*F)|\w+'
-car
+$ echo 'car2 bat cod map combat' | grep -oP '\b(bat|map)\b(*SKIP)(*F)|\w+'
+car2
 cod
 combat
-</code></pre><h3 id=recursive-search><a class=header href=#recursive-search>Recursive search</a></h3><p>You can use the <code>-r</code> option to search recursively within the specified directories. By default, the current directory will be searched. Use <code>-R</code> if you want symbolic links found within the input directories to be followed as well. You do not need <code>-R</code> option for specifying symbolic links as arguments.<p>Here are some basic examples. Recursive search will work as if <code>-H</code> option was specified as well, even if only one file was matched. Also, hidden files are included by default.<pre><code class=language-bash># change to the 'scripts' directory and source the 'grep.sh' script
+</code></pre><p>See <code>man pcrepattern</code> or <a href=https://www.pcre.org/original/doc/html/pcrepattern.html>PCRE online manual</a> for documentation.<h3 id=recursive-search><a class=header href=#recursive-search>Recursive search</a></h3><p>You can use the <code>-r</code> option to search recursively within the specified directories. By default, the current directory will be searched. Use <code>-R</code> if you want symbolic links found within the input directories to be followed as well. You do not need <code>-R</code> option for specifying symbolic links as arguments.<p>Here are some basic examples. Recursive search will work as if <code>-H</code> option was specified as well, even if only one file was matched. Also, hidden files are included by default.<pre><code class=language-bash># change to the 'scripts' directory and source the 'grep.sh' script
 $ source grep.sh
 $ ls -AF
 backups/  colors_1  colors_2  .hidden  projects/
@@ -179,14 +182,14 @@ $ grep -rlZ 'violet' | xargs -0 grep -L 'brown'
 
 # using -r option avoids running the command in such cases
 $ grep -rlZ 'violet' | xargs -r0 grep -L 'brown'
-</code></pre></blockquote><blockquote><p><img alt=warning src=images/warning.svg> <img alt=warning src=images/warning.svg> Do not use <code>xargs -P</code> to combine the output of parallel runs, as you are likely to get a mangled result. The <a href=https://www.gnu.org/software/parallel/>parallel</a> command would be a better option. See <a href=https://unix.stackexchange.com/q/104778/109046>unix.stackexchange: xargs vs parallel</a> for more details. See also <a href=https://unix.stackexchange.com/q/24954/109046>unix.stackexchange: when to use xargs</a>.</blockquote><h3 id=further-reading><a class=header href=#further-reading>Further Reading</a></h3><ul><li>My ebook <a href=https://github.com/learnbyexample/learn_gnugrep_ripgrep>GNU GREP and RIPGREP</a> <ul><li>See also my blog post <a href=https://learnbyexample.github.io/gnu-bre-ere-cheatsheet/>GNU BRE/ERE cheatsheet</a></ul><li><a href=https://lists.freebsd.org/pipermail/freebsd-current/2010-August/019310.html>Why GNU grep is fast</a><li><a href=https://unix.stackexchange.com/q/131535/109046>unix.stackexchange: grep -r vs find+grep</a></ul><h2 id=find><a class=header href=#find>find</a></h2><p>The <code>find</code> command has comprehensive features to narrow down files and directories based on name, size, date and so on. And more importantly, <code>find</code> helps you to perform actions on such filtered files.<h3 id=filenames><a class=header href=#filenames>Filenames</a></h3><p>By default, you'll get every entry (including hidden ones) in the current directory and sub-directories when you use <code>find</code> without any options or paths. To search within specific path(s), they should be immediately mentioned after <code>find</code>, i.e. before any options.<pre><code class=language-bash># change to the 'scripts' directory and source the 'find.sh' script
+</code></pre></blockquote><blockquote><p><img alt=warning src=images/warning.svg> <img alt=warning src=images/warning.svg> Do not use <code>xargs -P</code> to combine the output of parallel runs, as you are likely to get a mangled result. The <a href=https://www.gnu.org/software/parallel/>parallel</a> command would be a better option. See <a href=https://unix.stackexchange.com/q/104778/109046>unix.stackexchange: xargs vs parallel</a> for more details. See also <a href=https://unix.stackexchange.com/q/24954/109046>unix.stackexchange: when to use xargs</a>.</blockquote><h3 id=further-reading><a class=header href=#further-reading>Further Reading</a></h3><ul><li>My ebook <a href=https://github.com/learnbyexample/learn_gnugrep_ripgrep>GNU GREP and RIPGREP</a> <ul><li>See also my blog post <a href=https://learnbyexample.github.io/gnu-bre-ere-cheatsheet/>GNU BRE/ERE cheatsheet</a></ul><li><a href=https://lists.freebsd.org/pipermail/freebsd-current/2010-August/019310.html>Why GNU grep is fast</a><li><a href=https://unix.stackexchange.com/q/131535/109046>unix.stackexchange: grep -r vs find+grep</a></ul><h2 id=find><a class=header href=#find>find</a></h2><p>The <code>find</code> command has comprehensive features to filter files and directories based on their name, size, timestamp and so on. And more importantly, <code>find</code> helps you to perform actions on such filtered files.<h3 id=filenames><a class=header href=#filenames>Filenames</a></h3><p>By default, you'll get every entry (including hidden ones) in the current directory and sub-directories when you use <code>find</code> without any options or paths. To search within specific path(s), they should be immediately mentioned after <code>find</code>, i.e. before any options.<pre><code class=language-bash># change to the 'scripts' directory and source the 'find.sh' script
 $ source find.sh
 $ ls -F
 backups/    hello_world.py*  ip.txt     report.log  todos/
 errors.log  hi.sh*           projects/  scripts@
 
 $ cd projects
-# this is same as: find .
+# same as: find .
 $ find
 .
 ./.venv
@@ -201,7 +204,7 @@ todos
 todos/books.txt
 todos/TRIP.txt
 todos/wow.txt
-</code></pre><blockquote><p><img alt=info src=./images/info.svg> Note that symbolic links won't be followed by default. You can use <code>-L</code> option for such cases.</blockquote><p>To match filenames based on a particular criteria, you can use wildcards or regular expressions. For wildcards, you can use <code>-name</code> or the case-insensitive version <code>-iname</code>. This will match only the basename, so you'll get a warning if you use <code>/</code> as part of the pattern. You can use <code>-path</code> and <code>-ipath</code> if you need to include <code>/</code> as well in the pattern. Unlike <code>grep</code>, the pattern should always match the entire basename (I think this is because there are no start/end anchors in globs).<pre><code class=language-bash># filenames ending with '.log'
+</code></pre><blockquote><p><img alt=info src=./images/info.svg> Note that symbolic links won't be followed by default. You can use <code>-L</code> option for such cases.</blockquote><p>To match filenames based on a particular criteria, you can use wildcards or regular expressions. For wildcards, you can use <code>-name</code> or the case-insensitive version <code>-iname</code>. These will match only the basename, so you'll get a warning if you use <code>/</code> as part of the pattern. You can use <code>-path</code> and <code>-ipath</code> if you need to include <code>/</code> as well in the pattern. Unlike <code>grep</code>, the glob pattern is matched against the entire basename (as there are no start/end anchors in globs).<pre><code class=language-bash># filenames ending with '.log'
 # 'find .' indicates current working directory (CWD) as the path to search
 $ find . -name '*.log'
 ./report.log
@@ -222,14 +225,14 @@ $ find backups todos -name '*k*'
 backups
 backups/bookmarks.html
 todos/books.txt
-</code></pre><p>You can use the <code>-not</code> operator to invert the matching condition:<pre><code class=language-bash># except filenames containing uppercase alphabets
+</code></pre><p>You can use the <code>-not</code> (or <code>!</code>) operator to invert the matching condition:<pre><code class=language-bash># same as: find todos ! -name '*[A-Z]*'
 $ find todos -not -name '*[A-Z]*'
 todos
 todos/books.txt
 todos/wow.txt
 </code></pre><p>You can use <code>-regex</code> and <code>-iregex</code> (case-insensitive) to match filenames based on regular expressions. In this case, the pattern will match the entire path, so use of <code>/</code> is possible without needing to use special options. The default regexp flavor is <code>emacs</code> which you can change by using the <code>-regextype</code> option.<pre><code class=language-bash># filename containing only uppercase alphabets and file extension is '.txt'
 # note the use of '.*/' to match the entire file path
-$ find -regex '.*/[A-Z]+.txt'
+$ find -regex '.*/[A-Z]+\.txt'
 ./todos/TRIP.txt
 
 # here 'egrep' flavor is being used
@@ -365,7 +368,7 @@ $ find -type f -name '*.log'
 $ find -type f -not -path './backups/*' -prune -name '*.log'
 ./report.log
 ./errors.log
-</code></pre><p>Using <code>-not -path '*/.git/*' -prune</code> is a common practice when dealing with Git based version control projects.<h3 id=find-and-xargs><a class=header href=#find-and-xargs>find and xargs</a></h3><p>Similar to <code>grep -Z</code> and <code>xargs -0</code> combination seen earlier, you can use <code>find -print0</code> and <code>xargs -0</code> combination. The <code>-exec</code> option is sufficient for most use cases, but <code>xargs -P</code> (or the <a href=https://www.gnu.org/software/parallel/>parallel</a> command) can be handy if you need parallel execution for performance reasons.<p>Here's an example of passing filtered files to <code>sed</code> (<strong>s</strong>tream <strong>ed</strong>itor, will be discussed in the <a href=./multipurpose-text-processing-tools.html>Multipurpose Text Processing Tools</a> chapter):<pre><code class=language-bash>$ find -name '*.log'
+</code></pre><p>Using <code>-not -path '*/.git/*' -prune</code> can be handy when dealing with Git based version control projects.<h3 id=find-and-xargs><a class=header href=#find-and-xargs>find and xargs</a></h3><p>Similar to <code>grep -Z</code> and <code>xargs -0</code> combination seen earlier, you can use <code>find -print0</code> and <code>xargs -0</code> combination. The <code>-exec</code> option is sufficient for most use cases, but <code>xargs -P</code> (or the <a href=https://www.gnu.org/software/parallel/>parallel</a> command) can be handy if you need parallel execution for performance reasons.<p>Here's an example of passing filtered files to <code>sed</code> (<strong>s</strong>tream <strong>ed</strong>itor, will be discussed in the <a href=./multipurpose-text-processing-tools.html>Multipurpose Text Processing Tools</a> chapter):<pre><code class=language-bash>$ find -name '*.log'
 ./report.log
 ./backups/aug.log
 ./backups/jan.log
