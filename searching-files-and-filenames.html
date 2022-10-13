@@ -377,7 +377,7 @@ $ find -type f -not -path './backups/*' -prune -name '*.log'
 # for the filtered files, replace all occurrences of 'apple' with 'fig'
 # 'sed -i' will edit the files inplace, so no output on the terminal
 $ find -name '*.log' -print0 | xargs -r0 -n2 -P2 sed -i 's/apple/fig/g'
-</code></pre><p>In the above example, <code>-P2</code> is used to allow <code>xargs</code> to run two processes at a time (default is one process). You can use <code>-P0</code> to allow <code>xargs</code> to launch as many processes as possible. The <code>-n2</code> option is used to limit the number of file arguments passed to each <code>sed</code> call to <code>2</code>, otherwise <code>xargs</code> is likely to pass as many arguments as possible and thus reduce/negate the effect of parallelism. Note that the values used for <code>-n</code> and <code>-P</code> in the above illustration are just random examples, you'll have to fine tune them for your particular use case.<h3 id=further-reading-1><a class=header href=#further-reading-1>Further Reading</a></h3><ul><li><a href=https://mywiki.wooledge.org/UsingFind>mywiki.wooledge: using find</a><li><a href=https://unix.stackexchange.com/q/282762/109046>unix.stackexchange: find and tar example</a><li><a href=https://unix.stackexchange.com/q/321697/109046>unix.stackexchange: Why is looping over find's output bad practice?</a></ul><h2 id=locate><a class=header href=#locate>locate</a></h2><p><code>locate</code> is a faster alternative to the <code>find</code> command for searching files by name. It is based on a database, which gets updated by a <code>cron</code> job. So, newer files may be not present in results unless you update the database. Use this command if it is available in your distro and you remember some part of filename. Very useful if you have to search the entire filesystem in which case <code>find</code> command will take a very long time compared to <code>locate</code>.<p><strong>Examples</strong><ul><li><code>locate 'power'</code> print path of filenames containing <code>power</code> in the whole filesystem <ul><li>implicitly, <code>locate</code> would change the string to <code>*power*</code> as no globbing characters are present in the string specified</ul><li><code>locate -b '\power.log'</code> print path matching the string <code>power.log</code> exactly at the end of the path <ul><li><code>/home/learnbyexample/power.log</code> matches<li><code>/home/learnbyexample/lowpower.log'</code> will not match since there are other characters at the start of the filename<li>use of <code>\</code> prevents the search string from implicitly being replaced by <code>*power.log*</code></ul><li><code>locate -b '\proj_adder'</code> the <code>-b</code> option is also handy to print only the matching directory name, otherwise every file under that folder would also be displayed</ul><blockquote><p><img alt=info src=./images/info.svg> See also <a href=https://unix.stackexchange.com/q/60205/109046>unix.stackexchange: pros and cons of find and locate</a>.</blockquote><h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><blockquote><p><img alt=info src=./images/info.svg> For <code>grep</code> exercises, use <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files>example_files/text_files</a> directory for input files, unless otherwise specified.</blockquote><blockquote><p><img alt=info src=./images/info.svg> For <code>find</code> exercises, use the <code>find.sh</code> script, unless otherwise specified.</blockquote><p><strong>1)</strong> Display all lines containing <code>an</code> from the input files <code>blocks.txt</code>, <code>ip.txt</code> and <code>uniform.txt</code>.<pre><code class=language-bash># ???
+</code></pre><p>In the above example, <code>-P2</code> is used to allow <code>xargs</code> to run two processes at a time (default is one process). You can use <code>-P0</code> to allow <code>xargs</code> to launch as many processes as possible. The <code>-n2</code> option is used to limit the number of file arguments passed to each <code>sed</code> call to <code>2</code>, otherwise <code>xargs</code> is likely to pass as many arguments as possible and thus reduce/negate the effect of parallelism. Note that the values used for <code>-n</code> and <code>-P</code> in the above illustration are just random examples, you'll have to fine tune them for your particular use case.<h3 id=further-reading-1><a class=header href=#further-reading-1>Further Reading</a></h3><ul><li><a href=https://mywiki.wooledge.org/UsingFind>mywiki.wooledge: using find</a><li><a href=https://unix.stackexchange.com/q/282762/109046>unix.stackexchange: find and tar example</a><li><a href=https://unix.stackexchange.com/q/321697/109046>unix.stackexchange: Why is looping over find's output bad practice?</a></ul><h2 id=locate><a class=header href=#locate>locate</a></h2><p><code>locate</code> is a faster alternative to the <code>find</code> command for searching files by name. It is based on a database, which gets updated by a <a href=https://en.wikipedia.org/wiki/Cron>cron</a> job. So, newer files may be not present in results unless you update the database. Use this command if it is available in your distro (for example, <code>sudo apt install mlocate</code> on Debian-like systems) and you remember some part of filename. Very useful if you have to search the entire filesystem in which case <code>find</code> command will take a very long time compared to <code>locate</code>.<p><strong>Examples</strong><ul><li><code>locate 'power'</code> print path of filenames containing <code>power</code> in the whole filesystem <ul><li>implicitly, <code>locate</code> would change the string to <code>*power*</code> as no globbing characters are present in the string specified</ul><li><code>locate -b '\power.log'</code> print path matching the string <code>power.log</code> exactly at the end of the path <ul><li><code>/home/learnbyexample/power.log</code> matches<li><code>/home/learnbyexample/lowpower.log'</code> will not match since there are other characters at the start of the filename<li>use of <code>\</code> prevents the search string from implicitly being replaced by <code>*power.log*</code></ul><li><code>locate -b '\proj_adder'</code> the <code>-b</code> option is also handy to print only the matching directory name, otherwise every file under that folder would also be displayed</ul><blockquote><p><img alt=info src=./images/info.svg> See also <a href=https://unix.stackexchange.com/q/60205/109046>unix.stackexchange: pros and cons of find and locate</a>.</blockquote><h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><blockquote><p><img alt=info src=./images/info.svg> For <code>grep</code> exercises, use <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files>example_files/text_files</a> directory for input files, unless otherwise specified.</blockquote><blockquote><p><img alt=info src=./images/info.svg> For <code>find</code> exercises, use the <code>find.sh</code> script, unless otherwise specified.</blockquote><p><strong>1)</strong> Display lines containing <code>an</code> from the input files <code>blocks.txt</code>, <code>ip.txt</code> and <code>uniform.txt</code>. Show the results with and without filename prefix.<pre><code class=language-bash># ???
 blocks.txt:banana
 ip.txt:light orange
 uniform.txt:mango
@@ -399,7 +399,7 @@ toothpaste
 soap
 </code></pre><p><strong>5)</strong> Display all lines from <code>sample.txt</code> that contain <code>do</code> but not <code>it</code>.<pre><code class=language-bash># ???
 13) Much ado about nothing
-</code></pre><p><strong>6)</strong> For the input file <code>sample.txt</code>, filter lines containing <code>do</code> as well as the line that comes after such a matching line.<pre><code class=language-bash># ???
+</code></pre><p><strong>6)</strong> For the input file <code>sample.txt</code>, filter lines containing <code>do</code> and also display the line that comes after such a matching line.<pre><code class=language-bash># ???
  6) Just do-it
  7) Believe it
 --
@@ -428,7 +428,7 @@ $ echo "$words" | grep # ???
 subtle
 sets
 store_2
-</code></pre><p><strong>11)</strong> Extract all whole words having the same first and last character.<pre><code class=language-bash>$ echo 'oreo not a _oh_ pip roar took 22' | grep # ???
+</code></pre><p><strong>11)</strong> Extract all whole words having the same first and last word character.<pre><code class=language-bash>$ echo 'oreo not a _oh_ pip roar took 22' | grep # ???
 oreo
 a
 _oh_
@@ -437,7 +437,7 @@ roar
 22
 </code></pre><p><strong>12)</strong> Match all input lines containing <code>*[5]</code> literally.<pre><code class=language-bash>$ printf '4*5]\n(9-2)*[5]\n[5]*3\nr*[5\n' | grep # ???
 (9-2)*[5]
-</code></pre><p><strong>13)</strong> Display all lines that start with <code>hand</code> and ends with no further character or <code>s</code> or <code>y</code> or <code>le</code>.<pre><code class=language-bash>$ lines='handed\nhand\nhandy\nunhand\nhands\nhandle\n'
+</code></pre><p><strong>13)</strong> Match whole lines that start with <code>hand</code> and immediately followed by <code>s</code> or <code>y</code> or <code>le</code> or no further character.<pre><code class=language-bash>$ lines='handed\nhand\nhandy\nunhand\nhands\nhandle\nhandss\n'
 
 $ printf '%b' "$lines" | grep # ???
 hand
@@ -482,12 +482,11 @@ backups/dot_files/.vimrc
 backups/aug.log
 backups/bookmarks.html
 backups/jan.log
-</code></pre><p><strong>19)</strong> Find all regular files whose extension starts with <code>l</code> or <code>p</code>.<pre><code class=language-bash># ???
+</code></pre><p><strong>19)</strong> Find all regular files whose extension starts with <code>p</code> or <code>s</code> or <code>v</code>.<pre><code class=language-bash># ???
 ./projects/tictactoe/game.py
-./report.log
-./backups/aug.log
-./backups/jan.log
-./errors.log
+./projects/calculator/calc.sh
+./hi.sh
+./backups/dot_files/.vimrc
 ./hello_world.py
 </code></pre><p><strong>20)</strong> Find all regular files whose name do <em>not</em> have the lower case alphabets <code>g</code> to <code>l</code>.<pre><code class=language-bash># ???
 ./todos/TRIP.txt
