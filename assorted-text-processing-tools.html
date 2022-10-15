@@ -28,7 +28,7 @@
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
                         link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
-                    });</script><div class=content id=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=assorted-text-processing-tools><a class=header href=#assorted-text-processing-tools>Assorted Text Processing Tools</a></h1><p>There are way too many specialized text processing tools. This chapter will discuss some commands that haven't been covered in previous chapters.<blockquote><p><img alt=info src=./images/info.svg> The <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files>example_files</a> directory has the sample input files used in this chapter. Change to the <code>example_files/text_files</code> directory to follow along the examples shown in this chapter.</blockquote><h2 id=seq><a class=header href=#seq>seq</a></h2><p>The <code>seq</code> command is a handy tool to generate a sequence of numbers in ascending or descending order. Both integer and floating-point numbers are supported. You can also customize the formatting for numbers and the separator between them.<p>You need three numbers to generate an arithmetic progression — <strong>start</strong>, <strong>step</strong> and <strong>stop</strong>. When you pass only a single number as the stop value, the default start and step values are assumed to be <code>1</code>. Passing two numbers are considered as start and stop values (in that order).<pre><code class=language-bash># start=1, step=1 and stop=3
+                    });</script><div class=content id=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=assorted-text-processing-tools><a class=header href=#assorted-text-processing-tools>Assorted Text Processing Tools</a></h1><p>There are way too many specialized text processing tools. This chapter will discuss some of the commands that haven't been covered in the previous chapters.<blockquote><p><img alt=info src=./images/info.svg> The <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files>example_files</a> directory has the sample input files used in this chapter.</blockquote><h2 id=seq><a class=header href=#seq>seq</a></h2><p>The <code>seq</code> command is a handy tool to generate a sequence of numbers in ascending or descending order. Both integer and floating-point numbers are supported. You can also customize the formatting for numbers and the separator between them.<p>You need three numbers to generate an arithmetic progression — <strong>start</strong>, <strong>step</strong> and <strong>stop</strong>. When you pass only a single number as the stop value, the default start and step values are assumed to be <code>1</code>. Passing two numbers are considered as start and stop values (in that order).<pre><code class=language-bash># start=1, step=1 and stop=3
 $ seq 3
 1
 2
@@ -107,8 +107,9 @@ banana
 $ printf 'apple\tbanana\tcherry\n' | cut -f1,3
 apple   cherry
 
-$ echo 'one;two;three;four' | cut -d';' -f3
-three
+# setting -d automatically changes output delimiter as well
+$ echo 'one;two;three;four;five' | cut -d';' -f2,5
+two;five
 </code></pre><p>You can use the <code>-</code> character to specify field ranges. The starting or ending field number can be skipped, but not both.<pre><code class=language-bash># 2nd, 3rd and 4th fields
 $ printf 'apple\tbanana\tcherry\tdates\n' | cut -f2-4
 banana  cherry  dates
@@ -145,17 +146,18 @@ p-a-n
 $ printf 'apple\tbanana\tcherry\n' | cut --complement -c13-
 apple   banana
 
-$ printf 'cat-bat\ndog:fog\nget;pet' | cut -c5-
+$ printf 'cat-bat\ndog:fog' | cut -c5-
 bat
 fog
-pet
-</code></pre><h2 id=column><a class=header href=#column>column</a></h2><p>The <code>column</code> command is a nifty tool to align input data column wise. By default, whitespace is used as the input delimiter. Space character is used to align the output columns, so whitespace characters like tab will get converted to spaces.<pre><code class=language-bash>$ printf 'one two three\nfour five six\n'
+</code></pre><h2 id=column><a class=header href=#column>column</a></h2><p>The <code>column</code> command is a nifty tool to align input data column wise. By default, whitespace is used as the input delimiter. Space character is used to align the output columns, so whitespace characters like tab will get converted to spaces.<pre><code class=language-bash>$ printf 'one two three\nfour five six\nseven eight nine\n'
 one two three
 four five six
+seven eight nine
 
-$ printf 'one two three\nfour five six\n' | column -t
-one   two   three
-four  five  six
+$ printf 'one two three\nfour five six\nseven eight nine\n' | column -t
+one    two    three
+four   five   six
+seven  eight  nine
 </code></pre><p>You can use the <code>-s</code> option to customize the input delimiter. Note that the output delimiter will still be made up of spaces only.<pre><code class=language-bash>$ cat scores.csv
 Name,Maths,Physics,Chemistry
 Ith,100,100,100
@@ -171,10 +173,10 @@ Lin   78     83       80
 $ printf '1:-:2:-:3\napple:-:banana:-:cherry\n' | column -s:-: -t
 1      2       3
 apple  banana  cherry
-</code></pre><blockquote><p><img alt=warning src=images/warning.svg> Input should have a newline at the end, otherwise you'll get an error:</blockquote><pre><code class=language-bash>$ printf '1 2 3\na   b   c' | column -t
+</code></pre><blockquote><p><img alt=warning src=images/warning.svg> Input should have a newline at the end, otherwise you'll get an error:<pre><code class=language-bash>$ printf '1 2 3\na   b   c' | column -t
 column: line too long
 1  2  3
-</code></pre><h2 id=tr><a class=header href=#tr>tr</a></h2><p><code>tr</code> helps you to map one set of characters to another set of characters. Features like range, repeats, character sets, squeeze, complement, etc makes it a must know text processing tool.<p><strong>Common options</strong><ul><li><code>-d</code> specify a set of characters to be deleted<li><code>-c</code> invert the first set of characters<li><code>-s</code> squeeze consecutive repeated characters to a single copy of that character</ul><p><strong>Examples</strong><p><code>tr</code> works only on <code>stdin</code> data, so use shell input redirection for file input.<pre><code class=language-bash># 'l' maps to '1', 'e' to '3', 't' to '7' and 's' to '5'
+</code></pre></blockquote><h2 id=tr><a class=header href=#tr>tr</a></h2><p><code>tr</code> helps you to map one set of characters to another set of characters. Features like range, repeats, character sets, squeeze, complement, etc makes it a must know text processing tool.<p><code>tr</code> works only on <code>stdin</code> data, so you'll need to use shell input redirection for file input. Here are some basic examples:<pre><code class=language-bash># 'l' maps to '1', 'e' to '3', 't' to '7' and 's' to '5'
 $ echo 'leet speak' | tr 'lets' '1375'
 1337 5p3ak
 
@@ -189,7 +191,7 @@ hELLO wORLD
 $ tr 'a-z' 'A-Z' &LTgreeting.txt
 HI THERE
 HAVE A NICE DAY
-</code></pre><p>Examples for <code>-d</code> and <code>-c</code> options:<pre><code class=language-bash>$ echo '2021-08-12' | tr -d '-'
+</code></pre><p>You can use the <code>-d</code> option to specify a set of characters to be deleted. The <code>-c</code> option will invert the first set of characters. Here are some examples:<pre><code class=language-bash>$ echo '2021-08-12' | tr -d '-'
 20210812
 
 $ s='"Hi", there! How *are* you? All fine here.'
@@ -199,7 +201,7 @@ Hi there How are you All fine here
 # retain alphabets, whitespaces, period, exclamation and question mark
 $ echo "$s" | tr -cd 'a-zA-Z.!?[:space:]'
 Hi there! How are you? All fine here.
-</code></pre><p>Examples for <code>-s</code> option:<pre><code class=language-bash># squeeze lowercase alphabets
+</code></pre><p>The <code>-s</code> option will squeeze consecutive repeated characters to a single copy of that character.<pre><code class=language-bash># squeeze lowercase alphabets
 $ echo 'hhoowwww aaaaaareeeeee yyouuuu!!' | tr -s 'a-z'
 how are you!!
 
@@ -212,9 +214,9 @@ $ echo 'hhoowwww aaaaaareeeeee yyouuuu!!' | tr -sd '!' 'a-z'
 how are you
 
 # squeeze other than lowercase alphabets
-$ echo 'how    are     you!!!!!' | tr -cs 'a-z'
-how are you!
-</code></pre><h2 id=paste><a class=header href=#paste>paste</a></h2><p><code>paste</code> is typically used to merge two or more files column wise. It also has a handy feature for serializing data.<p>By default, <code>paste</code> adds a tab character between corresponding lines of input files.<pre><code class=language-bash>$ cat colors_1.txt
+$ echo 'apple    noon     banana!!!!!' | tr -cs 'a-z'
+apple noon banana!
+</code></pre><h2 id=paste><a class=header href=#paste>paste</a></h2><p><code>paste</code> is typically used to merge two or more files column wise. It also has a handy feature for serializing data. By default, <code>paste</code> adds a tab character between the corresponding lines of input files.<pre><code class=language-bash>$ cat colors_1.txt
 Blue
 Brown
 Orange
@@ -246,6 +248,10 @@ $ paste -d'\n' <(seq 11 12) <(seq 101 102)
 101
 12
 102
+</code></pre><p>You can use empty files to get multicharacter separation between the columns.<pre><code class=language-bash>$ paste -d' : ' <(seq 3) /dev/null /dev/null <(seq 4 6)
+1 : 4
+2 : 5
+3 : 6
 </code></pre><p>If you use <code>-</code> multiple times, <code>paste</code> will consume a line from <code>stdin</code> data every time <code>-</code> is encountered. This is different from using the same filename multiple times, in which case they are treated as separate inputs.<pre><code class=language-bash># five columns
 $ seq 10 | paste -d: - - - - -
 1:2:3:4:5
@@ -259,11 +265,11 @@ Purple::
 $ paste -sd, colors_1.txt
 Blue,Brown,Orange,Purple
 
-# multiple file example:
+# multiple file example
 $ paste -sd: colors_1.txt colors_2.txt
 Blue:Brown:Orange:Purple
 Black:Blue:Green:Orange
-</code></pre><h2 id=pr><a class=header href=#pr>pr</a></h2><blockquote><p>Paginate or columnate FILE(s) for printing.</blockquote><p>As stated in the above quote from the manual, the <code>pr</code> command is mainly used for those two tasks. This section will discuss only the columnate features and some miscellaneous tasks. Here's a pagination example if you are interested in exploring further. The <code>pr</code> command will add blank lines, a header and so on to make it suitable for printing.<pre><code class=language-bash>$ pr greeting.txt | head
+</code></pre><h2 id=pr><a class=header href=#pr>pr</a></h2><blockquote><p>Paginate or columnate FILE(s) for printing.</blockquote><p>As stated in the above quote from the manual, the <code>pr</code> command is mainly used for those two tasks. This section will discuss only the columnate features and some miscellaneous tasks. Here's a pagination example if you are interested in exploring further. The <code>pr</code> command will add blank lines, a header and so on to make it suitable for printing.<pre><code class=language-bash>$ pr greeting.txt | head -n8
 
 
 2021-08-05 14:10                   greeting.txt                   Page 1
@@ -272,15 +278,13 @@ Black:Blue:Green:Orange
 Hi there
 Have a nice day
 
-
-
 </code></pre><p>The <code>--columns</code> and <code>-a</code> options can be used to merge the input lines in two different ways:<ul><li>split the input file and then merge them as columns<li>merge consecutive lines, similar to the <code>paste</code> command</ul><p>Here's an example to get started. Note that <code>-N</code> is same as using <code>--columns=N</code> where <code>N</code> is the number of columns you want in the output. The default page width is <code>72</code>, which means each column can only have a maximum of <code>72/N</code> characters (including the separator). Tab and space characters will be used to fill the columns as needed. You can use the <code>-J</code> option to prevent <code>pr</code> from truncating longer columns. The <code>-t</code> option is used here to turn off the pagination features.<pre><code class=language-bash># split input into three parts
 # each column width is 72/3 = 24 characters max
 $ seq 9 | pr -3t
 1                       4                       7
 2                       5                       8
 3                       6                       9
-</code></pre><p>You can customize the separator using the <code>-s</code> option. The default is a tab character which you can change to any other string value. The <code>-s</code> option also turns off line truncation, so <code>-J</code> option isn't needed. However, the default page width of <code>72</code> can still cause issues, which you can prevent by using the <code>-w</code> option.<pre><code class=language-bash># tab separator
+</code></pre><p>You can customize the separator using the <code>-s</code> option. The default is a tab character which you can change to any other string value. The <code>-s</code> option also turns off line truncation, so <code>-J</code> option isn't needed.<pre><code class=language-bash># tab separator
 $ seq 9 | pr -3ts
 1       4       7
 2       5       8
@@ -291,9 +295,9 @@ $ seq 9 | pr -3ts' : '
 1 : 4 : 7
 2 : 5 : 8
 3 : 6 : 9
-
-$ seq 6 | pr -J -w10 -3ats'::::'
+</code></pre><p>However, the default page width of <code>72</code> can still cause issues, which you can prevent by using the <code>-w</code> option. The <code>-w</code> option overrides the effect of <code>-s</code> option on line truncation, so use <code>-J</code> option as well unless you really need truncation.<pre><code class=language-bash>$ seq 6 | pr -J -w10 -3ats'::::'
 pr: page width too narrow
+
 $ seq 6 | pr -J -w11 -3ats'::::'
 1::::2::::3
 4::::5::::6
@@ -343,7 +347,7 @@ $ head -n1 xaa xab xae xaj
 
 ==> xaj <==
 9001
-</code></pre><blockquote><p><img alt=info src=./images/info.svg> For more examples, customization options and other details, see <a href=https://learnbyexample.github.io/cli_text_processing_coreutils/split.html>split chapter</a> from my <strong>Command line text processing with GNU Coreutils</strong> ebook.</blockquote><h2 id=csplit><a class=header href=#csplit>csplit</a></h2><p>The <code>csplit</code> command is useful to divide the input into smaller parts based on line numbers and regular expression patterns.<p>You can split the input into two based on a particular line number. To do so, specify the line number after the input source (filename or <code>stdin</code> data). The first output file will have the input lines <em>before</em> the given line number and the second output file will have the rest of the contents. By default, the output files will be named <code>xx00</code>, <code>xx01</code>, <code>xx02</code> and so on (where <code>xx</code> is the prefix). The numerical suffix will automatically use more digits if needed.<pre><code class=language-bash># split input into two based on line number 2
+</code></pre><blockquote><p><img alt=info src=./images/info.svg> For more examples, customization options and other details, see <a href=https://learnbyexample.github.io/cli_text_processing_coreutils/split.html>split chapter</a> from my <a href=https://github.com/learnbyexample/cli_text_processing_coreutils>Command line text processing with GNU Coreutils</a> ebook.</blockquote><h2 id=csplit><a class=header href=#csplit>csplit</a></h2><p>The <code>csplit</code> command is useful to divide the input into smaller parts based on line numbers and regular expression patterns.<p>You can split the input into two based on a particular line number. To do so, specify the line number after the input source (filename or <code>stdin</code> data). The first output file will have the input lines <em>before</em> the given line number and the second output file will have the rest of the contents. By default, the output files will be named <code>xx00</code>, <code>xx01</code>, <code>xx02</code> and so on (where <code>xx</code> is the prefix). The numerical suffix will automatically use more digits if needed.<pre><code class=language-bash># split input into two based on line number 2
 # -q option suppresses output showing number of bytes written for each file
 $ seq 4 | csplit -q - 2
 
@@ -389,7 +393,7 @@ toothpaste
 tea
 soap
 tea
-</code></pre><blockquote><p><img alt=info src=./images/info.svg> For more examples, customization options and other details, see <a href=https://learnbyexample.github.io/cli_text_processing_coreutils/csplit.html>csplit chapter</a> from my <strong>Command line text processing with GNU Coreutils</strong> ebook.</blockquote><h2 id=xargs><a class=header href=#xargs>xargs</a></h2><p>By default, <code>xargs</code> executes the <code>echo</code> command for the arguments extracted from <code>stdin</code> data (or file input via the <code>-a</code> option). The <code>-n</code> option helps to customize how many arguments should be passed at a time. Together, these features can be used to reshape whitespace separated data as shown in the examples below:<pre><code class=language-bash>$ printf '  apple   banana cherry\n\t\tdragon unicorn   \n'
+</code></pre><blockquote><p><img alt=info src=./images/info.svg> For more examples, customization options and other details, see <a href=https://learnbyexample.github.io/cli_text_processing_coreutils/csplit.html>csplit chapter</a> from my <a href=https://github.com/learnbyexample/cli_text_processing_coreutils>Command line text processing with GNU Coreutils</a> ebook.</blockquote><h2 id=xargs><a class=header href=#xargs>xargs</a></h2><p>By default, <code>xargs</code> executes the <code>echo</code> command for the arguments extracted from <code>stdin</code> data (or file input via the <code>-a</code> option). The <code>-n</code> option helps to customize how many arguments should be passed at a time. Together, these features can be used to reshape whitespace separated data as shown in the examples below:<pre><code class=language-bash>$ printf '  apple   banana cherry\n\t\tdragon unicorn   \n'
   apple   banana cherry
                 dragon unicorn   
 $ printf '  apple   banana cherry\n\t\tdragon unicorn   \n' | xargs -n2
@@ -437,7 +441,7 @@ xerox apple regex go sea
 80
 </code></pre><p><strong>2)</strong> Is the sequence shown below possible to generate with <code>seq</code>? If so, how?<pre><code class=language-bash># ???
 01.5,02.5,03.5,04.5,05.5
-</code></pre><p><strong>3)</strong> Display three random words from <code>/usr/share/dict/words</code> (or equivalent dictionary word file) containing <code>s</code> or <code>e</code> or <code>t</code> in any order. The output shown below is just an example.<pre><code class=language-bash># ???
+</code></pre><p><strong>3)</strong> Display three random words from <code>/usr/share/dict/words</code> (or equivalent dictionary word file) containing <code>s</code> and <code>e</code> and <code>t</code> in any order. The output shown below is just an example.<pre><code class=language-bash># ???
 supplemental
 foresight
 underestimates
@@ -449,10 +453,10 @@ apple,cherry
 # ???
 cherry,apple,cherry
 </code></pre><p><strong>6)</strong> Display except the second field in the format shown below. Can you construct two different solutions?<pre><code class=language-bash>$ echo 'apple,banana,cherry,dates' | cut # ???
-banana cherry dates
+apple cherry dates
 
 $ echo '2,3,4,5,6,7,8' | cut # ???
-3 4 5 6 7 8
+2 4 5 6 7 8
 </code></pre><p><strong>7)</strong> Extract first three characters from the input lines as shown below. Can you also use the <code>head</code> command for this purpose? If not, why not?<pre><code class=language-bash>$ printf 'apple\nbanana\ncherry\ndates\n' | cut # ???
 app
 ban
@@ -475,7 +479,6 @@ blue    cake    mug     shirt  -7
 yellow  banana  window  shoes  3.14
 </code></pre><p><strong>10)</strong> Implement <a href=https://en.wikipedia.org/wiki/ROT13>ROT13</a> cipher using the <code>tr</code> command.<pre><code class=language-bash>$ echo 'Hello World' | tr # ???
 Uryyb Jbeyq
-
 $ echo 'Uryyb Jbeyq' | tr # ???
 Hello World
 </code></pre><p><strong>11)</strong> Retain only alphabets, digits and whitespace characters.<pre><code class=language-bash>$ echo 'Apple_42 cool,blue Dragon:army' | # ???
