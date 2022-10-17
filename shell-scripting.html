@@ -90,7 +90,7 @@ $ echo "$color"
 brown
 $ color+=' green'
 bash: color: readonly variable
-</code></pre><blockquote><p><img alt=info src=./images/info.svg> <img alt=warning src=./images/warning.svg> Assigning variables is one of the most common source for errors. Unlike most programming languages, spaces are <em>not</em> allowed around the <code>=</code> sign. That is because space is a shell metacharacter. Another common issue is using quotes (or not) around the value. Here are some examples:</blockquote><pre><code class=language-bash>$ num = 42
+</code></pre><blockquote><p><img alt=info src=./images/info.svg> <img alt=warning src=./images/warning.svg> Assigning variables is one of the most common source for errors. Unlike most programming languages, spaces are <em>not</em> allowed around the <code>=</code> sign. That is because space is a shell metacharacter. Another common issue is using quotes (or not) around the value. Here are some examples:<pre><code class=language-bash>$ num = 42
 num: command not found
 
 $ greeting=hello world
@@ -106,7 +106,7 @@ $ echo "$dir_path"
 $ dir_path='~/reports'
 $ echo "$dir_path"
 ~/reports
-</code></pre><h2 id=arrays><a class=header href=#arrays>Arrays</a></h2><p>From <a href=https://www.gnu.org/software/bash/manual/bash.html#Arrays>bash manual: Arrays</a>:<blockquote><p>Bash provides one-dimensional indexed and associative array variables. Any variable may be used as an indexed array; the <code>declare</code> builtin will explicitly declare an array. There is no maximum limit on the size of an array, nor any requirement that members be indexed or assigned contiguously. Indexed arrays are referenced using integers and are zero-based; associative arrays use arbitrary strings.</blockquote><p>Here's an example of assigning an array and various ways of accessing the elements:<pre><code class=language-bash>$ fruits=('apple' 'fig' 'mango')
+</code></pre></blockquote><h2 id=arrays><a class=header href=#arrays>Arrays</a></h2><p>From <a href=https://www.gnu.org/software/bash/manual/bash.html#Arrays>bash manual: Arrays</a>:<blockquote><p>Bash provides one-dimensional indexed and associative array variables. Any variable may be used as an indexed array; the <code>declare</code> builtin will explicitly declare an array. There is no maximum limit on the size of an array, nor any requirement that members be indexed or assigned contiguously. Indexed arrays are referenced using integers and are zero-based; associative arrays use arbitrary strings.</blockquote><p>Here's an example of assigning an indexed array and various ways of accessing the elements:<pre><code class=language-bash>$ fruits=('apple' 'fig' 'mango')
 
 # first element
 $ echo "${fruits[0]}"
@@ -116,15 +116,14 @@ apple
 $ echo "${fruits[-1]}"
 mango
 
-# all elements
-# example with for loop will be discussed later on
+# all elements (example with for loop will be discussed later on)
 $ echo "${fruits[@]}"
 apple fig mango
 $ printf '%s\n' "${fruits[@]}"
 apple
 fig
 mango
-</code></pre><h2 id=parameter-expansion><a class=header href=#parameter-expansion>Parameter Expansion</a></h2><p>Bash provides several useful ways to extract and modify contents of parameters and variables (including arrays). Some of these features will be discussed in this section.<p>Substring extraction using <code>${parameter:offset}</code> syntax to get all characters from the given index:<pre><code class=language-bash>$ city='Lucknow'
+</code></pre><h2 id=parameter-expansion><a class=header href=#parameter-expansion>Parameter Expansion</a></h2><p>Bash provides several useful ways to extract and modify contents of parameters and variables (including arrays). Some of these features will be discussed in this section.<p><em>1)</em> Substring extraction using <code>${parameter:offset}</code> syntax to get all characters from the given index:<pre><code class=language-bash>$ city='Lucknow'
 
 # all characters from index 4 onwards
 # indexing starts from 0
@@ -136,7 +135,12 @@ now
 # since ${parameter:-word} is a different feature
 $ echo "${city: -2}"
 ow
-</code></pre><p>Substring extraction using <code>${parameter:offset:length}</code> syntax to get specific number of characters from the given index:<pre><code class=language-bash>$ city='Lucknow'
+</code></pre><p>When applied to arrays, substring extraction will give you those elements:<pre><code class=language-bash>$ fruits=('apple' 'fig' 'mango')
+
+# all elements from index 1
+$ echo "${fruits[@]:1}"
+fig mango
+</code></pre><p><em>2)</em> Substring extraction using <code>${parameter:offset:length}</code> syntax to get specific number of characters from the given index:<pre><code class=language-bash>$ city='Lucknow'
 
 # 4 characters starting from index 0
 # can also use: echo "${city::4}"
@@ -150,19 +154,14 @@ kn
 # except last 2 characters
 $ echo "${city::-2}"
 Luckn
-</code></pre><p>When applied to arrays, substring extraction will give you those elements:<pre><code class=language-bash>$ fruits=('apple' 'fig' 'mango')
-
-# all elements from index 1
-$ echo "${fruits[@]:1}"
-fig mango
-</code></pre><p><code>${#parameter}</code> will give you the length of the string and <code>${#array[@]}</code> will give you the number of elements in the array:<pre><code class=language-bash>$ city='Lucknow'
+</code></pre><p><em>3)</em> <code>${#parameter}</code> will give you the length of the string and <code>${#array[@]}</code> will give you the number of elements in the array:<pre><code class=language-bash>$ city='Lucknow'
 $ echo "${#city}"
 7
 
 $ fruits=('apple' 'fig' 'mango')
 $ echo "${#fruits[@]}"
 3
-</code></pre><p><code>${parameter#glob}</code> will remove the shortest match from the start of the string. You can also use extended globs if enabled via <code>shopt</code> builtin. <code>${parameter##glob}</code> will remove the longest match from the start of the string. Here are some examples:<pre><code class=language-bash>$ s='this is his life history'
+</code></pre><p><em>4)</em> <code>${parameter#glob}</code> will remove the shortest match from the start of the string. You can also use extended globs if enabled via <code>shopt</code> builtin. <code>${parameter##glob}</code> will remove the longest match from the start of the string. Here are some examples:<pre><code class=language-bash>$ s='this is his life history'
 
 # shortest match is deleted
 $ echo "${s#*is}"
@@ -181,7 +180,7 @@ $ echo "${s##+([^ ])}"
 $ fruits=('apple' 'fig' 'mango')
 $ echo "${fruits[@]#*[aeiou]}"
 pple g ngo
-</code></pre><p><code>${parameter%glob}</code> will remove the shortest match from the end of the string. <code>${parameter%%glob}</code> will remove the longest match from the end of the string. Here are some examples:<pre><code class=language-bash>$ s='this is his life history'
+</code></pre><p><em>5)</em> You can use <code>${parameter%glob}</code> to remove the shortest match from the end of the string. <code>${parameter%%glob}</code> will remove the longest match from the end of the string. Here are some examples:<pre><code class=language-bash>$ s='this is his life history'
 
 $ echo "${s%is*}"
 this is his life h
@@ -191,7 +190,7 @@ th
 $ fruits=('apple' 'fig' 'mango')
 $ echo "${fruits[@]%[aeiou]*}"
 appl f mang
-</code></pre><p><code>${parameter/glob/string}</code> will replace the first matching occurrence with the given replacement string and <code>${parameter//glob/string}</code> will replace all the matching occurrences. You can leave out the <code>/string</code> portion when you want to delete the matching occurrences. The <code>glob</code> will match the longest portion, similar to greedy behavior in regular expressions. Here are some examples:<pre><code class=language-bash>$ ip='this is a sample string'
+</code></pre><p><em>6)</em> <code>${parameter/glob/string}</code> replaces the first matching occurrence with the given replacement string and <code>${parameter//glob/string}</code> will replace all the matching occurrences. You can leave out the <code>/string</code> portion when you want to delete the matching occurrences. The <code>glob</code> will match the longest portion, similar to greedy behavior in regular expressions. Here are some examples:<pre><code class=language-bash>$ ip='this is a sample string'
 
 # first occurrence of 'is' is replaced with '123'
 $ echo "${ip/is/123}"
@@ -214,7 +213,7 @@ thi is a sample string
 # deletes all occurrences of 's'
 $ echo "${ip//s}"
 thi i a ample tring
-</code></pre><p><code>${parameter/#glob/string}</code> will match only at the start of the string and <code>${parameter/%glob/string}</code> will match only at the end of the string.<pre><code class=language-bash>$ ip='spare'
+</code></pre><p><em>7)</em> You can use <code>${parameter/#glob/string}</code> to match only at the start of the string and <code>${parameter/%glob/string}</code> to match only at the end of the string.<pre><code class=language-bash>$ ip='spare'
 
 # remove only from the start of the string
 $ echo "${ip/#sp}"
@@ -230,7 +229,7 @@ $ echo "${ip/%re}"
 spa
 $ echo "${ip/%par}"
 spare
-</code></pre><p><code>${parameter^glob}</code> changes the first character to uppercase if matched by the glob. <code>${parameter^^glob}</code> changes all the matching characters to uppercase. You should provide a glob that only matches one character in length. If the glob is omitted, entire parameter will be matched. These rules also apply to the lowercase and swap case versions discussed later.<pre><code class=language-bash>$ fruit='apple'
+</code></pre><p><em>8)</em> <code>${parameter^glob}</code> can change only the first character to uppercase if matched by the glob. <code>${parameter^^glob}</code> changes all the matching characters to uppercase (anywhere in the input string). You should provide a glob that only matches one character in length. If the glob is omitted, entire parameter will be matched. These rules also apply to the lowercase and swap case versions discussed later.<pre><code class=language-bash>$ fruit='apple'
 
 # uppercase the first character
 $ echo "${fruit^}"
@@ -253,7 +252,7 @@ AppLE
 $ color='sky-rose'
 $ echo "${color^^*-}"
 sky-rose
-</code></pre><p>To change the characters to lowercase, use <code>,</code> and <code>,,</code> as shown below:<pre><code class=language-bash>$ fruit='APPLE'
+</code></pre><p><em>9)</em> To change the characters to lowercase, use <code>,</code> and <code>,,</code> as shown below:<pre><code class=language-bash>$ fruit='APPLE'
 
 $ echo "${fruit,}"
 aPPLE
@@ -262,7 +261,7 @@ apple
 
 $ echo "${fruit,,[G-Z]}"
 ApplE
-</code></pre><p>To swap case, use <code>~</code> and <code>~~</code> as shown below:<pre><code class=language-bash>$ fruit='aPPle'
+</code></pre><p><em>10)</em> To swap case, use <code>~</code> and <code>~~</code> as shown below. Note that this seems to be deprecated, since it is no longer mentioned in the <code>bash</code> manual.<pre><code class=language-bash>$ fruit='aPPle'
 
 # swap case only for the first character
 $ echo "${fruit~}"
@@ -283,12 +282,12 @@ $ seq 12 > 'test file.txt'
 $ bash command_line_arguments.sh hello.sh test\ file.txt 
 No. of lines in 'hello.sh' is 5
 No. of lines in 'test file.txt' is 12
-</code></pre><p><strong>Further Reading</strong><ul><li><a href=https://unix.stackexchange.com/q/131766/109046>unix.stackexchange: Why does my shell script choke on whitespace or other special characters?</a><li><a href=https://www.gnu.org/software/bash/manual/bash.html#Special-Parameters>bash manual: Special Parameters</a></ul><h2 id=conditional-expressions><a class=header href=#conditional-expressions>Conditional Expressions</a></h2><p>You can test a condition within <code>[[</code> and <code>]]</code> to get a success (<code>0</code>) or failure (<code>1</code> or higher) exit status and take action accordingly. Bash provides several options and operators that you can use. Space is required after <code>[[</code> and before <code>]]</code> for this compound command to function.<blockquote><p><img alt=info src=./images/info.svg> Operators <code>;</code>, <code>&&</code> and <code>||</code> will be used in this section to keep the examples terser. <code>if-else</code> and other control structures will be discussed later.</blockquote><h3 id=options><a class=header href=#options>Options</a></h3><p>The <code>-e</code> option checks if the given path argument exists or not. Add a <code>!</code> prefix to negate the condition.<pre><code class=language-bash># change to the 'example_files/shell_scripting' directory for this section
+</code></pre><p><strong>Further Reading</strong><ul><li><a href=https://unix.stackexchange.com/q/131766/109046>unix.stackexchange: shell script choking on whitespace or other special characters</a><li><a href=https://www.gnu.org/software/bash/manual/bash.html#Special-Parameters>bash manual: Special Parameters</a></ul><h2 id=conditional-expressions><a class=header href=#conditional-expressions>Conditional Expressions</a></h2><p>You can test a condition within <code>[[</code> and <code>]]</code> to get a success (<code>0</code>) or failure (<code>1</code> or higher) exit status and take action accordingly. Bash provides several options and operators that you can use. Space is required after <code>[[</code> and before <code>]]</code> for this compound command to function.<blockquote><p><img alt=info src=./images/info.svg> Operators <code>;</code>, <code>&&</code> and <code>||</code> will be used in this section to keep the examples terser. <code>if-else</code> and other control structures will be discussed later.</blockquote><h3 id=options><a class=header href=#options>Options</a></h3><p>The <code>-e</code> option checks if the given path argument exists or not. Add a <code>!</code> prefix to negate the condition.<pre><code class=language-bash># change to the 'example_files/shell_scripting' directory for this section
 
-$ [[ -e hello.sh ]] && echo 'file exists' || echo 'not found'
-file exists
+$ [[ -e hello.sh ]] && echo 'found' || echo 'not found'
+found
 
-$ [[ -e xyz.txt ]] && echo 'file exists' || echo 'not found'
+$ [[ -e xyz.txt ]] && echo 'found' || echo 'not found'
 not found
 
 # exit status
@@ -298,7 +297,7 @@ $ [[ -e xyz.txt ]] ; echo $?
 1
 $ [[ ! -e xyz.txt ]] ; echo $?
 0
-</code></pre><p>You can use <code>-d</code> and <code>-f</code> to check if the path is a valid directory and file respectively. The <code>-s</code> option checks if the file exists and its size is greater than zero. The <code>-x</code> option checks if the file exists and is executable. See <a href=https://www.gnu.org/software/bash/manual/bash.html#Bash-Conditional-Expressions>bash manual: Conditional Expressions</a> for a complete list of such options.<h3 id=string-comparisons><a class=header href=#string-comparisons>String comparisons</a></h3><ul><li><code>s1 = s2</code> or <code>s1 == s2</code> checks if two strings are equal <ul><li>unquoted portions of <code>s2</code> will be treated as a wildcard while testing against <code>s1</code><li><code>extglob</code> would be considered as enabled for comparison purposes</ul><li><code>s1 != s2</code> checks if strings are <em>not</em> equal <ul><li>unquoted portions of <code>s2</code> will be treated as a wildcard while testing against <code>s1</code><li><code>extglob</code> would be considered as enabled for comparison purposes</ul><li><code>s1 < s2</code> checks if <code>s1</code> sorts before <code>s2</code> lexicographically<li><code>s1 > s2</code> checks if <code>s1</code> sorts after <code>s2</code> lexicographically<li><code>s1 =~ s2</code> checks if <code>s1</code> matches the POSIX extended regular expression provided by <code>s2</code> <ul><li>exit status will be <code>2</code> if <code>s2</code> is not a valid regexp</ul></ul><p>Here are some examples for equal and not-equal comparisons:<pre><code class=language-bash>$ fruit='apple'
+</code></pre><p>You can use <code>-d</code> and <code>-f</code> to check if the path is a valid directory and file respectively. The <code>-s</code> option checks if the file exists and its size is greater than zero. The <code>-x</code> option checks if the file exists and is executable. See <code>help test</code> and <a href=https://www.gnu.org/software/bash/manual/bash.html#Bash-Conditional-Expressions>bash manual: Conditional Expressions</a> for a complete list of such options.<h3 id=string-comparisons><a class=header href=#string-comparisons>String comparisons</a></h3><ul><li><code>s1 = s2</code> or <code>s1 == s2</code> checks if two strings are equal <ul><li>unquoted portions of <code>s2</code> will be treated as a wildcard while testing against <code>s1</code><li><code>extglob</code> would be considered as enabled for such comparisons</ul><li><code>s1 != s2</code> checks if strings are <em>not</em> equal <ul><li>unquoted portions of <code>s2</code> will be treated as a wildcard while testing against <code>s1</code><li><code>extglob</code> would be considered as enabled for such comparisons</ul><li><code>s1 < s2</code> checks if <code>s1</code> sorts before <code>s2</code> lexicographically<li><code>s1 > s2</code> checks if <code>s1</code> sorts after <code>s2</code> lexicographically<li><code>s1 =~ s2</code> checks if <code>s1</code> matches the POSIX extended regular expression provided by <code>s2</code> <ul><li>exit status will be <code>2</code> if <code>s2</code> is not a valid regexp</ul></ul><p>Here are some examples for equal and not-equal comparisons:<pre><code class=language-bash>$ fruit='apple'
 $ [[ $fruit == 'apple' ]] && echo 'true' || echo 'false'
 true
 $ [[ $fruit == 'banana' ]] && echo 'true' || echo 'false'
@@ -337,7 +336,7 @@ false
 # -gt and other such operators will be discussed later
 $ [[ 20 -gt 3 ]] && echo 'true' || echo 'false'
 true
-</code></pre><p>Here are some examples for regexp comparison. You can use the special array <code>BASH_REMATCH</code> to retrieve specific portions of the string that was matched.<pre><code class=language-bash>$ fruit='apple'
+</code></pre><p>Here are some examples for regexp comparison. You can use the special array <code>BASH_REMATCH</code> to retrieve specific portions of the string that was matched. Index <code>0</code> gives entire matched portion, <code>1</code> gives the portion matched by the first capture group and so on.<pre><code class=language-bash>$ fruit='apple'
 $ [[ $fruit =~ ^a ]] && echo 'true' || echo 'false'
 true
 $ [[ $fruit =~ ^b ]] && echo 'true' || echo 'false'
@@ -356,17 +355,17 @@ $ n1='42'
 $ n2='25'
 $ [[ $n1 -gt 30 && $n2 -lt 12 ]] && echo 'true' || echo 'false'
 false
-</code></pre><p>Numeric arithmetic operations and comparisons can be performed within <code>((</code> and <code>))</code> compound command. Here are some sample comparisons:<pre><code class=language-bash>$ (( 20 > 3 )) && echo 'true' || echo 'false'
+</code></pre><p>Numeric arithmetic operations and comparisons can also be performed within the <code>((</code> and <code>))</code> compound command. Here are some sample comparisons:<pre><code class=language-bash>$ (( 20 > 3 )) && echo 'true' || echo 'false'
 
 $ n1='42'
 $ n2='25'
 $ (( n1 > 30 && n2 < 12 )) && echo 'true' || echo 'false'
 false
-</code></pre><blockquote><p><img alt=info src=images/info.svg> Note that the <code>$</code> prefix was <em>not</em> used for variables in the above example. See <a href=https://www.gnu.org/software/bash/manual/bash.html#Shell-Arithmetic>bash manual: Shell Arithmetic</a> for more details.</blockquote><h2 id=accepting-user-input-interactively><a class=header href=#accepting-user-input-interactively>Accepting user input interactively</a></h2><p>You can use the <code>read</code> builtin command to accept input from the user interactively. If multiple variables are given as arguments to the <code>read</code> command, values will be assigned based on whitespace separation. Any pending values will be assigned to the last variable. Here are some examples:<pre><code class=language-bash># press 'Enter' after the 'read' command
+</code></pre><blockquote><p><img alt=info src=images/info.svg> Note that the <code>$</code> prefix was <em>not</em> used for variables in the above example. See <a href=https://www.gnu.org/software/bash/manual/bash.html#Shell-Arithmetic>bash manual: Shell Arithmetic</a> for more details.</blockquote><h2 id=accepting-user-input-interactively><a class=header href=#accepting-user-input-interactively>Accepting user input interactively</a></h2><p>You can use the <code>read</code> builtin command to accept input from the user interactively. If multiple variables are given as arguments to the <code>read</code> command, values will be assigned based on whitespace separation by default. Any pending values will be assigned to the last variable. Here are some examples:<pre><code class=language-bash># press 'Enter' after the 'read' command
 # and also after you've finished entering the input
 $ read color
 light green
-$ echo $color
+$ echo "$color"
 light green
 
 # example with multiple variables
@@ -382,7 +381,7 @@ echo "$num1 + $num2 = $sum"
 $ bash user_input.sh
 Enter two integers separated by spaces: -2 42
 -2 + 42 = 40
-</code></pre><blockquote><p><img alt=info src=images/info.svg> You can use the <code>-a</code> option to assign an array, the <code>-d</code> option to specify a custom delimiter instead of newline and so on. See <code>help read</code> or <a href=https://www.gnu.org/software/bash/manual/bash.html#Bash-Builtins>bash manual: Builtins</a> for more details.</blockquote><h2 id=if-then-else><a class=header href=#if-then-else>if then else</a></h2><p>The keywords needed to construct an <code>if</code> control structure are <code>if</code>, <code>then</code>, <code>fi</code> and optionally <code>else</code> and <code>elif</code>. You can use compound commands like <code>[[</code> and <code>((</code> to provide the test condition. You can also directly use a command's exit status. Here's an example script:<pre><code class=language-bash>$ cat if_then_else.sh
+</code></pre><blockquote><p><img alt=info src=images/info.svg> You can use the <code>-a</code> option to assign an array, the <code>-d</code> option to specify a custom delimiter instead of newline and so on. See <code>help read</code> and <a href=https://www.gnu.org/software/bash/manual/bash.html#Bash-Builtins>bash manual: Builtins</a> for more details.</blockquote><h2 id=if-then-else><a class=header href=#if-then-else>if then else</a></h2><p>The keywords needed to construct an <code>if</code> control structure are <code>if</code>, <code>then</code>, <code>fi</code> and optionally <code>else</code> and <code>elif</code>. You can use compound commands like <code>[[</code> and <code>((</code> to provide the test condition. You can also directly use a command's exit status. Here's an example script:<pre><code class=language-bash>$ cat if_then_else.sh
 if (( $# != 1 )) ; then
     echo 'Error! One file argument expected.' 1>&2
     exit 1
@@ -400,7 +399,7 @@ $ echo $?
 1
 
 $ bash if_then_else.sh xyz.txt
-Error! 'xyz.txt' is not a valid file
+Error! xyz.txt is not a valid file
 $ echo $?
 1
 
@@ -484,7 +483,7 @@ $ bash read_file_fields.sh <(printf 'apple : 3\nfig : 100\n')
 \w
 or
 d
-</code></pre><blockquote><p><img alt=info src=./images/info.svg> The <code>xargs</code> command can also be used for some of the cases discussed above. See <a href=https://unix.stackexchange.com/q/149726/109046>unix.stackexchange: parse each line of a text file as an argument to a command</a> for an example.</blockquote><h2 id=functions><a class=header href=#functions>Functions</a></h2><p>From <a href=https://www.gnu.org/software/bash/manual/bash.html#Shell-Functions>bash manual: Shell Functions</a>:<blockquote><p>Shell functions are a way to group commands for later execution using a single name for the group. They are executed just like a "regular" command. When the name of a shell function is used as a simple command name, the list of commands associated with that function name is executed. Shell functions are executed in the current shell context; no new process is created to interpret them.</blockquote><p>You can use either of the syntax shown below to declare functions:<pre><code class=language-bash>fname () compound-command [ redirections ]
+</code></pre><blockquote><p><img alt=info src=./images/info.svg> The <code>xargs</code> command can also be used for some of the cases discussed above. See <a href=https://unix.stackexchange.com/q/149726/109046>unix.stackexchange: parse each line of a text file as a command argument</a> for an example.</blockquote><h2 id=functions><a class=header href=#functions>Functions</a></h2><p>From <a href=https://www.gnu.org/software/bash/manual/bash.html#Shell-Functions>bash manual: Shell Functions</a>:<blockquote><p>Shell functions are a way to group commands for later execution using a single name for the group. They are executed just like a "regular" command. When the name of a shell function is used as a simple command name, the list of commands associated with that function name is executed. Shell functions are executed in the current shell context; no new process is created to interpret them.</blockquote><p>You can use either of the syntax shown below to declare functions:<pre><code class=language-bash>fname () compound-command [ redirections ]
 
 function fname [()] compound-command [ redirections ]
 </code></pre><p>Arguments to functions are passed in the same manner as those discussed earlier for shell scripts. Here's an example:<pre><code class=language-bash>$ cat functions.sh
@@ -520,13 +519,13 @@ convert -border 10 -bordercolor grey flower.png flower_border.png
 convert -border 5 -bordercolor grey insect.png insect_border.png
 convert -border 10 -bordercolor red lake.png lake_border.png
 convert -border 20 -bordercolor blue sky.png sky_border.png
-</code></pre><blockquote><p><img alt=info src=images/info.svg> Use <code>mogrify</code> instead of <code>convert</code> if you want to modify the input image inplace instead of creating a new image. These image manipulation commands are part of <a href=https://imagemagick.org/>ImageMagick</a>. As an exercise, modify the above function to generate error if the arguments passed do not match the expected usage. You can also accept output image name (or perhaps a different suffix) as an additional argument.</blockquote><p>The shell script and user defined functions (which in turn might call itself or another function) can both have positional arguments. In such cases, the shell takes cares of restoring positional arguments to the earlier state once a function completes its tasks.<p>Functions have exit status as well, which is based on the last executed command by default. You can use the <code>return</code> builtin to provide your own custom exit status.<h2 id=debugging><a class=header href=#debugging>Debugging</a></h2><p>You can use the following <code>bash</code> options for debugging purposes:<ul><li><code>-x</code> print commands and their arguments as they are executed<li><code>-v</code> verbose option, print shell input lines as they are read</ul><p>Here's an example with <code>bash -x</code> option:<pre><code class=language-bash>$ bash -x search.sh
+</code></pre><blockquote><p><img alt=info src=images/info.svg> Use <code>mogrify</code> instead of <code>convert</code> if you want to modify the input image inplace instead of creating a new image. These image manipulation commands are part of the <a href=https://imagemagick.org/>ImageMagick</a> suite. As an exercise, modify the above function to generate error if the arguments passed do not match the expected usage. You can also accept output image name (or perhaps a different suffix) as an additional argument.</blockquote><p>The shell script and user defined functions (which in turn might call itself or another function) can both have positional arguments. In such cases, the shell takes cares of restoring positional arguments to the earlier state once a function completes its tasks.<p>Functions have exit status as well, which is based on the last executed command by default. You can use the <code>return</code> builtin to provide your own custom exit status.<h2 id=debugging><a class=header href=#debugging>Debugging</a></h2><p>You can use the following <code>bash</code> options for debugging purposes:<ul><li><code>-x</code> print commands and their arguments as they are executed<li><code>-v</code> verbose option, print shell input lines as they are read</ul><p>Here's an example with <code>bash -x</code> option:<pre><code class=language-bash>$ bash -x search.sh
 + read -p 'Enter a search pattern: ' search
 Enter a search pattern: xyz
 + grep -q xyz hello.sh
 + echo 'match not found'
 match not found
-</code></pre><p>In the above illustration, the lines starting with <code>+</code> show the command being executed with expanded values if applicable (the <code>search</code> variable to <code>grep -q</code> for example). Multiple <code>+</code> will be used if there are multiple expansions. Here's how <code>bash -xv</code> would behave for the same script:<pre><code class=language-bash>$ bash -xv search.sh
+</code></pre><p>The lines starting with <code>+</code> show the command being executed with expanded values if applicable (the <code>search</code> variable to <code>grep -q</code> for example). Multiple <code>+</code> will be used if there are multiple expansions. Here's how <code>bash -xv</code> would behave for the same script:<pre><code class=language-bash>$ bash -xv search.sh
 read -p 'Enter a search pattern: ' search
 + read -p 'Enter a search pattern: ' search
 Enter a search pattern: xyz
