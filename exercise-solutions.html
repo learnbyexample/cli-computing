@@ -599,4 +599,651 @@ hello_world.py  .hidden  hi.sh  ip.txt
 $ find -type f -executable
 ./hi.sh
 ./hello_world.py
-</code></pre><blockquote><p><code>-executable</code><p>Matches files which are executable and directories which are searchable (in a file name resolution sense) by the current user.</blockquote><p><strong>30)</strong> List at least one use case for piping the <code>find</code> output to the <code>xargs</code> command instead of using the <code>find -exec</code> option.<p><code>xargs -P</code> (or the <a href=https://www.gnu.org/software/parallel/>parallel</a> command) can be handy if you need parallel execution for performance reasons.<p><strong>31)</strong> How does the <code>locate</code> command work faster than the equivalent <code>find</code> command?<p>From <a href=https://unix.stackexchange.com/q/60205/109046>unix.stackexchange: pros and cons of find and locate</a>:<blockquote><p><code>locate</code> uses a prebuilt database, which should be regularly updated, while <code>find</code> iterates over a filesystem to locate files.<p>Thus, <code>locate</code> is much faster than <code>find</code>, but can be inaccurate if the database -can be seen as a cache- is not updated (see <code>updatedb</code> command).</blockquote><br><p><em>More to come...</em></main><nav aria-label="Page navigation"class=nav-wrapper><a aria-label="Previous chapter"class="mobile-nav-chapters previous"title="Previous chapter"aria-keyshortcuts=Left href=shell-customization.html rel=prev> <i class="fa fa-angle-left"></i> </a><div style="clear: both"></div></nav></div></div><nav aria-label="Page navigation"class=nav-wide-wrapper><a aria-label="Previous chapter"class="nav-chapters previous"title="Previous chapter"aria-keyshortcuts=Left href=shell-customization.html rel=prev> <i class="fa fa-angle-left"></i> </a></nav></div><script>window.playground_copyable = true;</script><script charset=utf-8 src=elasticlunr.min.js></script><script charset=utf-8 src=mark.min.js></script><script charset=utf-8 src=searcher.js></script><script charset=utf-8 src=clipboard.min.js></script><script charset=utf-8 src=highlight.js></script><script charset=utf-8 src=book.js></script><script src=sidebar.js></script>
+</code></pre><blockquote><p><code>-executable</code><p>Matches files which are executable and directories which are searchable (in a file name resolution sense) by the current user.</blockquote><p><strong>30)</strong> List at least one use case for piping the <code>find</code> output to the <code>xargs</code> command instead of using the <code>find -exec</code> option.<p><code>xargs -P</code> (or the <a href=https://www.gnu.org/software/parallel/>parallel</a> command) can be handy if you need parallel execution for performance reasons.<p><strong>31)</strong> How does the <code>locate</code> command work faster than the equivalent <code>find</code> command?<p>From <a href=https://unix.stackexchange.com/q/60205/109046>unix.stackexchange: pros and cons of find and locate</a>:<blockquote><p><code>locate</code> uses a prebuilt database, which should be regularly updated, while <code>find</code> iterates over a filesystem to locate files.<p>Thus, <code>locate</code> is much faster than <code>find</code>, but can be inaccurate if the database -can be seen as a cache- is not updated (see <code>updatedb</code> command).</blockquote><br><h2 id=file-properties><a class=header href=#file-properties>File Properties</a></h2><blockquote><p><img alt=info src=./images/info.svg> Use <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files>example_files/text_files</a> directory for input files used in the following exercises, unless otherwise specified.</blockquote><blockquote><p><img alt=info src=./images/info.svg> Create a temporary directory for exercises that may require you to create some files and directories. You can delete such practice directories afterwards.</blockquote><p><strong>1)</strong> Save the number of lines in the <code>greeting.txt</code> input file to the <code>lines</code> shell variable.<pre><code class=language-bash>$ lines=$(wc -l &LTgreeting.txt)
+$ echo "$lines"
+2
+</code></pre><p><strong>2)</strong> What do you think will be the output of the following command?<pre><code class=language-bash>$ echo 'dragons:2 ; unicorns:10' | wc -w
+3
+</code></pre><p><strong>3)</strong> Use appropriate options and arguments to get the output shown below.<pre><code class=language-bash>$ printf 'apple\nbanana\ncherry' | wc -lc sample.txt -
+     15     183 sample.txt
+      2      19 -
+     17     202 total
+</code></pre><p><strong>4)</strong> Go through the <code>wc</code> manual and use appropriate options and arguments to get the output shown below.<pre><code class=language-bash>$ printf 'greeting.txt\0scores.csv' | wc --files0-from=-
+2 6 25 greeting.txt
+4 4 70 scores.csv
+6 10 95 total
+</code></pre><blockquote><p><code>--files0-from=F</code><p>read input from the files specified by NUL-terminated names in file F; If F is - then read names from standard input</blockquote><p><strong>5)</strong> What is the difference between <code>wc -c</code> and <code>wc -m</code> options? And which option would you use to get the longest line length?<blockquote><p><code>-c, --bytes</code><p>print the byte counts<p><code>-m, --chars</code><p>print the character counts<p><code>-L, --max-line-length</code><p>print the maximum display width</blockquote><p><strong>6)</strong> Find filenames ending with <code>.log</code> and report their sizes in human readable format. Use <code>find+du</code> combination for the first case and <code>ls</code> command (with appropriate shell features) for the second case.<pre><code class=language-bash># change to the 'scripts' directory and source the 'du.sh' script
+$ source du.sh
+
+$ find -type f -name '*.log' -exec du -h {} +
+16K     ./projects/errors.log
+7.4M    ./report.log
+
+$ shopt -s globstar
+$ ls -1sh **/*.log
+ 16K projects/errors.log
+7.4M report.log
+</code></pre><p><strong>7)</strong> Report sizes of files/directories in the current path in powers of <code>1000</code> without descending into sub-directories. Also, show a total at the end.<pre><code class=language-bash># change to the 'scripts' directory and source the 'du.sh' script
+$ source du.sh
+
+$ du -sc --si *
+50k     projects
+7.7M    report.log
+8.2k    todos
+7.8M    total
+</code></pre><p><strong>8)</strong> What does the <code>du --apparent-size</code> option do?<blockquote><p><code>--apparent-size</code><p>print apparent sizes, rather than disk usage; although the apparent size is usually smaller, it may be larger due to holes in ('sparse') files, internal fragmentation, indirect blocks, and the like</blockquote><p><strong>9)</strong> When will you use the <code>df</code> command instead of <code>du</code>? Which <code>df</code> command option will help you to report only specific fields of interest?<p><code>df</code> gives space usage for the entire file system whereas <code>du</code> is useful to get space estimate for specific files and directories.<pre><code class=language-bash>$ whatis du df
+du (1)               - estimate file space usage
+df (1)               - report file system disk space usage
+</code></pre><p>To get only specific fields of interest:<blockquote><p><code>--output[=FIELD_LIST]</code><p>use the output format defined by FIELD_LIST, or print all fields if FIELD_LIST is omitted.</blockquote><p><strong>10)</strong> Display the size of <code>scores.csv</code> and <code>timings.txt</code> files in the format shown below.<pre><code class=language-bash>$ stat -c '%n: %s' scores.csv timings.txt
+scores.csv: 70
+timings.txt: 49
+</code></pre><p><strong>11)</strong> Which <code>touch</code> option will help you prevent file creation if it doesn't exist yet?<blockquote><p><code>-c, --no-create</code><p>do not create any files</blockquote><p><strong>12)</strong> Assume <code>new_file.txt</code> doesn't exist in the current working directory. What would be the output of the <code>stat</code> command shown below?<pre><code class=language-bash>$ touch -t '202010052010.05' new_file.txt
+$ stat -c '%y' new_file.txt
+2020-10-05 20:10:05.000000000 +0530
+</code></pre><blockquote><p><code>-t STAMP</code><p>use [[CC]YY]MMDDhhmm[.ss] instead of current time</blockquote><p><strong>13)</strong> Is the following <code>touch</code> command valid? If so, what would be the output of the <code>stat</code> command that follows?<p>Yes, it is valid as multiple file arguments are allowed. The <code>-r</code> option helps to copy the timestamp details from the given file to the target files.<pre><code class=language-bash># change to the 'scripts' directory and source the 'touch.sh' script
+$ source touch.sh
+
+$ stat -c '%n: %y' fruits.txt
+fruits.txt: 2017-07-13 13:54:03.576055933 +0530
+
+$ touch -r fruits.txt f{1..3}.txt
+$ stat -c '%n: %y' f*.txt
+f1.txt: 2017-07-13 13:54:03.576055933 +0530
+f2.txt: 2017-07-13 13:54:03.576055933 +0530
+f3.txt: 2017-07-13 13:54:03.576055933 +0530
+fruits.txt: 2017-07-13 13:54:03.576055933 +0530
+</code></pre><p><strong>14)</strong> Use appropriate option(s) to get the output shown below.<pre><code class=language-bash>$ printf 'αλεπού\n' | file -
+/dev/stdin: UTF-8 Unicode text
+
+$ printf 'αλεπού\n' | file -b -
+UTF-8 Unicode text
+</code></pre><p><strong>15)</strong> Is the following command valid? If so, what would be the output?<p>Yes, it is valid. Multiple slashes will be considered as a single slash.<pre><code class=language-bash>$ basename -s.txt ~///test.txt///
+test
+</code></pre><p><strong>16)</strong> Given the file path in the shell variable <code>p</code>, how'd you obtain the output shown below?<pre><code class=language-bash>$ p='~/projects/square_tictactoe/python/game.py'
+$ dirname $(dirname "$p")
+~/projects/square_tictactoe
+</code></pre><p><strong>17)</strong> Explain what each of the characters mean in the following <code>stat</code> command's output.<pre><code class=language-bash>$ stat -c '%A' ../scripts/
+drwxrwxr-x
+</code></pre><p>The 10 characters displayed are related to file type and permissions. First character indicates the <strong>file type</strong>. The most common ones are:<ul><li><code>-</code> regular file<li><code>d</code> directory<li><code>l</code> symbolic link</ul><p>The other nine characters represent three sets of <strong>file permissions</strong> for <em>user</em> (<code>u</code>), <em>group</em> (<code>g</code>) and <em>others</em> (<code>o</code>), in that order.<ul><li><em>user</em> — file owner<li><em>group</em> — users having file access as part of a group<li><em>others</em> — everyone else</ul><p><strong>Permission reference table:</strong><div class=table-wrapper><table><thead><tr><th>Character<th>Meaning<th>Value<tbody><tr><td><code>r</code><td>read<td><code>4</code><tr><td><code>w</code><td>write<td><code>2</code><tr><td><code>x</code><td>execute<td><code>1</code><tr><td><code>-</code><td>no permission<td><code>0</code></table></div><p><strong>18)</strong> What would be the output of the second <code>stat</code> command shown below?<pre><code class=language-bash>$ touch new_file.txt
+$ stat -c '%a %A' new_file.txt
+664 -rw-rw-r--
+
+$ chmod 546 new_file.txt
+$ stat -c '%a %A' new_file.txt
+546 -r-xr--rw-
+</code></pre><p><strong>19)</strong> How would you specify directory permissions using the <code>mkdir</code> command?<pre><code class=language-bash># instead of this
+$ mkdir back_up
+$ chmod 750 back_up
+$ stat -c '%a %A' back_up
+750 drwxr-x---
+$ rm -r back_up
+
+# do this
+$ mkdir -m 750 back_up
+$ stat -c '%a %A' back_up
+750 drwxr-x---
+</code></pre><p><strong>20)</strong> Change the file permission of <code>book_list.txt</code> to match the output of the second <code>stat</code> command shown below. Don't use the number <code>220</code>, specify the changes in terms of <code>rwx</code> characters.<pre><code class=language-bash>$ touch book_list.txt
+$ stat -c '%a %A' book_list.txt
+664 -rw-rw-r--
+
+# can also use: chmod -r book_list.txt
+$ chmod =w book_list.txt
+$ stat -c '%a %A' book_list.txt
+220 --w--w----
+</code></pre><p><strong>21)</strong> Change the permissions of <code>test_dir</code> to match the output of the second <code>stat</code> command shown below. Don't use the number <code>757</code>, specify the changes in terms of <code>rwx</code> characters.<pre><code class=language-bash>$ mkdir test_dir
+$ stat -c '%a %A' test_dir
+775 drwxrwxr-x
+
+$ chmod g-w,o+w test_dir
+$ stat -c '%a %A' test_dir
+757 drwxr-xrwx
+</code></pre><br><h2 id=managing-processes><a class=header href=#managing-processes>Managing Processes</a></h2><p><strong>1)</strong> How would you invoke a command to be executed in the background? And what would you do to push a job to the background after it has already been launched? What commands can you use to track active jobs?<ul><li>appending an <code>&</code> character to the command will execute it in the background<li><code>Ctrl+z</code> (suspend the current running job) followed by <code>bg</code> (push the recently suspended job to the background)<li><code>jobs</code> or <code>ps</code> will help to track active jobs</ul><p><strong>2)</strong> What do <code>+</code> and <code>-</code> symbols next to job numbers indicate?<p>From <code>info bash</code> (section <em>Job Control Basics</em>):<blockquote><p>In output pertaining to jobs (e.g., the output of the <code>jobs</code> command), the current job is always flagged with a <code>+</code>, and the previous job with a <code>-</code>.</blockquote><p><strong>3)</strong> When would you use <code>fg %n</code> and <code>bg %n</code> instead of just <code>fg</code> and <code>bg</code> respectively?<p>From <code>info bash</code> (section <em>Job Control Basics</em>):<blockquote><p>There are a number of ways to refer to a job in the shell. The character <code>%</code> introduces a job specification (JOBSPEC).<p>Job number <code>n</code> may be referred to as <code>%n</code>.</blockquote><p><strong>4)</strong> Which option will help you customize the output fields needed for the <code>ps</code> command?<blockquote><p><code>-o format</code><p>User-defined format. format is a single argument in the form of a blank-separated or comma-separated list, which offers a way to specify individual output columns.</blockquote><p><strong>5)</strong> What's the difference between <code>pgrep -a</code> and <code>pgrep -l</code> options?<blockquote><p><code>-a, --list-full</code><p>List the full command line as well as the process ID.<p><code>-l, --list-name</code><p>List the process name as well as the process ID.</blockquote><p><strong>6)</strong> If the job number is <code>2</code>, would you use <code>kill %2</code> or <code>kill 2</code> to send <code>SIGTERM</code> to that process?<p><code>kill %2</code><p><strong>7)</strong> Which signal does the <code>Ctrl+c</code> shortcut send to the currently running process?<p>Pressing <code>Ctrl+c</code> sends the <code>SIGINT</code> (<code>2</code>) signal, usually used to abort a process.<p><strong>8)</strong> Which command helps you to continuously monitor processes, along with details like PID, memory usage, etc?<p><code>top</code> (or alternatives like <code>btop</code> and <code>htop</code>)<p><strong>9)</strong> Which key will help you manipulate kill tasks from within the <code>top</code> session?<p><code>k</code><p><strong>10)</strong> What does the <code>free</code> command do?<pre><code class=language-bash>$ whatis free
+free (1)             - Display amount of free and used memory in the system
+</code></pre><br><h2 id=multipurpose-text-processing-tools><a class=header href=#multipurpose-text-processing-tools>Multipurpose Text Processing Tools</a></h2><blockquote><p><img alt=info src=./images/info.svg> Use <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files>example_files/text_files</a> directory for input files used in the following exercises.</blockquote><p><strong>1)</strong> Replace all occurrences of <code>0xA0</code> with <code>0x50</code> and <code>0xFF</code> with <code>0x7F</code> for the given input.<pre><code class=language-bash>$ printf 'a1:0xA0, a2:0xA0A1\nb1:0xFF, b2:0xBE\n'
+a1:0xA0, a2:0xA0A1
+b1:0xFF, b2:0xBE
+
+$ printf 'a1:0xA0, a2:0xA0A1\nb1:0xFF, b2:0xBE\n' | sed 's/0xA0/0x50/g; s/0xFF/0x7F/g'
+a1:0x50, a2:0x50A1
+b1:0x7F, b2:0xBE
+</code></pre><p><strong>2)</strong> Remove only the third line from the given input.<pre><code class=language-bash>$ seq 34 37 | sed '3d'
+34
+35
+37
+
+# alternate solutions
+$ seq 34 37 | awk 'NR!=3'
+$ seq 34 37 | perl -ne 'print if $.!=3'
+</code></pre><p><strong>3)</strong> For the input file <code>sample.txt</code>, display all lines that contain <code>it</code> but not <code>do</code>.<pre><code class=language-bash>$ sed -n '/it/{/do/!p}' sample.txt
+ 7) Believe it
+
+# alternate solutions
+$ awk '/it/ && !/do/' sample.txt
+$ perl -ne 'print if /it/ && !/do/' sample.txt
+</code></pre><p><strong>4)</strong> For the input file <code>purchases.txt</code>, delete all lines containing <code>tea</code>. Also, replace all occurrences of <code>coffee</code> with <code>milk</code>. Write back the changes to the input file itself. The original contents should get saved to <code>purchases.txt.orig</code>. Afterwards, restore the contents from this backup file.<pre><code class=language-bash># make the changes
+$ sed -i.orig '/tea/d; s/coffee/milk/g' purchases.txt
+
+$ ls purchases*
+purchases.txt  purchases.txt.orig
+$ cat purchases.txt
+milk
+washing powder
+milk
+toothpaste
+soap
+
+# restore the contents
+$ mv purchases.txt.orig purchases.txt
+$ ls purchases*
+purchases.txt
+$ cat purchases.txt
+coffee
+tea
+washing powder
+coffee
+toothpaste
+tea
+soap
+tea
+
+# alternate solutions
+$ sed -i.orig -n '/tea/b; s/coffee/milk/g; p' purchases.txt
+$ perl -i.orig -pe '$_="" if /tea/; s/coffee/milk/g' purchases.txt
+$ perl -i.orig -ne 'next if /tea/; s/coffee/milk/g; print' purchases.txt
+</code></pre><p><strong>5)</strong> For the input file <code>sample.txt</code>, display all lines from the start of the file till the first occurrence of <code>are</code>.<pre><code class=language-bash>$ sed '/are/q' sample.txt
+ 1) Hello World
+ 2) 
+ 3) Hi there
+ 4) How are you
+
+# alternate solutions
+$ awk '1; /are/{exit}' sample.txt
+$ perl -ne 'print; exit if /are/' sample.txt
+</code></pre><p><strong>6)</strong> Delete all groups of lines from a line containing <code>start</code> to a line containing <code>end</code> for the <code>uniform.txt</code> input file.<pre><code class=language-bash>$ sed '/start/,/end/d' uniform.txt
+mango
+icecream
+how are you
+have a nice day
+par,far,mar,tar
+
+# alternate solutions
+$ awk '/start/{f=1} !f; /end/{f=0}' uniform.txt
+$ perl -ne '$f=1 if /start/; print if !$f; $f=0 if /end/' uniform.txt
+</code></pre><p><strong>7)</strong> Replace all occurrences of <code>42</code> with <code>[42]</code> unless it is at the edge of a word.<pre><code class=language-bash>$ echo 'hi42bye nice421423 bad42 cool_4242a 42c' | sed 's/\B42\B/[&]/g'
+hi[42]bye nice[42]1[42]3 bad42 cool_[42][42]a 42c
+</code></pre><p><strong>8)</strong> Replace all whole words with <code>X</code> that start and end with the same word character.<pre><code class=language-bash>$ echo 'oreo not a _a2_ roar took 22' | sed -E 's/\b(\w|(\w)\w*\2)\b/X/g'
+X not X X X took X
+</code></pre><p><strong>9)</strong> For the input file <code>anchors.txt</code>, convert markdown anchors to hyperlinks as shown below.<pre><code class=language-bash>$ cat anchors.txt
+# &LTa name="regular-expressions">&LT/a>Regular Expressions
+## &LTa name="subexpression-calls">&LT/a>Subexpression calls
+## &LTa name="the-dot-meta-character">&LT/a>The dot meta character
+
+$ sed -E 's|[^"]+"([^"]+)">&LT/a>(.+)|[\2](#\1)|' anchors.txt
+[Regular Expressions](#regular-expressions)
+[Subexpression calls](#subexpression-calls)
+[The dot meta character](#the-dot-meta-character)
+</code></pre><p><strong>10)</strong> Replace all occurrences of <code>e</code> with <code>3</code> except the first two matches.<pre><code class=language-bash>$ echo 'asset sets tests site' | sed 's/e/3/3g'
+asset sets t3sts sit3
+
+$ echo 'sample item teem eel' | sed 's/e/3/3g'
+sample item t33m 33l
+</code></pre><p><strong>11)</strong> The below sample strings use <code>,</code> as the delimiter and the field values can be empty as well. Use <code>sed</code> to replace only the third field with <code>42</code>.<pre><code class=language-bash>$ echo 'lion,,ant,road,neon' | sed 's/[^,]*/42/3'
+lion,,42,road,neon
+$ echo ',,,' | sed 's/[^,]*/42/3'
+,,42,
+</code></pre><p><strong>12)</strong> For the input file <code>table.txt</code>, calculate and display the product of numbers in the last field of each line. Consider space as the field separator for this file.<pre><code class=language-bash>$ cat table.txt
+brown bread mat hair 42
+blue cake mug shirt -7
+yellow banana window shoes 3.14
+
+$ awk 'BEGIN{p = 1} {p *= $NF} END{print p}' table.txt
+-923.16
+
+# alternate solutions
+$ perl -lane 'BEGIN{$p = 1} {$p *= $F[-1]} END{print $p}' table.txt
+</code></pre><p><strong>13)</strong> Extract the contents between <code>()</code> or <code>)(</code> from each of the input lines. Assume that the <code>()</code> characters will be present only once every line.<pre><code class=language-bash>$ printf 'apple(ice)pie\n(almond)pista\nyo)yoyo(yo\n'
+apple(ice)pie
+(almond)pista
+yo)yoyo(yo
+
+$ printf 'apple(ice)pie\n(almond)pista\nyo)yoyo(yo\n' | awk -F'[()]' '{print $2}'
+ice
+almond
+yoyo
+</code></pre><p><strong>14)</strong> For the input file <code>scores.csv</code>, display the <code>Name</code> and <code>Physics</code> fields in the format shown below.<pre><code class=language-bash>$ cat scores.csv
+Name,Maths,Physics,Chemistry
+Ith,100,100,100
+Cy,97,98,95
+Lin,78,83,80
+
+$ awk -F, '{print $1 ":" $3}' scores.csv
+Name:Physics
+Ith:100
+Cy:98
+Lin:83
+
+# alternate solutions
+$ awk -F, -v OFS=: '{print $1, $3}' scores.csv
+$ perl -F, -lane 'print "$F[0]:$F[2]"' scores.csv
+$ perl -F, -lane 'print join ":", @F[0,2]' scores.csv
+</code></pre><p><strong>15)</strong> Extract and display third and first words in the format shown below.<pre><code class=language-bash>$ echo '%whole(Hello)--{doubt}==ado==' | awk -v FPAT='\\w+' '{print $3 ":" $1}'
+doubt:whole
+
+$ echo 'just,\joint*,concession_42<=nice' | awk -v FPAT='\\w+' '{print $3 ":" $1}'
+concession_42:just
+
+# alternate solutions
+$ echo '%whole(Hello)--{doubt}==ado==' | perl -lne '@F = /\w+/g; print "$F[2]:$F[0]"'
+$ echo 'just,\joint*,concession_42<=nice' | perl -lne '@F = /\w+/g; print "$F[2]:$F[0]"'
+</code></pre><p><strong>16)</strong> For the input file <code>scores.csv</code>, add another column named <code>GP</code> which is calculated out of <code>100</code> by giving <code>50%</code> weightage to <code>Maths</code> and <code>25%</code> each for <code>Physics</code> and <code>Chemistry</code>.<pre><code class=language-bash>$ awk -F, -v OFS=, '{$(NF+1) = NR==1 ? "GP" : ($2/2 + ($3+$4)/4)} 1' scores.csv
+Name,Maths,Physics,Chemistry,GP
+Ith,100,100,100,100
+Cy,97,98,95,96.75
+Lin,78,83,80,79.75
+</code></pre><p><strong>17)</strong> From the <code>para.txt</code> input file, display all paragraphs containing any digit character.<pre><code class=language-bash>$ cat para.txt
+hi there
+how are you
+
+2 apples
+12 bananas
+
+
+blue sky
+yellow sun
+brown earth
+
+$ awk -v RS= '/[0-9]/' para.txt
+2 apples
+12 bananas
+</code></pre><p><strong>18)</strong> Input has the ASCII NUL character as the record separator. Change it to dot and newline characters as shown below.<pre><code class=language-bash>$ printf 'apple\npie\0banana\ncherry\0' | awk -v RS='\0' -v ORS='.\n' '1'
+apple
+pie.
+banana
+cherry.
+</code></pre><p><strong>19)</strong> For the input file <code>sample.txt</code>, print a matching line containing <code>do</code> only if <code>you</code> is found two lines before. For example, if <code>do</code> is found on line number 10 and 8th line contains <code>you</code>, then 10th line should be printed.<pre><code class=language-bash>$ awk 'p2 ~ /you/ && /do/; {p2=p1; p1=$0}' sample.txt
+ 6) Just do-it
+
+# alternate solutions
+$ perl -ne 'print if $p2 =~ /you/ && /do/; $p2=$p1; $p1=$_' sample.txt
+</code></pre><p><strong>20)</strong> For the input file <code>blocks.txt</code>, extract contents from a line containing exactly <code>%=%=</code> until but not including the next such line. The block to be extracted is indicated by variable <code>n</code> passed via the <code>-v</code> option.<pre><code class=language-bash>$ cat blocks.txt
+%=%=
+apple
+banana
+%=%=
+brown
+green
+
+$ awk -v n=1 '$0 == "%=%="{c++} c==n' blocks.txt
+%=%=
+apple
+banana
+$ awk -v n=2 '$0 == "%=%="{c++} c==n' blocks.txt
+%=%=
+brown
+green
+</code></pre><p><strong>21)</strong> Display lines present in <code>c1.txt</code> but not in <code>c2.txt</code> using the <code>awk</code> command.<pre><code class=language-bash>$ awk 'NR==FNR{a[$0]; next} !($0 in a)' c2.txt c1.txt
+Brown
+Purple
+Teal
+</code></pre><p><strong>22)</strong> Display lines from <code>scores.csv</code> by matching the first field based on a list of names from the <code>names.txt</code> file.<pre><code class=language-bash>$ printf 'Ith\nLin\n' > names.txt
+
+$ awk -F, 'NR==FNR{a[$1]; next} $1 in a' names.txt scores.csv
+Ith,100,100,100
+Lin,78,83,80
+
+$ rm names.txt
+</code></pre><p><strong>23)</strong> Retain only the first copy of duplicate lines from the <code>duplicates.txt</code> input file. Use only the contents of the last field for determining duplicates.<pre><code class=language-bash>$ cat duplicates.txt
+brown,toy,bread,42
+dark red,ruby,rose,111
+blue,ruby,water,333
+dark red,sky,rose,555
+yellow,toy,flower,333
+white,sky,bread,111
+light red,purse,rose,333
+
+$ awk -F, '!seen[$NF]++' duplicates.txt
+brown,toy,bread,42
+dark red,ruby,rose,111
+blue,ruby,water,333
+dark red,sky,rose,555
+
+# alternate solutions
+$ perl -F, -lane 'print if !$seen{$F[-1]}++' duplicates.txt
+</code></pre><p><strong>24)</strong> For the input file <code>table.txt</code>, print input lines if the second field starts with <code>b</code>. Construct solutions using <code>awk</code> and <code>perl</code>.<pre><code class=language-bash>$ awk '$2 ~ /^b/' table.txt
+brown bread mat hair 42
+yellow banana window shoes 3.14
+
+$ perl -lane 'print if $F[1] =~ /^b/' table.txt
+brown bread mat hair 42
+yellow banana window shoes 3.14
+</code></pre><p><strong>25)</strong> For the input file <code>table.txt</code>, retain only the second last field. Write back the changes to the input file itself. The original contents should get saved to <code>table.txt.bkp</code>. Afterwards, restore the contents from this backup file.<pre><code class=language-bash># make the changes
+$ perl -i.bkp -lane 'print $F[-2]' table.txt
+$ ls table*
+table.txt  table.txt.bkp
+$ cat table.txt
+hair
+shirt
+shoes
+
+# restore the contents
+$ mv table.txt.bkp table.txt
+$ ls table*
+table.txt
+$ cat table.txt
+brown bread mat hair 42
+blue cake mug shirt -7
+yellow banana window shoes 3.14
+</code></pre><p><strong>26)</strong> Reverse the first field contents of <code>table.txt</code> input file.<pre><code class=language-bash>$ perl -lane '$F[0] = reverse $F[0]; print "@F"' table.txt
+nworb bread mat hair 42
+eulb cake mug shirt -7
+wolley banana window shoes 3.14
+</code></pre><p><strong>27)</strong> Sort the given comma separated input lexicographically. Change the output field separator to a <code>:</code> character.<pre><code class=language-bash>$ ip='floor,bat,to,dubious,four'
+$ echo "$ip" | perl -F, -lane 'print join ":", sort @F'
+bat:dubious:floor:four:to
+</code></pre><p><strong>28)</strong> Filter fields containing digit characters.<pre><code class=language-bash>$ ip='5pearl 42 east 1337 raku_6 lion 3.14'
+$ echo "$ip" | perl -lane 'print join " ", grep {/\d/} @F'
+5pearl 42 1337 raku_6 3.14
+</code></pre><p><strong>29)</strong> The input shown below has several words ending with digit characters. Change the words containing <code>test</code> to match the output shown below. That is, renumber the matching portions to <code>1</code>, <code>2</code>, etc. Words not containing <code>test</code> should not be changed.<pre><code class=language-bash>$ ip='test_12:test123\nanother_test_4,no_42\n'
+$ printf '%b' "$ip"
+test_12:test123
+another_test_4,no_42
+
+$ printf '%b' "$ip" | perl -pe 's/test\w*?\K\d+/++$i/ge'
+test_1:test2
+another_test_3,no_42
+</code></pre><p><strong>30)</strong> For the input file <code>table.txt</code>, change contents of the third field to all uppercase. Construct solutions using <code>sed</code>, <code>awk</code> and <code>perl</code>.<pre><code class=language-bash>$ sed 's/[^ ]*/\U&/3' table.txt
+brown bread MAT hair 42
+blue cake MUG shirt -7
+yellow banana WINDOW shoes 3.14
+
+$ awk '{$3 = toupper($3)} 1' table.txt
+brown bread MAT hair 42
+blue cake MUG shirt -7
+yellow banana WINDOW shoes 3.14
+
+$ perl -lane '$F[2] = uc $F[2]; print "@F"' table.txt
+brown bread MAT hair 42
+blue cake MUG shirt -7
+yellow banana WINDOW shoes 3.14
+</code></pre><br><h2 id=sorting-stuff><a class=header href=#sorting-stuff>Sorting Stuff</a></h2><blockquote><p><img alt=info src=./images/info.svg> Use <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files>example_files/text_files</a> directory for input files used in the following exercises.</blockquote><p><strong>1)</strong> Default <code>sort</code> doesn't work for numbers. Correct the command used below:<pre><code class=language-bash># wrong output
+$ printf '100\n10\n20\n3000\n2.45\n' | sort
+10
+100
+20
+2.45
+3000
+
+# expected output
+$ printf '100\n10\n20\n3000\n2.45\n' | sort -n
+2.45
+10
+20
+100
+3000
+</code></pre><p><strong>2)</strong> Which <code>sort</code> option will help you ignore case?<pre><code class=language-bash>$ printf 'Super\nover\nRUNE\ntea\n' | LC_ALL=C sort -f
+over
+RUNE
+Super
+tea
+</code></pre><p><strong>3)</strong> Go through the <code>sort</code> manual and use appropriate options to get the output shown below.<pre><code class=language-bash># wrong output
+$ printf '+120\n-1.53\n3.14e+4\n42.1e-2' | sort -n
+-1.53
++120
+3.14e+4
+42.1e-2
+
+# expected output
+$ printf '+120\n-1.53\n3.14e+4\n42.1e-2' | sort -g
+-1.53
+42.1e-2
++120
+3.14e+4
+</code></pre><blockquote><p><code>-g, --general-numeric-sort</code><p>compare according to general numerical value</blockquote><p><strong>4)</strong> Sort the <code>scores.csv</code> file numerically in ascending order using the contents of the second field. Header line should be preserved as the first line as shown below. <em>Hint</em>: see <a href=./shell-features.html>Shell Features</a> chapter.<pre><code class=language-bash>$ (sed -u '1q' ; sort -t, -k2,2n) < scores.csv
+Name,Maths,Physics,Chemistry
+Lin,78,83,80
+Cy,97,98,95
+Ith,100,100,100
+</code></pre><p><strong>5)</strong> Sort the contents of <code>duplicates.txt</code> by the fourth column numbers in descending order. Retain only the first copy of lines with the same number.<pre><code class=language-bash>$ sort -t, -k4,4nr -u duplicates.txt 
+dark red,sky,rose,555
+blue,ruby,water,333
+dark red,ruby,rose,111
+brown,toy,bread,42
+</code></pre><p><strong>6)</strong> Will <code>uniq</code> throw an error if the input is not sorted? What do you think will be the output for the following input?<p><code>uniq</code> doesn't necessarily require the input to be sorted. Adjacent lines are used for comparison purposes.<pre><code class=language-bash>$ printf 'red\nred\nred\ngreen\nred\nblue\nblue' | uniq
+red
+green
+red
+blue
+</code></pre><p><strong>7)</strong> Retain only unique entries based on the first two characters of the input lines. Sort the input if necessary.<pre><code class=language-bash>$ printf '3) cherry\n1) apple\n2) banana\n1) almond\n'
+3) cherry
+1) apple
+2) banana
+1) almond
+
+$ printf '3) cherry\n1) apple\n2) banana\n1) almond\n' | sort | uniq -u -w2
+2) banana
+3) cherry
+</code></pre><p><strong>8)</strong> Count the number of times input lines are repeated and display the results in the format shown below.<pre><code class=language-bash>$ printf 'brown\nbrown\nbrown\ngreen\nbrown\nblue\nblue' | sort | uniq -c | sort -n
+      1 green
+      2 blue
+      4 brown
+</code></pre><p><strong>9)</strong> Display lines present in <code>c1.txt</code> but not in <code>c2.txt</code> using the <code>comm</code> command. Assume that the input files are already sorted.<pre><code class=language-bash># can also use: comm -13 c2.txt c1.txt
+$ comm -23 c1.txt c2.txt
+Brown
+Purple
+Teal
+</code></pre><p><strong>10)</strong> Use appropriate options to get the expected output shown below.<pre><code class=language-bash># wrong usage, no output
+$ join <(printf 'apple 2\nfig 5') <(printf 'Fig 10\nmango 4')
+
+# expected output
+$ join -i <(printf 'apple 2\nfig 5') <(printf 'Fig 10\nmango 4')
+fig 5 10
+</code></pre><p><strong>11)</strong> What are the differences between <code>sort -u</code> and <code>uniq -u</code> options, if any?<p><code>sort -u</code> retains first copy of duplicates deemed to be equal. <code>uniq -u</code> retains only the unique copies (i.e. not even a single copy of the duplicates will be part of the output).</p><br><h2 id=comparing-files><a class=header href=#comparing-files>Comparing Files</a></h2><blockquote><p><img alt=info src=./images/info.svg> Use <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files>example_files/text_files</a> directory for input files used in the following exercises.</blockquote><p><strong>1)</strong> Which <code>cmp</code> option would you use if you just need the exit status reflecting whether the given inputs are same or not?<blockquote><p><code>-s, --quiet, --silent</code><p>suppress all normal output</blockquote><p><strong>2)</strong> Which <code>cmp</code> option would you use to skip initial bytes for comparison purposes? The below example requires you to skip the first two bytes.<pre><code class=language-bash>$ echo '1) apple' > x1.txt
+$ echo '2. apple' > x2.txt
+$ cmp x1.txt x2.txt
+x1.txt x2.txt differ: byte 1, line 1
+
+$ cmp -i2 x1.txt x2.txt
+$ echo $?
+0
+
+$ rm x[12].txt
+</code></pre><blockquote><p><code>-i, --ignore-initial=SKIP</code><p>skip first SKIP bytes of both inputs</blockquote><p><strong>3)</strong> What does the <code>diff -d</code> option do?<blockquote><p><code>-d, --minimal</code><p>try hard to find a smaller set of changes</blockquote><p><strong>4)</strong> Which option will help you get colored output with <code>diff</code>?<blockquote><p><code>--color[=WHEN]</code><p>colorize the output; WHEN can be <code>never</code>, <code>always</code>, or <code>auto</code> (the default)</blockquote><p><strong>5)</strong> Use appropriate options to get the desired output shown below.<pre><code class=language-bash># instead of this output
+$ diff -W 40 --suppress-common-lines -y f1.txt f2.txt
+2                  |    hello
+world              |    4
+
+# get this output
+$ diff -W 40 --left-column -y f1.txt f2.txt
+1                  (
+2                  |    hello
+3                  (
+world              |    4
+</code></pre><blockquote><p><code>--left-column</code><p>output only the left column of common lines</blockquote><p><strong>6)</strong> Use appropriate options to get the desired output shown below.<pre><code class=language-bash>$ echo 'hello' > d1.txt
+$ echo 'Hello' > d2.txt
+
+# instead of this output
+$ diff d1.txt d2.txt
+1c1
+< hello
+---
+> Hello
+
+# get this output
+$ diff -si d1.txt d2.txt
+Files d1.txt and d2.txt are identical
+
+$ rm d[12].txt
+</code></pre><br><h2 id=assorted-text-processing-tools><a class=header href=#assorted-text-processing-tools>Assorted Text Processing Tools</a></h2><blockquote><p><img alt=info src=./images/info.svg> Use <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files>example_files/text_files</a> directory for input files used in the following exercises.</blockquote><p><strong>1)</strong> Generate the following sequence.<pre><code class=language-bash>$ seq 100 -5 80
+100
+95
+90
+85
+80
+</code></pre><p><strong>2)</strong> Is the sequence shown below possible to generate with <code>seq</code>? If so, how?<pre><code class=language-bash>$ seq -w -s, 01.5 6
+01.5,02.5,03.5,04.5,05.5
+</code></pre><p><strong>3)</strong> Display three random words from <code>/usr/share/dict/words</code> (or equivalent dictionary word file) containing <code>s</code> and <code>e</code> and <code>t</code> in any order. The output shown below is just an example.<pre><code class=language-bash>$ grep -P '^(?=.*s)(?=.*e).*t' /usr/share/dict/words | shuf -n3
+supplemental
+foresight
+underestimates
+</code></pre><p><strong>4)</strong> Briefly describe the purpose of the <code>shuf</code> command options <code>-i</code>, <code>-e</code> and <code>-r</code>.<blockquote><p><code>-i, --input-range=LO-HI</code><p>treat each number LO through HI as an input line<p><code>-e, --echo</code><p>treat each ARG as an input line<p><code>-r, --repeat</code><p>output lines can be repeated</blockquote><p><strong>5)</strong> Why does the below command not work as expected? What other tools can you use in such cases?<p><code>cut</code> ignores all repeated fields and output field order always follows the same order as input fields.<pre><code class=language-bash># not working as expected
+$ echo 'apple,banana,cherry,dates' | cut -d, -f3,1,3
+apple,cherry
+
+# expected output
+$ echo 'apple,banana,cherry,dates' | awk -F, -v OFS=, '{print $3, $1, $3}'
+cherry,apple,cherry
+
+# alternate solutions
+$ echo 'apple,banana,cherry,dates' | perl -F, -lane 'print join ",", @F[2,0,2]'
+</code></pre><p><strong>6)</strong> Display except the second field in the format shown below. Can you construct two different solutions?<pre><code class=language-bash>$ echo 'apple,banana,cherry,dates' | cut -d, --output-delimiter=' ' -f1,3-
+apple cherry dates
+
+$ echo '2,3,4,5,6,7,8' | cut -d, --output-delimiter=' ' --complement -f2
+2 4 5 6 7 8
+</code></pre><p><strong>7)</strong> Extract first three characters from the input lines as shown below. Can you also use the <code>head</code> command for this purpose? If not, why not?<pre><code class=language-bash>$ printf 'apple\nbanana\ncherry\ndates\n' | cut -c-3
+app
+ban
+che
+dat
+</code></pre><p><code>head</code> cannot be used because it acts on the input as a whole, whereas <code>cut</code> works line wise.<p><strong>8)</strong> Display only the first and third columns of the <code>scores.csv</code> input file in the format as shown below. Note that only space characters are present between the two columns, not tab.<pre><code class=language-bash>$ cat scores.csv
+Name,Maths,Physics,Chemistry
+Ith,100,100,100
+Cy,97,98,95
+Lin,78,83,80
+
+$ cut -d, -f1,3 scores.csv | column -s, -t
+Name  Physics
+Ith   100
+Cy    98
+Lin   83
+</code></pre><p><strong>9)</strong> Display the contents of <code>table.txt</code> in the format shown below.<pre><code class=language-bash>$ column -t table.txt
+brown   bread   mat     hair   42
+blue    cake    mug     shirt  -7
+yellow  banana  window  shoes  3.14
+</code></pre><p><strong>10)</strong> Implement <a href=https://en.wikipedia.org/wiki/ROT13>ROT13</a> cipher using the <code>tr</code> command.<pre><code class=language-bash>$ echo 'Hello World' | tr 'a-zA-Z' 'n-za-mN-ZA-M'
+Uryyb Jbeyq
+$ echo 'Uryyb Jbeyq' | tr 'a-zA-Z' 'n-za-mN-ZA-M'
+Hello World
+</code></pre><p><strong>11)</strong> Retain only alphabets, digits and whitespace characters.<pre><code class=language-bash>$ echo 'Apple_42 cool,blue Dragon:army' | tr -dc '[:alnum:][:space:]'
+Apple42 coolblue Dragonarmy
+</code></pre><p><strong>12)</strong> Use <code>tr</code> to get the output shown below.<pre><code class=language-bash>$ echo '!!hhoowwww !!aaaaaareeeeee!! yyouuuu!!' | tr -sd '!' 'a-z'
+how are you
+</code></pre><p><strong>13)</strong> <code>paste -s</code> works separately for multiple input files. How would you workaround this if you needed to treat input as a single source?<pre><code class=language-bash># this works individually for each input file
+$ paste -sd, fruits.txt ip.txt
+banana,papaya,mango
+deep blue,light orange,blue delight
+
+# expected output
+$ cat fruits.txt ip.txt | paste -sd,
+banana,papaya,mango,deep blue,light orange,blue delight
+
+# alternate solutions
+$ awk '{printf s $0; s=","} END{print ""}' fruits.txt ip.txt
+</code></pre><p><strong>14)</strong> Use appropriate options to get the expected output shown below.<pre><code class=language-bash># default output
+$ paste fruits.txt ip.txt
+banana  deep blue
+papaya  light orange
+mango   blue delight
+
+# expected output
+$ paste -d'\n' fruits.txt ip.txt
+banana
+deep blue
+papaya
+light orange
+mango
+blue delight
+</code></pre><p><strong>15)</strong> Use the <code>pr</code> command to get the expected output shown below.<pre><code class=language-bash>$ seq -w 16 | pr -4ats,
+01,02,03,04
+05,06,07,08
+09,10,11,12
+13,14,15,16
+
+$ seq -w 16 | pr -4ts,
+01,05,09,13
+02,06,10,14
+03,07,11,15
+04,08,12,16
+</code></pre><p><strong>16)</strong> Use the <code>pr</code> command to join the input files <code>fruits.txt</code> and <code>ip.txt</code> as shown below.<pre><code class=language-bash>$ pr -mts' : ' fruits.txt ip.txt 
+banana : deep blue
+papaya : light orange
+mango : blue delight
+</code></pre><p><strong>17)</strong> The <code>cut</code> command doesn't support a way to choose the last <code>N</code> fields. Which tool presented in this chapter can be combined to work with <code>cut</code> to get the output shown below?<pre><code class=language-bash># last two characters from each line
+$ printf 'apple\nbanana\ncherry\ndates\n' | rev | cut -c-2 | rev
+le
+na
+ry
+es
+</code></pre><p><strong>18)</strong> Go through <code>split</code> documentation and use appropriate options to get the output shown below for the input file <code>purchases.txt</code>.<pre><code class=language-bash># split input by 3 lines (max) at a time
+$ split -l3 purchases.txt
+
+$ head xa?
+==> xaa <==
+coffee
+tea
+washing powder
+
+==> xab <==
+coffee
+toothpaste
+tea
+
+==> xac <==
+soap
+tea
+
+$ rm xa?
+</code></pre><blockquote><p><code>-l, --lines=NUMBER</code><p>put NUMBER lines/records per output file</blockquote><p><strong>19)</strong> Go through <code>split</code> documentation and use appropriate options to get the output shown below.<pre><code class=language-bash>$ echo 'apple,banana,cherry,dates' | split -t, -l1
+
+$ head xa?
+==> xaa <==
+apple,
+==> xab <==
+banana,
+==> xac <==
+cherry,
+==> xad <==
+dates
+
+$ rm xa?
+</code></pre><blockquote><p><code>-t, --separator=SEP</code><p>use SEP instead of newline as the record separator; <code>\0</code> (zero) specifies the NUL character</blockquote><p><strong>20)</strong> Split the input file <code>purchases.txt</code> such that the text before a line containing <code>powder</code> is part of the first file and the rest are part of the second file as shown below.<pre><code class=language-bash>$ csplit -q purchases.txt '/powder/'
+
+$ head xx0?
+==> xx00 <==
+coffee
+tea
+
+==> xx01 <==
+washing powder
+coffee
+toothpaste
+tea
+soap
+tea
+
+$ rm xx0?
+</code></pre><p><strong>21)</strong> Write a generic solution that transposes comma delimited data. Example input/output is shown below. You can use any tool(s) presented in this book.<pre><code class=language-bash>$ cat scores.csv 
+Name,Maths,Physics,Chemistry
+Ith,100,100,100
+Cy,97,98,95
+Lin,78,83,80
+
+$ tr ',' '\n' &LTscores.csv | pr -$(wc -l &LTscores.csv)ts,
+Name,Ith,Cy,Lin
+Maths,100,97,78
+Physics,100,98,83
+Chemistry,100,95,80
+
+# alternate solution if you have GNU datamash installed
+$ datamash -t, transpose &LTscores.csv
+</code></pre><p><strong>22)</strong> Reshape the contents of <code>table.txt</code> to the expected output shown below.<pre><code class=language-bash>$ cat table.txt
+brown bread mat hair 42
+blue cake mug shirt -7
+yellow banana window shoes 3.14
+
+$ xargs -a table.txt -n4 | column -t
+brown   bread  mat     hair
+42      blue   cake    mug
+shirt   -7     yellow  banana
+window  shoes  3.14
+</code></pre><p><em>More to come...</em></main><nav aria-label="Page navigation"class=nav-wrapper><a aria-label="Previous chapter"class="mobile-nav-chapters previous"title="Previous chapter"aria-keyshortcuts=Left href=shell-customization.html rel=prev> <i class="fa fa-angle-left"></i> </a><div style="clear: both"></div></nav></div></div><nav aria-label="Page navigation"class=nav-wide-wrapper><a aria-label="Previous chapter"class="nav-chapters previous"title="Previous chapter"aria-keyshortcuts=Left href=shell-customization.html rel=prev> <i class="fa fa-angle-left"></i> </a></nav></div><script>window.playground_copyable = true;</script><script charset=utf-8 src=elasticlunr.min.js></script><script charset=utf-8 src=mark.min.js></script><script charset=utf-8 src=searcher.js></script><script charset=utf-8 src=clipboard.min.js></script><script charset=utf-8 src=highlight.js></script><script charset=utf-8 src=book.js></script><script src=sidebar.js></script>

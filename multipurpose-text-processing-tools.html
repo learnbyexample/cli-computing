@@ -592,7 +592,7 @@ bat:dubious:floor:four:to
 </code></pre><p><strong>28)</strong> Filter fields containing digit characters.<pre><code class=language-bash>$ ip='5pearl 42 east 1337 raku_6 lion 3.14'
 $ echo "$ip" | perl # ???
 5pearl 42 1337 raku_6 3.14
-</code></pre><p><strong>29)</strong> The input shown below has several words ending with digit characters. Change the words containing <code>test</code> to match the output shown below. That is, renumber the matching portions to <code>1</code>, <code>2</code>, etc. Words not containing <code>test</code> should not changed.<pre><code class=language-bash>$ ip='test_12:test123\nanother_test_4,no_42\n'
+</code></pre><p><strong>29)</strong> The input shown below has several words ending with digit characters. Change the words containing <code>test</code> to match the output shown below. That is, renumber the matching portions to <code>1</code>, <code>2</code>, etc. Words not containing <code>test</code> should not be changed.<pre><code class=language-bash>$ ip='test_12:test123\nanother_test_4,no_42\n'
 $ printf '%b' "$ip"
 test_12:test123
 another_test_4,no_42
