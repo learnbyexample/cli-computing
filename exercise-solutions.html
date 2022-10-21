@@ -1246,4 +1246,274 @@ brown   bread  mat     hair
 42      blue   cake    mug
 shirt   -7     yellow  banana
 window  shoes  3.14
-</code></pre><p><em>More to come...</em></main><nav aria-label="Page navigation"class=nav-wrapper><a aria-label="Previous chapter"class="mobile-nav-chapters previous"title="Previous chapter"aria-keyshortcuts=Left href=shell-customization.html rel=prev> <i class="fa fa-angle-left"></i> </a><div style="clear: both"></div></nav></div></div><nav aria-label="Page navigation"class=nav-wide-wrapper><a aria-label="Previous chapter"class="nav-chapters previous"title="Previous chapter"aria-keyshortcuts=Left href=shell-customization.html rel=prev> <i class="fa fa-angle-left"></i> </a></nav></div><script>window.playground_copyable = true;</script><script charset=utf-8 src=elasticlunr.min.js></script><script charset=utf-8 src=mark.min.js></script><script charset=utf-8 src=searcher.js></script><script charset=utf-8 src=clipboard.min.js></script><script charset=utf-8 src=highlight.js></script><script charset=utf-8 src=book.js></script><script src=sidebar.js></script>
+</code></pre><br><h2 id=shell-scripting><a class=header href=#shell-scripting>Shell Scripting</a></h2><blockquote><p><img alt=info src=./images/info.svg> Use a temporary working directory before attempting the exercises. You can delete such practice directories afterwards.</blockquote><p><strong>1)</strong> What's wrong with the script shown below? Also, will the error go away if you use <code>bash try.sh</code> instead?<p><code>!#</code> should be <code>#!</code>. If you get confused which one should be used, remember that shebang is a <strong>comment</strong> that is treated specially at the start of the script. And no, the error won't go away if you call the script using the <code>bash</code> command.<pre><code class=language-bash>$ printf '    \n!#/bin/bash\n\necho hello\n' > try.sh
+$ chmod +x try.sh
+$ ./try.sh
+./try.sh: line 2: !#/bin/bash: No such file or directory
+hello
+
+# expected output
+$ printf '    \n#!/bin/bash\n\necho hello\n' > try.sh
+$ ./try.sh
+hello
+</code></pre><p><strong>2)</strong> Will the command shown below work? If so, what would be the output?<p>Yes, it will work. <code>echo hello</code> is being passed as the script to be executed by the <code>bash</code> command.<pre><code class=language-bash>$ echo echo hello | bash
+hello
+</code></pre><p><strong>3)</strong> When would you <code>source</code> a script instead of using <code>bash</code> or creating an executable using shebang?<p>Using <code>source</code> to execute scripts helps when you want to affect the current working environment.<p><strong>4)</strong> How would you display the contents of a variable with <code>shake</code> appended?<pre><code class=language-bash>$ fruit='banana'
+
+$ echo "${fruit}shake"
+bananashake
+</code></pre><p><strong>5)</strong> What changes would you make to the code shown below to get the expected output?<pre><code class=language-bash># default behavior
+$ n=100
+$ n+=100
+$ echo "$n"
+100100
+
+# expected output
+$ declare -i n=100
+$ n+=100
+$ echo "$n"
+200
+</code></pre><p><strong>6)</strong> Is the following code valid? If so, what would be the output of the <code>echo</code> command?<p>Yes, it is valid. Array index can be arbitrarily used, they do not have to be contiguous.<pre><code class=language-bash>$ declare -a colors
+$ colors[3]='green'
+$ colors[1]='blue'
+
+$ echo "${colors[@]}"
+blue green
+</code></pre><p><strong>7)</strong> How would you get the last three characters of a variable's contents?<pre><code class=language-bash>$ fruit='banana'
+
+$ echo "${fruit: -3}"
+ana
+</code></pre><p><strong>8)</strong> Will the second <code>echo</code> command give an error? If not, what will be the output?<p>No error. It will give the length of the element at index <code>0</code>.<pre><code class=language-bash>$ fruits=('apple' 'fig' 'mango')
+$ echo "${#fruits[@]}"
+3
+
+$ echo "${#fruits}"
+5
+</code></pre><p><strong>9)</strong> For the given array, use parameter expansion to remove characters until first/last space.<pre><code class=language-bash>$ colors=('green' 'dark brown' 'deep sky blue white')
+
+# remove till first space
+$ printf '%s\n' "${colors[@]#* }"
+green
+brown
+sky blue white
+
+# remove till last space
+$ printf '%s\n' "${colors[@]##* }"
+green
+brown
+white
+</code></pre><p><strong>10)</strong> Use parameter expansion to get the expected outputs shown below.<pre><code class=language-bash>$ ip='apple:banana:cherry:dragon'
+
+$ echo "${ip%:*}"
+apple:banana:cherry
+
+$ echo "${ip%%:*}"
+apple
+</code></pre><p><strong>11)</strong> Is it possible to achieve the expected outputs shown below using parameter expansion? If so, how?<p>Yes it is possible. For the second and third cases, <code>extglob</code> has to be enabled.<pre><code class=language-bash>$ ip='apple:banana:cherry:dragon'
+
+$ echo "${ip/:*:/ 42 }"
+apple 42 dragon
+
+$ shopt -s extglob
+$ echo "${ip/#+([^:])/fig}"
+fig:banana:cherry:dragon
+
+$ echo "${ip/%+([^:])/end}"
+apple:banana:cherry:end
+</code></pre><p><strong>12)</strong> For the given input, change case as per the expected outputs shown below.<pre><code class=language-bash>$ ip='This is a Sample STRING'
+
+$ echo "${ip^^}"
+THIS IS A SAMPLE STRING
+
+$ echo "${ip,,}"
+this is a sample string
+
+$ echo "${ip~~}"
+tHIS IS A sAMPLE string
+</code></pre><p><strong>13)</strong> Why does the conditional expression shown below fail?<pre><code class=language-bash>$ touch ip.txt
+$ [[-f ip.txt]] && echo 'file exists'
+[[-f: command not found
+
+# need to use space after [[ and before ]]
+$ [[ -f ip.txt ]] && echo 'file exists'
+file exists
+</code></pre><p><strong>14)</strong> What is the difference between <code>==</code> and <code>=~</code> string comparison operators?<ul><li><code>s1 = s2</code> or <code>s1 == s2</code> checks if two strings are equal <ul><li>unquoted portions of <code>s2</code> will be treated as a wildcard while testing against <code>s1</code></ul><li><code>s1 =~ s2</code> checks if <code>s1</code> matches the POSIX extended regular expression provided by <code>s2</code></ul><p><strong>15)</strong> Why does the conditional expression used below show <code>failed</code> both times? Modify the expressions such that the first one correctly says <code>matched</code> instead of <code>failed</code>.<p>Quoted portions will be treated as literal strings. Wildcards should be unquoted.<pre><code class=language-bash>$ f1='1234.txt'
+$ f2='report_2.txt'
+
+$ [[ $f1 == '+([0-9]).txt' ]] && echo 'matched' || echo 'failed'
+failed
+$ [[ $f2 == '+([0-9]).txt' ]] && echo 'matched' || echo 'failed'
+failed
+
+# corrected code
+$ [[ $f1 == +([0-9]).txt ]] && echo 'matched' || echo 'failed'
+matched
+$ [[ $f2 == +([0-9]).txt ]] && echo 'matched' || echo 'failed'
+failed
+</code></pre><p><strong>16)</strong> Extract the digits that follow a <code>:</code> character for the given variable contents.<pre><code class=language-bash>$ item='chocolate:50'
+$ [[ $item =~ :([0-9]+) ]] && echo "${BASH_REMATCH[1]}"
+50
+
+$ item='50 apples, fig:100, books-12'
+$ [[ $item =~ :([0-9]+) ]] && echo "${BASH_REMATCH[1]}"
+100
+</code></pre><p><strong>17)</strong> Modify the expression shown below to correctly report <code>true</code> instead of <code>false</code>.<pre><code class=language-bash>$ num=12345
+$ [[ $num > 3 ]] && echo 'true' || echo 'false'
+false
+
+# corrected code
+$ [[ $num -gt 3 ]] && echo 'true' || echo 'false'
+true
+
+# alternate solutions
+$ (( num > 3 )) && echo 'true' || echo 'false'
+</code></pre><p><strong>18)</strong> Write a shell script named <code>array.sh</code> that accepts array input from the user followed by another input as index. Display the corresponding value at that index. Couple of examples are shown below.<pre><code class=language-bash>$ cat array.sh
+read -p 'enter array elements: ' -a arr
+read -p 'enter array index: ' idx
+echo "element at index '$idx' is: ${arr[$idx]}"
+
+$ bash array.sh
+enter array elements: apple banana cherry
+enter array index: 1
+element at index '1' is: banana
+
+$ bash array.sh
+enter array elements: dragon unicorn centaur
+enter array index: -1
+element at index '-1' is: centaur
+</code></pre><p><strong>19)</strong> Write a shell script named <code>case.sh</code> that accepts exactly two command line arguments. The first argument can be <code>lower</code>, <code>upper</code> or <code>swap</code> and this should be used to transform the contents of the second argument. Examples script invocations are shown below, including what should happen if the command line arguments do not meet the script expectations.<pre><code class=language-bash>$ cat case.sh
+if (( $# != 2 )) ; then
+    echo 'Error! Two arguments expected.' 1>&2
+    exit 1
+else
+    if [[ $1 == 'upper' ]] ; then
+        echo "${2^^}"
+    elif [[ $1 == 'lower' ]] ; then
+        echo "${2,,}"
+    elif [[ $1 == 'swap' ]] ; then
+        echo "${2~~}"
+    else
+        echo "Error! '$1' command not recognized." 1>&2
+        exit 1
+    fi
+fi
+
+$ chmod +x case.sh 
+
+$ ./case.sh upper 'how are you?'
+HOW ARE YOU?
+
+$ ./case.sh lower PineAPPLE
+pineapple
+
+$ ./case.sh swap 'HeLlo WoRlD'
+hElLO wOrLd
+
+$ ./case.sh lower
+Error! Two arguments expected.
+$ echo $?
+1
+
+$ ./case.sh upper apple fig
+Error! Two arguments expected.
+
+$ ./case.sh lowercase DRAGON
+Error! 'lowercase' command not recognized.
+$ echo $?
+1
+
+$ ./case.sh apple lower 2> /dev/null
+$ echo $?
+1
+</code></pre><p><strong>20)</strong> Write a shell script named <code>loop.sh</code> that displays the number of lines for each of the files passed as command line arguments.<pre><code class=language-bash>$ printf 'apple\nbanana\ncherry\n' > items_1.txt
+$ printf 'dragon\nowl\nunicorn\ntroll\ncentaur\n' > items_2.txt
+
+$ cat loop.sh
+for file in "$@"; do
+    echo "number of lines in '$file' is:" $(wc -l < "$file")
+done
+
+$ bash loop.sh items_1.txt
+number of lines in 'items_1.txt' is: 3
+
+$ bash loop.sh items_1.txt items_2.txt
+number of lines in 'items_1.txt' is: 3
+number of lines in 'items_2.txt' is: 5
+</code></pre><p><strong>21)</strong> Write a shell script named <code>read_file.sh</code> that reads a file line by line to be passed as argument to the <code>paste -sd,</code> command. Can you also write a solution using the <code>xargs</code> command instead of a script?<pre><code class=language-bash>$ printf 'apple\nbanana\ncherry\n' > items_1.txt
+$ printf 'dragon\nowl\nunicorn\ntroll\ncentaur\n' > items_2.txt
+$ printf 'items_1.txt\nitems_2.txt\n' > list.txt
+
+$ cat read_file.sh
+while IFS= read -r line; do
+    paste -sd, "$line"
+done < "$1"
+
+$ bash read_file.sh list.txt
+apple,banana,cherry
+dragon,owl,unicorn,troll,centaur
+
+# note that -n1 is not necessary here due to how paste works for multiple files
+# but -n1 is necessary to be equivalent to the shell script shown above
+$ xargs -a list.txt -d'\n' -n1 paste -sd,
+apple,banana,cherry
+dragon,owl,unicorn,troll,centaur
+</code></pre><p><strong>22)</strong> Write a function named <code>add_path</code> which prefixes the path of the current working directory to the arguments it receives and displays the results. Examples are shown below.<pre><code class=language-bash>$ add_path() { echo "${@/#/$PWD/}" ; }
+
+$ cd
+$ pwd
+/home/learnbyexample
+$ add_path ip.txt report.log
+/home/learnbyexample/ip.txt /home/learnbyexample/report.log
+
+$ cd cli-computing
+$ pwd
+/home/learnbyexample/cli-computing
+$ add_path f1
+/home/learnbyexample/cli-computing/f1
+</code></pre><p><strong>23)</strong> What do the options <code>bash -x</code> and <code>bash -v</code> do?<blockquote><p><code>-x</code><p>Print commands and their arguments as they are executed.<p><code>-v</code><p>Print shell input lines as they are read.</blockquote><p><strong>24)</strong> What is <code>shellcheck</code> and when would you use it?<p><a href=https://www.shellcheck.net/>shellcheck</a> is a static analysis tool that gives warnings and suggestions for scripts.<p>From <code>man shellcheck</code>:<blockquote><p>ShellCheck is a static analysis and linting tool for sh/bash scripts. It’s mainly focused on handling typical beginner and intermediate level syntax errors and pitfalls where the shell just gives a cryptic error message or strange behavior, but it also reports on a few more advanced issues where corner cases can cause delayed failures.</blockquote><br><h2 id=shell-customization><a class=header href=#shell-customization>Shell Customization</a></h2><p><strong>1)</strong> Which command would you use to display the name and value of all or specific environment variables?<pre><code class=language-bash>$ whatis printenv
+printenv (1)         - print all or part of environment
+</code></pre><p><strong>2)</strong> If you add an alias for an already existing command (<code>ls</code> for example), how would you invoke the original command instead of the alias?<p>By prefixing <code>\</code> or using the <code>command</code> builtin. For example, <code>\ls</code> or <code>command ls</code>.<p><strong>3)</strong> Why doesn't the alias shown below work? What would you use instead?<p>You cannot pass arguments to aliases, need to use functions instead.<pre><code class=language-bash># doesn't work as expected
+$ alias ext='echo "${1##*.}"'
+$ ext ip.txt
+ ip.txt
+
+# expected output
+$ ext() { echo "${1##*.}" ; }
+$ ext ip.txt
+txt
+$ ext scores.csv
+csv
+$ ext file.txt.txt
+txt
+</code></pre><p><strong>4)</strong> How would you remove a particular alias/function definition for the current shell session?<pre><code class=language-bash>$ alias hw='echo hello world'
+$ hw
+hello world
+$ unalias hw
+$ hw
+hw: command not found
+
+$ hw() { echo hello there ; }
+$ hw
+hello there
+$ unset -f hw
+$ hw
+hw: command not found
+</code></pre><p><strong>5)</strong> Write an alias and a function to display the contents of <code>PATH</code> environment variable on separate lines by changing <code>:</code> to the newline character. Sample output is shown below.<pre><code class=language-bash>$ echo "$PATH"
+/usr/local/bin:/usr/bin:/bin:/usr/games
+
+# alias
+$ alias a_p='echo "$PATH" | tr ":" "\n"'
+$ a_p
+/usr/local/bin
+/usr/bin
+/bin
+/usr/games
+
+# function
+$ f_p() { echo "${PATH//:/$'\n'}" ; }
+$ f_p
+/usr/local/bin
+/usr/bin
+/bin
+/usr/games
+</code></pre><p><strong>6)</strong> Will a login shell read and execute <code>~/.bashrc</code> automatically?<p>No. From <code>info bash</code>:<blockquote><p>When an interactive shell that is not a login shell is started, Bash reads and executes commands from '~/.bashrc', if that file exists.</blockquote><p>See also <a href=https://unix.stackexchange.com/q/257571/109046>unix.stackexchange: why does bashrc check whether the current shell is interactive?</a><p><strong>7)</strong> What should be the value assigned to <code>HISTSIZE</code> if you wish to have unlimited history entries?<p>Any negative number.<blockquote><p><code>HISTSIZE</code><p>The maximum number of commands to remember on the history list. If the value is 0, commands are not saved in the history list. Numeric values less than zero result in every command being saved on the history list (there is no limit). The shell sets the default value to 500 after reading any startup files.</blockquote><p><strong>8)</strong> What does the binding <code>set completion-ignore-case on</code> do?<blockquote><p><code>completion-ignore-case</code><p>If set to <code>on</code>, Readline performs filename matching and completion in a case-insensitive fashion. The default value is <code>off</code>.</blockquote><p><strong>9)</strong> Which shortcut helps you interactively search command history?<blockquote><p>To search backward in the history for a particular string, type <code>C-r</code>. Typing <code>C-s</code> searches forward through the history.</blockquote><p><strong>10)</strong> What do the shortcuts <code>Alt+b</code> and <code>Alt+f</code> do?<blockquote><p><code>forward-word (M-f)</code><p>Move forward to the end of the next word. Words are composed of letters and digits.<p><code>backward-word (M-b)</code><p>Move back to the start of the current or previous word. Words are composed of letters and digits.</blockquote><p><strong>11)</strong> Are there differences between the <code>Ctrl+l</code> shortcut and the <code>clear</code> command?<p><code>Ctrl+l</code> retains whatever is typed so far and doesn't try to remove the scrollback buffer altogether. You can use the <code>clear</code> command for that purpose.<p><strong>12)</strong> Which shortcut will you use to delete characters before the cursor till the start of the line?<blockquote><p><code>unix-line-discard (C-u)</code><p>Kill backward from the cursor to the beginning of the current line.</blockquote><p><strong>13)</strong> What do the shortcuts <code>Alt+t</code> and <code>Ctrl+t</code> do?<blockquote><p><code>transpose-chars (C-t)</code><p>Drag the character before the cursor forward over the character at the cursor, moving the cursor forward as well. If the insertion point is at the end of the line, then this transposes the last two characters of the line. Negative arguments have no effect.<p><code>transpose-words (M-t)</code><p>Drag the word before point past the word after point, moving point past that word as well. If the insertion point is at the end of the line, this transposes the last two words on the line.</blockquote><p><strong>14)</strong> Is there any difference between <code>Shift+Insert</code> and <code>Shift+Ctrl+v</code> shortcuts?<ul><li><code>Shift+Ctrl+v</code> pastes clipboard contents<li><code>Shift+Insert</code> pastes the last highlighted portion (not necessarily the clipboard contents)</ul></main><nav aria-label="Page navigation"class=nav-wrapper><a aria-label="Previous chapter"class="mobile-nav-chapters previous"title="Previous chapter"aria-keyshortcuts=Left href=shell-customization.html rel=prev> <i class="fa fa-angle-left"></i> </a><div style="clear: both"></div></nav></div></div><nav aria-label="Page navigation"class=nav-wide-wrapper><a aria-label="Previous chapter"class="nav-chapters previous"title="Previous chapter"aria-keyshortcuts=Left href=shell-customization.html rel=prev> <i class="fa fa-angle-left"></i> </a></nav></div><script>window.playground_copyable = true;</script><script charset=utf-8 src=elasticlunr.min.js></script><script charset=utf-8 src=mark.min.js></script><script charset=utf-8 src=searcher.js></script><script charset=utf-8 src=clipboard.min.js></script><script charset=utf-8 src=highlight.js></script><script charset=utf-8 src=book.js></script><script src=sidebar.js></script>
