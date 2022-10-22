@@ -1,10 +1,20 @@
 # Computing from the Command Line
 
-⚠️ ⚠️ ⚠️ This is a **work-in-progress** book on Linux command line and Shell Scripting for beginner to intermediate level users.
+This book aims to teach Linux command line tools and Shell Scripting for beginner to intermediate level users. The focus is towards managing your files and performing text processing tasks. Topics like system administration and networking won't be discussed, but some details might get covered in future versions of this book.
+
+<p align="center">
+    <img src="./images/cli_computing_ls.png" width="640px" height="360px" />
+</p>
+
+The book also includes exercises to test your understanding, which is presented together as a single file in this repo — [exercises.md](./exercises/exercises.md)
+
+For solutions to the exercises, see [exercise-solutions.md](./exercises/exercise-solutions.md).
+
+See [Version_changes.md](./Version_changes.md) to keep track of changes made to the book.
 
 [Click this link](https://github.com/learnbyexample/cli-computing/tree/09091253463a313ddce5a95f467857ea85c25ce6) for an earlier version of the book in this repo.
 
-See my curated list on [Linux CLI and Shell scripting](https://learnbyexample.github.io/curated_resources/linux_cli_scripting.html) for more learning resources.
+![info](./images/info.svg) See my curated list on [Linux CLI and Shell scripting](https://learnbyexample.github.io/curated_resources/linux_cli_scripting.html) for more learning resources.
 
 <br>
 
@@ -15,26 +25,55 @@ For web version of the book, visit https://learnbyexample.github.io/cli-computin
 * Links to pdf/epub versions of the book will be added once they are done
 * See https://learnbyexample.github.io/books/ for a list of my other books
 
+The book can also be [viewed as a single markdown file in this repo](./cli_computing.md). See my blogpost on [generating pdf from markdown using pandoc](https://learnbyexample.github.io/customizing-pandoc/) if you are interested in the ebook creation process.
+
 <br>
 
 ## Feedback and Contributing
 
-[Open an issue](https://github.com/learnbyexample/cli-computing/issues) if you spot any typo/errors.
-
 ⚠️ ⚠️ Please DO NOT submit pull requests. Main reason being any modification requires changes in multiple places.
 
-I'd also highly appreciate your feedback about the book.
+I would highly appreciate if you'd let me know how you felt about this book. It could be anything from a simple thank you, pointing out a typo, mistakes in code snippets, which aspects of the book worked for you (or didn't!) and so on. Reader feedback is essential and especially so for self-published authors.
 
-Twitter: https://twitter.com/learn_byexample
+You can reach me via:
+
+* Issue Manager: [https://github.com/learnbyexample/cli-computing/issues](https://github.com/learnbyexample/cli-computing/issues)
+* E-mail: `echo 'bGVhcm5ieWV4YW1wbGUubmV0QGdtYWlsLmNvbQo=' | base64 --decode`
+* Twitter: [https://twitter.com/learn_byexample](https://twitter.com/learn_byexample)
+
+<br>
+
+# Table of Contents
+
+1. Preface
+2. Introduction and Setup
+3. Command Line Overview
+4. Managing Files and Directories
+5. Shell Features
+6. Viewing Part or Whole File Contents
+7. Searching Files and Filenames
+8. File Properties
+9. Managing Processes
+10. Multipurpose Text Processing Tools
+11. Sorting Stuff
+12. Comparing Files
+13. Assorted Text Processing Tools
+14. Shell Scripting
+15. Shell Customization
 
 <br>
 
 # Acknowledgements
 
-* [stackoverflow](https://stackoverflow.com/) and [unix.stackexchange](https://unix.stackexchange.com/) — for getting answers on pertinent questions related to cli tools
-* [/r/commandline/](https://www.reddit.com/r/commandline), [/r/linux4noobs/](https://www.reddit.com/r/linux4noobs/) and [/r/linux/](https://www.reddit.com/r/linux/) — helpful forums
+* [GNU Manuals](https://www.gnu.org/manual/manual.html) — documentation for command line tools and the `bash` shell
+* [stackoverflow](https://stackoverflow.com/) and [unix.stackexchange](https://unix.stackexchange.com/) — for getting answers on pertinent questions related to CLI tools
+* [tex.stackexchange](https://tex.stackexchange.com/) — for help on [pandoc](https://github.com/jgm/pandoc/) and `tex` related questions
+* [/r/commandline/](https://old.reddit.com/r/commandline), [/r/linux4noobs/](https://old.reddit.com/r/linux4noobs/), [/r/linuxquestions/](https://old.reddit.com/r/linuxquestions/) and [/r/linux/](https://old.reddit.com/r/linux/) — helpful forums
+* [canva](https://www.canva.com/) — cover image
 * [Warning](https://commons.wikimedia.org/wiki/File:Warning_icon.svg) and [Info](https://commons.wikimedia.org/wiki/File:Info_icon_002.svg) icons by [Amada44](https://commons.wikimedia.org/wiki/User:Amada44) under public domain
-* [oxipng](https://github.com/shssoichiro/oxipng), [pngquant](https://pngquant.org/) and [svgcleaner](https://github.com/RazrFalcon/svgcleaner) for optimizing images
+* [carbon](https://carbon.now.sh/) — creating terminal screenshots with highlighted text
+* [oxipng](https://github.com/shssoichiro/oxipng), [pngquant](https://pngquant.org/) and [svgcleaner](https://github.com/RazrFalcon/svgcleaner) — optimizing images
+* [Inkscape](https://inkscape.org/) — favicon
 * [mdBook](https://github.com/rust-lang/mdBook) — for web version of the book
     * [mdBook-pagetoc](https://github.com/JorelAli/mdBook-pagetoc) — for adding table of contents for each page
     * [minify-html](https://github.com/wilsonzlin/minify-html) — for minifying html files
