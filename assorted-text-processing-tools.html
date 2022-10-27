@@ -257,7 +257,7 @@ $ seq 10 | paste -d: - - - - -
 1:2:3:4:5
 6:7:8:9:10
 
-# use input redirection for file input
+# use redirection for file input
 $ &LTcolors_1.txt paste -d: - - -
 Blue:Brown:Orange
 Purple::
@@ -272,7 +272,7 @@ Black:Blue:Green:Orange
 </code></pre><h2 id=pr><a class=header href=#pr>pr</a></h2><blockquote><p>Paginate or columnate FILE(s) for printing.</blockquote><p>As stated in the above quote from the manual, the <code>pr</code> command is mainly used for those two tasks. This section will discuss only the columnate features and some miscellaneous tasks. Here's a pagination example if you are interested in exploring further. The <code>pr</code> command will add blank lines, a header and so on to make it suitable for printing.<pre><code class=language-bash>$ pr greeting.txt | head -n8
 
 
-2021-08-05 14:10                   greeting.txt                   Page 1
+2022-06-11 10:48                   greeting.txt                   Page 1
 
 
 Hi there
@@ -306,7 +306,7 @@ $ seq 8 | pr -4ats:
 1:2:3:4
 5:6:7:8
 
-# unlike paste, pr doesn't add separator if last row has less columns to fill
+# unlike paste, pr doesn't add separators if the last row has less columns to fill
 $ seq 10 | pr -4ats,
 1,2,3,4
 5,6,7,8
@@ -327,7 +327,7 @@ yrrehc
 $ printf 'malayalam\nnoon\n' | rev
 malayalam
 noon
-</code></pre><h2 id=split><a class=header href=#split>split</a></h2><p>The <code>split</code> command is useful to divide the input into smaller parts based on number of lines, bytes, file size, etc. You can also execute another command on the divided parts before saving the results. An example use case is sending a large file as multiple parts as a workaround for online transfer size limits.<p>By default, the <code>split</code> command divides the input <code>1000</code> lines at a time. Newline character is the default line separator. You can pass a single file or <code>stdin</code> data as the input. Use <code>cat</code> if you need to concatenate multiple input sources. The output files will be named <code>xaa</code>, <code>xab</code>, <code>xac</code> and so on (where <code>x</code> is the prefix). If the filenames are exhausted, two more letters will be appended and the pattern will continue as needed. If the number of input lines is not evenly divisible, the last file will contain less than <code>1000</code> lines.<pre><code class=language-bash># divide input 1000 lines at a time
+</code></pre><h2 id=split><a class=header href=#split>split</a></h2><p>The <code>split</code> command is useful to divide the input into smaller parts based on number of lines, bytes, file size, etc. You can also execute another command on the divided parts before saving the results. An example use case is sending a large file as multiple parts as a workaround for online transfer size limits.<p>By default, the <code>split</code> command divides the input <code>1000</code> lines at a time. Newline character is the default line separator. You can pass a single file or <code>stdin</code> data as the input. Use <code>cat</code> if you need to concatenate multiple input sources. By default, the output files will be named <code>xaa</code>, <code>xab</code>, <code>xac</code> and so on (where <code>x</code> is the prefix). If the filenames are exhausted, two more letters will be appended and the pattern will continue as needed. If the number of input lines is not evenly divisible, the last file will contain less than <code>1000</code> lines.<pre><code class=language-bash># divide input 1000 lines at a time
 $ seq 10000 | split
 
 # output filenames
