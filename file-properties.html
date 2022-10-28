@@ -103,7 +103,7 @@ $ du -k report.log
 # n * 1024 * 1024 bytes
 $ du -m report.log
 8       report.log
-</code></pre><p>The <code>-h</code> option reports size in human readable format (uses power of 1024). Add <code>--si</code> option to get results in powers of 1000 instead. If you use <code>du -h</code>, you can pipe the output to <code>sort -h</code> for sorting purposes.<pre><code class=language-bash>$ du -sh *
+</code></pre><p>The <code>-h</code> option reports size in human readable format (uses power of 1024). Use <code>--si</code> option to get results in powers of 1000 instead. If you use <code>du -h</code>, you can pipe the output to <code>sort -h</code> for sorting purposes.<pre><code class=language-bash>$ du -sh *
 48K     projects
 7.4M    report.log
 8.0K    todos
@@ -156,7 +156,7 @@ $ stat -c '%N' words.txt
 $ stat -c '%s %n' ip.txt hi.sh
 10 ip.txt
 21 hi.sh
-</code></pre><blockquote><p><img alt=info src=./images/info.svg> <img alt=info src=./images/info.svg> The <code>stat</code> command should be preferred instead of parsing <code>ls -l</code> output for file details. See <a href=https://mywiki.wooledge.org/ParsingLs>mywiki.wooledge: avoid parsing output of ls</a> and <a href=https://unix.stackexchange.com/q/128985/109046>unix.stackexchange: why not parse ls?</a> for explanation and other alternatives.</blockquote><h2 id=touch><a class=header href=#touch>touch</a></h2><p>As mentioned earlier, the <code>touch</code> command helps you change the timestamps of files. You can do so based on current timestamp, passing an argument, copying the value from another file and so on.<p>By default, <code>touch</code> updates both access and modification timestamps to the current time. You can use <code>-a</code> to change only access timestamp and <code>-m</code> to change only modification timestamp.<pre><code class=language-bash># change to the 'scripts' directory and source the 'touch.sh' script
+</code></pre><blockquote><p><img alt=info src=./images/info.svg> <img alt=warning src=./images/warning.svg> The <code>stat</code> command should be preferred instead of parsing <code>ls -l</code> output for file details. See <a href=https://mywiki.wooledge.org/ParsingLs>mywiki.wooledge: avoid parsing output of ls</a> and <a href=https://unix.stackexchange.com/q/128985/109046>unix.stackexchange: why not parse ls?</a> for explanation and other alternatives.</blockquote><h2 id=touch><a class=header href=#touch>touch</a></h2><p>As mentioned earlier, the <code>touch</code> command helps you change the timestamps of files. You can do so based on current timestamp, passing an argument, copying the value from another file and so on.<p>By default, <code>touch</code> updates both access and modification timestamps to the current time. You can use <code>-a</code> to change only access timestamp and <code>-m</code> to change only modification timestamp.<pre><code class=language-bash># change to the 'scripts' directory and source the 'touch.sh' script
 $ source touch.sh
 
 # last access and modification timestamps
@@ -280,7 +280,7 @@ $ stat -c '%a %A' dot_files
 $ chmod 700 dot_files
 $ stat -c '%a %A' dot_files
 700 drwx------
-</code></pre><p>You can also use <code>mkdir -m</code> instead of the <code>mkdir+chmod</code> combination seen above. The argument to the <code>-m</code> option uses the same syntax as <code>chmod</code> (including the format that'll be discussed next).<pre><code class=language-bash>$ mkdir -m 750 backups
+</code></pre><p>You can also use <code>mkdir -m</code> instead of the <code>mkdir+chmod</code> combination seen above. The argument to the <code>-m</code> option accepts the same syntax as <code>chmod</code> (including the format that'll be discussed next).<pre><code class=language-bash>$ mkdir -m 750 backups
 $ stat -c '%a %A' backups
 750 drwxr-x---
 </code></pre><blockquote><p><img alt=info src=./images/info.svg> You can use <code>chmod -R</code> to recursively change permissions. Use <code>find+exec</code> if you want to apply changes only for files filtered by some criteria.</blockquote><p><strong>Changing permissions for specific categories</strong><p>You can assign (<code>=</code>), add (<code>+</code>) or remove (<code>-</code>) permissions by using those symbols followed by one or more <code>rwx</code> permissions. This depends on the <code>umask</code> value:<pre><code class=language-bash>$ umask
