@@ -33,7 +33,7 @@ I do not much care if it is correct to call it a relative or absolute path. More
 
 >`~` is syntax implemented by the shell (and other programs which imitate it for convenience) which expands it into a real pathname. To illustrate, `~/Documents` is approximately the same thing as `$HOME/Documents` (again, shell syntax). Since `$HOME` should be an absolute path, the value of `$HOME/Documents` is also an absolute path. But the text `$HOME/Documents` or `~/Documents` has to be expanded by the shell in order to become the path we mean.
 
-I spent a frustrating few hours trying to debug why one of my [autostart](https://wiki.archlinux.org/title/Autostarting) script wasn't working. Yup, you guessed it. I used `~` while providing a file path.
+I spent a frustrating few hours trying to debug why one of my [autostart](https://wiki.archlinux.org/title/Autostarting) script wasn't working. Yup, you guessed it. The issue was using `~` and changing to the full path fixed it.
 
 **4)** Which key would you use to get help while the `less` command is active?
 
@@ -310,7 +310,7 @@ quest/
 >
 >ignore nonexistent files and arguments, never prompt
 
-It also helps to remove write protected files (provided you have appropriate permissions to delete those files).
+For example, it helps to remove write protected files (provided you have appropriate permissions to delete those files).
 
 **18)** Which option would you use to interactively delete files using the `rm` command?
 
@@ -348,7 +348,7 @@ On Ubuntu, you can use `sudo apt install trash-cli` to install the `trash` comma
 
 **22)** Does the `cp` command allow you to rename the file or directory being copied? If so, can you rename multiple files/directories being copied?
 
-`cp` allows renaming single file or directory by specifying a different name in the destination path. You can't rename multiple files or directories.
+`cp` allows renaming single file or directory by specifying a different name in the destination path. You can't rename multiple files or directories with a single `cp` usage.
 
 **23)** What do the `-u`, `-b` and `-t` options of `cp` command do?
 
@@ -1059,6 +1059,7 @@ $ echo "$words" | grep -owE 's\w*(t\w*e|e\w*t)\w*'
 **11)** Extract all whole words having the same first and last word character.
 
 ```bash
+# can also use: grep -owE '(\w)(\w*\1)?'
 $ echo 'oreo not a _oh_ pip roar took 22' | grep -owE '\w|(\w)\w*\1'
 oreo
 a
@@ -1173,8 +1174,8 @@ $ find -type f -not -name '*[g-l]*'
 **21)** Find all regular files whose path has at least one directory name starting with `p` or `d`.
 
 ```bash
-# can also use: find -type f -regex '.*/[pd].*'
-$ find -type f -path '*/[pd]*'
+# can also use: find -type f -regex '.*/[pd].*/.*'
+$ find -type f -path '*/[pd]*/*'
 ./projects/tictactoe/game.py
 ./projects/calculator/calc.sh
 ./backups/dot_files/.bashrc
@@ -1194,6 +1195,7 @@ $ find -type d -name '*[bd]*'
 **23)** Find all hidden directories.
 
 ```bash
+# can also use: find -mindepth 1 -type d -name '.*'
 $ find -type d -name '.?*'
 ./projects/.venv
 ```
@@ -1742,6 +1744,7 @@ hi[42]bye nice[42]1[42]3 bad42 cool_[42][42]a 42c
 **8)** Replace all whole words with `X` that start and end with the same word character.
 
 ```bash
+# can also use: sed -E 's/\b(\w)(\w*\1)?\b/X/g'
 $ echo 'oreo not a _a2_ roar took 22' | sed -E 's/\b(\w|(\w)\w*\2)\b/X/g'
 X not X X X took X
 ```
@@ -2615,7 +2618,7 @@ hello
 
 **3)** When would you `source` a script instead of using `bash` or creating an executable using shebang?
 
-Using `source` to execute scripts helps when you want to affect the current working environment.
+Using `source` to execute scripts helps when you want to work within the current shell environment instead of a sub-shell.
 
 **4)** How would you display the contents of a variable with `shake` appended?
 
