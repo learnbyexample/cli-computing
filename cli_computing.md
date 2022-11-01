@@ -565,7 +565,7 @@ There are several shortcuts you can use to be productive at the command line. Th
 * `Ctrl+k` delete from the current character to the end of the line
 * `Ctrl+c` abort the currently typed command
 * `Ctrl+l` clear the terminal screen and move the prompt to the top, any characters typed as part of the current command will be retained
-* `↑` and `↓` arrow keys to navigate previously used command history
+* `↑` and `↓` arrow keys to navigate previously used commands from the history
     * `Ctrl+p` and `Ctrl+n` can also be used instead of arrow keys
     * you can modify the command before executing such lines from the history
 
@@ -726,7 +726,7 @@ $ cd -
 Relative paths are well, relative to the current working directory:
 
 * `.` refers to the current directory
-* `..` refers to the directory one hierarchy above
+* `..` refers to the directory one hierarchy above (i.e. parent directory)
 * `../..` refers to the directory two hierarchies above and so on
 * `cd ./-` will help you to switch to a directory named `-` in the current location
     * you cannot use `cd -` since that'll take you to the previous working directory
@@ -1364,7 +1364,7 @@ $ ls -F backups
 dot_files/  hello.py  loops.py  manuals/  projects/
 ```
 
-When you are dealing with a single file or directory, you can also **rename** them:
+When you are dealing with a single file or directory, you can also *rename* them:
 
 ```bash
 # within the same directory
@@ -1909,7 +1909,7 @@ This chapter focuses on Bash shell features like quoting mechanisms, wildcards, 
 
 This section will quote (*heh*) the relevant definitions from the [bash manual](https://www.gnu.org/software/bash/manual/bash.html#Quoting) and provide some examples for each of the four mechanisms.
 
-**Escape Character**
+*1)* **Escape Character**
 
 >A non-quoted backslash `\` is the Bash escape character. It preserves the literal value of the next character that follows, with the exception of newline.
 >
@@ -1944,7 +1944,7 @@ $ ls new*txt
 $ rm new\ file.txt
 ```
 
-**Single Quotes**
+*2)* **Single Quotes**
 
 >Enclosing characters in single quotes (`'`) preserves the literal value of each character within the quotes. A single quote may not occur between single quotes, even when preceded by a backslash.
 
@@ -1967,7 +1967,7 @@ $ echo '@fruits = '\''apple and banana'\'
 @fruits = 'apple and banana'
 ```
 
-**Double Quotes**
+*3)* **Double Quotes**
 
 >Enclosing characters in double quotes (`"`) preserves the literal value of all characters within the quotes, with the exception of `$`, `` ` ``, `\`, and, when history expansion is enabled, `!`.
 
@@ -2003,7 +2003,7 @@ $ rm "$f"
 
 >![info](./images/info.svg) See also [unix.stackexchange: Why does my shell script choke on whitespace or other special characters?](https://unix.stackexchange.com/q/131766/109046).
 
-**ANSI-C Quoting**
+*4)* **ANSI-C Quoting**
 
 >Words of the form `$'string'` are treated specially. The word expands to string, with backslash-escaped characters replaced as specified by the ANSI C standard.
 
@@ -2033,7 +2033,7 @@ ball    20
 
 ## Wildcards
 
-It is relatively easy to specify complete filenames as command arguments when they are few in number. And you could use features like tab completion and middle mouse button click (pastes the last highlighted text) to assist in such cases.
+It is relatively easy to specify complete filenames as command arguments when they are few in number. And you could use features like tab completion and middle mouse button click (which pastes the last highlighted text) to assist in such cases.
 
 But what to do if you have to deal with tens and hundreds of files (or even more)? If applicable, one way is to match all the files based on a common pattern in their filenames, for example extensions like `.py`, `.txt` and so on. Wildcards (globs) will help in such cases. This feature is provided by the shell, and thus individual commands need not worry about implementing them. Pattern matching supported by wildcards are somewhat similar to regular expressions, but there are fundamental and syntactical differences between them.
 
@@ -2042,9 +2042,9 @@ Some of the commonly used wildcards are listed below:
 * `*` match any character, zero or more times
     * as a special case, `*` won't match the starting `.` of hidden files unless the `dotglob` shell option is set
 * `?` match any character exactly once
-* `[set]` match any of these characters once
-* `[^set]` match any characters *except* the given set of characters
-    * you can also use `[!set]` to negate the character class
+* `[set149]` match any of these characters once
+* `[^set149]` match any characters *except* the given set of characters
+    * you can also use `[!set149]` to negate the character class
 * `[a-z]` match a range of characters from `a` to `z`
 * `[0-9a-fA-F]` match any hexadecimal character
 
@@ -3512,7 +3512,7 @@ mango
 
 # Searching Files and Filenames
 
-This chapter will show how to search file contents based on literal strings or regular expressions. After that, you'll learn how to locate files based on their names and other properties like size, last modified, etc.
+This chapter will show how to search file contents based on literal strings or regular expressions. After that, you'll learn how to locate files based on their names and other properties like size, last modified timestamp and so on.
 
 >![info](./images/info.svg) The [example_files](https://github.com/learnbyexample/cli-computing/tree/master/example_files) directory has the scripts used in this chapter.
 
@@ -3530,11 +3530,11 @@ Commonly used options are shown below. Examples will be discussed in later secti
 
 * `--color=auto` highlight the matching portions, filenames, line numbers, etc using colors
 * `-i` ignore case while matching
-* `-v` print non-matching lines
-* `-n` prefix line numbers for matching lines
-* `-c` display only the count of number of matching lines
+* `-v` print only non-matching lines
+* `-n` prefix line numbers for output lines
+* `-c` display only the count of output lines
 * `-l` print only the filenames matching the given expression
-* `-L` print filenames NOT matching the pattern
+* `-L` print filenames *not* matching the pattern
 * `-w` match pattern only as whole words
 * `-x` match pattern only as whole lines
 * `-F` interpret pattern as a fixed string (i.e. not a regular expression)
@@ -3730,7 +3730,7 @@ See `man pcrepattern` or [PCRE online manual](https://www.pcre.org/original/doc/
 
 ### Recursive search
 
-You can use the `-r` option to search recursively within the specified directories. By default, the current directory will be searched. Use `-R` if you want symbolic links found within the input directories to be followed as well. You do not need `-R` option for specifying symbolic links as arguments.
+You can use the `-r` option to search recursively within the specified directories. By default, the current directory will be searched. Use `-R` if you want symbolic links found within the input directories to be followed as well. You do not need the `-R` option for specifying symbolic links as arguments.
 
 Here are some basic examples. Recursive search will work as if `-H` option was specified as well, even if only one file was matched. Also, hidden files are included by default.
 
@@ -4116,7 +4116,7 @@ $ find -name '*sc*' -or -size +10k
 ./scripts
 ./errors.log
 
-# except filenames containing 'o' or `r` or 'txt'
+# except filenames containing 'o' or 'r' or 'txt'
 $ find -type f -not \( -name '*[or]*' -or -name '*txt*' \)
 ./projects/tictactoe/game.py
 ./projects/calculator/calc.sh
@@ -4627,7 +4627,7 @@ $ du -m report.log
 8       report.log
 ```
 
-The `-h` option reports size in human readable format (uses power of 1024). Add `--si` option to get results in powers of 1000 instead. If you use `du -h`, you can pipe the output to `sort -h` for sorting purposes.
+The `-h` option reports size in human readable format (uses power of 1024). Use `--si` option to get results in powers of 1000 instead. If you use `du -h`, you can pipe the output to `sort -h` for sorting purposes.
 
 ```bash
 $ du -sh *
@@ -4714,7 +4714,7 @@ $ stat -c '%s %n' ip.txt hi.sh
 21 hi.sh
 ```
 
->![info](./images/info.svg) ![info](./images/info.svg) The `stat` command should be preferred instead of parsing `ls -l` output for file details. See [mywiki.wooledge: avoid parsing output of ls](https://mywiki.wooledge.org/ParsingLs) and [unix.stackexchange: why not parse ls?](https://unix.stackexchange.com/q/128985/109046) for explanation and other alternatives.
+>![info](./images/info.svg) ![warning](./images/warning.svg) The `stat` command should be preferred instead of parsing `ls -l` output for file details. See [mywiki.wooledge: avoid parsing output of ls](https://mywiki.wooledge.org/ParsingLs) and [unix.stackexchange: why not parse ls?](https://unix.stackexchange.com/q/128985/109046) for explanation and other alternatives.
 
 ## touch
 
@@ -4963,7 +4963,7 @@ $ stat -c '%a %A' dot_files
 700 drwx------
 ```
 
-You can also use `mkdir -m` instead of the `mkdir+chmod` combination seen above. The argument to the `-m` option uses the same syntax as `chmod` (including the format that'll be discussed next).
+You can also use `mkdir -m` instead of the `mkdir+chmod` combination seen above. The argument to the `-m` option accepts the same syntax as `chmod` (including the format that'll be discussed next).
 
 ```bash
 $ mkdir -m 750 backups
@@ -5370,7 +5370,7 @@ $ pgrep -a 'vim'
 
 Sometimes, a process might not be responding to your interaction, might be taking too long, accidentally uses too much memory, and so on. You can use the `kill` command to manage such processes.
 
-As mentioned at the beginning of this chapter, these examples are suggested for interactive processes initiated by you (other usage, for example in scripts, will require different strategy). Be 100% sure before you attempt to send signals to manage processes.
+As mentioned at the beginning of this chapter, these examples are suggested for interactive processes initiated by you (other usage, for example in scripts, will require different strategies). Be 100% sure before you attempt to send signals to manage processes.
 
 You can pass signals by name or by their associated number. Use `kill -l` to get a full list of signals. See also [unix.stackexchange: List of Signals](https://unix.stackexchange.com/q/317492/109046) and [unix.stackexchange: What causes various signals to be sent?](https://unix.stackexchange.com/q/6332/109046)
 
@@ -5762,7 +5762,7 @@ awk 'cond1{action1} cond2{action2} ... condN{actionN}'
 
 If a condition isn't provided, the action is always executed. Within a block, you can provide multiple statements separated by a semicolon character. If action isn't provided, then by default, contents of `$0` variable is printed if the condition evaluates to *true*. When action isn't present, you can use semicolon to terminate the condition and start another `condX{actionX}` snippet.
 
-You can use a `BEGIN{}` block when you need to execute something before the input is read and a `END{}` block to execute something after all of the input has been processed.
+You can use a `BEGIN{}` block when you need to execute something before the input is read and an `END{}` block to execute something after all of the input has been processed.
 
 ```bash
 $ seq 2 | awk 'BEGIN{print "---"} 1; END{print "%%%"}'
@@ -6615,7 +6615,7 @@ apple   50
 
 ## uniq
 
-This command helps you to identify and remove duplicates. Usually requires a sorted input as the comparison is made between adjacent lines only.
+This command helps you to identify and remove duplicates. Usually used with sorted inputs as the comparison is made between adjacent lines only.
 
 ### Common options
 
@@ -7491,7 +7491,7 @@ $ seq 10 | paste -d: - - - - -
 1:2:3:4:5
 6:7:8:9:10
 
-# use input redirection for file input
+# use redirection for file input
 $ <colors_1.txt paste -d: - - -
 Blue:Brown:Orange
 Purple::
@@ -7520,7 +7520,7 @@ As stated in the above quote from the manual, the `pr` command is mainly used fo
 $ pr greeting.txt | head -n8
 
 
-2021-08-05 14:10                   greeting.txt                   Page 1
+2022-06-11 10:48                   greeting.txt                   Page 1
 
 
 Hi there
@@ -7579,7 +7579,7 @@ $ seq 8 | pr -4ats:
 1:2:3:4
 5:6:7:8
 
-# unlike paste, pr doesn't add separator if last row has less columns to fill
+# unlike paste, pr doesn't add separators if the last row has less columns to fill
 $ seq 10 | pr -4ats,
 1,2,3,4
 5,6,7,8
@@ -7618,7 +7618,7 @@ noon
 
 The `split` command is useful to divide the input into smaller parts based on number of lines, bytes, file size, etc. You can also execute another command on the divided parts before saving the results. An example use case is sending a large file as multiple parts as a workaround for online transfer size limits.
 
-By default, the `split` command divides the input `1000` lines at a time. Newline character is the default line separator. You can pass a single file or `stdin` data as the input. Use `cat` if you need to concatenate multiple input sources. The output files will be named `xaa`, `xab`, `xac` and so on (where `x` is the prefix). If the filenames are exhausted, two more letters will be appended and the pattern will continue as needed. If the number of input lines is not evenly divisible, the last file will contain less than `1000` lines.
+By default, the `split` command divides the input `1000` lines at a time. Newline character is the default line separator. You can pass a single file or `stdin` data as the input. Use `cat` if you need to concatenate multiple input sources. By default, the output files will be named `xaa`, `xab`, `xac` and so on (where `x` is the prefix). If the filenames are exhausted, two more letters will be appended and the pattern will continue as needed. If the number of input lines is not evenly divisible, the last file will contain less than `1000` lines.
 
 ```bash
 # divide input 1000 lines at a time
@@ -8060,7 +8060,7 @@ window  shoes  3.14
 
 This chapter will cover basics of shell scripting with `bash`. You'll learn about declaring variables, control structures, working with arguments passed to a script, getting user input and so on.
 
->![info](./images/info.svg) The [example_files](https://github.com/learnbyexample/cli-computing/tree/master/example_files) directory has all the shell scripts discussed in this chapter. However, it is recommended that you type the scripts manually using your favorite text editor and refer to the `example_files/shell_scripting` directory only when necessary.
+>![info](./images/info.svg) The [example_files](https://github.com/learnbyexample/cli-computing/tree/master/example_files) directory has all the shell scripts discussed in this chapter. However, it is recommended that you type the scripts manually using your favorite text editor and refer to the `example_files/shell_scripting` directory only if necessary.
 
 ## Need for scripting
 
@@ -8101,7 +8101,7 @@ Use `chmod` to add executable permission to the file and then run the script:
 ```bash
 $ chmod +x hello.sh
 
-$ ./hello_world.sh 
+$ ./hello.sh 
 Hello learnbyexample
 Today is Wednesday
 Have a nice day
@@ -8609,7 +8609,7 @@ pp
 * `n1 -lt n2` checks if `n1` is less than `n2`
 * `n1 -le n2` checks if `n1` is less than or equal to `n2`
 
-Only positive or negative integer comparisons are supported by these operators.
+These operators support only integer comparisons.
 
 ```bash
 $ [[ 20 -gt 3 ]] && echo 'true' || echo 'false'
@@ -8666,7 +8666,7 @@ Enter two integers separated by spaces: -2 42
 -2 + 42 = 40
 ```
 
->![info](images/info.svg) You can use the `-a` option to assign an array, the `-d` option to specify a custom delimiter instead of newline and so on. See `help read` and [bash manual: Builtins](https://www.gnu.org/software/bash/manual/bash.html#Bash-Builtins) for more details.
+>![info](images/info.svg) You can use the `-a` option to assign an array, the `-d` option to specify a custom delimiter instead of newline for terminating user input and so on. See `help read` and [bash manual: Builtins](https://www.gnu.org/software/bash/manual/bash.html#Bash-Builtins) for more details.
 
 ## if then else
 
@@ -8819,7 +8819,7 @@ $ bash read_file_lines.sh files.txt
 2 greeting.sh
 ```
 
-The intention in the above script is to treat each input line literally. So, the `IFS` special variable is set to empty string to prevent stripping of leading and trailing whitespaces. The `-r` option to the `read` builtin allows `\` in input to be treated literally. Note that the input filename is accepted as the first command line argument and redirected as `stdin` to the `while` loop. You also need to make sure that the last line of input ends with a newline character, otherwise the last line won't be processed.
+The intention in the above script is to treat each input line literally. So, the `IFS` (input field separator) special variable is set to empty string to prevent stripping of leading and trailing whitespaces. The `-r` option to the `read` builtin allows `\` in input to be treated literally. Note that the input filename is accepted as the first command line argument and redirected as `stdin` to the `while` loop. You also need to make sure that the last line of input ends with a newline character, otherwise the last line won't be processed.
 
 You can change `IFS` to split the input line into different fields and specify appropriate number of variables to the `read` builtin. Here's an example:
 
@@ -8843,7 +8843,7 @@ or
 d
 ```
 
->![info](./images/info.svg) The `xargs` command can also be used for some of the cases discussed above. See [unix.stackexchange: parse each line of a text file as a command argument](https://unix.stackexchange.com/q/149726/109046) for an example.
+>![info](./images/info.svg) The `xargs` command can also be used for some of the cases discussed above. See [unix.stackexchange: parse each line of a text file as a command argument](https://unix.stackexchange.com/q/149726/109046) for examples.
 
 ## Functions
 
@@ -8974,7 +8974,7 @@ For more information:
   https://www.shellcheck.net/wiki/SC1068 -- Don't put spaces around the = in ...
 ```
 
->![info](images/info.svg) Use the `-s` option (`shellcheck -s bash` for example) to specify the shell being used, if the script doesn't have a shebang.
+>![info](images/info.svg) If the script doesn't have a shebang, you can use the `-s` option (`shellcheck -s bash` for example) to specify the shell application.
 
 >![info](images/info.svg) ![warning](./images/warning.svg) Note that `shellcheck` will not catch all types of issues. And suggestions should not be blindly accepted without understanding if that makes sense in the given context.
 
@@ -9444,7 +9444,7 @@ alias c2='cd ../../'
 alias c3='cd ../../../'
 
 alias ls='ls --color=auto'
-alias l='ls -ltrh'
+alias l='ls -ltrhG'
 alias la='l -A'
 
 alias grep='grep --color=auto'
@@ -9557,13 +9557,13 @@ The documentation uses **Meta** (`M-` prefix) and notes that this key is labeled
 
 ## Copy and paste
 
-Shortcuts for copy-paste operations in the terminal are shown below. You might be able to customize these shortcuts in terminal preferences.
+Shortcuts for copy-paste operations in the terminal are shown below. You might be able to customize these shortcuts in the terminal preferences.
 
 * `Shift+Ctrl+c` copy the highlighted portion to the clipboard
 * `Shift+Ctrl+v` paste clipboard contents
 * `Shift+Insert` paste the last highlighted portion (not necessarily the clipboard contents)
 
-You can also press middle mouse button instead of the `Shift+Insert` shortcut. This is not limited to the terminal, but works in any application. Use the `xinput` command to enable/disable mouse button clicks. First, use `xinput` without any arguments and spot the number corresponding to your mouse. As an example, assuming the device number is `11`, you can use the following commands:
+You can also press middle mouse button instead of the `Shift+Insert` shortcut. This is not limited to the terminal, works in many other applications too. You can use the `xinput` command to enable/disable mouse button clicks. First, use `xinput` without any arguments and spot the number corresponding to your mouse. As an example, assuming the device number is `11`, you can use the following commands:
 
 * `xinput set-button-map 11 1 0 3` to disable middle button click
 * `xinput set-button-map 11 1 2 3` to enable middle button click
