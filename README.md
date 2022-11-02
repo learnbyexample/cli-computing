@@ -10,7 +10,7 @@ Some of my ebooks and bundles are on sale as well till 08-Nov-2022:
 
 # Computing from the Command Line
 
-This book aims to teach Linux command line tools and Shell Scripting for beginner to intermediate level users. The focus is towards managing your files and performing text processing tasks. Topics like system administration and networking won't be discussed, but some details might get covered in future versions of this book.
+This book aims to teach Linux command line tools and Shell Scripting for beginner to intermediate level users. The focus is towards managing your files and performing text processing tasks. Topics like system administration and networking won't be discussed, but some details might get covered in future versions of this book. Visit https://youtu.be/PS5XEemn164 for a short video about the book.
 
 <p align="center">
     <img src="./images/cli_computing_ls.png" width="640px" height="360px" />
