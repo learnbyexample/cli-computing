@@ -1,13 +1,3 @@
-# Release offers
-
-To celebrate my latest ebook release, you can download [Computing from the Command Line](https://learnbyexample.gumroad.com/l/cli_computing) for FREE till 08-Nov-2022.
-
-Some of my ebooks and bundles are on sale as well till 08-Nov-2022:
-
-* [Command line text processing with GNU Coreutils](https://learnbyexample.gumroad.com/l/cli_coreutils/cli_computing_release) is FREE
-* [Magical one-liners](https://learnbyexample.gumroad.com/l/oneliners/cli_computing_release) bundle is $5 (normal price $15) — grep, sed, awk, perl and ruby one-liners
-* [All books bundle](https://learnbyexample.gumroad.com/l/all-books/cli_computing_release) is $10 (normal price $28) — all my 13 programming ebooks
-
 # Computing from the Command Line
 
 This book aims to teach Linux command line tools and Shell Scripting for beginner to intermediate level users. The focus is towards managing your files and performing text processing tasks. Topics like system administration and networking won't be discussed, but some details might get covered in future versions of this book. Visit https://youtu.be/PS5XEemn164 for a short video about the book.
