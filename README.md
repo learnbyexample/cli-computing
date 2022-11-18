@@ -36,6 +36,14 @@ For web version of the book, visit https://learnbyexample.github.io/cli-computin
 
 <br>
 
+# Testimonials
+
+>Ive only gotten through first pages but appears a good Unix/bash primer. I’ll probably recommend for new hires out of bootcamp because they’re usually weak here
+>
+> — [feedback on twitter](https://twitter.com/Lizziness/status/1589866691974291456)
+
+<br>
+
 ## Feedback and Contributing
 
 ⚠️ ⚠️ Please DO NOT submit pull requests. Main reason being any modification requires changes in multiple places.
