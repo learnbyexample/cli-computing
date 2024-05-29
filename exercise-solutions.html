@@ -1,4 +1,4 @@
-<!doctypehtml><html class="sidebar-visible no-js light"lang=en><head><meta charset=UTF-8><title>Exercise Solutions - Computing from the Command Line</title><meta content="text/html; charset=utf-8"http-equiv=Content-Type><meta content="Linux Command Line and Shell Scripting for beginner to intermediate level users"name=description><meta content=width=device-width,initial-scale=1 name=viewport><meta content=#ffffff name=theme-color><meta content="Computing from the Command Line"property=og:title><meta content=website property=og:type><meta content="Linux Command Line and Shell Scripting for beginner to intermediate level users"property=og:description><meta content=https://learnbyexample.github.io/cli-computing/ property=og:url><meta content=https://learnbyexample.github.io/cli-computing/images/cli_computing_ls.png property=og:image><meta content=1280 property=og:image:width><meta content=720 property=og:image:height><meta content=summary_large_image property=twitter:card><meta content=@learn_byexample property=twitter:site><link href=favicon.svg rel=icon><link rel="shortcut icon"href=favicon.png><link href=css/variables.css rel=stylesheet><link href=css/general.css rel=stylesheet><link href=css/chrome.css rel=stylesheet><link href=FontAwesome/css/font-awesome.css rel=stylesheet><link href=fonts/fonts.css rel=stylesheet><link href=highlight.css rel=stylesheet><link href=tomorrow-night.css rel=stylesheet><link href=ayu-highlight.css rel=stylesheet><link href=style.css rel=stylesheet><body><script>var path_to_root = "";
+<!doctypehtml><html class="sidebar-visible no-js light"lang=en><head><meta charset=UTF-8><title>Exercise Solutions - Linux Command Line Computing</title><meta content="text/html; charset=utf-8"http-equiv=Content-Type><meta content="Linux Command Line and Shell Scripting for beginner to intermediate level users"name=description><meta content=width=device-width,initial-scale=1 name=viewport><meta content=#ffffff name=theme-color><meta content="Linux Command Line Computing"property=og:title><meta content=website property=og:type><meta content="Linux Command Line and Shell Scripting for beginner to intermediate level users"property=og:description><meta content=https://learnbyexample.github.io/cli-computing/ property=og:url><meta content=https://learnbyexample.github.io/cli-computing/images/cli_computing_ls.png property=og:image><meta content=1280 property=og:image:width><meta content=720 property=og:image:height><meta content=summary_large_image property=twitter:card><meta content=@learn_byexample property=twitter:site><link href=favicon.svg rel=icon><link rel="shortcut icon"href=favicon.png><link href=css/variables.css rel=stylesheet><link href=css/general.css rel=stylesheet><link href=css/chrome.css rel=stylesheet><link href=FontAwesome/css/font-awesome.css rel=stylesheet><link href=fonts/fonts.css rel=stylesheet><link href=highlight.css rel=stylesheet><link href=tomorrow-night.css rel=stylesheet><link href=ayu-highlight.css rel=stylesheet><link href=style.css rel=stylesheet><body><script>var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";</script><script>try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -24,7 +24,7 @@
                 sidebar = sidebar || 'visible';
             }
             html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);</script><nav aria-label="Table of contents"class=sidebar id=sidebar><div class=sidebar-scrollbox><ol class=chapter><li class="chapter-item expanded affix"><a href=cover.html>Cover</a><li class="chapter-item expanded affix"><a href=buy.html>Buy PDF/EPUB versions</a><li class="chapter-item expanded affix"><a href=preface.html>Preface</a><li class="chapter-item expanded"><a href=introduction-setup.html><strong aria-hidden=true>1.</strong> Introduction and Setup</a><li class="chapter-item expanded"><a href=command-line-overview.html><strong aria-hidden=true>2.</strong> Command Line Overview</a><li class="chapter-item expanded"><a href=managing-files-directories.html><strong aria-hidden=true>3.</strong> Managing Files and Directories</a><li class="chapter-item expanded"><a href=shell-features.html><strong aria-hidden=true>4.</strong> Shell Features</a><li class="chapter-item expanded"><a href=viewing-part-or-whole-file-contents.html><strong aria-hidden=true>5.</strong> Viewing Part or Whole File Contents</a><li class="chapter-item expanded"><a href=searching-files-and-filenames.html><strong aria-hidden=true>6.</strong> Searching Files and Filenames</a><li class="chapter-item expanded"><a href=file-properties.html><strong aria-hidden=true>7.</strong> File Properties</a><li class="chapter-item expanded"><a href=managing-processes.html><strong aria-hidden=true>8.</strong> Managing Processes</a><li class="chapter-item expanded"><a href=multipurpose-text-processing-tools.html><strong aria-hidden=true>9.</strong> Multipurpose Text Processing Tools</a><li class="chapter-item expanded"><a href=sorting-stuff.html><strong aria-hidden=true>10.</strong> Sorting Stuff</a><li class="chapter-item expanded"><a href=comparing-files.html><strong aria-hidden=true>11.</strong> Comparing Files</a><li class="chapter-item expanded"><a href=assorted-text-processing-tools.html><strong aria-hidden=true>12.</strong> Assorted Text Processing Tools</a><li class="chapter-item expanded"><a href=shell-scripting.html><strong aria-hidden=true>13.</strong> Shell Scripting</a><li class="chapter-item expanded"><a href=shell-customization.html><strong aria-hidden=true>14.</strong> Shell Customization</a><li class="chapter-item expanded affix"><a class=active href=exercise-solutions.html>Exercise Solutions</a></li><br><hr><li class="chapter-item expanded"><i class="fa fa-github"id=git-repository-button></i><a href=https://github.com/learnbyexample/cli-computing>   Source code</a><li class="chapter-item expanded"><i class="fa fa-home"id=home-button></i><a href=https://learnbyexample.github.io/>   My Blog</a><li class="chapter-item expanded"><i class="fa fa-book"id=book-button></i><a href=https://learnbyexample.github.io/books/>   My Books</a><li class="chapter-item expanded"><i class="fa fa-envelope"id=mail-button></i><a href=https://learnbyexample.gumroad.com/l/learnbyexample-weekly>   learnbyexample weekly</a><li class="chapter-item expanded"><i class="fa fa-twitter"id=twitter-button></i><a href=https://twitter.com/learn_byexample>   Twitter</a></ol></div><div class=sidebar-resize-handle id=sidebar-resize-handle></div></nav><div class=page-wrapper id=page-wrapper><div class=page><div id=menu-bar-hover-placeholder></div><div class="menu-bar sticky bordered"id=menu-bar><div class=left-buttons><button aria-label="Toggle Table of Contents"title="Toggle Table of Contents"aria-controls=sidebar class=icon-button id=sidebar-toggle type=button><i class="fa fa-bars"></i></button><button aria-label="Change theme"title="Change theme"aria-controls=theme-list aria-expanded=false aria-haspopup=true class=icon-button id=theme-toggle type=button><i class="fa fa-paint-brush"></i></button><ul aria-label=Themes class=theme-popup id=theme-list role=menu><li role=none><button class=theme id=light role=menuitem>Light (default)</button><li role=none><button class=theme id=rust role=menuitem>Rust</button><li role=none><button class=theme id=coal role=menuitem>Coal</button><li role=none><button class=theme id=navy role=menuitem>Navy</button><li role=none><button class=theme id=ayu role=menuitem>Ayu</button></ul><button aria-label="Toggle Searchbar"title="Search. (Shortkey: s)"aria-controls=searchbar aria-expanded=false aria-keyshortcuts=S class=icon-button id=search-toggle type=button><i class="fa fa-search"></i></button></div><h1 class=menu-title>Computing from the Command Line</h1><div class=right-buttons><a aria-label=Blog href=https://learnbyexample.github.io title=Blog> <i class="fa fa-home"id=home-button></i> </a><a aria-label=Twitter href=https://twitter.com/learn_byexample title=Twitter> <i class="fa fa-twitter"id=twitter-button></i> </a><a aria-label="Git repository"title="Git repository"href=https://github.com/learnbyexample/cli-computing> <i class="fa fa-github"id=git-repository-button></i> </a></div></div><div class=hidden id=search-wrapper><form class=searchbar-outer id=searchbar-outer><input placeholder="Search this book ..."aria-controls=searchresults-outer aria-describedby=searchresults-header id=searchbar name=searchbar type=search></form><div class="searchresults-outer hidden"id=searchresults-outer><div class=searchresults-header id=searchresults-header></div><ul id=searchresults></ul></div></div><script>document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+            html.classList.add("sidebar-" + sidebar);</script><nav aria-label="Table of contents"class=sidebar id=sidebar><div class=sidebar-scrollbox><ol class=chapter><li class="chapter-item expanded affix"><a href=cover.html>Cover</a><li class="chapter-item expanded affix"><a href=buy.html>Buy PDF/EPUB versions</a><li class="chapter-item expanded affix"><a href=preface.html>Preface</a><li class="chapter-item expanded"><a href=introduction-setup.html><strong aria-hidden=true>1.</strong> Introduction and Setup</a><li class="chapter-item expanded"><a href=command-line-overview.html><strong aria-hidden=true>2.</strong> Command Line Overview</a><li class="chapter-item expanded"><a href=managing-files-directories.html><strong aria-hidden=true>3.</strong> Managing Files and Directories</a><li class="chapter-item expanded"><a href=shell-features.html><strong aria-hidden=true>4.</strong> Shell Features</a><li class="chapter-item expanded"><a href=viewing-part-or-whole-file-contents.html><strong aria-hidden=true>5.</strong> Viewing Part or Whole File Contents</a><li class="chapter-item expanded"><a href=searching-files-and-filenames.html><strong aria-hidden=true>6.</strong> Searching Files and Filenames</a><li class="chapter-item expanded"><a href=file-properties.html><strong aria-hidden=true>7.</strong> File Properties</a><li class="chapter-item expanded"><a href=managing-processes.html><strong aria-hidden=true>8.</strong> Managing Processes</a><li class="chapter-item expanded"><a href=multipurpose-text-processing-tools.html><strong aria-hidden=true>9.</strong> Multipurpose Text Processing Tools</a><li class="chapter-item expanded"><a href=sorting-stuff.html><strong aria-hidden=true>10.</strong> Sorting Stuff</a><li class="chapter-item expanded"><a href=comparing-files.html><strong aria-hidden=true>11.</strong> Comparing Files</a><li class="chapter-item expanded"><a href=assorted-text-processing-tools.html><strong aria-hidden=true>12.</strong> Assorted Text Processing Tools</a><li class="chapter-item expanded"><a href=shell-scripting.html><strong aria-hidden=true>13.</strong> Shell Scripting</a><li class="chapter-item expanded"><a href=shell-customization.html><strong aria-hidden=true>14.</strong> Shell Customization</a><li class="chapter-item expanded affix"><a class=active href=exercise-solutions.html>Exercise Solutions</a></li><br><hr><li class="chapter-item expanded"><i class="fa fa-github"id=git-repository-button></i><a href=https://github.com/learnbyexample/cli-computing>   Source code</a><li class="chapter-item expanded"><i class="fa fa-home"id=home-button></i><a href=https://learnbyexample.github.io/>   My Blog</a><li class="chapter-item expanded"><i class="fa fa-book"id=book-button></i><a href=https://learnbyexample.github.io/books/>   My Books</a><li class="chapter-item expanded"><i class="fa fa-envelope"id=mail-button></i><a href=https://learnbyexample.gumroad.com/l/learnbyexample-weekly>   learnbyexample weekly</a><li class="chapter-item expanded"><i class="fa fa-twitter"id=twitter-button></i><a href=https://twitter.com/learn_byexample>   Twitter</a></ol></div><div class=sidebar-resize-handle id=sidebar-resize-handle></div></nav><div class=page-wrapper id=page-wrapper><div class=page><div id=menu-bar-hover-placeholder></div><div class="menu-bar sticky bordered"id=menu-bar><div class=left-buttons><button aria-label="Toggle Table of Contents"title="Toggle Table of Contents"aria-controls=sidebar class=icon-button id=sidebar-toggle type=button><i class="fa fa-bars"></i></button><button aria-label="Change theme"title="Change theme"aria-controls=theme-list aria-expanded=false aria-haspopup=true class=icon-button id=theme-toggle type=button><i class="fa fa-paint-brush"></i></button><ul aria-label=Themes class=theme-popup id=theme-list role=menu><li role=none><button class=theme id=light role=menuitem>Light (default)</button><li role=none><button class=theme id=rust role=menuitem>Rust</button><li role=none><button class=theme id=coal role=menuitem>Coal</button><li role=none><button class=theme id=navy role=menuitem>Navy</button><li role=none><button class=theme id=ayu role=menuitem>Ayu</button></ul><button aria-label="Toggle Searchbar"title="Search. (Shortkey: s)"aria-controls=searchbar aria-expanded=false aria-keyshortcuts=S class=icon-button id=search-toggle type=button><i class="fa fa-search"></i></button></div><h1 class=menu-title>Linux Command Line Computing</h1><div class=right-buttons><a aria-label=Blog href=https://learnbyexample.github.io title=Blog> <i class="fa fa-home"id=home-button></i> </a><a aria-label=Twitter href=https://twitter.com/learn_byexample title=Twitter> <i class="fa fa-twitter"id=twitter-button></i> </a><a aria-label="Git repository"title="Git repository"href=https://github.com/learnbyexample/cli-computing> <i class="fa fa-github"id=git-repository-button></i> </a></div></div><div class=hidden id=search-wrapper><form class=searchbar-outer id=searchbar-outer><input placeholder="Search this book ..."aria-controls=searchresults-outer aria-describedby=searchresults-header id=searchbar name=searchbar type=search></form><div class="searchresults-outer hidden"id=searchresults-outer><div class=searchresults-header id=searchresults-header></div><ul id=searchresults></ul></div></div><script>document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
                         link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
@@ -47,7 +47,7 @@ $ man -k column
 colrm (1)            - remove columns from a file
 column (1)           - columnate lists
 git-column (1)       - Display data in columns
-</code></pre><p><strong>12)</strong> Are there any differences between <code>man</code> and <code>info</code> pages?<p>The Linux manual pages are usually shortened version of the full documentation. You can use the <code>info</code> command to view the complete documentation for GNU tools. <code>info</code> is also a TUI application, but with different key configuration compared to the <code>man</code> command. See <a href=https://www.gnu.org/manual/manual.html>GNU Manuals Online</a> if you'd prefer to read them from a web browser. You can also download them in formats like PDF for offline usage.</p><br><h2 id=managing-files-and-directories><a class=header href=#managing-files-and-directories>Managing Files and Directories</a></h2><blockquote><p><img alt=info src=./images/info.svg> The <code>ls.sh</code> script will be used for some of the exercises.</blockquote><p><strong>1)</strong> Which of these commands will always display the absolute path of the home directory?<p><em>a)</em> <code>pwd</code><br> <em>b)</em> <code>echo "$PWD"</code><br> <em>c)</em> <code>echo "$HOME"</code><p>Answer: <em>c)</em> <code>echo "$HOME"</code><p><strong>2)</strong> The current working directory has a folder named <code>-dash</code>. How would you switch to that directory?<p><em>a)</em> <code>cd -- -dash</code><br> <em>b)</em> <code>cd -dash</code><br> <em>c)</em> <code>cd ./-dash</code><br> <em>d)</em> <code>cd \-dash</code><br> <em>e)</em> <code>cd '-dash'</code><br> <em>f)</em> all of the above<br> <em>g)</em> only <em>a)</em> and <em>c)</em><p>Answer: <em>g)</em> only <em>a)</em> and <em>c)</em><p><strong>3)</strong> Given the directory structure as shown below, how would you change to the <code>todos</code> directory?<pre><code class=language-bash># change to the 'scripts' directory and source the 'ls.sh' script
+</code></pre><p><strong>12)</strong> Are there differences between the <code>man</code> and <code>info</code> pages?<p>The Linux manual pages are usually shortened version of the full documentation. You can use the <code>info</code> command to view the complete documentation for GNU tools. <code>info</code> is also a TUI application, but with different key configuration compared to the <code>man</code> command. See <a href=https://www.gnu.org/manual/manual.html>GNU Manuals Online</a> if you'd prefer to read them from a web browser. You can also download them in formats like PDF for offline usage.</p><br><h2 id=managing-files-and-directories><a class=header href=#managing-files-and-directories>Managing Files and Directories</a></h2><blockquote><p><img alt=info src=./images/info.svg> The <code>ls.sh</code> script will be used for some of the exercises.</blockquote><p><strong>1)</strong> Which of these commands will always display the absolute path of the home directory?<p><em>a)</em> <code>pwd</code><br> <em>b)</em> <code>echo "$PWD"</code><br> <em>c)</em> <code>echo "$HOME"</code><p>Answer: <em>c)</em> <code>echo "$HOME"</code><p><strong>2)</strong> The current working directory has a folder named <code>-dash</code>. How would you switch to that directory?<p><em>a)</em> <code>cd -- -dash</code><br> <em>b)</em> <code>cd -dash</code><br> <em>c)</em> <code>cd ./-dash</code><br> <em>d)</em> <code>cd \-dash</code><br> <em>e)</em> <code>cd '-dash'</code><br> <em>f)</em> all of the above<br> <em>g)</em> only <em>a)</em> and <em>c)</em><p>Answer: <em>g)</em> only <em>a)</em> and <em>c)</em><p><strong>3)</strong> Given the directory structure as shown below, how would you change to the <code>todos</code> directory?<pre><code class=language-bash># change to the 'scripts' directory and source the 'ls.sh' script
 $ source ls.sh
 
 $ ls -F
@@ -235,7 +235,7 @@ $ touch report_202{0..2}.txt
 $ ls report*
 report_2020.txt  report_2021.txt  report_2022.txt
 
-# use 'cp' command here
+# use the 'cp' command here
 $ cp report_2021.txt{,.bkp}
 $ ls report*
 report_2020.txt  report_2021.txt  report_2021.txt.bkp  report_2022.txt
@@ -272,7 +272,7 @@ apple_2_banana_8
 apple_3_banana_6
 apple_3_banana_7
 apple_3_banana_8
-</code></pre><p><strong>18)</strong> What are the differences between <code><</code> and <code>|</code> shell operators, if any?<ul><li>the <code><</code> redirection operator helps you to pass data from a file as input to a command<li>the <code>|</code> operator redirects output of a command as input to another command</ul><p><strong>19)</strong> Which character is typically used to represent <code>stdin</code> data as a file argument?<p><code>-</code><p><strong>20)</strong> What do the following operators do?<p><em>a)</em> <code>1></code> — redirect the standard output of a command to a file<br> <em>b)</em> <code>2></code> — redirect the standard error of a command to a file<br> <em>c)</em> <code>&></code> — redirect both <code>stdout</code> and <code>stderr</code> (overwrites an existing file)<br> <em>d)</em> <code>&>></code> — redirect both <code>stdout</code> and <code>stderr</code> (appends to existing file)<br> <em>e)</em> <code>|&</code> — pipe both <code>stdout</code> and <code>stderr</code> as input to another command<p><strong>21)</strong> What will be the contents of <code>op.txt</code> if you use the following <code>grep</code> command?<pre><code class=language-bash># press Ctrl+d after the line containing 'histogram'
+</code></pre><p><strong>18)</strong> What are the differences between <code><</code> and <code>|</code> shell operators, if any?<ul><li>the <code><</code> redirection operator helps you to pass data from a file as input to a command<li>the <code>|</code> operator redirects output of a command as input to another command</ul><p><strong>19)</strong> Which character is typically used to represent <code>stdin</code> data as a file argument?<p><code>-</code><p><strong>20)</strong> What do the following operators do?<p><em>a)</em> <code>1></code> — redirect the standard output of a command to a file<br> <em>b)</em> <code>2></code> — redirect the standard error of a command to a file<br> <em>c)</em> <code>&></code> — redirect both <code>stdout</code> and <code>stderr</code> (overwrites an existing file)<br> <em>d)</em> <code>&>></code> — redirect both <code>stdout</code> and <code>stderr</code> (appends to an existing file)<br> <em>e)</em> <code>|&</code> — pipe both <code>stdout</code> and <code>stderr</code> as input to another command<p><strong>21)</strong> What will be the contents of <code>op.txt</code> if you use the following <code>grep</code> command?<pre><code class=language-bash># press Ctrl+d after the line containing 'histogram'
 $ grep 'hi' > op.txt
 hi there
 this is a sample line
@@ -350,7 +350,7 @@ $ printf '%s\n' {1..3},item_{1..3}
 3,item_1
 3,item_2
 3,item_3
-</code></pre><p>The outputs are not equivalent because brace expansion creates all combinations when multiple braces are used.</p><br><h2 id=viewing-part-or-whole-file-contents><a class=header href=#viewing-part-or-whole-file-contents>Viewing Part or Whole File Contents</a></h2><blockquote><p><img alt=info src=./images/info.svg> Use <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files>example_files/text_files</a> directory for input files used in the following exercises.</blockquote><p><strong>1)</strong> Which option(s) would you use to get the output shown below?<pre><code class=language-bash>$ printf '\n\n\ndragon\n\n\nunicorn\n\n\n' | cat -bs
+</code></pre><p>The outputs are not equivalent because brace expansion creates all combinations when multiple braces are used.</p><br><h2 id=viewing-part-or-whole-file-contents><a class=header href=#viewing-part-or-whole-file-contents>Viewing Part or Whole File Contents</a></h2><blockquote><p><img alt=info src=./images/info.svg> Use the <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files>example_files/text_files</a> directory for input files used in the following exercises.</blockquote><p><strong>1)</strong> Which option(s) would you use to get the output shown below?<pre><code class=language-bash>$ printf '\n\n\ndragon\n\n\nunicorn\n\n\n' | cat -bs
 
      1  dragon
 
@@ -372,14 +372,14 @@ mango
 papaya
 banana
 
-$ tac fruits.txt ip.txt 
+$ tac fruits.txt ip.txt
 mango
 papaya
 banana
 blue delight
 light orange
 deep blue
-</code></pre><p>No, the output are not same because <code>tac</code> reverses content separately for each input file.<p><strong>4)</strong> Go through the manual for the <code>tac</code> command and use appropriate options and arguments to get the output shown below.<pre><code class=language-bash>$ cat blocks.txt
+</code></pre><p>No. The outputs are different because <code>tac</code> reverses content separately for each input file.<p><strong>4)</strong> Go through the manual for the <code>tac</code> command and use appropriate options and arguments to get the output shown below.<pre><code class=language-bash>$ cat blocks.txt
 %=%=
 apple
 banana
@@ -394,7 +394,7 @@ green
 %=%=
 apple
 banana
-</code></pre><blockquote><p><code>-b, --before</code><p>attach the separator before instead of after<p><code>-s, --separator=STRING</code><p>use STRING as the separator instead of newline</blockquote><p><strong>5)</strong> What is the difference between <code>less -n</code> and <code>less -N</code> options? Do <code>cat -n</code> and <code>less -n</code> have similar functionality?<p><code>less -N</code> enables line numbering and <code>less -n</code> disables numbering. <code>cat -n</code> enables line numbering, so it doesn't function similar to <code>less -n</code>.<p><strong>6)</strong> Which command would you use to open another file from within an existing <code>less</code> session? And which commands would you use to navigate between previous and next files?<p>You can use <code>:e filename</code> to open another file (similar to the Vim text editor). You can use <code>:p</code> and <code>:n</code> to switch between previous and next files.<p><strong>7)</strong> Use appropriate commands and shell features to get the output shown below.<pre><code class=language-bash>$ printf 'carpet\njeep\nbus\n'
+</code></pre><blockquote><p><code>-b, --before</code><p>attach the separator before instead of after<p><code>-s, --separator=STRING</code><p>use STRING as the separator instead of newline</blockquote><p><strong>5)</strong> What is the difference between <code>less -n</code> and <code>less -N</code> options? Does <code>cat -n</code> and <code>less -n</code> have similar functionality?<p><code>less -N</code> enables line numbering and <code>less -n</code> disables numbering. <code>cat -n</code> enables line numbering, so it doesn't function similar to <code>less -n</code>.<p><strong>6)</strong> Which command would you use to open another file from within an existing <code>less</code> session? And which commands would you use to navigate between previous and next files?<p>You can use <code>:e filename</code> to open another file (similar to the Vim text editor). You can use <code>:p</code> and <code>:n</code> to switch between the previous and next files.<p><strong>7)</strong> Use appropriate commands and shell features to get the output shown below.<pre><code class=language-bash>$ printf 'carpet\njeep\nbus\n'
 carpet
 jeep
 bus
@@ -425,15 +425,15 @@ banana
 papaya
 %=%=
 apple
-</code></pre><p><strong>10)</strong> Use a combination of <code>head</code> and <code>tail</code> commands to get the 11th to 14th characters from the given input.<pre><code class=language-bash># can also use: tail -c +11 | head -c4
+</code></pre><p><strong>10)</strong> Use a combination of the <code>head</code> and <code>tail</code> commands to get the 11th to 14th characters from the given input.<pre><code class=language-bash># can also use: tail -c +11 | head -c4
 $ printf 'apple\nfig\ncarpet\njeep\nbus\n' | head -c14 | tail -c +11
 carp
-</code></pre><p><strong>11)</strong> Extract starting six bytes from the input files <code>table.txt</code> and <code>fruits.txt</code>.<pre><code class=language-bash>$ head -q -c6 table.txt fruits.txt
+</code></pre><p><strong>11)</strong> Extract the starting six bytes from the input files <code>table.txt</code> and <code>fruits.txt</code>.<pre><code class=language-bash>$ head -q -c6 table.txt fruits.txt
 brown banana
-</code></pre><p><strong>12)</strong> Extract last six bytes from the input files <code>fruits.txt</code> and <code>table.txt</code>.<pre><code class=language-bash>$ tail -q -c6 fruits.txt table.txt
+</code></pre><p><strong>12)</strong> Extract the last six bytes from the input files <code>fruits.txt</code> and <code>table.txt</code>.<pre><code class=language-bash>$ tail -q -c6 fruits.txt table.txt
 mango
  3.14
-</code></pre><br><h2 id=searching-files-and-filenames><a class=header href=#searching-files-and-filenames>Searching Files and Filenames</a></h2><blockquote><p><img alt=info src=./images/info.svg> For <code>grep</code> exercises, use <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files>example_files/text_files</a> directory for input files, unless otherwise specified.</blockquote><blockquote><p><img alt=info src=./images/info.svg> For <code>find</code> exercises, use the <code>find.sh</code> script, unless otherwise specified.</blockquote><p><strong>1)</strong> Display lines containing <code>an</code> from the input files <code>blocks.txt</code>, <code>ip.txt</code> and <code>uniform.txt</code>. Show the results with and without filename prefix.<pre><code class=language-bash>$ grep 'an' blocks.txt ip.txt uniform.txt
+</code></pre><br><h2 id=searching-files-and-filenames><a class=header href=#searching-files-and-filenames>Searching Files and Filenames</a></h2><blockquote><p><img alt=info src=./images/info.svg> For <code>grep</code> exercises, use the <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files>example_files/text_files</a> directory for input files, unless otherwise specified.</blockquote><blockquote><p><img alt=info src=./images/info.svg> For <code>find</code> exercises, use the <code>find.sh</code> script, unless otherwise specified.</blockquote><p><strong>1)</strong> Display lines containing <code>an</code> from the input files <code>blocks.txt</code>, <code>ip.txt</code> and <code>uniform.txt</code>. Show the results with and without filename prefix.<pre><code class=language-bash>$ grep 'an' blocks.txt ip.txt uniform.txt
 blocks.txt:banana
 ip.txt:light orange
 uniform.txt:mango
@@ -490,12 +490,12 @@ store_2
 $ echo "$words" | grep -ow 's\w*t\w*' | grep 'e'
 $ echo "$words" | grep -owE 's\w*(t\w*e|e\w*t)\w*'
 </code></pre><p><strong>11)</strong> Extract all whole words having the same first and last word character.<pre><code class=language-bash># can also use: grep -owE '(\w)(\w*\1)?'
-$ echo 'oreo not a _oh_ pip roar took 22' | grep -owE '\w|(\w)\w*\1'
+$ echo 'oreo not a _oh_ pip RoaR took 22 Pop' | grep -owE '\w|(\w)\w*\1'
 oreo
 a
 _oh_
 pip
-roar
+RoaR
 22
 </code></pre><p><strong>12)</strong> Match all input lines containing <code>*[5]</code> literally.<pre><code class=language-bash>$ printf '4*5]\n(9-2)*[5]\n[5]*3\nr*[5\n' | grep -F '*[5]'
 (9-2)*[5]
@@ -506,7 +506,7 @@ hand
 handy
 hands
 handle
-</code></pre><p><strong>14)</strong> Input lines have three or more fields separated by a <code>,</code> delimiter. Extract second field to second last field. In other words, extract fields other than first and last.<pre><code class=language-bash>$ printf 'apple,fig,cherry\ncat,dog,bat\n' | grep -oP ',\K.+(?=,)'
+</code></pre><p><strong>14)</strong> Input lines have three or more fields separated by a <code>,</code> delimiter. Extract from the second field to the second last field. In other words, extract fields other than the first and last.<pre><code class=language-bash>$ printf 'apple,fig,cherry\ncat,dog,bat\n' | grep -oP ',\K.+(?=,)'
 fig
 dog
 
@@ -550,7 +550,7 @@ backups/jan.log
 ./hi.sh
 ./backups/dot_files/.vimrc
 ./hello_world.py
-</code></pre><p><strong>20)</strong> Find all regular files whose name do <em>not</em> have the lower case alphabets <code>g</code> to <code>l</code>.<pre><code class=language-bash># can also use: find -type f ! -name '*[g-l]*'
+</code></pre><p><strong>20)</strong> Find all regular files whose name do <em>not</em> have the lowercase letters <code>g</code> to <code>l</code>.<pre><code class=language-bash># can also use: find -type f ! -name '*[g-l]*'
 $ find -type f -not -name '*[g-l]*'
 ./todos/TRIP.txt
 ./todos/wow.txt
@@ -568,7 +568,7 @@ $ find -type f -path '*/[pd]*/*'
 </code></pre><p><strong>23)</strong> Find all hidden directories.<pre><code class=language-bash># can also use: find -mindepth 1 -type d -name '.*'
 $ find -type d -name '.?*'
 ./projects/.venv
-</code></pre><p><strong>24)</strong> Find all regular files at exact depth of <code>2</code>.<pre><code class=language-bash>$ find -mindepth 2 -maxdepth 2 -type f
+</code></pre><p><strong>24)</strong> Find all regular files at the exact depth of <code>2</code>.<pre><code class=language-bash>$ find -mindepth 2 -maxdepth 2 -type f
 ./todos/books.txt
 ./todos/TRIP.txt
 ./todos/wow.txt
@@ -601,7 +601,7 @@ hello_world.py  .hidden  hi.sh  ip.txt
 $ find -type f -executable
 ./hi.sh
 ./hello_world.py
-</code></pre><blockquote><p><code>-executable</code><p>Matches files which are executable and directories which are searchable (in a file name resolution sense) by the current user.</blockquote><p><strong>30)</strong> List at least one use case for piping the <code>find</code> output to the <code>xargs</code> command instead of using the <code>find -exec</code> option.<p><code>xargs -P</code> (or the <a href=https://www.gnu.org/software/parallel/>parallel</a> command) can be handy if you need parallel execution for performance reasons.<p><strong>31)</strong> How does the <code>locate</code> command work faster than the equivalent <code>find</code> command?<p>From <a href=https://unix.stackexchange.com/q/60205/109046>unix.stackexchange: pros and cons of find and locate</a>:<blockquote><p><code>locate</code> uses a prebuilt database, which should be regularly updated, while <code>find</code> iterates over a filesystem to locate files.<p>Thus, <code>locate</code> is much faster than <code>find</code>, but can be inaccurate if the database -can be seen as a cache- is not updated (see <code>updatedb</code> command).</blockquote><br><h2 id=file-properties><a class=header href=#file-properties>File Properties</a></h2><blockquote><p><img alt=info src=./images/info.svg> Use <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files>example_files/text_files</a> directory for input files used in the following exercises, unless otherwise specified.</blockquote><blockquote><p><img alt=info src=./images/info.svg> Create a temporary directory for exercises that may require you to create some files and directories. You can delete such practice directories afterwards.</blockquote><p><strong>1)</strong> Save the number of lines in the <code>greeting.txt</code> input file to the <code>lines</code> shell variable.<pre><code class=language-bash>$ lines=$(wc -l &LTgreeting.txt)
+</code></pre><blockquote><p><code>-executable</code><p>Matches files which are executable and directories which are searchable (in a file name resolution sense) by the current user.</blockquote><p><strong>30)</strong> List at least one use case for piping the <code>find</code> output to the <code>xargs</code> command instead of using the <code>find -exec</code> option.<p><code>xargs -P</code> (or the <a href=https://www.gnu.org/software/parallel/>parallel</a> command) can be handy if you need parallel execution for performance reasons.<p><strong>31)</strong> How does the <code>locate</code> command work faster than the equivalent <code>find</code> command?<p>From <a href=https://unix.stackexchange.com/q/60205/109046>unix.stackexchange: pros and cons of find and locate</a>:<blockquote><p><code>locate</code> uses a prebuilt database, which should be regularly updated, while <code>find</code> iterates over a filesystem to locate files.<p>Thus, <code>locate</code> is much faster than <code>find</code>, but can be inaccurate if the database -can be seen as a cache- is not updated (see <code>updatedb</code> command).</blockquote><br><h2 id=file-properties><a class=header href=#file-properties>File Properties</a></h2><blockquote><p><img alt=info src=./images/info.svg> Use the <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files>example_files/text_files</a> directory for input files used in the following exercises, unless otherwise specified.</blockquote><blockquote><p><img alt=info src=./images/info.svg> Create a temporary directory for exercises that may require you to create some files and directories. You can delete such practice directories afterwards.</blockquote><p><strong>1)</strong> Save the number of lines in the <code>greeting.txt</code> input file to the <code>lines</code> shell variable.<pre><code class=language-bash>$ lines=$(wc -l &LTgreeting.txt)
 $ echo "$lines"
 2
 </code></pre><p><strong>2)</strong> What do you think will be the output of the following command?<pre><code class=language-bash>$ echo 'dragons:2 ; unicorns:10' | wc -w
@@ -614,7 +614,7 @@ $ echo "$lines"
 2 6 25 greeting.txt
 4 4 70 scores.csv
 6 10 95 total
-</code></pre><blockquote><p><code>--files0-from=F</code><p>read input from the files specified by NUL-terminated names in file F; If F is - then read names from standard input</blockquote><p><strong>5)</strong> What is the difference between <code>wc -c</code> and <code>wc -m</code> options? And which option would you use to get the longest line length?<blockquote><p><code>-c, --bytes</code><p>print the byte counts<p><code>-m, --chars</code><p>print the character counts<p><code>-L, --max-line-length</code><p>print the maximum display width</blockquote><p><strong>6)</strong> Find filenames ending with <code>.log</code> and report their sizes in human readable format. Use <code>find+du</code> combination for the first case and <code>ls</code> command (with appropriate shell features) for the second case.<pre><code class=language-bash># change to the 'scripts' directory and source the 'du.sh' script
+</code></pre><blockquote><p><code>--files0-from=F</code><p>read input from the files specified by NUL-terminated names in file F; If F is - then read names from standard input</blockquote><p><strong>5)</strong> What is the difference between the <code>wc -c</code> and <code>wc -m</code> options? And which option would you use to get the longest line length?<blockquote><p><code>-c, --bytes</code><p>print the byte counts<p><code>-m, --chars</code><p>print the character counts<p><code>-L, --max-line-length</code><p>print the maximum display width</blockquote><p><strong>6)</strong> Find filenames ending with <code>.log</code> and report their sizes in human readable format. Use the <code>find+du</code> combination for the first case and the <code>ls</code> command (with appropriate shell features) for the second case.<pre><code class=language-bash># change to the 'scripts' directory and source the 'du.sh' script
 $ source du.sh
 
 $ find -type f -name '*.log' -exec du -h {} +
@@ -633,7 +633,7 @@ $ du -sc --si *
 7.7M    report.log
 8.2k    todos
 7.8M    total
-</code></pre><p><strong>8)</strong> What does the <code>du --apparent-size</code> option do?<blockquote><p><code>--apparent-size</code><p>print apparent sizes, rather than disk usage; although the apparent size is usually smaller, it may be larger due to holes in ('sparse') files, internal fragmentation, indirect blocks, and the like</blockquote><p><strong>9)</strong> When will you use the <code>df</code> command instead of <code>du</code>? Which <code>df</code> command option will help you to report only specific fields of interest?<p><code>df</code> gives space usage for the entire file system whereas <code>du</code> is useful to get space estimate for specific files and directories.<pre><code class=language-bash>$ whatis du df
+</code></pre><p><strong>8)</strong> What does the <code>du --apparent-size</code> option do?<blockquote><p><code>--apparent-size</code><p>print apparent sizes, rather than disk usage; although the apparent size is usually smaller, it may be larger due to holes in ('sparse') files, internal fragmentation, indirect blocks, and the like</blockquote><p><strong>9)</strong> When will you use the <code>df</code> command instead of <code>du</code>? Which <code>df</code> command option will help you to report only the specific fields of interest?<p><code>df</code> gives space usage for the entire file system whereas <code>du</code> is useful to get space estimate for specific files and directories.<pre><code class=language-bash>$ whatis du df
 du (1)               - estimate file space usage
 df (1)               - report file system disk space usage
 </code></pre><p>To get only specific fields of interest:<blockquote><p><code>--output[=FIELD_LIST]</code><p>use the output format defined by FIELD_LIST, or print all fields if FIELD_LIST is omitted.</blockquote><p><strong>10)</strong> Display the size of <code>scores.csv</code> and <code>timings.txt</code> files in the format shown below.<pre><code class=language-bash>$ stat -c '%n: %s' scores.csv timings.txt
@@ -659,7 +659,7 @@ fruits.txt: 2017-07-13 13:54:03.576055933 +0530
 
 $ printf 'αλεπού\n' | file -b -
 UTF-8 Unicode text
-</code></pre><p><strong>15)</strong> Is the following command valid? If so, what would be the output?<p>Yes, it is valid. Multiple slashes will be considered as a single slash.<pre><code class=language-bash>$ basename -s.txt ~///test.txt///
+</code></pre><p><strong>15)</strong> Is the following command valid? If so, what would be the output?<p>Yes, it is valid. Multiple slashes will be considered as a single slash. Any trailing slashes will be removed before determining the portion to be extracted.<pre><code class=language-bash>$ basename -s.txt ~///test.txt///
 test
 </code></pre><p><strong>16)</strong> Given the file path in the shell variable <code>p</code>, how'd you obtain the output shown below?<pre><code class=language-bash>$ p='~/projects/square_tictactoe/python/game.py'
 $ dirname $(dirname "$p")
@@ -699,9 +699,9 @@ $ stat -c '%a %A' test_dir
 $ chmod g-w,o+w test_dir
 $ stat -c '%a %A' test_dir
 757 drwxr-xrwx
-</code></pre><br><h2 id=managing-processes><a class=header href=#managing-processes>Managing Processes</a></h2><p><strong>1)</strong> How would you invoke a command to be executed in the background? And what would you do to push a job to the background after it has already been launched? What commands can you use to track active jobs?<ul><li>appending an <code>&</code> character to the command will execute it in the background<li><code>Ctrl+z</code> (suspend the current running job) followed by <code>bg</code> (push the recently suspended job to the background)<li><code>jobs</code> or <code>ps</code> will help to track active jobs</ul><p><strong>2)</strong> What do <code>+</code> and <code>-</code> symbols next to job numbers indicate?<p>From <code>info bash</code> (section <em>Job Control Basics</em>):<blockquote><p>In output pertaining to jobs (e.g., the output of the <code>jobs</code> command), the current job is always flagged with a <code>+</code>, and the previous job with a <code>-</code>.</blockquote><p><strong>3)</strong> When would you use <code>fg %n</code> and <code>bg %n</code> instead of just <code>fg</code> and <code>bg</code> respectively?<p>From <code>info bash</code> (section <em>Job Control Basics</em>):<blockquote><p>There are a number of ways to refer to a job in the shell. The character <code>%</code> introduces a job specification (JOBSPEC).<p>Job number <code>n</code> may be referred to as <code>%n</code>.</blockquote><p><strong>4)</strong> Which option will help you customize the output fields needed for the <code>ps</code> command?<blockquote><p><code>-o format</code><p>User-defined format. format is a single argument in the form of a blank-separated or comma-separated list, which offers a way to specify individual output columns.</blockquote><p><strong>5)</strong> What's the difference between <code>pgrep -a</code> and <code>pgrep -l</code> options?<blockquote><p><code>-a, --list-full</code><p>List the full command line as well as the process ID.<p><code>-l, --list-name</code><p>List the process name as well as the process ID.</blockquote><p><strong>6)</strong> If the job number is <code>2</code>, would you use <code>kill %2</code> or <code>kill 2</code> to send <code>SIGTERM</code> to that process?<p><code>kill %2</code><p><strong>7)</strong> Which signal does the <code>Ctrl+c</code> shortcut send to the currently running process?<p>Pressing <code>Ctrl+c</code> sends the <code>SIGINT</code> (<code>2</code>) signal, usually used to abort a process.<p><strong>8)</strong> Which command helps you to continuously monitor processes, along with details like PID, memory usage, etc?<p><code>top</code> (or alternatives like <code>btop</code> and <code>htop</code>)<p><strong>9)</strong> Which key will help you manipulate kill tasks from within the <code>top</code> session?<p><code>k</code><p><strong>10)</strong> What does the <code>free</code> command do?<pre><code class=language-bash>$ whatis free
+</code></pre><br><h2 id=managing-processes><a class=header href=#managing-processes>Managing Processes</a></h2><p><strong>1)</strong> How would you invoke a command to be executed in the background? And what would you do to push a job to the background after it has already been launched? What commands can you use to track active jobs?<ul><li>appending an <code>&</code> character to the command will execute it in the background<li><code>Ctrl+z</code> (suspend the current running job) followed by <code>bg</code> (push the recently suspended job to the background)<li><code>jobs</code> or <code>ps</code> will help to track active jobs</ul><p><strong>2)</strong> What do the <code>+</code> and <code>-</code> symbols next to job numbers indicate?<p>From <code>info bash</code> (section <em>Job Control Basics</em>):<blockquote><p>In output pertaining to jobs (e.g., the output of the <code>jobs</code> command), the current job is always flagged with a <code>+</code>, and the previous job with a <code>-</code>.</blockquote><p><strong>3)</strong> When would you use <code>fg %n</code> and <code>bg %n</code> instead of just <code>fg</code> and <code>bg</code> respectively?<p>From <code>info bash</code> (section <em>Job Control Basics</em>):<blockquote><p>There are a number of ways to refer to a job in the shell. The character <code>%</code> introduces a job specification (JOBSPEC).<p>Job number <code>n</code> may be referred to as <code>%n</code>.</blockquote><p><strong>4)</strong> Which option will help you customize the output fields needed for the <code>ps</code> command?<blockquote><p><code>-o format</code><p>User-defined format. format is a single argument in the form of a blank-separated or comma-separated list, which offers a way to specify individual output columns.</blockquote><p><strong>5)</strong> What's the difference between <code>pgrep -a</code> and <code>pgrep -l</code> options?<blockquote><p><code>-a, --list-full</code><p>List the full command line as well as the process ID.<p><code>-l, --list-name</code><p>List the process name as well as the process ID.</blockquote><p><strong>6)</strong> If the job number is <code>2</code>, would you use <code>kill %2</code> or <code>kill 2</code> to send <code>SIGTERM</code> to that process?<p><code>kill %2</code><p><strong>7)</strong> Which signal does the <code>Ctrl+c</code> shortcut send to the currently running process?<p>Pressing <code>Ctrl+c</code> sends the <code>SIGINT</code> (<code>2</code>) signal, usually used to abort a process.<p><strong>8)</strong> Which command helps you to continuously monitor processes, along with details like PID, memory usage, etc?<p><code>top</code> (or alternatives like <code>btop</code> and <code>htop</code>)<p><strong>9)</strong> Which key will help you manipulate kill tasks from within the <code>top</code> session?<p><code>k</code><p><strong>10)</strong> What does the <code>free</code> command do?<pre><code class=language-bash>$ whatis free
 free (1)             - Display amount of free and used memory in the system
-</code></pre><br><h2 id=multipurpose-text-processing-tools><a class=header href=#multipurpose-text-processing-tools>Multipurpose Text Processing Tools</a></h2><blockquote><p><img alt=info src=./images/info.svg> Use <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files>example_files/text_files</a> directory for input files used in the following exercises.</blockquote><p><strong>1)</strong> Replace all occurrences of <code>0xA0</code> with <code>0x50</code> and <code>0xFF</code> with <code>0x7F</code> for the given input.<pre><code class=language-bash>$ printf 'a1:0xA0, a2:0xA0A1\nb1:0xFF, b2:0xBE\n'
+</code></pre><br><h2 id=multipurpose-text-processing-tools><a class=header href=#multipurpose-text-processing-tools>Multipurpose Text Processing Tools</a></h2><blockquote><p><img alt=info src=./images/info.svg> Use the <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files>example_files/text_files</a> directory for input files used in the following exercises.</blockquote><p><strong>1)</strong> Replace all occurrences of <code>0xA0</code> with <code>0x50</code> and <code>0xFF</code> with <code>0x7F</code> for the given input.<pre><code class=language-bash>$ printf 'a1:0xA0, a2:0xA0A1\nb1:0xFF, b2:0xBE\n'
 a1:0xA0, a2:0xA0A1
 b1:0xFF, b2:0xBE
 
@@ -773,9 +773,9 @@ $ awk '/start/{f=1} !f; /end/{f=0}' uniform.txt
 $ perl -ne '$f=1 if /start/; print if !$f; $f=0 if /end/' uniform.txt
 </code></pre><p><strong>7)</strong> Replace all occurrences of <code>42</code> with <code>[42]</code> unless it is at the edge of a word.<pre><code class=language-bash>$ echo 'hi42bye nice421423 bad42 cool_4242a 42c' | sed 's/\B42\B/[&]/g'
 hi[42]bye nice[42]1[42]3 bad42 cool_[42][42]a 42c
-</code></pre><p><strong>8)</strong> Replace all whole words with <code>X</code> that start and end with the same word character.<pre><code class=language-bash># can also use: sed -E 's/\b(\w)(\w*\1)?\b/X/g'
-$ echo 'oreo not a _a2_ roar took 22' | sed -E 's/\b(\w|(\w)\w*\2)\b/X/g'
-X not X X X took X
+</code></pre><p><strong>8)</strong> Replace all whole words with <code>X</code> that start and end with the same word character.<pre><code class=language-bash># can also use: sed -E 's/\b(\w|(\w)\w*\2)\b/X/g'
+$ echo 'oreo not a _oh_ pip RoaR took 22 Pop' | sed -E 's/\b(\w)(\w*\1)?\b/X/g'
+X not X X X X took X Pop
 </code></pre><p><strong>9)</strong> For the input file <code>anchors.txt</code>, convert markdown anchors to hyperlinks as shown below.<pre><code class=language-bash>$ cat anchors.txt
 # &LTa name="regular-expressions">&LT/a>Regular Expressions
 ## &LTa name="subexpression-calls">&LT/a>Subexpression calls
@@ -792,6 +792,7 @@ $ echo 'sample item teem eel' | sed 's/e/3/3g'
 sample item t33m 33l
 </code></pre><p><strong>11)</strong> The below sample strings use <code>,</code> as the delimiter and the field values can be empty as well. Use <code>sed</code> to replace only the third field with <code>42</code>.<pre><code class=language-bash>$ echo 'lion,,ant,road,neon' | sed 's/[^,]*/42/3'
 lion,,42,road,neon
+
 $ echo ',,,' | sed 's/[^,]*/42/3'
 ,,42,
 </code></pre><p><strong>12)</strong> For the input file <code>table.txt</code>, calculate and display the product of numbers in the last field of each line. Consider space as the field separator for this file.<pre><code class=language-bash>$ cat table.txt
@@ -829,7 +830,7 @@ Lin:83
 $ awk -F, -v OFS=: '{print $1, $3}' scores.csv
 $ perl -F, -lane 'print "$F[0]:$F[2]"' scores.csv
 $ perl -F, -lane 'print join ":", @F[0,2]' scores.csv
-</code></pre><p><strong>15)</strong> Extract and display third and first words in the format shown below.<pre><code class=language-bash>$ echo '%whole(Hello)--{doubt}==ado==' | awk -v FPAT='\\w+' '{print $3 ":" $1}'
+</code></pre><p><strong>15)</strong> Extract and display the third and first words in the format shown below.<pre><code class=language-bash>$ echo '%whole(Hello)--{doubt}==ado==' | awk -v FPAT='\\w+' '{print $3 ":" $1}'
 doubt:whole
 
 $ echo 'just,\joint*,concession_42<=nice' | awk -v FPAT='\\w+' '{print $3 ":" $1}'
@@ -838,7 +839,7 @@ concession_42:just
 # alternate solutions
 $ echo '%whole(Hello)--{doubt}==ado==' | perl -lne '@F = /\w+/g; print "$F[2]:$F[0]"'
 $ echo 'just,\joint*,concession_42<=nice' | perl -lne '@F = /\w+/g; print "$F[2]:$F[0]"'
-</code></pre><p><strong>16)</strong> For the input file <code>scores.csv</code>, add another column named <code>GP</code> which is calculated out of <code>100</code> by giving <code>50%</code> weightage to <code>Maths</code> and <code>25%</code> each for <code>Physics</code> and <code>Chemistry</code>.<pre><code class=language-bash>$ awk -F, -v OFS=, '{$(NF+1) = NR==1 ? "GP" : ($2/2 + ($3+$4)/4)} 1' scores.csv
+</code></pre><p><strong>16)</strong> For the input file <code>scores.csv</code>, add another column named <strong>GP</strong> which is calculated out of 100 by giving 50% weightage to Maths and 25% each for Physics and Chemistry.<pre><code class=language-bash>$ awk -F, -v OFS=, '{$(NF+1) = NR==1 ? "GP" : ($2/2 + ($3+$4)/4)} 1' scores.csv
 Name,Maths,Physics,Chemistry,GP
 Ith,100,100,100,100
 Cy,97,98,95,96.75
@@ -863,12 +864,12 @@ apple
 pie.
 banana
 cherry.
-</code></pre><p><strong>19)</strong> For the input file <code>sample.txt</code>, print a matching line containing <code>do</code> only if <code>you</code> is found two lines before. For example, if <code>do</code> is found on line number 10 and 8th line contains <code>you</code>, then 10th line should be printed.<pre><code class=language-bash>$ awk 'p2 ~ /you/ && /do/; {p2=p1; p1=$0}' sample.txt
+</code></pre><p><strong>19)</strong> For the input file <code>sample.txt</code>, print a matching line containing <code>do</code> only if <code>you</code> is found two lines before. For example, if <code>do</code> is found on line number 10 and the 8th line contains <code>you</code>, then the 10th line should be printed.<pre><code class=language-bash>$ awk 'p2 ~ /you/ && /do/; {p2=p1; p1=$0}' sample.txt
  6) Just do-it
 
 # alternate solutions
 $ perl -ne 'print if $p2 =~ /you/ && /do/; $p2=$p1; $p1=$_' sample.txt
-</code></pre><p><strong>20)</strong> For the input file <code>blocks.txt</code>, extract contents from a line containing exactly <code>%=%=</code> until but not including the next such line. The block to be extracted is indicated by variable <code>n</code> passed via the <code>-v</code> option.<pre><code class=language-bash>$ cat blocks.txt
+</code></pre><p><strong>20)</strong> For the input file <code>blocks.txt</code>, extract contents from a line containing exactly <code>%=%=</code> until but not including the next such line. The block to be extracted is indicated by the variable <code>n</code> passed via the <code>-v</code> option.<pre><code class=language-bash>$ cat blocks.txt
 %=%=
 apple
 banana
@@ -968,7 +969,7 @@ $ perl -lane '$F[2] = uc $F[2]; print "@F"' table.txt
 brown bread MAT hair 42
 blue cake MUG shirt -7
 yellow banana WINDOW shoes 3.14
-</code></pre><br><h2 id=sorting-stuff><a class=header href=#sorting-stuff>Sorting Stuff</a></h2><blockquote><p><img alt=info src=./images/info.svg> Use <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files>example_files/text_files</a> directory for input files used in the following exercises.</blockquote><p><strong>1)</strong> Default <code>sort</code> doesn't work for numbers. Correct the command used below:<pre><code class=language-bash># wrong output
+</code></pre><br><h2 id=sorting-stuff><a class=header href=#sorting-stuff>Sorting Stuff</a></h2><blockquote><p><img alt=info src=./images/info.svg> Use the <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files>example_files/text_files</a> directory for input files used in the following exercises.</blockquote><p><strong>1)</strong> Default <code>sort</code> doesn't work for numbers. Correct the command used below:<pre><code class=language-bash># wrong output
 $ printf '100\n10\n20\n3000\n2.45\n' | sort
 10
 100
@@ -1001,12 +1002,12 @@ $ printf '+120\n-1.53\n3.14e+4\n42.1e-2' | sort -g
 42.1e-2
 +120
 3.14e+4
-</code></pre><blockquote><p><code>-g, --general-numeric-sort</code><p>compare according to general numerical value</blockquote><p><strong>4)</strong> Sort the <code>scores.csv</code> file numerically in ascending order using the contents of the second field. Header line should be preserved as the first line as shown below. <em>Hint</em>: see <a href=./shell-features.html>Shell Features</a> chapter.<pre><code class=language-bash>$ (sed -u '1q' ; sort -t, -k2,2n) < scores.csv
+</code></pre><blockquote><p><code>-g, --general-numeric-sort</code><p>compare according to general numerical value</blockquote><p><strong>4)</strong> Sort the <code>scores.csv</code> file numerically in ascending order using the contents of the second field. Header line should be preserved as the first line as shown below. <em>Hint</em>: see the <a href=./shell-features.html>Shell Features</a> chapter.<pre><code class=language-bash>$ (sed -u '1q' ; sort -t, -k2,2n) < scores.csv
 Name,Maths,Physics,Chemistry
 Lin,78,83,80
 Cy,97,98,95
 Ith,100,100,100
-</code></pre><p><strong>5)</strong> Sort the contents of <code>duplicates.txt</code> by the fourth column numbers in descending order. Retain only the first copy of lines with the same number.<pre><code class=language-bash>$ sort -t, -k4,4nr -u duplicates.txt 
+</code></pre><p><strong>5)</strong> Sort the contents of <code>duplicates.txt</code> by the fourth column numbers in descending order. Retain only the first copy of lines with the same number.<pre><code class=language-bash>$ sort -t, -k4,4nr -u duplicates.txt
 dark red,sky,rose,555
 blue,ruby,water,333
 dark red,ruby,rose,111
@@ -1016,7 +1017,7 @@ red
 green
 red
 blue
-</code></pre><p><strong>7)</strong> Retain only unique entries based on the first two characters of the input lines. Sort the input if necessary.<pre><code class=language-bash>$ printf '3) cherry\n1) apple\n2) banana\n1) almond\n'
+</code></pre><p><strong>7)</strong> Retain only the unique entries based on the first two characters of the input lines. Sort the input if necessary.<pre><code class=language-bash>$ printf '3) cherry\n1) apple\n2) banana\n1) almond\n'
 3) cherry
 1) apple
 2) banana
@@ -1040,7 +1041,7 @@ $ join <(printf 'apple 2\nfig 5') <(printf 'Fig 10\nmango 4')
 # expected output
 $ join -i <(printf 'apple 2\nfig 5') <(printf 'Fig 10\nmango 4')
 fig 5 10
-</code></pre><p><strong>11)</strong> What are the differences between <code>sort -u</code> and <code>uniq -u</code> options, if any?<p><code>sort -u</code> retains first copy of duplicates deemed to be equal. <code>uniq -u</code> retains only the unique copies (i.e. not even a single copy of the duplicates will be part of the output).</p><br><h2 id=comparing-files><a class=header href=#comparing-files>Comparing Files</a></h2><blockquote><p><img alt=info src=./images/info.svg> Use <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files>example_files/text_files</a> directory for input files used in the following exercises.</blockquote><p><strong>1)</strong> Which <code>cmp</code> option would you use if you just need the exit status reflecting whether the given inputs are same or not?<blockquote><p><code>-s, --quiet, --silent</code><p>suppress all normal output</blockquote><p><strong>2)</strong> Which <code>cmp</code> option would you use to skip initial bytes for comparison purposes? The below example requires you to skip the first two bytes.<pre><code class=language-bash>$ echo '1) apple' > x1.txt
+</code></pre><p><strong>11)</strong> What are the differences between <code>sort -u</code> and <code>uniq -u</code> options, if any?<p><code>sort -u</code> retains first copy of duplicates deemed to be equal. <code>uniq -u</code> retains only the unique copies (i.e. not even a single copy of the duplicates will be part of the output).</p><br><h2 id=comparing-files><a class=header href=#comparing-files>Comparing Files</a></h2><blockquote><p><img alt=info src=./images/info.svg> Use the <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files>example_files/text_files</a> directory for input files used in the following exercises.</blockquote><p><strong>1)</strong> Which <code>cmp</code> option would you use if you just need the exit status reflecting whether the given inputs are same or not?<blockquote><p><code>-s, --quiet, --silent</code><p>suppress all normal output</blockquote><p><strong>2)</strong> Which <code>cmp</code> option would you use to skip the initial bytes for comparison purposes? The below example requires you to skip the first two bytes.<pre><code class=language-bash>$ echo '1) apple' > x1.txt
 $ echo '2. apple' > x2.txt
 $ cmp x1.txt x2.txt
 x1.txt x2.txt differ: byte 1, line 1
@@ -1076,7 +1077,7 @@ $ diff -si d1.txt d2.txt
 Files d1.txt and d2.txt are identical
 
 $ rm d[12].txt
-</code></pre><br><h2 id=assorted-text-processing-tools><a class=header href=#assorted-text-processing-tools>Assorted Text Processing Tools</a></h2><blockquote><p><img alt=info src=./images/info.svg> Use <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files>example_files/text_files</a> directory for input files used in the following exercises.</blockquote><p><strong>1)</strong> Generate the following sequence.<pre><code class=language-bash>$ seq 100 -5 80
+</code></pre><br><h2 id=assorted-text-processing-tools><a class=header href=#assorted-text-processing-tools>Assorted Text Processing Tools</a></h2><blockquote><p><img alt=info src=./images/info.svg> Use the <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files>example_files/text_files</a> directory for input files used in the following exercises.</blockquote><p><strong>1)</strong> Generate the following sequence.<pre><code class=language-bash>$ seq 100 -5 80
 100
 95
 90
@@ -1084,7 +1085,8 @@ $ rm d[12].txt
 80
 </code></pre><p><strong>2)</strong> Is the sequence shown below possible to generate with <code>seq</code>? If so, how?<pre><code class=language-bash>$ seq -w -s, 01.5 6
 01.5,02.5,03.5,04.5,05.5
-</code></pre><p><strong>3)</strong> Display three random words from <code>/usr/share/dict/words</code> (or equivalent dictionary word file) containing <code>s</code> and <code>e</code> and <code>t</code> in any order. The output shown below is just an example.<pre><code class=language-bash>$ grep -P '^(?=.*s)(?=.*e).*t' /usr/share/dict/words | shuf -n3
+</code></pre><p><strong>3)</strong> Display three random words from <code>/usr/share/dict/words</code> (or an equivalent dictionary word file) containing <code>s</code> and <code>e</code> and <code>t</code> in any order. The output shown below is just an example.<pre><code class=language-bash># can also use: grep 's' /usr/share/dict/words | grep 'e' | grep 't' | shuf -n3
+$ grep -P '^(?=.*s)(?=.*e).*t' /usr/share/dict/words | shuf -n3
 supplemental
 foresight
 underestimates
@@ -1103,7 +1105,7 @@ apple cherry dates
 
 $ echo '2,3,4,5,6,7,8' | cut -d, --output-delimiter=' ' --complement -f2
 2 4 5 6 7 8
-</code></pre><p><strong>7)</strong> Extract first three characters from the input lines as shown below. Can you also use the <code>head</code> command for this purpose? If not, why not?<pre><code class=language-bash>$ printf 'apple\nbanana\ncherry\ndates\n' | cut -c-3
+</code></pre><p><strong>7)</strong> Extract the first three characters from the input lines as shown below. Can you also use the <code>head</code> command for this purpose? If not, why not?<pre><code class=language-bash>$ printf 'apple\nbanana\ncherry\ndates\n' | cut -c-3
 app
 ban
 che
@@ -1125,13 +1127,14 @@ blue    cake    mug     shirt  -7
 yellow  banana  window  shoes  3.14
 </code></pre><p><strong>10)</strong> Implement <a href=https://en.wikipedia.org/wiki/ROT13>ROT13</a> cipher using the <code>tr</code> command.<pre><code class=language-bash>$ echo 'Hello World' | tr 'a-zA-Z' 'n-za-mN-ZA-M'
 Uryyb Jbeyq
+
 $ echo 'Uryyb Jbeyq' | tr 'a-zA-Z' 'n-za-mN-ZA-M'
 Hello World
 </code></pre><p><strong>11)</strong> Retain only alphabets, digits and whitespace characters.<pre><code class=language-bash>$ echo 'Apple_42 cool,blue Dragon:army' | tr -dc '[:alnum:][:space:]'
 Apple42 coolblue Dragonarmy
 </code></pre><p><strong>12)</strong> Use <code>tr</code> to get the output shown below.<pre><code class=language-bash>$ echo '!!hhoowwww !!aaaaaareeeeee!! yyouuuu!!' | tr -sd '!' 'a-z'
 how are you
-</code></pre><p><strong>13)</strong> <code>paste -s</code> works separately for multiple input files. How would you workaround this if you needed to treat input as a single source?<pre><code class=language-bash># this works individually for each input file
+</code></pre><p><strong>13)</strong> <code>paste -s</code> works separately for multiple input files. How would you workaround this if you needed to treat all the input files as a single source?<pre><code class=language-bash># this works individually for each input file
 $ paste -sd, fruits.txt ip.txt
 banana,papaya,mango
 deep blue,light orange,blue delight
@@ -1167,7 +1170,7 @@ $ seq -w 16 | pr -4ts,
 02,06,10,14
 03,07,11,15
 04,08,12,16
-</code></pre><p><strong>16)</strong> Use the <code>pr</code> command to join the input files <code>fruits.txt</code> and <code>ip.txt</code> as shown below.<pre><code class=language-bash>$ pr -mts' : ' fruits.txt ip.txt 
+</code></pre><p><strong>16)</strong> Use the <code>pr</code> command to join the input files <code>fruits.txt</code> and <code>ip.txt</code> as shown below.<pre><code class=language-bash>$ pr -mts' : ' fruits.txt ip.txt
 banana : deep blue
 papaya : light orange
 mango : blue delight
@@ -1177,7 +1180,10 @@ le
 na
 ry
 es
-</code></pre><p><strong>18)</strong> Go through <code>split</code> documentation and use appropriate options to get the output shown below for the input file <code>purchases.txt</code>.<pre><code class=language-bash># split input by 3 lines (max) at a time
+
+# alternate solutions
+$ printf 'apple\nbanana\ncherry\ndates\n' | grep -o '..$'
+</code></pre><p><strong>18)</strong> Go through the <code>split</code> documentation and use appropriate options to get the output shown below for the input file <code>purchases.txt</code>.<pre><code class=language-bash># split input by 3 lines (max) at a time
 $ split -l3 purchases.txt
 
 $ head xa?
@@ -1196,7 +1202,7 @@ soap
 tea
 
 $ rm xa?
-</code></pre><blockquote><p><code>-l, --lines=NUMBER</code><p>put NUMBER lines/records per output file</blockquote><p><strong>19)</strong> Go through <code>split</code> documentation and use appropriate options to get the output shown below.<pre><code class=language-bash>$ echo 'apple,banana,cherry,dates' | split -t, -l1
+</code></pre><blockquote><p><code>-l, --lines=NUMBER</code><p>put NUMBER lines/records per output file</blockquote><p><strong>19)</strong> Go through the <code>split</code> documentation and use appropriate options to get the output shown below.<pre><code class=language-bash>$ echo 'apple,banana,cherry,dates' | split -t, -l1
 
 $ head xa?
 ==> xaa <==
@@ -1225,7 +1231,7 @@ soap
 tea
 
 $ rm xx0?
-</code></pre><p><strong>21)</strong> Write a generic solution that transposes comma delimited data. Example input/output is shown below. You can use any tool(s) presented in this book.<pre><code class=language-bash>$ cat scores.csv 
+</code></pre><p><strong>21)</strong> Write a generic solution that transposes comma delimited data. Example input/output is shown below. You can use any tool(s) presented in this book.<pre><code class=language-bash>$ cat scores.csv
 Name,Maths,Physics,Chemistry
 Ith,100,100,100
 Cy,97,98,95
@@ -1239,7 +1245,7 @@ Chemistry,100,95,80
 
 # alternate solution if you have GNU datamash installed
 $ datamash -t, transpose &LTscores.csv
-</code></pre><p><strong>22)</strong> Reshape the contents of <code>table.txt</code> to the expected output shown below.<pre><code class=language-bash>$ cat table.txt
+</code></pre><p>See also my blog post <a href=https://learnbyexample.github.io/cli-computation-gnu-datamash/>CLI computation with GNU datamash</a>.<p><strong>22)</strong> Reshape the contents of <code>table.txt</code> to the expected output shown below.<pre><code class=language-bash>$ cat table.txt
 brown bread mat hair 42
 blue cake mug shirt -7
 yellow banana window shoes 3.14
@@ -1292,15 +1298,15 @@ $ echo "${#fruits[@]}"
 
 $ echo "${#fruits}"
 5
-</code></pre><p><strong>9)</strong> For the given array, use parameter expansion to remove characters until first/last space.<pre><code class=language-bash>$ colors=('green' 'dark brown' 'deep sky blue white')
+</code></pre><p><strong>9)</strong> For the given array, use parameter expansion to remove characters until the first/last space.<pre><code class=language-bash>$ colors=('green' 'dark brown' 'deep sky blue white')
 
-# remove till first space
+# remove till the first space
 $ printf '%s\n' "${colors[@]#* }"
 green
 brown
 sky blue white
 
-# remove till last space
+# remove till the last space
 $ printf '%s\n' "${colors[@]##* }"
 green
 brown
@@ -1312,17 +1318,24 @@ apple:banana:cherry
 
 $ echo "${ip%%:*}"
 apple
-</code></pre><p><strong>11)</strong> Is it possible to achieve the expected outputs shown below using parameter expansion? If so, how?<p>Yes it is possible. For the second and third cases, <code>extglob</code> has to be enabled.<pre><code class=language-bash>$ ip='apple:banana:cherry:dragon'
+</code></pre><p><strong>11)</strong> Is it possible to achieve the expected outputs shown below using parameter expansion? If so, how?<p>Yes it is possible. For the second and third cases, <code>extglob</code> has to be enabled.<pre><code class=language-bash>$ ip1='apple:banana:cherry:dragon'
+$ ip2='Cradle:Mistborn:Piranesi'
 
-$ echo "${ip/:*:/ 42 }"
+$ echo "${ip1/:*:/ 42 }"
 apple 42 dragon
+$ echo "${ip2/:*:/ 42 }"
+Cradle 42 Piranesi
 
 $ shopt -s extglob
-$ echo "${ip/#+([^:])/fig}"
+$ echo "${ip1/#+([^:])/fig}"
 fig:banana:cherry:dragon
+$ echo "${ip2/#+([^:])/fig}"
+fig:Mistborn:Piranesi
 
-$ echo "${ip/%+([^:])/end}"
+$ echo "${ip1/%+([^:])/end}"
 apple:banana:cherry:end
+$ echo "${ip2/%+([^:])/end}"
+Cradle:Mistborn:end
 </code></pre><p><strong>12)</strong> For the given input, change case as per the expected outputs shown below.<pre><code class=language-bash>$ ip='This is a Sample STRING'
 
 $ echo "${ip^^}"
@@ -1340,7 +1353,7 @@ $ [[-f ip.txt]] && echo 'file exists'
 # need to use space after [[ and before ]]
 $ [[ -f ip.txt ]] && echo 'file exists'
 file exists
-</code></pre><p><strong>14)</strong> What is the difference between <code>==</code> and <code>=~</code> string comparison operators?<ul><li><code>s1 = s2</code> or <code>s1 == s2</code> checks if two strings are equal <ul><li>unquoted portions of <code>s2</code> will be treated as a wildcard while testing against <code>s1</code></ul><li><code>s1 =~ s2</code> checks if <code>s1</code> matches the POSIX extended regular expression provided by <code>s2</code></ul><p><strong>15)</strong> Why does the conditional expression used below show <code>failed</code> both times? Modify the expressions such that the first one correctly says <code>matched</code> instead of <code>failed</code>.<p>Quoted portions will be treated as literal strings. Wildcards should be unquoted.<pre><code class=language-bash>$ f1='1234.txt'
+</code></pre><p><strong>14)</strong> What is the difference between the <code>==</code> and <code>=~</code> string comparison operators?<ul><li><code>s1 = s2</code> or <code>s1 == s2</code> checks if two strings are equal <ul><li>unquoted portions of <code>s2</code> will be treated as a wildcard while testing against <code>s1</code></ul><li><code>s1 =~ s2</code> checks if <code>s1</code> matches the POSIX extended regular expression provided by <code>s2</code></ul><p><strong>15)</strong> Why does the conditional expression used below show <code>failed</code> both times? Modify the expressions such that the first one correctly says <code>matched</code> instead of <code>failed</code>.<p>Quoted portions will be treated as literal strings. Wildcards should be unquoted.<pre><code class=language-bash>$ f1='1234.txt'
 $ f2='report_2.txt'
 
 $ [[ $f1 == '+([0-9]).txt' ]] && echo 'matched' || echo 'failed'
@@ -1401,7 +1414,7 @@ else
     fi
 fi
 
-$ chmod +x case.sh 
+$ chmod +x case.sh
 
 $ ./case.sh upper 'how are you?'
 HOW ARE YOU?
@@ -1442,7 +1455,7 @@ number of lines in 'items_1.txt' is: 3
 $ bash loop.sh items_1.txt items_2.txt
 number of lines in 'items_1.txt' is: 3
 number of lines in 'items_2.txt' is: 5
-</code></pre><p><strong>21)</strong> Write a shell script named <code>read_file.sh</code> that reads a file line by line to be passed as argument to the <code>paste -sd,</code> command. Can you also write a solution using the <code>xargs</code> command instead of a script?<pre><code class=language-bash>$ printf 'apple\nbanana\ncherry\n' > items_1.txt
+</code></pre><p><strong>21)</strong> Write a shell script named <code>read_file.sh</code> that reads a file line by line to be passed as an argument to the <code>paste -sd,</code> command. Can you also write a solution using the <code>xargs</code> command instead of a script?<pre><code class=language-bash>$ printf 'apple\nbanana\ncherry\n' > items_1.txt
 $ printf 'dragon\nowl\nunicorn\ntroll\ncentaur\n' > items_2.txt
 $ printf 'items_1.txt\nitems_2.txt\n' > list.txt
 
@@ -1501,7 +1514,7 @@ hello there
 $ unset -f hw
 $ hw
 hw: command not found
-</code></pre><p><strong>5)</strong> Write an alias and a function to display the contents of <code>PATH</code> environment variable on separate lines by changing <code>:</code> to the newline character. Sample output is shown below.<pre><code class=language-bash>$ echo "$PATH"
+</code></pre><p><strong>5)</strong> Write an alias and a function to display the contents of the <code>PATH</code> environment variable on separate lines by changing <code>:</code> to the newline character. Sample output is shown below.<pre><code class=language-bash>$ echo "$PATH"
 /usr/local/bin:/usr/bin:/bin:/usr/games
 
 # alias
@@ -1519,4 +1532,4 @@ $ f_p
 /usr/bin
 /bin
 /usr/games
-</code></pre><p><strong>6)</strong> Will a login shell read and execute <code>~/.bashrc</code> automatically?<p>No. From <code>info bash</code>:<blockquote><p>When an interactive shell that is not a login shell is started, Bash reads and executes commands from '~/.bashrc', if that file exists.</blockquote><p>See also <a href=https://unix.stackexchange.com/q/257571/109046>unix.stackexchange: why does bashrc check whether the current shell is interactive?</a><p><strong>7)</strong> What should be the value assigned to <code>HISTSIZE</code> if you wish to have unlimited history entries?<p>Any negative number.<blockquote><p><code>HISTSIZE</code><p>The maximum number of commands to remember on the history list. If the value is 0, commands are not saved in the history list. Numeric values less than zero result in every command being saved on the history list (there is no limit). The shell sets the default value to 500 after reading any startup files.</blockquote><p><strong>8)</strong> What does the binding <code>set completion-ignore-case on</code> do?<blockquote><p><code>completion-ignore-case</code><p>If set to <code>on</code>, Readline performs filename matching and completion in a case-insensitive fashion. The default value is <code>off</code>.</blockquote><p><strong>9)</strong> Which shortcut helps you interactively search command history?<blockquote><p>To search backward in the history for a particular string, type <code>C-r</code>. Typing <code>C-s</code> searches forward through the history.</blockquote><p><strong>10)</strong> What do the shortcuts <code>Alt+b</code> and <code>Alt+f</code> do?<blockquote><p><code>forward-word (M-f)</code><p>Move forward to the end of the next word. Words are composed of letters and digits.<p><code>backward-word (M-b)</code><p>Move back to the start of the current or previous word. Words are composed of letters and digits.</blockquote><p><strong>11)</strong> Are there differences between the <code>Ctrl+l</code> shortcut and the <code>clear</code> command?<p><code>Ctrl+l</code> retains whatever is typed so far and doesn't try to remove the scrollback buffer altogether. You can use the <code>clear</code> command for that purpose.<p><strong>12)</strong> Which shortcut will you use to delete characters before the cursor till the start of the line?<blockquote><p><code>unix-line-discard (C-u)</code><p>Kill backward from the cursor to the beginning of the current line.</blockquote><p><strong>13)</strong> What do the shortcuts <code>Alt+t</code> and <code>Ctrl+t</code> do?<blockquote><p><code>transpose-chars (C-t)</code><p>Drag the character before the cursor forward over the character at the cursor, moving the cursor forward as well. If the insertion point is at the end of the line, then this transposes the last two characters of the line. Negative arguments have no effect.<p><code>transpose-words (M-t)</code><p>Drag the word before point past the word after point, moving point past that word as well. If the insertion point is at the end of the line, this transposes the last two words on the line.</blockquote><p><strong>14)</strong> Is there any difference between <code>Shift+Insert</code> and <code>Shift+Ctrl+v</code> shortcuts?<ul><li><code>Shift+Ctrl+v</code> pastes clipboard contents<li><code>Shift+Insert</code> pastes the last highlighted portion (not necessarily the clipboard contents)</ul></main><nav aria-label="Page navigation"class=nav-wrapper><a aria-label="Previous chapter"class="mobile-nav-chapters previous"title="Previous chapter"aria-keyshortcuts=Left href=shell-customization.html rel=prev> <i class="fa fa-angle-left"></i> </a><div style="clear: both"></div></nav></div></div><nav aria-label="Page navigation"class=nav-wide-wrapper><a aria-label="Previous chapter"class="nav-chapters previous"title="Previous chapter"aria-keyshortcuts=Left href=shell-customization.html rel=prev> <i class="fa fa-angle-left"></i> </a></nav></div><script>window.playground_copyable = true;</script><script charset=utf-8 src=elasticlunr.min.js></script><script charset=utf-8 src=mark.min.js></script><script charset=utf-8 src=searcher.js></script><script charset=utf-8 src=clipboard.min.js></script><script charset=utf-8 src=highlight.js></script><script charset=utf-8 src=book.js></script><script src=sidebar.js></script>
+</code></pre><p><strong>6)</strong> Will a login shell read and execute <code>~/.bashrc</code> automatically?<p>No. From <code>info bash</code>:<blockquote><p>When an interactive shell that is not a login shell is started, Bash reads and executes commands from '~/.bashrc', if that file exists.</blockquote><p>See also <a href=https://unix.stackexchange.com/q/257571/109046>unix.stackexchange: why does bashrc check whether the current shell is interactive?</a><p><strong>7)</strong> What should be the value assigned to <code>HISTSIZE</code> if you wish to have unlimited history entries?<p>Any negative number.<blockquote><p><code>HISTSIZE</code><p>The maximum number of commands to remember on the history list. If the value is 0, commands are not saved in the history list. Numeric values less than zero result in every command being saved on the history list (there is no limit). The shell sets the default value to 500 after reading any startup files.</blockquote><p><strong>8)</strong> What does the binding <code>set completion-ignore-case on</code> do?<blockquote><p><code>completion-ignore-case</code><p>If set to <code>on</code>, Readline performs filename matching and completion in a case-insensitive fashion. The default value is <code>off</code>.</blockquote><p><strong>9)</strong> Which shortcut helps you interactively search the command history?<blockquote><p>To search backward in the history for a particular string, type <code>C-r</code>. Typing <code>C-s</code> searches forward through the history.</blockquote><p><strong>10)</strong> What do the shortcuts <code>Alt+b</code> and <code>Alt+f</code> do?<blockquote><p><code>forward-word (M-f)</code><p>Move forward to the end of the next word. Words are composed of letters and digits.<p><code>backward-word (M-b)</code><p>Move back to the start of the current or previous word. Words are composed of letters and digits.</blockquote><p><strong>11)</strong> Are there differences between the <code>Ctrl+l</code> shortcut and the <code>clear</code> command?<p><code>Ctrl+l</code> retains whatever is typed so far and doesn't try to remove the scrollback buffer altogether. You can use the <code>clear</code> command for that purpose.<p><strong>12)</strong> Which shortcut will you use to delete characters before the cursor till the start of the line?<blockquote><p><code>unix-line-discard (C-u)</code><p>Kill backward from the cursor to the beginning of the current line.</blockquote><p><strong>13)</strong> What do the shortcuts <code>Alt+t</code> and <code>Ctrl+t</code> do?<blockquote><p><code>transpose-chars (C-t)</code><p>Drag the character before the cursor forward over the character at the cursor, moving the cursor forward as well. If the insertion point is at the end of the line, then this transposes the last two characters of the line. Negative arguments have no effect.<p><code>transpose-words (M-t)</code><p>Drag the word before point past the word after point, moving point past that word as well. If the insertion point is at the end of the line, this transposes the last two words on the line.</blockquote><p><strong>14)</strong> Is there a difference between the <code>Shift+Insert</code> and <code>Shift+Ctrl+v</code> shortcuts?<ul><li><code>Shift+Ctrl+v</code> pastes clipboard contents<li><code>Shift+Insert</code> pastes the last highlighted portion (not necessarily the clipboard contents)</ul></main><nav aria-label="Page navigation"class=nav-wrapper><a aria-label="Previous chapter"class="mobile-nav-chapters previous"title="Previous chapter"aria-keyshortcuts=Left href=shell-customization.html rel=prev> <i class="fa fa-angle-left"></i> </a><div style="clear: both"></div></nav></div></div><nav aria-label="Page navigation"class=nav-wide-wrapper><a aria-label="Previous chapter"class="nav-chapters previous"title="Previous chapter"aria-keyshortcuts=Left href=shell-customization.html rel=prev> <i class="fa fa-angle-left"></i> </a></nav></div><script>window.playground_copyable = true;</script><script charset=utf-8 src=elasticlunr.min.js></script><script charset=utf-8 src=mark.min.js></script><script charset=utf-8 src=searcher.js></script><script charset=utf-8 src=clipboard.min.js></script><script charset=utf-8 src=highlight.js></script><script charset=utf-8 src=book.js></script><script src=sidebar.js></script>

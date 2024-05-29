@@ -1,4 +1,4 @@
-<!doctypehtml><html class="sidebar-visible no-js light"lang=en><head><meta charset=UTF-8><title>File Properties - Computing from the Command Line</title><meta content="text/html; charset=utf-8"http-equiv=Content-Type><meta content="Linux Command Line and Shell Scripting for beginner to intermediate level users"name=description><meta content=width=device-width,initial-scale=1 name=viewport><meta content=#ffffff name=theme-color><meta content="Computing from the Command Line"property=og:title><meta content=website property=og:type><meta content="Linux Command Line and Shell Scripting for beginner to intermediate level users"property=og:description><meta content=https://learnbyexample.github.io/cli-computing/ property=og:url><meta content=https://learnbyexample.github.io/cli-computing/images/cli_computing_ls.png property=og:image><meta content=1280 property=og:image:width><meta content=720 property=og:image:height><meta content=summary_large_image property=twitter:card><meta content=@learn_byexample property=twitter:site><link href=favicon.svg rel=icon><link rel="shortcut icon"href=favicon.png><link href=css/variables.css rel=stylesheet><link href=css/general.css rel=stylesheet><link href=css/chrome.css rel=stylesheet><link href=FontAwesome/css/font-awesome.css rel=stylesheet><link href=fonts/fonts.css rel=stylesheet><link href=highlight.css rel=stylesheet><link href=tomorrow-night.css rel=stylesheet><link href=ayu-highlight.css rel=stylesheet><link href=style.css rel=stylesheet><body><script>var path_to_root = "";
+<!doctypehtml><html class="sidebar-visible no-js light"lang=en><head><meta charset=UTF-8><title>File Properties - Linux Command Line Computing</title><meta content="text/html; charset=utf-8"http-equiv=Content-Type><meta content="Linux Command Line and Shell Scripting for beginner to intermediate level users"name=description><meta content=width=device-width,initial-scale=1 name=viewport><meta content=#ffffff name=theme-color><meta content="Linux Command Line Computing"property=og:title><meta content=website property=og:type><meta content="Linux Command Line and Shell Scripting for beginner to intermediate level users"property=og:description><meta content=https://learnbyexample.github.io/cli-computing/ property=og:url><meta content=https://learnbyexample.github.io/cli-computing/images/cli_computing_ls.png property=og:image><meta content=1280 property=og:image:width><meta content=720 property=og:image:height><meta content=summary_large_image property=twitter:card><meta content=@learn_byexample property=twitter:site><link href=favicon.svg rel=icon><link rel="shortcut icon"href=favicon.png><link href=css/variables.css rel=stylesheet><link href=css/general.css rel=stylesheet><link href=css/chrome.css rel=stylesheet><link href=FontAwesome/css/font-awesome.css rel=stylesheet><link href=fonts/fonts.css rel=stylesheet><link href=highlight.css rel=stylesheet><link href=tomorrow-night.css rel=stylesheet><link href=ayu-highlight.css rel=stylesheet><link href=style.css rel=stylesheet><body><script>var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";</script><script>try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -24,16 +24,16 @@
                 sidebar = sidebar || 'visible';
             }
             html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);</script><nav aria-label="Table of contents"class=sidebar id=sidebar><div class=sidebar-scrollbox><ol class=chapter><li class="chapter-item expanded affix"><a href=cover.html>Cover</a><li class="chapter-item expanded affix"><a href=buy.html>Buy PDF/EPUB versions</a><li class="chapter-item expanded affix"><a href=preface.html>Preface</a><li class="chapter-item expanded"><a href=introduction-setup.html><strong aria-hidden=true>1.</strong> Introduction and Setup</a><li class="chapter-item expanded"><a href=command-line-overview.html><strong aria-hidden=true>2.</strong> Command Line Overview</a><li class="chapter-item expanded"><a href=managing-files-directories.html><strong aria-hidden=true>3.</strong> Managing Files and Directories</a><li class="chapter-item expanded"><a href=shell-features.html><strong aria-hidden=true>4.</strong> Shell Features</a><li class="chapter-item expanded"><a href=viewing-part-or-whole-file-contents.html><strong aria-hidden=true>5.</strong> Viewing Part or Whole File Contents</a><li class="chapter-item expanded"><a href=searching-files-and-filenames.html><strong aria-hidden=true>6.</strong> Searching Files and Filenames</a><li class="chapter-item expanded"><a class=active href=file-properties.html><strong aria-hidden=true>7.</strong> File Properties</a><li class="chapter-item expanded"><a href=managing-processes.html><strong aria-hidden=true>8.</strong> Managing Processes</a><li class="chapter-item expanded"><a href=multipurpose-text-processing-tools.html><strong aria-hidden=true>9.</strong> Multipurpose Text Processing Tools</a><li class="chapter-item expanded"><a href=sorting-stuff.html><strong aria-hidden=true>10.</strong> Sorting Stuff</a><li class="chapter-item expanded"><a href=comparing-files.html><strong aria-hidden=true>11.</strong> Comparing Files</a><li class="chapter-item expanded"><a href=assorted-text-processing-tools.html><strong aria-hidden=true>12.</strong> Assorted Text Processing Tools</a><li class="chapter-item expanded"><a href=shell-scripting.html><strong aria-hidden=true>13.</strong> Shell Scripting</a><li class="chapter-item expanded"><a href=shell-customization.html><strong aria-hidden=true>14.</strong> Shell Customization</a><li class="chapter-item expanded affix"><a href=exercise-solutions.html>Exercise Solutions</a></li><br><hr><li class="chapter-item expanded"><i class="fa fa-github"id=git-repository-button></i><a href=https://github.com/learnbyexample/cli-computing>   Source code</a><li class="chapter-item expanded"><i class="fa fa-home"id=home-button></i><a href=https://learnbyexample.github.io/>   My Blog</a><li class="chapter-item expanded"><i class="fa fa-book"id=book-button></i><a href=https://learnbyexample.github.io/books/>   My Books</a><li class="chapter-item expanded"><i class="fa fa-envelope"id=mail-button></i><a href=https://learnbyexample.gumroad.com/l/learnbyexample-weekly>   learnbyexample weekly</a><li class="chapter-item expanded"><i class="fa fa-twitter"id=twitter-button></i><a href=https://twitter.com/learn_byexample>   Twitter</a></ol></div><div class=sidebar-resize-handle id=sidebar-resize-handle></div></nav><div class=page-wrapper id=page-wrapper><div class=page><div id=menu-bar-hover-placeholder></div><div class="menu-bar sticky bordered"id=menu-bar><div class=left-buttons><button aria-label="Toggle Table of Contents"title="Toggle Table of Contents"aria-controls=sidebar class=icon-button id=sidebar-toggle type=button><i class="fa fa-bars"></i></button><button aria-label="Change theme"title="Change theme"aria-controls=theme-list aria-expanded=false aria-haspopup=true class=icon-button id=theme-toggle type=button><i class="fa fa-paint-brush"></i></button><ul aria-label=Themes class=theme-popup id=theme-list role=menu><li role=none><button class=theme id=light role=menuitem>Light (default)</button><li role=none><button class=theme id=rust role=menuitem>Rust</button><li role=none><button class=theme id=coal role=menuitem>Coal</button><li role=none><button class=theme id=navy role=menuitem>Navy</button><li role=none><button class=theme id=ayu role=menuitem>Ayu</button></ul><button aria-label="Toggle Searchbar"title="Search. (Shortkey: s)"aria-controls=searchbar aria-expanded=false aria-keyshortcuts=S class=icon-button id=search-toggle type=button><i class="fa fa-search"></i></button></div><h1 class=menu-title>Computing from the Command Line</h1><div class=right-buttons><a aria-label=Blog href=https://learnbyexample.github.io title=Blog> <i class="fa fa-home"id=home-button></i> </a><a aria-label=Twitter href=https://twitter.com/learn_byexample title=Twitter> <i class="fa fa-twitter"id=twitter-button></i> </a><a aria-label="Git repository"title="Git repository"href=https://github.com/learnbyexample/cli-computing> <i class="fa fa-github"id=git-repository-button></i> </a></div></div><div class=hidden id=search-wrapper><form class=searchbar-outer id=searchbar-outer><input placeholder="Search this book ..."aria-controls=searchresults-outer aria-describedby=searchresults-header id=searchbar name=searchbar type=search></form><div class="searchresults-outer hidden"id=searchresults-outer><div class=searchresults-header id=searchresults-header></div><ul id=searchresults></ul></div></div><script>document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+            html.classList.add("sidebar-" + sidebar);</script><nav aria-label="Table of contents"class=sidebar id=sidebar><div class=sidebar-scrollbox><ol class=chapter><li class="chapter-item expanded affix"><a href=cover.html>Cover</a><li class="chapter-item expanded affix"><a href=buy.html>Buy PDF/EPUB versions</a><li class="chapter-item expanded affix"><a href=preface.html>Preface</a><li class="chapter-item expanded"><a href=introduction-setup.html><strong aria-hidden=true>1.</strong> Introduction and Setup</a><li class="chapter-item expanded"><a href=command-line-overview.html><strong aria-hidden=true>2.</strong> Command Line Overview</a><li class="chapter-item expanded"><a href=managing-files-directories.html><strong aria-hidden=true>3.</strong> Managing Files and Directories</a><li class="chapter-item expanded"><a href=shell-features.html><strong aria-hidden=true>4.</strong> Shell Features</a><li class="chapter-item expanded"><a href=viewing-part-or-whole-file-contents.html><strong aria-hidden=true>5.</strong> Viewing Part or Whole File Contents</a><li class="chapter-item expanded"><a href=searching-files-and-filenames.html><strong aria-hidden=true>6.</strong> Searching Files and Filenames</a><li class="chapter-item expanded"><a class=active href=file-properties.html><strong aria-hidden=true>7.</strong> File Properties</a><li class="chapter-item expanded"><a href=managing-processes.html><strong aria-hidden=true>8.</strong> Managing Processes</a><li class="chapter-item expanded"><a href=multipurpose-text-processing-tools.html><strong aria-hidden=true>9.</strong> Multipurpose Text Processing Tools</a><li class="chapter-item expanded"><a href=sorting-stuff.html><strong aria-hidden=true>10.</strong> Sorting Stuff</a><li class="chapter-item expanded"><a href=comparing-files.html><strong aria-hidden=true>11.</strong> Comparing Files</a><li class="chapter-item expanded"><a href=assorted-text-processing-tools.html><strong aria-hidden=true>12.</strong> Assorted Text Processing Tools</a><li class="chapter-item expanded"><a href=shell-scripting.html><strong aria-hidden=true>13.</strong> Shell Scripting</a><li class="chapter-item expanded"><a href=shell-customization.html><strong aria-hidden=true>14.</strong> Shell Customization</a><li class="chapter-item expanded affix"><a href=exercise-solutions.html>Exercise Solutions</a></li><br><hr><li class="chapter-item expanded"><i class="fa fa-github"id=git-repository-button></i><a href=https://github.com/learnbyexample/cli-computing>   Source code</a><li class="chapter-item expanded"><i class="fa fa-home"id=home-button></i><a href=https://learnbyexample.github.io/>   My Blog</a><li class="chapter-item expanded"><i class="fa fa-book"id=book-button></i><a href=https://learnbyexample.github.io/books/>   My Books</a><li class="chapter-item expanded"><i class="fa fa-envelope"id=mail-button></i><a href=https://learnbyexample.gumroad.com/l/learnbyexample-weekly>   learnbyexample weekly</a><li class="chapter-item expanded"><i class="fa fa-twitter"id=twitter-button></i><a href=https://twitter.com/learn_byexample>   Twitter</a></ol></div><div class=sidebar-resize-handle id=sidebar-resize-handle></div></nav><div class=page-wrapper id=page-wrapper><div class=page><div id=menu-bar-hover-placeholder></div><div class="menu-bar sticky bordered"id=menu-bar><div class=left-buttons><button aria-label="Toggle Table of Contents"title="Toggle Table of Contents"aria-controls=sidebar class=icon-button id=sidebar-toggle type=button><i class="fa fa-bars"></i></button><button aria-label="Change theme"title="Change theme"aria-controls=theme-list aria-expanded=false aria-haspopup=true class=icon-button id=theme-toggle type=button><i class="fa fa-paint-brush"></i></button><ul aria-label=Themes class=theme-popup id=theme-list role=menu><li role=none><button class=theme id=light role=menuitem>Light (default)</button><li role=none><button class=theme id=rust role=menuitem>Rust</button><li role=none><button class=theme id=coal role=menuitem>Coal</button><li role=none><button class=theme id=navy role=menuitem>Navy</button><li role=none><button class=theme id=ayu role=menuitem>Ayu</button></ul><button aria-label="Toggle Searchbar"title="Search. (Shortkey: s)"aria-controls=searchbar aria-expanded=false aria-keyshortcuts=S class=icon-button id=search-toggle type=button><i class="fa fa-search"></i></button></div><h1 class=menu-title>Linux Command Line Computing</h1><div class=right-buttons><a aria-label=Blog href=https://learnbyexample.github.io title=Blog> <i class="fa fa-home"id=home-button></i> </a><a aria-label=Twitter href=https://twitter.com/learn_byexample title=Twitter> <i class="fa fa-twitter"id=twitter-button></i> </a><a aria-label="Git repository"title="Git repository"href=https://github.com/learnbyexample/cli-computing> <i class="fa fa-github"id=git-repository-button></i> </a></div></div><div class=hidden id=search-wrapper><form class=searchbar-outer id=searchbar-outer><input placeholder="Search this book ..."aria-controls=searchresults-outer aria-describedby=searchresults-header id=searchbar name=searchbar type=search></form><div class="searchresults-outer hidden"id=searchresults-outer><div class=searchresults-header id=searchresults-header></div><ul id=searchresults></ul></div></div><script>document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
                         link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
-                    });</script><div class=content id=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=file-properties><a class=header href=#file-properties>File Properties</a></h1><p>In this chapter, you'll learn how to view file details like line and word counts, file and disk sizes, file types, extract parts of file path, etc. You'll also learn how to change file properties like timestamps and permissions.<blockquote><p><img alt=info src=./images/info.svg> The <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files>example_files</a> directory has the scripts and sample input files used in this chapter.</blockquote><h2 id=wc><a class=header href=#wc>wc</a></h2><p>The <code>wc</code> command is typically used to count the number of lines, words and characters for the given input(s). Here are some basic examples:<pre><code class=language-bash># change to the 'example_files/text_files' directory
+                    });</script><div class=content id=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=file-properties><a class=header href=#file-properties>File Properties</a></h1><p>In this chapter, you'll learn how to view file details like line and word counts, file and disk sizes, file types, extract parts of a file path, etc. You'll also learn how to change file properties like timestamps and permissions.<blockquote><p><img alt=info src=./images/info.svg> The <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files>example_files</a> directory has the scripts and sample input files used in this chapter.</blockquote><h2 id=wc><a class=header href=#wc>wc</a></h2><p>The <code>wc</code> command is typically used to count the number of lines, words and characters for the given inputs. Here are some basic examples:<pre><code class=language-bash># change to the 'example_files/text_files' directory
 $ cat greeting.txt
 Hi there
 Have a nice day
 
-# by default, gives newline/word/byte count (in that order)
+# by default, wc gives the newline/word/byte count (in that order)
 $ wc greeting.txt
  2  6 25 greeting.txt
 
@@ -70,12 +70,12 @@ $ echo 'αλεπού cag̈e' | wc -L
 
 $ wc -L &LTgreeting.txt
 15
-</code></pre><p>Use <code>-m</code> option instead of <code>-c</code> if the input has multibyte characters.<pre><code class=language-bash>$ printf 'αλεπού' | wc -c
+</code></pre><p>Use the <code>-m</code> option instead of <code>-c</code> if the input has multibyte characters.<pre><code class=language-bash>$ printf 'αλεπού' | wc -c
 12
 
 $ printf 'αλεπού' | wc -m
 6
-</code></pre><h2 id=du><a class=header href=#du>du</a></h2><p>The <code>du</code> command helps you estimate the size of files and directories.<p>By default, size is given in size in terms of 1024 bytes. All directories and sub-directories are recursively reported, but files are ignored. You can use the <code>-a</code> option if files should also be reported. <code>du</code> is one of the commands that require an explicit option (<code>-L</code> in this case) if you want symbolic links to be followed.<pre><code class=language-bash># change to the 'scripts' directory and source the 'du.sh' script
+</code></pre><h2 id=du><a class=header href=#du>du</a></h2><p>The <code>du</code> command helps you estimate the size of files and directories.<p>By default, size is given in terms of 1024 bytes. All directories and sub-directories are recursively reported, but files are ignored. You can use the <code>-a</code> option if files should also be reported. <code>du</code> is one of the commands that require an explicit option (<code>-L</code> in this case) if you want symbolic links to be followed.<pre><code class=language-bash># change to the 'scripts' directory and source the 'du.sh' script
 $ source du.sh
 
 # n * 1024 bytes
@@ -84,7 +84,7 @@ $ du
 48      ./projects
 8       ./todos
 7536    .
-</code></pre><p>Use <code>-s</code> option to show the total directory size without descending into sub-directories. Add <code>-c</code> option to also show total size at the end.<pre><code class=language-bash>$ du -s projects report.log
+</code></pre><p>Use the <code>-s</code> option to show the total directory size without descending into sub-directories. Add the <code>-c</code> option to also show the total size at the end.<pre><code class=language-bash>$ du -s projects report.log
 48      projects
 7476    report.log
 
@@ -92,7 +92,7 @@ $ du -sc projects report.log
 48      projects
 7476    report.log
 7524    total
-</code></pre><p>Here are some examples to illustrate size formatting options:<pre><code class=language-bash># number of bytes
+</code></pre><p>Here are some examples to illustrate the size formatting options:<pre><code class=language-bash># number of bytes
 $ du -b report.log
 7654321 report.log
 
@@ -103,7 +103,7 @@ $ du -k report.log
 # n * 1024 * 1024 bytes
 $ du -m report.log
 8       report.log
-</code></pre><p>The <code>-h</code> option reports size in human readable format (uses power of 1024). Use <code>--si</code> option to get results in powers of 1000 instead. If you use <code>du -h</code>, you can pipe the output to <code>sort -h</code> for sorting purposes.<pre><code class=language-bash>$ du -sh *
+</code></pre><p>The <code>-h</code> option reports size in human readable format (uses power of 1024). Use the <code>--si</code> option to get results in powers of 1000 instead. If you use <code>du -h</code>, you can pipe the output to <code>sort -h</code> for sorting purposes.<pre><code class=language-bash>$ du -sh *
 48K     projects
 7.4M    report.log
 8.0K    todos
@@ -112,13 +112,13 @@ $ du -sh * | sort -h
 8.0K    todos
 48K     projects
 7.4M    report.log
-</code></pre><h2 id=df><a class=header href=#df>df</a></h2><p>The <code>df</code> command gives you the space usage of file systems. <code>df</code> without path arguments will give information about all the currently mounted file systems. You can specify <code>.</code> to get information only for the current filesystem:<pre><code class=language-bash>$ df .
+</code></pre><h2 id=df><a class=header href=#df>df</a></h2><p>The <code>df</code> command gives you the space usage of file systems. <code>df</code> without path arguments will give information about all the currently mounted file systems.<pre><code class=language-bash>$ df .
 Filesystem     1K-blocks     Used Available Use% Mounted on
 /dev/sda1       98298500 58563816  34734748  63% /
-</code></pre><p>Use <code>-h</code> option for human readable sizes. The <code>-B</code> option allows you to scale sizes by the specified amount. Use <code>--si</code> for size in powers of 1000 instead of 1024.<pre><code class=language-bash>$ df -h .
+</code></pre><p>Use the <code>-h</code> option for human readable sizes. The <code>-B</code> option allows you to scale sizes by the specified amount. Use <code>--si</code> for size in powers of 1000 instead of 1024.<pre><code class=language-bash>$ df -h .
 Filesystem      Size  Used Avail Use% Mounted on
 /dev/sda1        94G   56G   34G  63% /
-</code></pre><p>Use the <code>--output</code> option to report only specific fields of interest:<pre><code class=language-bash>$ df -h --output=size,used,file / /media/learnbyexample/projs
+</code></pre><p>Use the <code>--output</code> option to report only the specific fields of interest:<pre><code class=language-bash>$ df -h --output=size,used,file / /media/learnbyexample/projs
  Size  Used File
   94G   56G /
   92G   35G /media/learnbyexample/projs
@@ -131,16 +131,16 @@ $ df -h --output=pcent,fstype,target | awk 'NR>1 && $1>=30'
 </code></pre><h2 id=stat><a class=header href=#stat>stat</a></h2><p>The <code>stat</code> command is useful to get details like file type, size, inode, permissions, last accessed and modified timestamps, etc. You'll get all of these details by default. The <code>-c</code> and <code>--printf</code> options can be used to display only the required details in a particular format.<pre><code class=language-bash># change to the 'scripts' directory and source the 'stat.sh' script
 $ source stat.sh
 
-# %x gives last accessed timestamp
+# %x gives the last accessed timestamp
 $ stat -c '%x' ip.txt
 2022-06-01 13:25:18.693823117 +0530
 
-# %y gives last modified timestamp
+# %y gives the last modified timestamp
 $ stat -c '%y' ip.txt
 2022-05-24 14:39:41.285714934 +0530
 
-# %s gives file size in bytes
-# \n is used to get a newline
+# %s gives the file size in bytes
+# \n is used to insert a newline
 # %i gives the inode value
 # same as: stat --printf='%s\n%i\n' ip.txt
 $ stat -c $'%s\n%i' ip.txt
@@ -148,15 +148,15 @@ $ stat -c $'%s\n%i' ip.txt
 787224
 
 # %N gives quoted filenames
-# if input is a link, path it points to is also displayed
+# if the input is a link, the path it points to is also displayed
 $ stat -c '%N' words.txt
 'words.txt' -> '/usr/share/dict/words'
-</code></pre><p>You can also pass multiple file arguments:<pre><code class=language-bash># %s gives file size in bytes
+</code></pre><p>You can also pass multiple file arguments:<pre><code class=language-bash># %s gives the file size in bytes
 # %n gives filenames
 $ stat -c '%s %n' ip.txt hi.sh
 10 ip.txt
 21 hi.sh
-</code></pre><blockquote><p><img alt=info src=./images/info.svg> <img alt=warning src=./images/warning.svg> The <code>stat</code> command should be preferred instead of parsing <code>ls -l</code> output for file details. See <a href=https://mywiki.wooledge.org/ParsingLs>mywiki.wooledge: avoid parsing output of ls</a> and <a href=https://unix.stackexchange.com/q/128985/109046>unix.stackexchange: why not parse ls?</a> for explanation and other alternatives.</blockquote><h2 id=touch><a class=header href=#touch>touch</a></h2><p>As mentioned earlier, the <code>touch</code> command helps you change the timestamps of files. You can do so based on current timestamp, passing an argument, copying the value from another file and so on.<p>By default, <code>touch</code> updates both access and modification timestamps to the current time. You can use <code>-a</code> to change only access timestamp and <code>-m</code> to change only modification timestamp.<pre><code class=language-bash># change to the 'scripts' directory and source the 'touch.sh' script
+</code></pre><blockquote><p><img alt=info src=./images/info.svg> <img alt=warning src=./images/warning.svg> The <code>stat</code> command should be preferred instead of parsing the <code>ls -l</code> output for file details. See <a href=https://mywiki.wooledge.org/ParsingLs>mywiki.wooledge: avoid parsing output of ls</a> and <a href=https://unix.stackexchange.com/q/128985/109046>unix.stackexchange: why not parse ls?</a> for explanation and other alternatives.</blockquote><h2 id=touch><a class=header href=#touch>touch</a></h2><p>As mentioned earlier, the <code>touch</code> command helps you change the timestamps of files. You can do so based on the current timestamp, passing an argument, copying the value from another file and so on.<p>By default, <code>touch</code> updates both the access and modification timestamps to the current time. You can use the <code>-a</code> option to change only the access timestamp and <code>-m</code> to change only the modification timestamp.<pre><code class=language-bash># change to the 'scripts' directory and source the 'touch.sh' script
 $ source touch.sh
 
 # last access and modification timestamps
@@ -164,15 +164,15 @@ $ stat -c $'%x\n%y' fruits.txt
 2017-07-19 17:06:01.523308599 +0530
 2017-07-13 13:54:03.576055933 +0530
 
-# update access and modification values to the current time
-$ touch fruits.txt 
+# update the access and modification values to the current time
+$ touch fruits.txt
 $ stat -c $'%x\n%y' fruits.txt
-2022-06-14 13:01:25.921205889 +0530
-2022-06-14 13:01:25.921205889 +0530
+2024-05-14 13:01:25.921205889 +0530
+2024-05-14 13:01:25.921205889 +0530
 </code></pre><p>You can use the <code>-r</code> option to copy timestamp information from one file to another. The <code>-d</code> and <code>-t</code> options will allow you to specify timestamps directly as part of the command.<pre><code class=language-bash>$ stat -c '%y' hi.sh
 2022-06-14 13:00:46.170416890 +0530
 
-# copy modified timestamp from 'ip.txt' to 'hi.sh'
+# copy the modified timestamp from 'ip.txt' to 'hi.sh'
 $ touch -m -r ip.txt hi.sh
 $ stat -c '%y' hi.sh
 2022-05-24 14:39:41.285714934 +0530
@@ -204,19 +204,19 @@ $ printf 'αλεπού\n' | file -
 
 $ printf 'hi\r\n' | file -
 /dev/stdin: ASCII text, with CRLF line terminators
-</code></pre><p>Example for image files:<pre><code class=language-bash># output of 'sunrise.jpg' wrapped for illustration purposes
+</code></pre><p>Here's an example for image files:<pre><code class=language-bash># output of 'sunrise.jpg' wrapped for illustration purposes
 $ file sunrise.jpg moon.png
 sunrise.jpg: JPEG image data, JFIF standard 1.01, resolution (DPI), density
     96x96, segment length 16, baseline, precision 8, 76x76, components 3
 moon.png:    PNG image data, 76 x 76, 8-bit colormap, non-interlaced
-</code></pre><p>You can use the <code>-b</code> option to avoid filenames in the output:<pre><code class=language-bash>$ file -b ip.txt 
+</code></pre><p>You can use the <code>-b</code> option to avoid filenames in the output:<pre><code class=language-bash>$ file -b ip.txt
 ASCII text
-</code></pre><p>Here is an example of finding particular type of files, say <code>image</code> files.<pre><code class=language-bash># assuming filenames do not contain ':' or newline characters
+</code></pre><p>Here's how you can find particular type of files, images for example.<pre><code class=language-bash># assuming filenames do not contain ':' or newline characters
 # awk here helps to print the first field of lines containing 'image data'
 $ find -type f -exec file {} + | awk -F: '/\&LTimage data\>/{print $1}'
 ./sunset.jpg
 ./moon.png
-</code></pre><blockquote><p><img alt=info src=./images/info.svg> See also <code>identify</code> command which "describes the format and characteristics of one or more image files".</blockquote><h2 id=basename><a class=header href=#basename>basename</a></h2><p>By default, the <code>basename</code> command will remove the leading directory component from the given path argument. Any trailing slashes will be removed before determining the portion to be extracted.<pre><code class=language-bash>$ basename /home/learnbyexample/example_files/scores.csv
+</code></pre><blockquote><p><img alt=info src=./images/info.svg> See also the <code>identify</code> command which "describes the format and characteristics of one or more image files".</blockquote><h2 id=basename><a class=header href=#basename>basename</a></h2><p>By default, the <code>basename</code> command will remove the leading directory component from the given path argument. Any trailing slashes will be removed before determining the portion to be extracted.<pre><code class=language-bash>$ basename /home/learnbyexample/example_files/scores.csv
 scores.csv
 
 # quote the arguments as needed
@@ -247,14 +247,14 @@ $ dirname /home/learnbyexample/example_files/
 $ dirname /home/learnbyexample/example_files/scores.csv ../report/backups/
 /home/learnbyexample/example_files
 ../report
-</code></pre><p>You can use shell features like command substitution to combine the effects of <code>basename</code> and <code>dirname</code> commands.<pre><code class=language-bash># extract the second last path component
+</code></pre><p>You can use shell features like command substitution to combine the effects of the <code>basename</code> and <code>dirname</code> commands.<pre><code class=language-bash># extract the second last path component
 $ basename $(dirname /home/learnbyexample/example_files/scores.csv)
 example_files
-</code></pre><h2 id=chmod><a class=header href=#chmod>chmod</a></h2><p>You can use the <code>chmod</code> command to change file and directory permissions. Consider this example:<pre><code class=language-bash>$ mkdir practice_chmod
+</code></pre><h2 id=chmod><a class=header href=#chmod>chmod</a></h2><p>You can use the <code>chmod</code> command to change permissions. Consider this example:<pre><code class=language-bash>$ mkdir practice_chmod
 $ cd practice_chmod
 $ echo 'learnbyexample' > ip.txt
 
-# this info can also be seen in the first column of 'ls -l' output
+# this info can also be seen in the first column of the 'ls -l' output
 $ stat -c '%A' ip.txt
 -rw-rw-r--
 </code></pre><p>In the above output, the 10 characters displayed in the last line are related to file type and permissions. First character indicates the <strong>file type</strong>. The most common ones are shown below:<ul><li><code>-</code> regular file<li><code>d</code> directory<li><code>l</code> symbolic link</ul><p>The other nine characters represent three sets of <strong>file permissions</strong> for <em>user</em> (<code>u</code>), <em>group</em> (<code>g</code>) and <em>others</em> (<code>o</code>), in that order.<ul><li><em>user</em> — file owner<li><em>group</em> — users having file access as part of a group<li><em>others</em> — everyone else</ul><p>Only <code>rwx</code> file properties will be discussed in this section. For other types of properties, refer to the <a href=https://www.gnu.org/software/coreutils/manual/coreutils.html#File-permissions>coreutils manual: File permissions</a>.<p><strong>Permission reference table for files:</strong><div class=table-wrapper><table><thead><tr><th>Character<th>Meaning<th>Value<tbody><tr><td><code>r</code><td>read<td><code>4</code><tr><td><code>w</code><td>write<td><code>2</code><tr><td><code>x</code><td>execute<td><code>1</code><tr><td><code>-</code><td>no permission<td><code>0</code></table></div><p>Here's an example showing both <code>rwx</code> and numerical representations of a file's permissions:<pre><code class=language-bash>$ stat -c '%A' ip.txt
@@ -264,7 +264,7 @@ $ stat -c '%A' ip.txt
 # r(4) + 0 + 0 = 4
 $ stat -c '%a' ip.txt
 664
-</code></pre><blockquote><p><img alt=info src=./images/info.svg> Note that the permissions are not straightforward to understand for directories. If a directory only has the <code>x</code> permission, you can <code>cd</code> into it but you cannot read the contents (using <code>ls</code> for example). If a directory only has the <code>r</code> permission, you cannot <code>cd</code> into it, but you'll be able to read the contents (along with "cannot access" error). For this reason, <code>rx</code> permissions are almost always enabled/disabled together. The <code>w</code> permission allows you to add or remove contents, provided <code>x</code> is active.</blockquote><p><strong>Changing permissions for all three categories</strong><p>You can provide numbers for <code>ugo</code> (in that order) to change permissions. This is best understood with examples:<pre><code class=language-bash>$ printf '#!/bin/bash\n\necho hi\n' > hi.sh
+</code></pre><blockquote><p><img alt=info src=./images/info.svg> Note that the permissions are not straightforward to understand for directories. If a directory only has the <code>x</code> permission, you can <code>cd</code> into it but you cannot read the contents (using <code>ls</code> for example). If a directory only has the <code>r</code> permission, you cannot <code>cd</code> into it, but you'll be able to read the contents (along with "cannot access" error). For this reason, the <code>rx</code> permissions are almost always enabled/disabled together. The <code>w</code> permission allows you to add or remove contents, provided <code>x</code> is active.</blockquote><p><strong>Changing permissions for all three categories</strong><p>You can provide numbers for <code>ugo</code> (in that order) to change permissions. This is best understood with examples:<pre><code class=language-bash>$ printf '#!/bin/bash\n\necho hi\n' > hi.sh
 $ stat -c '%a %A' hi.sh
 664 -rw-rw-r--
 
@@ -285,7 +285,7 @@ $ stat -c '%a %A' backups
 750 drwxr-x---
 </code></pre><blockquote><p><img alt=info src=./images/info.svg> You can use <code>chmod -R</code> to recursively change permissions. Use <code>find+exec</code> if you want to apply changes only for files filtered by some criteria.</blockquote><p><strong>Changing permissions for specific categories</strong><p>You can assign (<code>=</code>), add (<code>+</code>) or remove (<code>-</code>) permissions by using those symbols followed by one or more <code>rwx</code> permissions. This depends on the <code>umask</code> value:<pre><code class=language-bash>$ umask
 0002
-</code></pre><p><code>umask</code> value of <code>0002</code> means:<ul><li>read and execute permissions without <code>ugo</code> prefix affects all the three categories<li>write permissions without <code>ugo</code> prefix affects only <code>user</code> and <code>group</code> categories</ul><p>Here are some examples without <code>ugo</code> prefixes:<pre><code class=language-bash># remove execute permission for all three categories
+</code></pre><p><code>umask</code> value of <code>0002</code> means:<ul><li>read and execute permissions without <code>ugo</code> prefix affects all the three categories<li>write permissions without <code>ugo</code> prefix affects only the <code>user</code> and <code>group</code> categories</ul><p>Here are some examples without <code>ugo</code> prefixes:<pre><code class=language-bash># remove execute permission for all three categories
 $ chmod -x hi.sh
 
 # add write permission only for 'user' and 'group'
@@ -315,7 +315,7 @@ $ chmod a=rw hi.sh
 </code></pre><p>You can use <code>,</code> to separate multiple permissions:<pre><code class=language-bash># remove execute permission for 'group' and 'others'
 # remove write permission for 'others'
 $ chmod go-x,o-w hi.sh
-</code></pre><p><strong>Further Reading</strong><ul><li><a href=https://danielmiessler.com/study/unixlinux_permissions/>Linux Permissions Primer</a><li><a href=https://unix.stackexchange.com/q/429421/109046>unix.stackexchange: why chmod +w filename not giving write permission to other</a></ul><h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><blockquote><p><img alt=info src=./images/info.svg> Use <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files>example_files/text_files</a> directory for input files used in the following exercises, unless otherwise specified.</blockquote><blockquote><p><img alt=info src=./images/info.svg> Create a temporary directory for exercises that may require you to create some files and directories. You can delete such practice directories afterwards.</blockquote><p><strong>1)</strong> Save the number of lines in the <code>greeting.txt</code> input file to the <code>lines</code> shell variable.<pre><code class=language-bash># ???
+</code></pre><p><strong>Further Reading</strong><ul><li><a href=https://web.archive.org/web/20220930214830/https://danielmiessler.com/study/unixlinux_permissions/>Linux Permissions Primer</a><li><a href=https://unix.stackexchange.com/q/429421/109046>unix.stackexchange: why chmod +w filename not giving write permission to other</a></ul><h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><blockquote><p><img alt=info src=./images/info.svg> Use the <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files>example_files/text_files</a> directory for input files used in the following exercises, unless otherwise specified.</blockquote><blockquote><p><img alt=info src=./images/info.svg> Create a temporary directory for exercises that may require you to create some files and directories. You can delete such practice directories afterwards.</blockquote><p><strong>1)</strong> Save the number of lines in the <code>greeting.txt</code> input file to the <code>lines</code> shell variable.<pre><code class=language-bash># ???
 $ echo "$lines"
 2
 </code></pre><p><strong>2)</strong> What do you think will be the output of the following command?<pre><code class=language-bash>$ echo 'dragons:2 ; unicorns:10' | wc -w
@@ -327,7 +327,7 @@ $ echo "$lines"
 2 6 25 greeting.txt
 4 4 70 scores.csv
 6 10 95 total
-</code></pre><p><strong>5)</strong> What is the difference between <code>wc -c</code> and <code>wc -m</code> options? And which option would you use to get the longest line length?<p><strong>6)</strong> Find filenames ending with <code>.log</code> and report their sizes in human readable format. Use <code>find+du</code> combination for the first case and <code>ls</code> command (with appropriate shell features) for the second case.<pre><code class=language-bash># change to the 'scripts' directory and source the 'du.sh' script
+</code></pre><p><strong>5)</strong> What is the difference between the <code>wc -c</code> and <code>wc -m</code> options? And which option would you use to get the longest line length?<p><strong>6)</strong> Find filenames ending with <code>.log</code> and report their sizes in human readable format. Use the <code>find+du</code> combination for the first case and the <code>ls</code> command (with appropriate shell features) for the second case.<pre><code class=language-bash># change to the 'scripts' directory and source the 'du.sh' script
 $ source du.sh
 
 # ??? find+du
@@ -345,7 +345,7 @@ $ source du.sh
 7.7M    report.log
 8.2k    todos
 7.8M    total
-</code></pre><p><strong>8)</strong> What does the <code>du --apparent-size</code> option do?<p><strong>9)</strong> When will you use the <code>df</code> command instead of <code>du</code>? Which <code>df</code> command option will help you to report only specific fields of interest?<p><strong>10)</strong> Display the size of <code>scores.csv</code> and <code>timings.txt</code> files in the format shown below.<pre><code class=language-bash>$ stat # ???
+</code></pre><p><strong>8)</strong> What does the <code>du --apparent-size</code> option do?<p><strong>9)</strong> When will you use the <code>df</code> command instead of <code>du</code>? Which <code>df</code> command option will help you to report only the specific fields of interest?<p><strong>10)</strong> Display the size of <code>scores.csv</code> and <code>timings.txt</code> files in the format shown below.<pre><code class=language-bash>$ stat # ???
 scores.csv: 70
 timings.txt: 49
 </code></pre><p><strong>11)</strong> Which <code>touch</code> option will help you prevent file creation if it doesn't exist yet?<p><strong>12)</strong> Assume <code>new_file.txt</code> doesn't exist in the current working directory. What would be the output of the <code>stat</code> command shown below?<pre><code class=language-bash>$ touch -t '202010052010.05' new_file.txt

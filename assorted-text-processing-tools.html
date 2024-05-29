@@ -1,4 +1,4 @@
-<!doctypehtml><html class="sidebar-visible no-js light"lang=en><head><meta charset=UTF-8><title>Assorted Text Processing Tools - Computing from the Command Line</title><meta content="text/html; charset=utf-8"http-equiv=Content-Type><meta content="Linux Command Line and Shell Scripting for beginner to intermediate level users"name=description><meta content=width=device-width,initial-scale=1 name=viewport><meta content=#ffffff name=theme-color><meta content="Computing from the Command Line"property=og:title><meta content=website property=og:type><meta content="Linux Command Line and Shell Scripting for beginner to intermediate level users"property=og:description><meta content=https://learnbyexample.github.io/cli-computing/ property=og:url><meta content=https://learnbyexample.github.io/cli-computing/images/cli_computing_ls.png property=og:image><meta content=1280 property=og:image:width><meta content=720 property=og:image:height><meta content=summary_large_image property=twitter:card><meta content=@learn_byexample property=twitter:site><link href=favicon.svg rel=icon><link rel="shortcut icon"href=favicon.png><link href=css/variables.css rel=stylesheet><link href=css/general.css rel=stylesheet><link href=css/chrome.css rel=stylesheet><link href=FontAwesome/css/font-awesome.css rel=stylesheet><link href=fonts/fonts.css rel=stylesheet><link href=highlight.css rel=stylesheet><link href=tomorrow-night.css rel=stylesheet><link href=ayu-highlight.css rel=stylesheet><link href=style.css rel=stylesheet><body><script>var path_to_root = "";
+<!doctypehtml><html class="sidebar-visible no-js light"lang=en><head><meta charset=UTF-8><title>Assorted Text Processing Tools - Linux Command Line Computing</title><meta content="text/html; charset=utf-8"http-equiv=Content-Type><meta content="Linux Command Line and Shell Scripting for beginner to intermediate level users"name=description><meta content=width=device-width,initial-scale=1 name=viewport><meta content=#ffffff name=theme-color><meta content="Linux Command Line Computing"property=og:title><meta content=website property=og:type><meta content="Linux Command Line and Shell Scripting for beginner to intermediate level users"property=og:description><meta content=https://learnbyexample.github.io/cli-computing/ property=og:url><meta content=https://learnbyexample.github.io/cli-computing/images/cli_computing_ls.png property=og:image><meta content=1280 property=og:image:width><meta content=720 property=og:image:height><meta content=summary_large_image property=twitter:card><meta content=@learn_byexample property=twitter:site><link href=favicon.svg rel=icon><link rel="shortcut icon"href=favicon.png><link href=css/variables.css rel=stylesheet><link href=css/general.css rel=stylesheet><link href=css/chrome.css rel=stylesheet><link href=FontAwesome/css/font-awesome.css rel=stylesheet><link href=fonts/fonts.css rel=stylesheet><link href=highlight.css rel=stylesheet><link href=tomorrow-night.css rel=stylesheet><link href=ayu-highlight.css rel=stylesheet><link href=style.css rel=stylesheet><body><script>var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";</script><script>try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -24,7 +24,7 @@
                 sidebar = sidebar || 'visible';
             }
             html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);</script><nav aria-label="Table of contents"class=sidebar id=sidebar><div class=sidebar-scrollbox><ol class=chapter><li class="chapter-item expanded affix"><a href=cover.html>Cover</a><li class="chapter-item expanded affix"><a href=buy.html>Buy PDF/EPUB versions</a><li class="chapter-item expanded affix"><a href=preface.html>Preface</a><li class="chapter-item expanded"><a href=introduction-setup.html><strong aria-hidden=true>1.</strong> Introduction and Setup</a><li class="chapter-item expanded"><a href=command-line-overview.html><strong aria-hidden=true>2.</strong> Command Line Overview</a><li class="chapter-item expanded"><a href=managing-files-directories.html><strong aria-hidden=true>3.</strong> Managing Files and Directories</a><li class="chapter-item expanded"><a href=shell-features.html><strong aria-hidden=true>4.</strong> Shell Features</a><li class="chapter-item expanded"><a href=viewing-part-or-whole-file-contents.html><strong aria-hidden=true>5.</strong> Viewing Part or Whole File Contents</a><li class="chapter-item expanded"><a href=searching-files-and-filenames.html><strong aria-hidden=true>6.</strong> Searching Files and Filenames</a><li class="chapter-item expanded"><a href=file-properties.html><strong aria-hidden=true>7.</strong> File Properties</a><li class="chapter-item expanded"><a href=managing-processes.html><strong aria-hidden=true>8.</strong> Managing Processes</a><li class="chapter-item expanded"><a href=multipurpose-text-processing-tools.html><strong aria-hidden=true>9.</strong> Multipurpose Text Processing Tools</a><li class="chapter-item expanded"><a href=sorting-stuff.html><strong aria-hidden=true>10.</strong> Sorting Stuff</a><li class="chapter-item expanded"><a href=comparing-files.html><strong aria-hidden=true>11.</strong> Comparing Files</a><li class="chapter-item expanded"><a class=active href=assorted-text-processing-tools.html><strong aria-hidden=true>12.</strong> Assorted Text Processing Tools</a><li class="chapter-item expanded"><a href=shell-scripting.html><strong aria-hidden=true>13.</strong> Shell Scripting</a><li class="chapter-item expanded"><a href=shell-customization.html><strong aria-hidden=true>14.</strong> Shell Customization</a><li class="chapter-item expanded affix"><a href=exercise-solutions.html>Exercise Solutions</a></li><br><hr><li class="chapter-item expanded"><i class="fa fa-github"id=git-repository-button></i><a href=https://github.com/learnbyexample/cli-computing>   Source code</a><li class="chapter-item expanded"><i class="fa fa-home"id=home-button></i><a href=https://learnbyexample.github.io/>   My Blog</a><li class="chapter-item expanded"><i class="fa fa-book"id=book-button></i><a href=https://learnbyexample.github.io/books/>   My Books</a><li class="chapter-item expanded"><i class="fa fa-envelope"id=mail-button></i><a href=https://learnbyexample.gumroad.com/l/learnbyexample-weekly>   learnbyexample weekly</a><li class="chapter-item expanded"><i class="fa fa-twitter"id=twitter-button></i><a href=https://twitter.com/learn_byexample>   Twitter</a></ol></div><div class=sidebar-resize-handle id=sidebar-resize-handle></div></nav><div class=page-wrapper id=page-wrapper><div class=page><div id=menu-bar-hover-placeholder></div><div class="menu-bar sticky bordered"id=menu-bar><div class=left-buttons><button aria-label="Toggle Table of Contents"title="Toggle Table of Contents"aria-controls=sidebar class=icon-button id=sidebar-toggle type=button><i class="fa fa-bars"></i></button><button aria-label="Change theme"title="Change theme"aria-controls=theme-list aria-expanded=false aria-haspopup=true class=icon-button id=theme-toggle type=button><i class="fa fa-paint-brush"></i></button><ul aria-label=Themes class=theme-popup id=theme-list role=menu><li role=none><button class=theme id=light role=menuitem>Light (default)</button><li role=none><button class=theme id=rust role=menuitem>Rust</button><li role=none><button class=theme id=coal role=menuitem>Coal</button><li role=none><button class=theme id=navy role=menuitem>Navy</button><li role=none><button class=theme id=ayu role=menuitem>Ayu</button></ul><button aria-label="Toggle Searchbar"title="Search. (Shortkey: s)"aria-controls=searchbar aria-expanded=false aria-keyshortcuts=S class=icon-button id=search-toggle type=button><i class="fa fa-search"></i></button></div><h1 class=menu-title>Computing from the Command Line</h1><div class=right-buttons><a aria-label=Blog href=https://learnbyexample.github.io title=Blog> <i class="fa fa-home"id=home-button></i> </a><a aria-label=Twitter href=https://twitter.com/learn_byexample title=Twitter> <i class="fa fa-twitter"id=twitter-button></i> </a><a aria-label="Git repository"title="Git repository"href=https://github.com/learnbyexample/cli-computing> <i class="fa fa-github"id=git-repository-button></i> </a></div></div><div class=hidden id=search-wrapper><form class=searchbar-outer id=searchbar-outer><input placeholder="Search this book ..."aria-controls=searchresults-outer aria-describedby=searchresults-header id=searchbar name=searchbar type=search></form><div class="searchresults-outer hidden"id=searchresults-outer><div class=searchresults-header id=searchresults-header></div><ul id=searchresults></ul></div></div><script>document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+            html.classList.add("sidebar-" + sidebar);</script><nav aria-label="Table of contents"class=sidebar id=sidebar><div class=sidebar-scrollbox><ol class=chapter><li class="chapter-item expanded affix"><a href=cover.html>Cover</a><li class="chapter-item expanded affix"><a href=buy.html>Buy PDF/EPUB versions</a><li class="chapter-item expanded affix"><a href=preface.html>Preface</a><li class="chapter-item expanded"><a href=introduction-setup.html><strong aria-hidden=true>1.</strong> Introduction and Setup</a><li class="chapter-item expanded"><a href=command-line-overview.html><strong aria-hidden=true>2.</strong> Command Line Overview</a><li class="chapter-item expanded"><a href=managing-files-directories.html><strong aria-hidden=true>3.</strong> Managing Files and Directories</a><li class="chapter-item expanded"><a href=shell-features.html><strong aria-hidden=true>4.</strong> Shell Features</a><li class="chapter-item expanded"><a href=viewing-part-or-whole-file-contents.html><strong aria-hidden=true>5.</strong> Viewing Part or Whole File Contents</a><li class="chapter-item expanded"><a href=searching-files-and-filenames.html><strong aria-hidden=true>6.</strong> Searching Files and Filenames</a><li class="chapter-item expanded"><a href=file-properties.html><strong aria-hidden=true>7.</strong> File Properties</a><li class="chapter-item expanded"><a href=managing-processes.html><strong aria-hidden=true>8.</strong> Managing Processes</a><li class="chapter-item expanded"><a href=multipurpose-text-processing-tools.html><strong aria-hidden=true>9.</strong> Multipurpose Text Processing Tools</a><li class="chapter-item expanded"><a href=sorting-stuff.html><strong aria-hidden=true>10.</strong> Sorting Stuff</a><li class="chapter-item expanded"><a href=comparing-files.html><strong aria-hidden=true>11.</strong> Comparing Files</a><li class="chapter-item expanded"><a class=active href=assorted-text-processing-tools.html><strong aria-hidden=true>12.</strong> Assorted Text Processing Tools</a><li class="chapter-item expanded"><a href=shell-scripting.html><strong aria-hidden=true>13.</strong> Shell Scripting</a><li class="chapter-item expanded"><a href=shell-customization.html><strong aria-hidden=true>14.</strong> Shell Customization</a><li class="chapter-item expanded affix"><a href=exercise-solutions.html>Exercise Solutions</a></li><br><hr><li class="chapter-item expanded"><i class="fa fa-github"id=git-repository-button></i><a href=https://github.com/learnbyexample/cli-computing>   Source code</a><li class="chapter-item expanded"><i class="fa fa-home"id=home-button></i><a href=https://learnbyexample.github.io/>   My Blog</a><li class="chapter-item expanded"><i class="fa fa-book"id=book-button></i><a href=https://learnbyexample.github.io/books/>   My Books</a><li class="chapter-item expanded"><i class="fa fa-envelope"id=mail-button></i><a href=https://learnbyexample.gumroad.com/l/learnbyexample-weekly>   learnbyexample weekly</a><li class="chapter-item expanded"><i class="fa fa-twitter"id=twitter-button></i><a href=https://twitter.com/learn_byexample>   Twitter</a></ol></div><div class=sidebar-resize-handle id=sidebar-resize-handle></div></nav><div class=page-wrapper id=page-wrapper><div class=page><div id=menu-bar-hover-placeholder></div><div class="menu-bar sticky bordered"id=menu-bar><div class=left-buttons><button aria-label="Toggle Table of Contents"title="Toggle Table of Contents"aria-controls=sidebar class=icon-button id=sidebar-toggle type=button><i class="fa fa-bars"></i></button><button aria-label="Change theme"title="Change theme"aria-controls=theme-list aria-expanded=false aria-haspopup=true class=icon-button id=theme-toggle type=button><i class="fa fa-paint-brush"></i></button><ul aria-label=Themes class=theme-popup id=theme-list role=menu><li role=none><button class=theme id=light role=menuitem>Light (default)</button><li role=none><button class=theme id=rust role=menuitem>Rust</button><li role=none><button class=theme id=coal role=menuitem>Coal</button><li role=none><button class=theme id=navy role=menuitem>Navy</button><li role=none><button class=theme id=ayu role=menuitem>Ayu</button></ul><button aria-label="Toggle Searchbar"title="Search. (Shortkey: s)"aria-controls=searchbar aria-expanded=false aria-keyshortcuts=S class=icon-button id=search-toggle type=button><i class="fa fa-search"></i></button></div><h1 class=menu-title>Linux Command Line Computing</h1><div class=right-buttons><a aria-label=Blog href=https://learnbyexample.github.io title=Blog> <i class="fa fa-home"id=home-button></i> </a><a aria-label=Twitter href=https://twitter.com/learn_byexample title=Twitter> <i class="fa fa-twitter"id=twitter-button></i> </a><a aria-label="Git repository"title="Git repository"href=https://github.com/learnbyexample/cli-computing> <i class="fa fa-github"id=git-repository-button></i> </a></div></div><div class=hidden id=search-wrapper><form class=searchbar-outer id=searchbar-outer><input placeholder="Search this book ..."aria-controls=searchresults-outer aria-describedby=searchresults-header id=searchbar name=searchbar type=search></form><div class="searchresults-outer hidden"id=searchresults-outer><div class=searchresults-header id=searchresults-header></div><ul id=searchresults></ul></div></div><script>document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
                         link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
@@ -99,15 +99,15 @@ green
 170
 112
 148
-</code></pre><h2 id=cut><a class=header href=#cut>cut</a></h2><p><code>cut</code> is a handy tool for many field processing use cases. The features are limited compared to <code>awk</code> and <code>perl</code> commands, but the reduced scope also leads to faster processing.<p>By default, <code>cut</code> splits the input content into fields based on the tab character, which you can change using the <code>-d</code> option. The <code>-f</code> option allows you to select a desired field from each input line. To extract multiple fields, specify the selections separated by the comma character. By default, lines not containing the input delimiter will still be part of the output. You can use the <code>-s</code> option to suppress such lines.<pre><code class=language-bash># second field
+</code></pre><h2 id=cut><a class=header href=#cut>cut</a></h2><p><code>cut</code> is a handy tool for many field processing use cases. The features are limited compared to the <code>awk</code> and <code>perl</code> commands, but the reduced scope also leads to faster processing.<p>By default, <code>cut</code> splits the input content into fields based on the tab character, which you can change using the <code>-d</code> option. The <code>-f</code> option allows you to select a desired field from each input line. To extract multiple fields, specify the selections separated by the comma character. By default, lines not containing the input delimiter will still be part of the output. You can use the <code>-s</code> option to suppress such lines.<pre><code class=language-bash># second field
 $ printf 'apple\tbanana\tcherry\n' | cut -f2
 banana
 
-# first and third field
+# first and third fields
 $ printf 'apple\tbanana\tcherry\n' | cut -f1,3
 apple   cherry
 
-# setting -d automatically changes output delimiter as well
+# setting -d automatically changes the output delimiter as well
 $ echo 'one;two;three;four;five' | cut -d';' -f2,5
 two;five
 </code></pre><p>You can use the <code>-</code> character to specify field ranges. The starting or ending field number can be skipped, but not both.<pre><code class=language-bash># 2nd, 3rd and 4th fields
@@ -128,12 +128,12 @@ apple,banana,cherry
 # multicharacter example
 $ echo 'one;two;three;four' | cut -d';' --output-delimiter=' : ' -f1,3-
 one : three : four
-</code></pre><p>The <code>--complement</code> option allows you to invert the field selections.<pre><code class=language-bash># except second field
+</code></pre><p>The <code>--complement</code> option allows you to invert the field selections.<pre><code class=language-bash># except the second field
 $ printf 'apple ball cat\n1 2 3 4 5' | cut --complement -d' ' -f2
 apple cat
 1 3 4 5
 
-# except first and third fields
+# except the first and third fields
 $ printf 'apple ball cat\n1 2 3 4 5' | cut --complement -d' ' -f1,3
 ball
 2 4 5
@@ -149,7 +149,7 @@ apple   banana
 $ printf 'cat-bat\ndog:fog' | cut -c5-
 bat
 fog
-</code></pre><h2 id=column><a class=header href=#column>column</a></h2><p>The <code>column</code> command is a nifty tool to align input data column wise. By default, whitespace is used as the input delimiter. Space character is used to align the output columns, so whitespace characters like tab will get converted to spaces.<pre><code class=language-bash>$ printf 'one two three\nfour five six\nseven eight nine\n'
+</code></pre><h2 id=column><a class=header href=#column>column</a></h2><p>The <code>column</code> command is a nifty tool to align the input data column wise. By default, whitespace is used as the input delimiter. Space character is used to align the output columns, so whitespace characters like tab will get converted to spaces.<pre><code class=language-bash>$ printf 'one two three\nfour five six\nseven eight nine\n'
 one two three
 four five six
 seven eight nine
@@ -201,9 +201,9 @@ Hi there How are you All fine here
 # retain alphabets, whitespaces, period, exclamation and question mark
 $ echo "$s" | tr -cd 'a-zA-Z.!?[:space:]'
 Hi there! How are you? All fine here.
-</code></pre><p>The <code>-s</code> option will squeeze consecutive repeated characters to a single copy of that character.<pre><code class=language-bash># squeeze lowercase alphabets
-$ echo 'hhoowwww aaaaaareeeeee yyouuuu!!' | tr -s 'a-z'
-how are you!!
+</code></pre><p>The <code>-s</code> option changes consecutive repeated characters to a single copy of that character.<pre><code class=language-bash># squeeze lowercase alphabets
+$ echo 'HELLO... hhoowwww aaaaaareeeeee yyouuuu!!' | tr -s 'a-z'
+HELLO... how are you!!
 
 # translate and squeeze
 $ echo 'hhoowwww aaaaaareeeeee yyouuuu!!' | tr -s 'a-z' 'A-Z'
@@ -237,7 +237,7 @@ Purple  Orange
 2|5|7
 3||8
 
-# note that the space between -d and empty string is necessary here
+# note that the space between -d and the empty string is necessary here
 $ paste -d '' <(seq 3) <(seq 6 8)
 16
 27
@@ -272,7 +272,7 @@ Black:Blue:Green:Orange
 </code></pre><h2 id=pr><a class=header href=#pr>pr</a></h2><blockquote><p>Paginate or columnate FILE(s) for printing.</blockquote><p>As stated in the above quote from the manual, the <code>pr</code> command is mainly used for those two tasks. This section will discuss only the columnate features and some miscellaneous tasks. Here's a pagination example if you are interested in exploring further. The <code>pr</code> command will add blank lines, a header and so on to make it suitable for printing.<pre><code class=language-bash>$ pr greeting.txt | head -n8
 
 
-2022-06-11 10:48                   greeting.txt                   Page 1
+2024-05-17 10:48                   greeting.txt                   Page 1
 
 
 Hi there
@@ -284,39 +284,35 @@ $ seq 9 | pr -3t
 1                       4                       7
 2                       5                       8
 3                       6                       9
-</code></pre><p>You can customize the separator using the <code>-s</code> option. The default is a tab character which you can change to any other string value. The <code>-s</code> option also turns off line truncation, so <code>-J</code> option isn't needed.<pre><code class=language-bash># tab separator
+</code></pre><p>You can customize the separator using the <code>-s</code> option. The default is a tab character which you can change to any other string value. The <code>-s</code> option also turns off line truncation, so the <code>-J</code> option isn't needed. Use the <code>-a</code> option to merge consecutive lines, similar to the <code>paste</code> command example seen earlier.<pre><code class=language-bash># tab is the default separator when no argument is passed to the -s option
 $ seq 9 | pr -3ts
 1       4       7
 2       5       8
 3       6       9
 
-# custom separator
-$ seq 9 | pr -3ts' : '
-1 : 4 : 7
-2 : 5 : 8
-3 : 6 : 9
-</code></pre><p>However, the default page width of <code>72</code> can still cause issues, which you can prevent by using the <code>-w</code> option. The <code>-w</code> option overrides the effect of <code>-s</code> option on line truncation, so use <code>-J</code> option as well unless you really need truncation.<pre><code class=language-bash>$ seq 6 | pr -J -w10 -3ats'::::'
-pr: page width too narrow
-
-$ seq 6 | pr -J -w11 -3ats'::::'
-1::::2::::3
-4::::5::::6
-</code></pre><p>Use the <code>-a</code> option to merge consecutive lines, similar to the <code>paste</code> command. One advantage is that the <code>-s</code> option supports a string value, whereas with <code>paste</code> you'd need to use workarounds to get multicharacter separation.<pre><code class=language-bash># same as: paste -d: - - - -
-$ seq 8 | pr -4ats:
-1:2:3:4
-5:6:7:8
+# multicharacter custom separator example
+$ seq 9 | pr -3ats' : '
+1 : 2 : 3
+4 : 5 : 6
+7 : 8 : 9
 
 # unlike paste, pr doesn't add separators if the last row has less columns to fill
 $ seq 10 | pr -4ats,
 1,2,3,4
 5,6,7,8
 9,10
-</code></pre><p>Two or more input files can be merged column wise using the <code>-m</code> option. As seen before, <code>-t</code> is needed to ignore pagination features and <code>-s</code> can be used to customize the separator.<pre><code class=language-bash># same as: paste -d' : ' <(seq 3) /dev/null /dev/null <(seq 4 6)
+</code></pre><p>However, the default page width of <code>72</code> can still cause issues, which you can prevent by using the <code>-w</code> option. The <code>-w</code> option overrides the effect of the <code>-s</code> option on line truncation, so use the <code>-J</code> option as well unless you really need truncation.<pre><code class=language-bash>$ seq 6 | pr -J -w10 -3ats'::::'
+pr: page width too narrow
+
+$ seq 6 | pr -J -w11 -3ats'::::'
+1::::2::::3
+4::::5::::6
+</code></pre><p>Two or more input files can be merged column wise using the <code>-m</code> option. As seen before, the <code>-t</code> option is needed to ignore pagination features and <code>-s</code> can be used to customize the separator.<pre><code class=language-bash># same as: paste -d' : ' <(seq 3) /dev/null /dev/null <(seq 4 6)
 $ pr -mts' : ' <(seq 3) <(seq 4 6)
 1 : 4
 2 : 5
 3 : 6
-</code></pre><h2 id=rev><a class=header href=#rev>rev</a></h2><p>The <code>rev</code> command reverses each input line character wise. Newline character <em>won't</em> be added to the end if it wasn't present in the input. Here are some examples:<pre><code class=language-bash>$ echo 'This is a sample text' | rev
+</code></pre><h2 id=rev><a class=header href=#rev>rev</a></h2><p>The <code>rev</code> command reverses each input line character wise. The newline character <em>won't</em> be added to the end if it wasn't present in the input. Here are some examples:<pre><code class=language-bash>$ echo 'This is a sample text' | rev
 txet elpmas a si sihT
 
 $ printf 'apple\nbanana\ncherry\n' | rev
@@ -327,7 +323,7 @@ yrrehc
 $ printf 'malayalam\nnoon\n' | rev
 malayalam
 noon
-</code></pre><h2 id=split><a class=header href=#split>split</a></h2><p>The <code>split</code> command is useful to divide the input into smaller parts based on number of lines, bytes, file size, etc. You can also execute another command on the divided parts before saving the results. An example use case is sending a large file as multiple parts as a workaround for online transfer size limits.<p>By default, the <code>split</code> command divides the input <code>1000</code> lines at a time. Newline character is the default line separator. You can pass a single file or <code>stdin</code> data as the input. Use <code>cat</code> if you need to concatenate multiple input sources. By default, the output files will be named <code>xaa</code>, <code>xab</code>, <code>xac</code> and so on (where <code>x</code> is the prefix). If the filenames are exhausted, two more letters will be appended and the pattern will continue as needed. If the number of input lines is not evenly divisible, the last file will contain less than <code>1000</code> lines.<pre><code class=language-bash># divide input 1000 lines at a time
+</code></pre><h2 id=split><a class=header href=#split>split</a></h2><p>The <code>split</code> command is useful to divide the input into smaller parts based on the number of lines, bytes, file size, etc. You can also execute another command on the divided parts before saving the results. An example use case is sending a large file as multiple parts as a workaround for online transfer size limits.<p>By default, the <code>split</code> command divides the input <code>1000</code> lines at a time. Newline character is the default line separator. You can pass a single file or <code>stdin</code> data as the input. Use <code>cat</code> if you need to concatenate multiple input sources. By default, the output files will be named <code>xaa</code>, <code>xab</code>, <code>xac</code> and so on (where <code>x</code> is the prefix). If the filenames are exhausted, two more letters will be appended and the pattern will continue as needed. If the number of input lines is not evenly divisible, the last file will contain less than <code>1000</code> lines.<pre><code class=language-bash># divide input 1000 lines at a time
 $ seq 10000 | split
 
 # output filenames
@@ -347,8 +343,8 @@ $ head -n1 xaa xab xae xaj
 
 ==> xaj <==
 9001
-</code></pre><blockquote><p><img alt=info src=./images/info.svg> For more examples, customization options and other details, see <a href=https://learnbyexample.github.io/cli_text_processing_coreutils/split.html>split chapter</a> from my <a href=https://github.com/learnbyexample/cli_text_processing_coreutils>Command line text processing with GNU Coreutils</a> ebook.</blockquote><h2 id=csplit><a class=header href=#csplit>csplit</a></h2><p>The <code>csplit</code> command is useful to divide the input into smaller parts based on line numbers and regular expression patterns.<p>You can split the input into two based on a particular line number. To do so, specify the line number after the input source (filename or <code>stdin</code> data). The first output file will have the input lines <em>before</em> the given line number and the second output file will have the rest of the contents. By default, the output files will be named <code>xx00</code>, <code>xx01</code>, <code>xx02</code> and so on (where <code>xx</code> is the prefix). The numerical suffix will automatically use more digits if needed.<pre><code class=language-bash># split input into two based on line number 2
-# -q option suppresses output showing number of bytes written for each file
+</code></pre><blockquote><p><img alt=info src=./images/info.svg> For more examples, customization options and other details, see the <a href=https://learnbyexample.github.io/cli_text_processing_coreutils/split.html>split chapter</a> from my <a href=https://github.com/learnbyexample/cli_text_processing_coreutils>CLI text processing with GNU Coreutils</a> ebook.</blockquote><h2 id=csplit><a class=header href=#csplit>csplit</a></h2><p>The <code>csplit</code> command is useful to divide the input into smaller parts based on line numbers and regular expression patterns.<p>You can split the input into two based on a particular line number. To do so, specify the line number after the input source (filename or <code>stdin</code> data). The first output file will have the input lines <em>before</em> the given line number and the second output file will have the rest of the contents. By default, the output files will be named <code>xx00</code>, <code>xx01</code>, <code>xx02</code> and so on (where <code>xx</code> is the prefix). The numerical suffix will automatically use more digits if needed.<pre><code class=language-bash># split input into two based on line number 2
+# the -q option suppresses output showing number of bytes written for each file
 $ seq 4 | csplit -q - 2
 
 # first output file will have the first line
@@ -361,7 +357,7 @@ $ head xx*
 2
 3
 4
-</code></pre><p>You can also split the input based on a line matching the given regular expression. The output produced will vary based on <code>//</code> or <code>%%</code> delimiters being used to surround the regexp. When <code>/regexp/</code> is used, output is similar to the line number based splitting. The first output file will have the input lines <em>before</em> the first occurrence of a line matching the given regexp and the second output file will have the rest of the contents.<p>Consider this sample input file:<pre><code class=language-bash>$ cat purchases.txt
+</code></pre><p>You can also split the input based on a line matching the given regular expression. The output produced will vary based on the <code>//</code> or <code>%%</code> delimiters being used to surround the regexp. When <code>/regexp/</code> is used, output is similar to the line number based splitting. The first output file will have the input lines <em>before</em> the first occurrence of a line matching the given regexp and the second output file will have the rest of the contents.<p>Consider this sample input file:<pre><code class=language-bash>$ cat purchases.txt
 coffee
 tea
 washing powder
@@ -393,7 +389,7 @@ toothpaste
 tea
 soap
 tea
-</code></pre><blockquote><p><img alt=info src=./images/info.svg> For more examples, customization options and other details, see <a href=https://learnbyexample.github.io/cli_text_processing_coreutils/csplit.html>csplit chapter</a> from my <a href=https://github.com/learnbyexample/cli_text_processing_coreutils>Command line text processing with GNU Coreutils</a> ebook.</blockquote><h2 id=xargs><a class=header href=#xargs>xargs</a></h2><p>By default, <code>xargs</code> executes the <code>echo</code> command for the arguments extracted from <code>stdin</code> data (or file input via the <code>-a</code> option). The <code>-n</code> option helps to customize how many arguments should be passed at a time. Together, these features can be used to reshape whitespace separated data as shown in the examples below:<pre><code class=language-bash>$ printf '  apple   banana cherry\n\t\tdragon unicorn   \n'
+</code></pre><blockquote><p><img alt=info src=./images/info.svg> For more examples, customization options and other details, see the <a href=https://learnbyexample.github.io/cli_text_processing_coreutils/csplit.html>csplit chapter</a> from my <a href=https://github.com/learnbyexample/cli_text_processing_coreutils>CLI text processing with GNU Coreutils</a> ebook.</blockquote><h2 id=xargs><a class=header href=#xargs>xargs</a></h2><p>By default, <code>xargs</code> executes the <code>echo</code> command for the arguments extracted from <code>stdin</code> data (or file input via the <code>-a</code> option). The <code>-n</code> option helps to customize how many arguments should be passed at a time. Together, these features can be used to reshape whitespace separated data as shown in the examples below:<pre><code class=language-bash>$ printf '  apple   banana cherry\n\t\tdragon unicorn   \n'
   apple   banana cherry
                 dragon unicorn   
 $ printf '  apple   banana cherry\n\t\tdragon unicorn   \n' | xargs -n2
@@ -430,10 +426,10 @@ regex go sea
 # with trailing blanks
 $ printf 'xerox apple  \nregex   go  sea\n' | xargs -L1
 xerox apple regex go sea
-</code></pre></blockquote><p>Use <code>-d</code> option to change the input delimiter from whitespace to some other single character. For example:<pre><code class=language-bash>$ printf '1,2,3,4,5,6' | xargs -d, -n3
+</code></pre></blockquote><p>You can use the <code>-d</code> option to specify a custom single character input delimiter. For example:<pre><code class=language-bash>$ printf '1,2,3,4,5,6' | xargs -d, -n3
 1 2 3
 4 5 6
-</code></pre><h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><blockquote><p><img alt=info src=./images/info.svg> Use <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files>example_files/text_files</a> directory for input files used in the following exercises.</blockquote><p><strong>1)</strong> Generate the following sequence.<pre><code class=language-bash># ???
+</code></pre><h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><blockquote><p><img alt=info src=./images/info.svg> Use the <a href=https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files>example_files/text_files</a> directory for input files used in the following exercises.</blockquote><p><strong>1)</strong> Generate the following sequence.<pre><code class=language-bash># ???
 100
 95
 90
@@ -441,7 +437,7 @@ xerox apple regex go sea
 80
 </code></pre><p><strong>2)</strong> Is the sequence shown below possible to generate with <code>seq</code>? If so, how?<pre><code class=language-bash># ???
 01.5,02.5,03.5,04.5,05.5
-</code></pre><p><strong>3)</strong> Display three random words from <code>/usr/share/dict/words</code> (or equivalent dictionary word file) containing <code>s</code> and <code>e</code> and <code>t</code> in any order. The output shown below is just an example.<pre><code class=language-bash># ???
+</code></pre><p><strong>3)</strong> Display three random words from <code>/usr/share/dict/words</code> (or an equivalent dictionary word file) containing <code>s</code> and <code>e</code> and <code>t</code> in any order. The output shown below is just an example.<pre><code class=language-bash># ???
 supplemental
 foresight
 underestimates
@@ -457,7 +453,7 @@ apple cherry dates
 
 $ echo '2,3,4,5,6,7,8' | cut # ???
 2 4 5 6 7 8
-</code></pre><p><strong>7)</strong> Extract first three characters from the input lines as shown below. Can you also use the <code>head</code> command for this purpose? If not, why not?<pre><code class=language-bash>$ printf 'apple\nbanana\ncherry\ndates\n' | cut # ???
+</code></pre><p><strong>7)</strong> Extract the first three characters from the input lines as shown below. Can you also use the <code>head</code> command for this purpose? If not, why not?<pre><code class=language-bash>$ printf 'apple\nbanana\ncherry\ndates\n' | cut # ???
 app
 ban
 che
@@ -479,13 +475,14 @@ blue    cake    mug     shirt  -7
 yellow  banana  window  shoes  3.14
 </code></pre><p><strong>10)</strong> Implement <a href=https://en.wikipedia.org/wiki/ROT13>ROT13</a> cipher using the <code>tr</code> command.<pre><code class=language-bash>$ echo 'Hello World' | tr # ???
 Uryyb Jbeyq
+
 $ echo 'Uryyb Jbeyq' | tr # ???
 Hello World
 </code></pre><p><strong>11)</strong> Retain only alphabets, digits and whitespace characters.<pre><code class=language-bash>$ echo 'Apple_42 cool,blue Dragon:army' | # ???
 Apple42 coolblue Dragonarmy
 </code></pre><p><strong>12)</strong> Use <code>tr</code> to get the output shown below.<pre><code class=language-bash>$ echo '!!hhoowwww !!aaaaaareeeeee!! yyouuuu!!' | tr # ???
 how are you
-</code></pre><p><strong>13)</strong> <code>paste -s</code> works separately for multiple input files. How would you workaround this if you needed to treat input as a single source?<pre><code class=language-bash># this works individually for each input file
+</code></pre><p><strong>13)</strong> <code>paste -s</code> works separately for multiple input files. How would you workaround this if you needed to treat all the input files as a single source?<pre><code class=language-bash># this works individually for each input file
 $ paste -sd, fruits.txt ip.txt
 banana,papaya,mango
 deep blue,light orange,blue delight
@@ -528,7 +525,7 @@ le
 na
 ry
 es
-</code></pre><p><strong>18)</strong> Go through <code>split</code> documentation and use appropriate options to get the output shown below for the input file <code>purchases.txt</code>.<pre><code class=language-bash># split input by 3 lines (max) at a time
+</code></pre><p><strong>18)</strong> Go through the <code>split</code> documentation and use appropriate options to get the output shown below for the input file <code>purchases.txt</code>.<pre><code class=language-bash># split input by 3 lines (max) at a time
 # ???
 
 $ head xa?
@@ -547,7 +544,7 @@ soap
 tea
 
 $ rm xa?
-</code></pre><p><strong>19)</strong> Go through <code>split</code> documentation and use appropriate options to get the output shown below.<pre><code class=language-bash>$ echo 'apple,banana,cherry,dates' | split # ???
+</code></pre><p><strong>19)</strong> Go through the <code>split</code> documentation and use appropriate options to get the output shown below.<pre><code class=language-bash>$ echo 'apple,banana,cherry,dates' | split # ???
 
 $ head xa?
 ==> xaa <==
@@ -576,7 +573,7 @@ soap
 tea
 
 $ rm xx0?
-</code></pre><p><strong>21)</strong> Write a generic solution that transposes comma delimited data. Example input/output is shown below. You can use any tool(s) presented in this book.<pre><code class=language-bash>$ cat scores.csv 
+</code></pre><p><strong>21)</strong> Write a generic solution that transposes comma delimited data. Example input/output is shown below. You can use any tool(s) presented in this book.<pre><code class=language-bash>$ cat scores.csv
 Name,Maths,Physics,Chemistry
 Ith,100,100,100
 Cy,97,98,95
