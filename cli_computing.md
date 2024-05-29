@@ -1,14 +1,14 @@
 # Preface
 
-This book aims to teach Linux command line tools and Shell Scripting for beginner to intermediate level users. The focus is towards managing your files and performing text processing tasks. Topics like system administration and networking won't be discussed, but some details might get covered in future versions of this book.
+This book aims to teach Linux command line tools and Shell Scripting for beginner to intermediate level users. The main focus is towards managing your files and performing text processing tasks. Topics like system administration and networking won't be discussed.
 
 ## Prerequisites
 
 You should be familiar with basic computer usage, know fundamental terms like files and directories, how to install programs and so on. You should also be already comfortable with programming basics like variables, loops and functions.
 
-In terms of software, you should have access to the `GNU bash` shell and commonly used Linux command line tools. This could be as part of a Linux distribution or via other means such as a Virtual Machine, WSL (Windows Subsystem for Linux) and so on. More details about the working environment will be discussed in the introductory chapters.
+In terms of software, you should have access to the `GNU bash` shell and commonly used Linux command line tools. This could be as part of a Linux distribution or via other means such as a Virtual Machine, WSL (Windows Subsystem for Linux) and so on. More details about the expected working environment will be discussed in the introductory chapters.
 
-You are also expected to get comfortable with reading manuals, searching online, visiting external links provided for further reading, tinkering with illustrated examples, asking for help when you are stuck and so on. In other words, be proactive and curious instead of just consuming the content passively.
+You are also expected to get comfortable with reading manuals, searching online, visiting external links provided for further reading, tinkering with the illustrated examples, asking for help when you are stuck and so on. In other words, be proactive and curious instead of just consuming the content passively.
 
 See my curated list on [Linux CLI and Shell Scripting](https://learnbyexample.github.io/curated_resources/linux_cli_scripting.html) for more learning resources.
 
@@ -16,7 +16,7 @@ See my curated list on [Linux CLI and Shell Scripting](https://learnbyexample.gi
 
 * Code snippets shown are copy pasted from the `bash` shell (version **5.0.17**) and modified for presentation purposes. Some commands are preceded by comments to provide context and explanations, blank lines have been added to improve readability and so on.
 * External links are provided throughout the book for you to explore certain topics in more depth.
-* The [cli-computing repo](https://github.com/learnbyexample/cli-computing) has all the [example files and scripts](https://github.com/learnbyexample/cli-computing/tree/master/example_files) used in the book. The repo also includes all the [exercises](https://github.com/learnbyexample/cli-computing/blob/master/exercises/exercises.md) as a single file, along with a separate [solutions](https://github.com/learnbyexample/cli-computing/blob/master/exercises/exercise-solutions.md) file. If you are not familiar with `git` command, click the **Code** button on the webpage to get the files.
+* The [cli-computing repo](https://github.com/learnbyexample/cli-computing) has all the [example files and scripts](https://github.com/learnbyexample/cli-computing/tree/master/example_files) used in the book. The repo also includes all the [exercises](https://github.com/learnbyexample/cli-computing/blob/master/exercises/exercises.md) as a single file, along with a separate [solutions](https://github.com/learnbyexample/cli-computing/blob/master/exercises/exercise-solutions.md) file. If you are not familiar with the `git` command, click the **Code** button on the webpage to get the files.
 * See the [Setup](#setup) section for instructions to create a working environment for following along the contents presented in this book.
 
 ## Acknowledgements
@@ -27,12 +27,12 @@ See my curated list on [Linux CLI and Shell Scripting](https://learnbyexample.gi
 * [/r/commandline/](https://old.reddit.com/r/commandline), [/r/linux4noobs/](https://old.reddit.com/r/linux4noobs/), [/r/linuxquestions/](https://old.reddit.com/r/linuxquestions/) and [/r/linux/](https://old.reddit.com/r/linux/) — helpful forums
 * [canva](https://www.canva.com/) — cover image
 * [Warning](https://commons.wikimedia.org/wiki/File:Warning_icon.svg) and [Info](https://commons.wikimedia.org/wiki/File:Info_icon_002.svg) icons by [Amada44](https://commons.wikimedia.org/wiki/User:Amada44) under public domain
-* [carbon](https://carbon.now.sh/) — creating terminal screenshots with highlighted text
+* [carbon](https://carbon.now.sh/) — for creating terminal screenshots with highlighted text
 * [oxipng](https://github.com/shssoichiro/oxipng), [pngquant](https://pngquant.org/) and [svgcleaner](https://github.com/RazrFalcon/svgcleaner) — optimizing images
 
 ## Feedback and Errata
 
-I would highly appreciate if you'd let me know how you felt about this book. It could be anything from a simple thank you, pointing out a typo, mistakes in code snippets, which aspects of the book worked for you (or didn't!) and so on. Reader feedback is essential and especially so for self-published authors.
+I would highly appreciate it if you'd let me know how you felt about this book. It could be anything from a simple thank you, pointing out a typo, mistakes in code snippets, which aspects of the book worked for you (or didn't!) and so on. Reader feedback is essential and especially so for self-published authors.
 
 You can reach me via:
 
@@ -50,15 +50,15 @@ When the creative muse strikes, he can be found working on yet another programmi
 
 ## License
 
-This work is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+This work is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/).
 
-Code snippets are available under [MIT License](https://github.com/learnbyexample/cli-computing/blob/master/LICENSE)
+Code snippets are available under [MIT License](https://github.com/learnbyexample/cli-computing/blob/master/LICENSE).
 
 Resources mentioned in the Acknowledgements section above are available under original licenses.
 
 ## Book version
 
-1.0
+1.1
 
 See [Version_changes.md](https://github.com/learnbyexample/cli-computing/blob/master/Version_changes.md) to track changes across book versions.
 
@@ -68,11 +68,11 @@ Back in 2007, I had a rough beginning as a design engineer at a semiconductor co
 
 The biggest pain points were not knowing about handy options (for example, `grep --color` to highlight matching portions, `find -exec` to apply commands on filtered files, etc) and tools (for example, `xargs` to workaround limitations of too many command line arguments). And then there were tools like `sed` and `awk` with intimidating syntax. I'm at a loss to reason out why I didn't utilize shell scripts much. I stuck to Perl and Vim instead of learning such handy tools. I also did not know about forums like [stackoverflow](https://stackoverflow.com/) and [unix.stackexchange](https://unix.stackexchange.com/) until after I left my job in 2014.
 
-I started collating what I knew about Linux command line tools when I got chances to conduct scripting course workshops for college students. From 2016 to 2018, I started maintaining my tutorials on Linux command line, Vim and scripting languages as GitHub repos. As you might guess, I then started polishing these materials and [published them as ebooks](https://learnbyexample.github.io/books/). This is an ongoing process, with **Computing from the Command Line** being the thirteenth ebook.
+I started collating what I knew about Linux command line tools when I got chances to conduct scripting course workshops for college students. From 2016 to 2018, I started maintaining my tutorials on Linux command line, Vim and scripting languages as GitHub repos. As you might guess, I then started polishing these materials and [published them as ebooks](https://learnbyexample.github.io/books/). This is an ongoing process, with **Linux Command Line Computing** being the thirteenth ebook.
 
 This book aims to teach Linux command line tools and Shell Scripting for beginner to intermediate level users. Plenty of examples are provided to make it easier to understand a particular tool and its various features. External links are provided for further reading. Important notes and warnings are formatted to stand out from normal text.
 
-Writing a book always has a few pleasant surprises for me. This time I learned handy options like `mkdir -m` and `chmod =`, got better understanding of many shell features and so on. I'm also planning to learn and present more command line tools for the next version of this book.
+Writing a book always has a few pleasant surprises for me. This time I learned handy options like `mkdir -m` and `chmod =`, got better understanding of many shell features and so on.
 
 This chapter will give a brief introduction to Linux. You'll also see suggestions and instructions for setting up a command line environment to follow along the contents presented in this book.
 
@@ -86,7 +86,7 @@ Quoting selective parts from [wikipedia](https://en.wikipedia.org/wiki/Linux):
 >
 >Linux is one of the most prominent examples of free and open-source software collaboration. The source code may be used, modified and distributed commercially or non-commercially by anyone under the terms of its respective licenses, such as the GNU General Public License.
 
-Apart from Linux exposure during my previous job, I've been using Linux as my desktop system since 2014 and it is very well suited for my needs. Compared to my Windows experience, Linux is light weight, secure, stable, fast and more importantly doesn't force you to upgrade hardware. Read the wikipedia article linked above for a more comprehensive coverage about Linux, where it is used and so on.
+Apart from Linux exposure during my previous job, I've been using Linux since 2014 and it is very well suited for my needs. Compared to Windows, Linux is light weight, secure, stable, fast and more importantly doesn't force you to upgrade hardware. Read the wikipedia article linked above for a more comprehensive coverage about Linux, where it is used and so on.
 
 ## Linux Distros
 
@@ -107,7 +107,7 @@ You'll usually find installation instructions from the respective distro website
 
 * [Install Ubuntu desktop](https://ubuntu.com/tutorials/install-ubuntu-desktop)
 * [How to run Ubuntu Desktop on a virtual machine using VirtualBox](https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine-using-virtualbox)
-* [DistroTest](https://distrotest.net/index.php) — test a distro directly online without installation
+* [DistroSea](https://distrosea.com/) — explore and test Linux distributions online
 
 If you are already on Windows or macOS, the following options can be used to get access to Linux tools:
 
@@ -115,11 +115,11 @@ If you are already on Windows or macOS, the following options can be used to get
 * [Windows Subsystem for Linux](https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux) — compatibility layer for running Linux binary executables natively on Windows
 * [brew](https://brew.sh/) — Package Manager for macOS (or Linux)
 
->![info](./images/info.svg) ![info](./images/info.svg) ![warning](./images/warning.svg) If you are completely new to command line usage, I'd recommend setting up a virtual machine. Or perhaps, a secondary computer that you are free to experiment with. Mistakes in command line can be more destructive compared to the graphical interface. For example, a single space typo can result in data loss, leave your machine unusable, etc.
+>![info](./images/info.svg) ![warning](./images/warning.svg) If you are completely new to command line usage, I'd recommend setting up a virtual machine. Or perhaps, a secondary computer that you are free to experiment with. Mistakes in command line can be more destructive compared to the graphical interface. For example, a single space typo can result in data loss, make your machine unusable, etc.
 
 ## Setup
 
-To follow along the contents presented in this book, you'll need files from my [cli-computing repo](https://github.com/learnbyexample/cli-computing). Once you have access to a Linux environment, follow the instructions shown below. If all the commands used below seem alien to you, wait until you reach the [ls](#ls) section (you'll get a link back to these instructions at that point).
+To follow along the contents presented in this book, you'll need files from my [cli-computing repo](https://github.com/learnbyexample/cli-computing). Once you have access to a Linux environment, follow the instructions shown below. If the commands used below seem alien to you, wait until you reach the [ls](#ls) section (you'll get a link back to these instructions at that point).
 
 To get the files, you can clone the cli-computing repo using the `git` command or download a `zip` version. You may have to install the `git` command if you don't already have it, for example `sudo apt install git` on Debian-like systems. See [https://git-scm.com/downloads](https://git-scm.com/downloads) for other installation choices.
 
@@ -177,11 +177,11 @@ And here are some disadvantages:
 * need to get comfortable with plenty of tools
 * typos have a tendency to be more destructive
 
-You can make use of features like command history, shortcuts and autocompletion to help with plethora of commands and syntax issues. Consistent practice will help to get familiar with quirks of the command line environment. Commands with destructive potential will usually include options to allow manual confirmation and interactive usage, thus reducing or entirely avoiding the impact of typos.
+You can make use of features like command history, shortcuts and autocompletion to help with the plethora of commands and syntax issues. Consistent practice will help to get familiar with the quirks of the command line environment. Commands with destructive potential will usually include options to allow manual confirmation and interactive usage, thus reducing or entirely avoiding the impact of typos.
 
 ## Chapters
 
-Here's the list of remaining chapters:
+Here's a list of remaining chapters:
 
 * [Command Line Overview](#command-line-overview)
 * [Managing Files and Directories](#managing-files-and-directories)
@@ -211,7 +211,7 @@ This chapter will help you take the first steps in the command line world. Apart
 
 For newbies, the sudden paradigm shift to interacting with the computer using just text commands can be overwhelming, especially for those accustomed to the graphical user interface (GUI). After regular usage, things will start to look systematic and you might realize that GUI is ill suited for repetitive tasks. With continuous use, recalling various commands will become easier. Features like command line history, aliases, tab-completion and shortcuts will help too.
 
-If you've used a scientific calculator, you'd know that it is handy with too many functionalities cramped into a tiny screen and a plethora of multipurpose buttons. Command line environment is something like that, but not limited just to mathematics. From managing files to munging data, from image manipulations to working with video, you'll likely find a tool for almost any computing task you can imagine. Always remember that command line tools appeared long before graphical ones did. The rich history shows its weight in the form of robust tools and the availability of wide variety of applications.
+If you've used a scientific calculator, you'd know that it is handy with too many functionalities cramped into a tiny screen and a plethora of multipurpose buttons. Command line environment is something like that, but not limited to just crunching numbers. From managing files to munging data, from image manipulations to working with video, you'll likely find a tool for almost any computing task you can imagine. Always remember that command line tools appeared long before the graphical ones did. The rich history shows its weight in the form of robust tools and the availability of wide variety of applications.
 
 ## Hello Command Line
 
@@ -239,7 +239,7 @@ If you are completely new to the command line world, try out the above steps a f
 
 ## File System
 
-In Linux, directory structure starts with the `/` symbol, which is referred to as the **root** directory. The `man hier` command gives description of the file system hierarchy. Here are some selected examples:
+In Linux, the directory structure starts with the `/` symbol, referred to as the **root** directory. The `man hier` command gives description of the file system hierarchy. Here are some selected examples:
 
 * `/` This is the root directory. This is where the whole tree starts.
 * `/bin` This directory contains executable programs which are needed in single user mode and to bring the system up or repair it.
@@ -288,7 +288,7 @@ $ echo "$SHELL"
 /bin/bash
 ```
 
-In the above example, the `cat` command is used to display the contents of a file and the `echo` command is used to display the contents of a variable. `SHELL` is an environment variable containing full path to the shell.
+In the above example, the `cat` command is used to display the contents of a file and the `echo` command is used to display the contents of a variable. `SHELL` is an environment variable containing the full path to the shell.
 
 >![info](images/info.svg) The output of the above commands might be different for you. And as mentioned earlier, your command prompt might be different than `$ `. For now, you can ignore it. Or, you could type `PS1='$ '` and press the `Enter` key to set the prompt for the current session.
 
@@ -328,7 +328,7 @@ It is not necessary to fully understand the commands used in this chapter, just 
 * `ls -la` list directory contents including hidden files in long listing format
     * two short options `-l` and `-a` are combined together here as `-la`
 * `df -h` report file system disk space usage sizes in human readable format
-* `df --human-readable` same as `df -h` but using long option instead of short option
+* `df --human-readable` same as `df -h` but using long option
 
 **Command with arguments**:
 
@@ -353,7 +353,7 @@ It is not necessary to fully understand the commands used in this chapter, just 
 $ echo '$SHELL'
 $SHELL
 
-# $ is special within double quotes, used to interpolate variable here
+# $ is special within double quotes, used to interpolate a variable here
 $ echo "Full path to the shell: $SHELL"
 Full path to the shell: /bin/bash
 ```
@@ -406,7 +406,7 @@ how are you?
 3
 ```
 
->![info](./images/info.svg) Your Linux distro is likely to have an easy to use graphical text editor such as `gedit` and `mousepad`. See [wiki.archlinux: text editors](https://wiki.archlinux.org/title/List_of_applications#Text_editors) for a huge list of editors to choose from.
+>![info](./images/info.svg) Your Linux distro is likely to have an easy to use graphical text editor such as the `GNOME Text Editor` and `mousepad`. See [wiki.archlinux: text editors](https://wiki.archlinux.org/title/List_of_applications/Documents#Text_editors) for a huge list of editors to choose from.
 
 >![info](./images/info.svg) The [Shell Scripting](#shell-scripting) chapter will discuss scripting in more detail.
 
@@ -416,14 +416,14 @@ Most distros for personal use come with documentation for commands already insta
 
 ### man
 
-The `man` command is an interface to view manuals from within the terminal itself. This uses a `pager` (which is usually the `less` command) to display the contents. You could call these commands as terminal user interface (TUI) applications. As an example, type `man cat` and you should see something like the screenshot shown below:
+The `man` command is an interface to view manuals from within the terminal itself. This uses a `pager` (which is usually the `less` command) to display the contents. You could categorize these commands as terminal user interface (TUI) applications. As an example, type `man cat` and you should see something like the screenshot shown below:
 
 ![manual page for the cat command](images/man_cat.png)
 
 Since the documentation has several lines that doesn't completely fit within the terminal window, you will get only the starting part of the manual. You have several options to navigate:
 
 * `↑` and `↓` arrow keys to move up and down by a line
-    * you can also use `k` and `j` keys (same keys as those used in the Vim text editor)
+    * you can also use `k` and `j` keys (same keys as those used by the Vim text editor)
 * `f` and `b` keys to move forward and backward by a screenful of content
     * `Space` key also moves forward by a screen
 * mouse scroll moves up and down by a few lines
@@ -441,10 +441,10 @@ As you might have noticed in the screenshot above, you can use `h` for help abou
 * `man bash` will give you the manual page for the `bash` shell
     * since this is very long, I'd recommend using the [online GNU Bash manual](https://www.gnu.org/software/bash/manual/)
 * `man find | gvim -` open the manual page in your favorite text editor
-* `man -k printf` search the short descriptions in all the manual pages for the string `printf`
+* `man -k printf` search the short descriptions in all of the manual pages for the string `printf`
     * you can also use the `apropos` command instead of `man -k`
 * `wc --help` many commands support the `--help` option to give succinct details like options and syntax
-    * also, these details will be displayed on the terminal itself, no need to deal with `pager` interface
+    * also, these details will be displayed on the terminal itself, no need to deal with the `pager` interface
 
 >![info](images/info.svg) See also [unix.stackexchange: How do I use man pages to learn how to use commands?](https://unix.stackexchange.com/q/193815/109046) and [unix.stackexchange: colors in man pages](https://unix.stackexchange.com/q/119/109046).
 
@@ -608,7 +608,7 @@ If the command line environment only had file managing features, I'd still use i
 
 Some of these workflows require additional management, for which I write shell functions or scripts. I do need GUI tools as well, for example, web browser, image viewer, PDF/EPUB viewers, [SimpleScreenRecorder](https://github.com/MaartenBaert/ssr) and so on. Some of these can be handled from within the terminal too, but I prefer GUI for such cases. I do launch some of them from the terminal, primarily for providing the file or url to be opened.
 
-You might wonder what advantage does the command line provide for processing images and videos? Apart from being faster, the custom parameters (like border color, border size, quality percentage, etc) are automatically saved as part of the scripts I create. After that, I can just use a single call to the script instead of waiting for a GUI application to open, navigating to required files, applying custom parameters, saving them after all the required processing is done, closing the application, etc. Also, that single script can use as many tools as needed, whereas with GUI you'll have to repeat such steps with different applications.
+You might wonder what advantage does the command line provide for processing images and videos? Apart from being faster, the custom parameters (like border color, border size, quality percentage, etc) are automatically saved as part of the scripts I create. After that, I can just use a single call to the script instead of waiting for a GUI application to open, navigating to the required files, applying custom parameters, saving them after all the required processing is done, closing the application, etc. Also, that single script can use as many tools as needed, whereas with GUI you'll have to repeat such steps with different applications.
 
 ## Exercises
 
@@ -655,15 +655,15 @@ type - Display information about command type.
 
 **11)** When would you use the `man -k` command?
 
-**12)** Are there any differences between `man` and `info` pages?
+**12)** Are there differences between the `man` and `info` pages?
 
 # Managing Files and Directories
 
-This chapter presents commands to do things that are typically handled by a file manager in GUI (also known as file explorer). For example, viewing contents of a directory, navigating to other directories, cut/copy/paste files, renaming and so on. Some of the commands used for these purposes are provided by the shell itself.
+This chapter presents commands to do things that are typically handled by a file manager in GUI (also known as file explorer). For example, viewing contents of a directory, navigating to other directories, cut/copy/paste files, renaming files and so on. Some of the commands used for these purposes are provided by the shell itself.
 
 As a good practice, make it a habit to go through the documentation of the commands you encounter. Getting used to looking up documentation from the command line will come in handy whenever you are stuck. You can also learn and experiment with options you haven't used yet.
 
->![info](./images/info.svg) The [example_files](https://github.com/learnbyexample/cli-computing/tree/master/example_files) directory has the scripts used in this chapter. See [Setup](#setup) section for instructions to create the working environment.
+>![info](./images/info.svg) The [example_files](https://github.com/learnbyexample/cli-computing/tree/master/example_files) directory has the scripts used in this chapter. See the [Setup](#setup) section for instructions to create the working environment.
 
 ## Builtin and External commands
 
@@ -673,7 +673,7 @@ From [bash manual: What is a shell?](https://www.gnu.org/software/bash/manual/ba
 
 Many of the commands needed for everyday use are external commands, i.e. not part of the shell. Some builtins, `pwd` for example, might also be available as external command on your system (and these might have differences in features too). In such cases the builtin version will be executed by default, which you can override by using the path of the external version.
 
-You can use the `type` command to distinguish between builtin and external commands. The `type` command is a shell builtin, and provides other features too (which will be discussed later). You can use the `-a` option to get all details about the given command.
+You can use the `type` command to check if the tool you are using is a builtin or an external command. The `type` command is a shell builtin, and provides other features too (which will be discussed later). You can use the `-a` option to get *all* details about the given command.
 
 ```bash
 $ type -a cd
@@ -726,7 +726,7 @@ $ cd -
 Relative paths are well, relative to the current working directory:
 
 * `.` refers to the current directory
-* `..` refers to the directory one hierarchy above (i.e. parent directory)
+* `..` refers to the directory one hierarchy above (i.e. the parent directory)
 * `../..` refers to the directory two hierarchies above and so on
 * `cd ./-` will help you to switch to a directory named `-` in the current location
     * you cannot use `cd -` since that'll take you to the previous working directory
@@ -769,13 +769,13 @@ $ pwd
 
 You can use this command to clear the terminal screen. By default, the `clear` command will move the prompt to the top of the terminal as well as try to remove the contents of the scrollback buffer. You can use the `-x` option if you want to retain the scrollback buffer contents.
 
->![info](images/info.svg) The `Ctrl+l` shortcut will also move the prompt line to the top of the terminal. It will retain any text you've typed on the prompt line and scrollback buffer contents won't be cleared. 
+>![info](images/info.svg) The `Ctrl+l` shortcut will also move the prompt line to the top of the terminal. It will retain any text you've typed on the prompt line and scrollback buffer contents won't be cleared.
 
 ## ls
 
 When you use a file explorer GUI application, you'll automatically see the directory contents. And such GUI apps typically have features to show file size, differentiate between files and folders and so on. `ls` is the equivalent command line tool with a plethora of options and functionality related to viewing the contents of directories.
 
->![info](./images/info.svg) As mentioned earlier, the [example_files](https://github.com/learnbyexample/cli-computing/tree/master/example_files) directory has the scripts used in this chapter. You can source the `ls.sh` script to follow along the examples shown in this section. See [Setup](#setup) section if you haven't yet created the working environment.
+>![info](./images/info.svg) As mentioned earlier, the [example_files](https://github.com/learnbyexample/cli-computing/tree/master/example_files) directory has the scripts used in this chapter. You can source the `ls.sh` script to follow along the examples shown in this section. See the [Setup](#setup) section if you haven't yet created the working environment.
 > 
 > ```bash
 > # first, cd into the 'scripts' directory
@@ -816,7 +816,7 @@ projects:
 calculator  tictactoe
 ```
 
-You can use the `-1` option (`1` as in numeric one, not the alphabet `l` which does something else) to list the contents in a single column:
+You can use the `-1` option (`1` as in numeric one, not the letter `l` which does something else) to list the contents in a single column:
 
 ```bash
 $ ls -1 backups
@@ -916,11 +916,11 @@ lrwxrwxrwx 1 learnbyexample   13 May  7 15:17 scripts -> ../../scripts
 Filenames starting with `.` are considered as hidden files and these are NOT shown by default. You can use the `-a` option to view them. The `-A` option is similar, but doesn't show the special `.` and `..` entries.
 
 ```bash
-# . and .. point to the current and parent directories
+# . and .. point to the current and parent directories respectively
 $ ls -aF backups/dot_files/
 ./  ../  .bashrc  .inputrc  .vimrc
 
-# -A will exclude . and ..
+# -A will exclude the . and .. entries
 $ ls -A backups/dot_files/
 .bashrc  .inputrc  .vimrc
 ```
@@ -952,7 +952,7 @@ game.py
 books.txt  outing.txt
 ```
 
-Often you'd want to list only specific files or directories based on some criteria, file extension for example. The shell provides a matching technique called **globs** or **wildcards**. Some simple examples are shown below (see [wildcards](#wildcards) section for more details).
+Often you'd want to list only specific files or directories based on some criteria, file extension for example. The shell provides a matching technique called **globs** or **wildcards**. Some simple examples are shown below (see the [wildcards](#wildcards) section for more details).
 
 `*` is a placeholder for zero or more characters:
 
@@ -1155,7 +1155,7 @@ Typos like misplaced space, wrong glob, etc could wipe out files not intended fo
 * using `echo` as a dry run to see how the glob expands
 * using a trash command (see links below) instead of `rm`
 
-Use `y` for confirmation and `n` to cancel deletion with `-i` or `-I` options. Here's an example of cancelling deletion:
+Use `y` for confirmation and `n` to cancel deletion with the `-i` or `-I` options. Here's an example of cancelling deletion:
 
 ```bash
 $ rm -ri projects
@@ -1319,7 +1319,7 @@ $ ls -AF backups
 .bashrc  dict/  ip.txt  reports/
 ```
 
-You can use the `-t` option if you want to specify the destination before the source paths (helpful with `find` command for example, will be discussed later). Here are some more notable options:
+You can use the `-t` option to specify the destination before the source paths (helpful with the `find` command for example, will be discussed later). Here are some more notable options:
 
 * `-u` copy files from source only if they are newer or don't exist in the destination
 * `-b` and `--backup` options will allow you to create backup copies of files already existing in the destination
@@ -1328,7 +1328,7 @@ You can use the `-t` option if you want to specify the destination before the so
 **Further Reading**
 
 * `rsync` a fast, versatile, remote (and local) file-copying tool
-    * [rsync tutorial and examples](https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps)
+    * [rsync tutorial and examples](https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories)
 * [syncthing](https://github.com/syncthing/syncthing) — continuous file synchronization program
 
 ## mv
@@ -1394,7 +1394,7 @@ Here are some more notable options, some of which behave similar to those seen w
 
 The `mv` command is useful for simple file renaming. `rename` helps when you need to modify one or more filenames based on a pattern. There are different implementations of the `rename` command, with wildly different set of features. See [askubuntu: What's the difference between the different "rename" commands?](https://askubuntu.com/questions/956010/whats-the-difference-between-the-different-rename-commands) for details.
 
-Perl implementation of the `rename` command will be discussed in this section. You'd need to know regular expressions to use this command. Basic explanations will be given here, more details can be found in the links mentioned at the end of this section. Here's an example to change the file extensions:
+Perl implementation of the `rename` command will be discussed in this section. You'd need to know regular expressions to use this command. Basic explanations will be given here and more details can be found in the links mentioned at the end of this section. Here's an example to change the file extensions:
 
 ```bash
 $ mkdir practice_rename
@@ -1421,24 +1421,24 @@ $ touch 1.png 3.png 25.png 100.png
 $ ls
 100.png  1.png  25.png  3.png
 
-# use -n option for sanity check
+# use the -n option for sanity check
 # note that 100.png isn't part of the output, since it isn't affected
 # \d matches a digit character
 # \d+ matches 1 or more digits (+ is a quantifier to match 1 or more times)
 # e flag treats the replacement string as Perl code
-# $& is a backreference to the matched portion
+# $& is a backreference to the entire matched portion
 $ rename -n 's/\d+/sprintf "%03d", $&/e' *.png
 rename(1.png, 001.png)
 rename(25.png, 025.png)
 rename(3.png, 003.png)
 
-# remove -n option after sanity check to actually rename the files
+# remove the -n option after sanity check to actually rename the files
 $ rename 's/\d+/sprintf "%03d", $&/e' *.png
 $ ls
 001.png  003.png  025.png  100.png
 ```
 
-If the new filename already exists, you'll get an error, which you can override with `-f` option if you wish. If you are passing filenames with path components in them, you can use the `-d` option to affect only the filename portion. Otherwise, the logic you are using might affect directory names as well.
+If the new filename already exists, you'll get an error, which you can override with the `-f` option if you wish. If you are passing filenames with path components in them, you can use the `-d` option to affect only the filename portion. Otherwise, the logic you are using might affect directory names as well.
 
 ```bash
 $ mkdir projects
@@ -1447,12 +1447,12 @@ $ touch projects/toc.sh projects/reports.py
 # aim is to uppercase the non-extension part of the filename
 # [^.]+ matches 1 or more non '.' characters
 # \U changes the characters that follow to uppercase
-# $& is a backreference to the matched portion
+# $& is a backreference to the entire matched portion
 $ rename -n -d 's/[^.]+/\U$&/' projects/*
 rename(projects/reports.py, projects/REPORTS.py)
 rename(projects/toc.sh, projects/TOC.sh)
 
-# without -d option, directory name will also be affected
+# without the -d option, directory name will also be affected
 $ rename -n 's/[^.]+/\U$&/' projects/*
 rename(projects/reports.py, PROJECTS/REPORTS.py)
 rename(projects/toc.sh, PROJECTS/TOC.sh)
@@ -1467,7 +1467,7 @@ rename(projects/toc.sh, PROJECTS/TOC.sh)
 
 The `ln` command helps you create a link to another file or directory within the same or different location. There are two types of links — **symbolic** links and **hard** links. Symbolic links can point to both files and directories. Here are some characteristics:
 
-* if the original file is deleted or moved to another location, symbolic link will no longer work
+* if the original file is deleted or moved to another location, then the symbolic link will no longer work
 * if the symbolic link is moved to another location, it will still work if the link was done using absolute path (for relative path, it will depend on whether or not there's another file with the same name in that location)
 * a symbolic link file has its own inode, permissions, timestamps, etc
 * some commands will work the same when original file or the symbolic file is given as the command line argument, while some require additional options (`du -L` for example)
@@ -1542,7 +1542,7 @@ $ ls -F
 projects/  report.log  todos/
 
 # -c option creates a new archive, any existing archive will be overwritten
-# -f option allows to specify name of archive to be created
+# -f option allows to specify a name for the archive being created
 # rest of the arguments are the files/directories to be archived
 $ tar -cf bkp.tar report.log projects
 
@@ -1567,7 +1567,7 @@ $ ls -sh bkp.tar.gz
 Use the `-t` option if you want to check the contents of the compressed file. This will work with the uncompressed `.tar` version as well.
 
 ```bash
-$ tar -tf bkp.tar.gz 
+$ tar -tf bkp.tar.gz
 report.log
 projects/
 projects/scripts/
@@ -1653,7 +1653,7 @@ There are also commands starting with `z` to work with compressed files, for exa
 * `zless` to display file contents of a compressed file one screenful at a time
 * `zgrep` to search compressed files
 
->![info](images/info.svg) If you need to work with `.zip` files, use `zip` and `unzip` commands.
+>![info](images/info.svg) If you need to work with `.zip` files, use the `zip` and `unzip` commands.
 
 **Further Reading**
 
@@ -1669,7 +1669,7 @@ There are also commands starting with `z` to work with compressed files, for exa
 
 *a)* `pwd`  
 *b)* `echo "$PWD"`  
-*c)* `echo "$HOME"`  
+*c)* `echo "$HOME"`
 
 **2)** The current working directory has a folder named `-dash`. How would you switch to that directory?
 
@@ -1679,7 +1679,7 @@ There are also commands starting with `z` to work with compressed files, for exa
 *d)* `cd \-dash`  
 *e)* `cd '-dash'`  
 *f)* all of the above  
-*g)* only *a)* and *c)*  
+*g)* only *a)* and *c)*
 
 **3)** Given the directory structure as shown below, how would you change to the `todos` directory?
 
@@ -1922,7 +1922,7 @@ $ echo apple;cherry
 apple
 cherry: command not found
 
-# using '\;' helps you use ';' as an ordinary character
+# '\;' escapes the ';' character, thus losing the metacharacter meaning
 $ echo apple\;cherry
 apple;cherry
 ```
@@ -2014,7 +2014,7 @@ This form of quoting helps you use escape sequences like `\t` for tab, `\n` for 
 $ echo $'fig:\t42'
 fig:    42
 
-# \x27 represents single quote character in hexadecimal format
+# \x27 represents the single quote character in hexadecimal format
 $ echo $'@fruits = \x27apple and banana\x27'
 @fruits = 'apple and banana'
 
@@ -2027,7 +2027,7 @@ fig     42
 ball    20
 ```
 
-`printf` is a shell builtin which you can use to format arguments (similar to `C` programming language `printf()` function). This command will be used in many more examples to come.
+`printf` is a shell builtin which you can use to format arguments (similar to the `printf()` function from the `C` programming language). This command will be used in many more examples to come.
 
 >![info](./images/info.svg) See [bash manual: ANSI-C Quoting](https://www.gnu.org/software/bash/manual/bash.html#ANSI_002dC-Quoting) for complete list of supported escape sequences. See `man ascii` for a table of ASCII characters and their numerical representations.
 
@@ -2233,17 +2233,17 @@ From `man bash`:
 Extended globs are disabled by default. You can use the `shopt` builtin to set/unset **sh**ell **opt**ions like `extglob`, `globstar`, etc. You can also check what is the current status of such options.
 
 ```bash
-$ shopt extglob 
+$ shopt extglob
 extglob         off
 
 # set extglob
-$ shopt -s extglob 
-$ shopt extglob 
+$ shopt -s extglob
+$ shopt extglob
 extglob         on
 
 # unset extglob
-$ shopt -u extglob 
-$ shopt extglob 
+$ shopt -u extglob
+$ shopt extglob
 extglob         off
 ```
 
@@ -2313,7 +2313,7 @@ $ set -o history
 
 # use vi-style CLI editing interface
 $ set -o vi
-# use emancs-style interface, this is usually the default
+# use emacs-style interface, this is usually the default
 $ set -o emacs
 ```
 
@@ -2321,7 +2321,7 @@ You'll see more examples (for example, `set -x`) in later chapters. See [bash ma
 
 ## Pipelines
 
-The pipe control operator `|` helps you connect the output of a command as the input of another command. This operator vastly reduces the need for temporary intermediate files. As discussed previously in the [Unix Philosophy](#unix-philosophy) section, command line tools specialize in one task. If you can break down a problem into smaller tasks, the pipe operator will come in handy often. Here are some examples:
+The pipe control operator `|` helps you connect the output of a command as the input of another command. This operator vastly reduces the need for temporary intermediate files. As discussed previously in the [Unix Philosophy](#unix-philosophy) section, command line tools usually specialize in a single task. If you can break down a problem into smaller tasks, the pipe operator will come in handy often. Here are some examples:
 
 ```bash
 # change to the 'scripts' directory and source the 'du.sh' script
@@ -2335,7 +2335,7 @@ projects  report.log  todos
 $ ls -q | wc -l
 3
 
-# report size of files/folders in human readable format
+# report the size of files/folders in human readable format
 # and then sort them based on human readable sizes in ascending order
 $ du -sh * | sort -h
 8.0K    todos
@@ -2343,7 +2343,7 @@ $ du -sh * | sort -h
 7.4M    report.log
 ```
 
-In the above examples, `ls` and `du` perform their own tasks of displaying list of files and showing file sizes respectively. After that, the `wc` and `sort` commands take care of calculating number of lines and sorting respectively. In such cases, the pipe operator saves you the trouble of dealing with temporary data.
+In the above examples, `ls` and `du` perform their own tasks of displaying list of files and showing file sizes respectively. After that, the `wc` and `sort` commands take care of counting and sorting the lines respectively. In such cases, the pipe operator saves you the trouble of dealing with temporary data.
 
 Note that the `%q` format specifier in `printf` helps you quote the arguments in a way that is recognizable by the shell. The `-q` option for `ls` substitutes nongraphic characters in the filenames with a `?` character. Both of these are workarounds to prevent the counting process from getting sidetracked due to characters like newline in the filenames.
 
@@ -2379,7 +2379,7 @@ There are three standard data streams:
 * **standard output** (`stdout` — file descriptor 1)
 * **standard error** (`stderr` — file descriptor 2)
 
-Both standard output and error are displayed on the terminal by default. The `stderr` stream is used when something goes wrong with the command usage. Each of these three streams have a predefined [file descriptor](https://en.wikipedia.org/wiki/File_descriptor) as mentioned above. In this section, you'll see how to redirect these three streams.
+Both the standard output and error streams are displayed on the terminal by default. The `stderr` stream is used when something goes wrong with the command usage. Each of these three streams have a predefined [file descriptor](https://en.wikipedia.org/wiki/File_descriptor) as mentioned above. In this section, you'll see how to redirect these three streams.
 
 > ![info](./images/info.svg) Redirections can be placed anywhere, but they are usually used at the start or end of a command. For example, the following two commands are equivalent:
 >
@@ -2395,7 +2395,7 @@ Both standard output and error are displayed on the terminal by default. The `st
 
 You can use the `>` operator to redirect the standard output of a command to a file. A number prefix can be added to the `>` operator to work with that particular file descriptor. Default is `1` (recall that the file descriptor for `stdout` is `1`), so `1>` and `>` perform the same operation. Use `>>` to append the output to a file.
 
-The filename provided to the `>` and `>>` operators will be created if a regular file of that name doesn't exist yet. If the file already exists, `>` will overwrite that file and `>>` will append contents to that file.
+The filename provided to the `>` and `>>` operators will be created if a regular file of that name doesn't exist yet. If the file already exists, `>` will overwrite that file whereas `>>` will append the contents.
 
 ```bash
 # change to the 'example_files/text_files' directory for this section
@@ -2419,7 +2419,7 @@ $ cat op.txt
 $ rm op.txt
 ```
 
->![info](./images/info.svg) You can use `/dev/null` as a filename to discard the output, to provide an empty file for a command, etc.
+>![info](./images/info.svg) You can use `/dev/null` as a filename to discard the output, to provide an empty file as input for a command, etc.
 
 >![info](images/info.svg) You can use `set noclobber` to prevent overwriting if a file already exists. When the `noclobber` option is set, you can still overwrite a file by using `>|` instead of the `>` operator.
 
@@ -2520,8 +2520,8 @@ $ rm cmderror.log
 
 Newer versions of Bash provide these handy shortcuts:
 
-* `&>` redirect both `stdout` and `stderr` (overwrites an existing file)
-* `&>>` redirect both `stdout` and `stderr` (appends to existing file)
+* `&>` redirect both `stdout` and `stderr` (overwrite if file already exists)
+* `&>>` redirect both `stdout` and `stderr` (append if file already exists)
 * `|&` pipe both `stdout` and `stderr` as input to another command
 
 Here's an example which assumes `xyz.txt` doesn't exist, thus leading to errors:
@@ -2581,7 +2581,7 @@ Sometimes, you might mistype a command without providing input. And instead of g
 Say, you typed `cat` and pressed the Enter key. Seeing the blinking cursor, you type some text and press the Enter key again. You'll see the text you just typed echoed back to you as `stdout` (which is the functionality of the `cat` command). This will continue again and again, until you tell the shell that you are done. How to do that? Press `Ctrl+d` on a fresh line or press `Ctrl+d` twice at the end of a line. In the latter case, you'll not get a newline character at the end of the data.
 
 ```bash
-# press Enter key and Ctrl+d after typing all the required characters
+# press Enter and Ctrl+d after typing all the required characters
 $ cat
 knock knock
 knock knock
@@ -2590,7 +2590,7 @@ anybody here?
 
 # 'tr' command here translates lowercase to uppercase
 $ tr 'a-z' 'A-Z'
-knock knock 
+knock knock
 KNOCK KNOCK
 anybody here?
 ANYBODY HERE?
@@ -2648,7 +2648,7 @@ mango  10
 $ rm fruits.txt
 ```
 
-In the above example, the termination string was enclosed in single quotes to prevent parameter expansion, command substitution, etc. You can also use `\string` for this purpose. If you use `<<-` instead of `<<`, leading tab characters can be added at the start of input lines without being part of the actual data.
+In the above example, the termination string was enclosed in single quotes as a good practice. Doing so prevents parameter expansion, command substitution, etc. You can also use `\string` for this purpose. If you use `<<-` instead of `<<`, leading tab characters can be added at the start of input lines without being part of the actual data.
 
 >![info](./images/info.svg) Just like `$` and a space represents the primary prompt (`PS1` shell variable), `>` and a space at the start of lines represents the secondary prompt `PS2` (applicable for multiline commands). Don't type these characters when you use Here Documents in a shell script.
 
@@ -2656,7 +2656,7 @@ In the above example, the termination string was enclosed in single quotes to pr
 
 ### Here Strings
 
-This is similar to Here Documents, but the termination string isn't used. The redirection operator is `<<<`. Here are some examples:
+This is similar to Here Documents, but the string is passed as an argument after the `<<<` redirection operator. Here are some examples:
 
 ```bash
 $ tr 'a-z' 'A-Z' <<< hello
@@ -2674,7 +2674,7 @@ $ rm op.txt
 ### Further Reading
 
 * [Short introduction to shell redirection](https://mywiki.wooledge.org/BashGuide/InputAndOutput#Redirection)
-* [Illustrated Redirection Tutorial](https://wiki.bash-hackers.org/howto/redirection_tutorial)
+* [Illustrated Redirection Tutorial](https://web.archive.org/web/20221231120128/https://wiki.bash-hackers.org/howto/redirection_tutorial)
 * [stackoverflow: Redirect a stream to another file descriptor using >&](https://stackoverflow.com/q/818255/4082052)
 * [Difference between 2>&1 >foo and >foo 2>&1](https://mywiki.wooledge.org/BashFAQ/055)
 * [stackoverflow: Redirect and append both stdout and stderr to a file](https://stackoverflow.com/q/876239/4082052)
@@ -2682,7 +2682,7 @@ $ rm op.txt
 
 ## Grouping commands
 
-You can use `(list)` and `{ list; }` compound commands to redirect content for several commands. The former is executed in a subshell whereas the latter is executed in the current shell context. Spaces around `()` are optional but necessary for the `{}` version. From [bash manual: Lists of Commands](https://www.gnu.org/software/bash/manual/bash.html#Lists):
+You can use the `(list)` and `{ list; }` compound commands to redirect content for several commands. The former is executed in a subshell whereas the latter is executed in the current shell context. Spaces around `()` are optional but necessary for the `{}` version. From [bash manual: Lists of Commands](https://www.gnu.org/software/bash/manual/bash.html#Lists):
 
 >A `list` is a sequence of one or more pipelines separated by one of the operators `;`, `&`, `&&`, or `||`, and optionally terminated by one of `;`, `&`, or a newline.
 
@@ -2804,7 +2804,7 @@ Difference between the two types of syntax is quoted below from [bash manual: Co
 
 ## Process substitution
 
-Instead of a file argument, you can use the output of commands with process substitution. The syntax is `<(list)`. The shell will take care of passing a filename with the standard output of those commands. Here's an example:
+Instead of a file argument, you can use command output with process substitution. The syntax is `<(list)`. The shell will take care of passing a filename with the standard output of those commands. Here's an example:
 
 ```bash
 # change to the 'example_files/text_files' directory for this section
@@ -2816,7 +2816,7 @@ Cy,97,98,95
 Lin,78,83,80
 
 # can also use: paste -d, <(echo 'ID'; seq 3) scores.csv
-$ paste -d, <(printf 'ID\n1\n2\n3') scores.csv 
+$ paste -d, <(printf 'ID\n1\n2\n3') scores.csv
 ID,Name,Maths,Physics,Chemistry
 1,Ith,100,100,100
 2,Cy,97,98,95
@@ -2840,7 +2840,7 @@ $ comm -12 <(sort f1.txt) <(sort f2.txt)
 3
 ```
 
->![info](./images/info.svg) See [this unix.stackexchange thread](https://unix.stackexchange.com/q/609375/109046) for examples with `>(list)` form.
+>![info](./images/info.svg) See [this unix.stackexchange thread](https://unix.stackexchange.com/q/609375/109046) for examples with the `>(list)` form.
 
 ## Exercises
 
@@ -2950,7 +2950,7 @@ todos/
 $ ls report*
 report_2020.txt  report_2021.txt  report_2022.txt
 
-# use 'cp' command here
+# use the 'cp' command here
 # ???
 $ ls report*
 report_2020.txt  report_2021.txt  report_2021.txt.bkp  report_2022.txt
@@ -3213,21 +3213,21 @@ banana
 ```
 
 >![warning](./images/warning.svg) If the last line of input doesn't end with a newline, the output will also not have that newline character.
-
-```bash
-$ printf 'apple\nbanana\ncherry' | tac
-cherrybanana
-apple
-```
+> 
+> ```bash
+> $ printf 'apple\nbanana\ncherry' | tac
+> cherrybanana
+> apple
+> ```
 
 ## less
 
-The `cat` command is not suitable for viewing contents of large files in the terminal. The `less` command automatically fits the content to the size of terminal, allows scrolling and has nifty features for effective viewing. Usually, `man` command uses `less` as the `pager` to display the documentation. The navigation options are similar to the Vim text editor.
+The `cat` command is not suitable for viewing contents of large files in the terminal. The `less` command automatically fits the content to the size of the terminal, allows scrolling and has nifty features for effective viewing. Typically, the `man` command uses `less` as the `pager` to display the documentation. The navigation options are similar to the Vim text editor.
 
 Commonly used commands are given below. You can press the `h` key for builtin help.
 
 * `↑` and `↓` arrow keys to move up and down by a line
-    * you can also use `k` and `j` keys (same keys as those used in the Vim text editor)
+    * you can also use `k` and `j` keys (same keys as those used by the Vim text editor)
 * `f` and `b` keys to move forward and backward by a screenful of content
     * `Space` key also moves forward by a screen
 * mouse scroll moves up and down by a few lines
@@ -3254,7 +3254,7 @@ Similar to the `cat` command, you can use the `-s` option to squeeze consecutive
 
 ## tail
 
-By default, `tail` displays the last 10 lines of input file(s). If there are less than 10 lines in the input, only those lines will be displayed. You can use the `-n` option to change the number of lines displayed. By using `tail -n +N`, you can get all the lines starting from the `N`th line.
+By default, `tail` displays the last 10 lines of input files. If there are less than 10 lines in the input, only those lines will be displayed. You can use the `-n` option to change the number of lines displayed. By using `tail -n +N`, you can get all the lines starting from the `N`th line.
 
 Here's an example file that'll be used for illustration purposes:
 
@@ -3277,7 +3277,7 @@ $ cat sample.txt
 15) Adios amigo
 ```
 
-Here are some examples with `-n` option:
+Here are some examples with the `-n` option:
 
 ```bash
 # last two lines (input has 15 lines)
@@ -3325,12 +3325,13 @@ bus
 **Further Reading**
 
 * [wikipedia: File monitoring with tail -f and -F options](https://en.wikipedia.org/wiki/Tail_(Unix)#File_monitoring)
+    * [toolong](https://github.com/Textualize/toolong) — terminal application to view, tail, merge, and search log files
 * [unix.stackexchange: How does the tail -f option work?](https://unix.stackexchange.com/q/18760/109046)
 * [How to deal with output buffering?](https://mywiki.wooledge.org/BashFAQ/009)
 
 ## head
 
-By default, `head` displays the first 10 lines of input file(s). If there are less than 10 lines in the input, only those lines will be displayed. You can use the `-n` option to change the number of lines displayed. By using `head -n -N`, you can get all the input lines except the last `N` lines.
+By default, `head` displays the first 10 lines of input files. If there are less than 10 lines in the input, only those lines will be displayed. You can use the `-n` option to change the number of lines displayed. By using `head -n -N`, you can get all the input lines except the last `N` lines.
 
 ```bash
 # first three lines
@@ -3347,7 +3348,7 @@ $ head -n -11 sample.txt
  4) How are you
 ```
 
-You can select a range of lines by combining both `head` and `tail` commands.
+You can select a range of lines by combining both the `head` and `tail` commands.
 
 ```bash
 # 9th to 11th lines
@@ -3384,7 +3385,7 @@ jeep
 
 ## Exercises
 
->![info](./images/info.svg) Use [example_files/text_files](https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files) directory for input files used in the following exercises.
+>![info](./images/info.svg) Use the [example_files/text_files](https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files) directory for input files used in the following exercises.
 
 **1)** Which option(s) would you use to get the output shown below?
 
@@ -3438,7 +3439,7 @@ apple
 banana
 ```
 
-**5)** What is the difference between `less -n` and `less -N` options? Do `cat -n` and `less -n` have similar functionality?
+**5)** What is the difference between `less -n` and `less -N` options? Does `cat -n` and `less -n` have similar functionality?
 
 **6)** Which command would you use to open another file from within an existing `less` session? And which commands would you use to navigate between previous and next files?
 
@@ -3488,21 +3489,21 @@ papaya
 apple
 ```
 
-**10)** Use a combination of `head` and `tail` commands to get the 11th to 14th characters from the given input.
+**10)** Use a combination of the `head` and `tail` commands to get the 11th to 14th characters from the given input.
 
 ```bash
 $ printf 'apple\nfig\ncarpet\njeep\nbus\n' | # ???
 carp
 ```
 
-**11)** Extract starting six bytes from the input files `table.txt` and `fruits.txt`.
+**11)** Extract the starting six bytes from the input files `table.txt` and `fruits.txt`.
 
 ```bash
 # ???
 brown banana
 ```
 
-**12)** Extract last six bytes from the input files `fruits.txt` and `table.txt`.
+**12)** Extract the last six bytes from the input files `fruits.txt` and `table.txt`.
 
 ```bash
 # ???
@@ -3522,37 +3523,37 @@ Quoting from [wikipedia](https://en.wikipedia.org/wiki/Grep):
 
 >**`grep`** is a command-line utility for searching plain-text data sets for lines that match a regular expression. Its name comes from the `ed` command `g/re/p` (**g**lobally search a **r**egular **e**xpression and **p**rint), which has the same effect.
 
-The `grep` command has lots and lots of features, so much so that I wrote [a book](https://github.com/learnbyexample/learn_gnugrep_ripgrep) about it. The most common usage is filtering lines from the input using a regular expression (regexp).
+The `grep` command has lots and lots of features, so much so that I wrote [a book](https://github.com/learnbyexample/learn_gnugrep_ripgrep) with hundreds of examples and exercises. The most common usage is filtering lines from the input using a regular expression (regexp).
 
 ### Common options
 
-Commonly used options are shown below. Examples will be discussed in later sections.
+Commonly used options are listed below. Examples will be discussed in later sections.
 
 * `--color=auto` highlight the matching portions, filenames, line numbers, etc using colors
-* `-i` ignore case while matching
-* `-v` print only non-matching lines
+* `-i` ignore case
+* `-v` print only the non-matching lines
 * `-n` prefix line numbers for output lines
 * `-c` display only the count of output lines
 * `-l` print only the filenames matching the given expression
 * `-L` print filenames *not* matching the pattern
 * `-w` match pattern only as whole words
 * `-x` match pattern only as whole lines
-* `-F` interpret pattern as a fixed string (i.e. not a regular expression)
-* `-o` print only matching parts
-* `-A N` print matching line and `N` number of lines after the matched line
-* `-B N` print matching line and `N` number of lines before the matched line
-* `-C N` print matching line and `N` number of lines before and after the matched line
+* `-F` interpret pattern as a fixed string (i.e. not as a regular expression)
+* `-o` print only the matching portions
+* `-A N` print the matching line and `N` number of lines after the matched line
+* `-B N` print the matching line and `N` number of lines before the matched line
+* `-C N` print the matching line and `N` number of lines before and after the matched line
 * `-m N` print a maximum of `N` matching lines
 * `-q` no standard output, quit immediately if match found, useful in scripts
 * `-s` suppress error messages, useful in scripts
-* `-r` recursively search all files in the specified input folders (by default searches current directory)
+* `-r` recursively search all files in the specified input folders (by default searches the current directory)
 * `-R` like `-r`, but follows symbolic links as well
 * `-h` do not prefix filename for matching lines (default behavior for single input file)
 * `-H` prefix filename for matching lines (default behavior for multiple input files)
 
 ### Literal search
 
-The following examples would all be suited for `-F` option as these do not use regular expressions. `grep` is smart enough to do the right thing in such cases.
+The following examples would all be suited for the `-F` option as these do not use regular expressions. `grep` is smart enough to do the right thing in such cases.
 
 ```bash
 # lines containing 'an'
@@ -3576,20 +3577,20 @@ tar-par
 $ printf 'hi\n\nhello\n\n\n\nbye\n' | grep -cx ''
 4
 
-# matching line and two lines after
+# print the matching line as well as two lines after
 $ printf 'red\nblue\ngreen\nbrown\nyellow' | grep -A2 'blue'
 blue
 green
 brown
 ```
 
-Here's an example with line numbers and matched portions in color:
+Here's an example where the line numbers and matched portions are highlighted in color:
 
 ![example with --color option](images/grep_color.png)
 
 ### Regular Expressions
 
-By default, `grep` treats the search pattern as Basic Regular Expression (BRE)
+By default, `grep` treats the search pattern as Basic Regular Expression (BRE). Here are the various options related to regexp:
 
 * `-G` option can be used to specify explicitly that BRE is needed
 * `-E` option will enable Extended Regular Expression (ERE)
@@ -3605,7 +3606,7 @@ The following reference is for **Extended Regular Expressions**.
 * `$` restricts the match to the end of the string
 * `\<` restricts the match to the start of word
 * `\>` restricts the match to the end of word
-* `\b` restricts the match to the start/end of words
+* `\b` restricts the match to both the start/end of words
 * `\B` matches wherever `\b` doesn't match
 
 **Dot metacharacter and Quantifiers**
@@ -3637,7 +3638,7 @@ The following reference is for **Extended Regular Expressions**.
 * `pat1|pat2|pat3` match `pat1` or `pat2` or `pat3`
 * `()` group patterns, `a(b|c)d` is same as `abd|acd`
     * also serves as a capture group
-* `\N` backreference, gives matched portion of `N`th capture group
+* `\N` backreference, gives the matched portion of the `N`th capture group
     * `\1` backreference to the first capture group
     * `\2` backreference to the second capture group and so on up to `\9`
 
@@ -3664,7 +3665,7 @@ $ echo 'I like "mango" and "guava"' | grep -oE '"[^"]+"'
 "mango"
 "guava"
 
-# 8 character lines having same 3 lowercase letters at start and end
+# 8 character lines having the same 3 lowercase letters at the start and end
 $ grep -xE '([a-z]{3})..\1' /usr/share/dict/words
 mesdames
 respires
@@ -3674,7 +3675,7 @@ testates
 
 ### Line comparisons between files
 
-The `-f` and `-x` options can be combined to get common lines between two files or the difference when `-v` is used as well. Add `-F` if you want to treat the search strings literally (recall that regexp is the default).
+The `-f` and `-x` options can be combined to get the common lines between two files or the difference when `-v` is used as well. Add `-F` if you want to treat the search strings literally (recall that regexp is the default).
 
 ```bash
 # change to the 'scripts' directory and source the 'grep.sh' script
@@ -3743,7 +3744,7 @@ backups/  colors_1  colors_2  .hidden  projects/
 # recursively search in the 'backups' directory
 $ grep -r 'clear' backups
 backups/dot_files/.bash_aliases:alias c=clear
-# add -h option to prevent filename prefix in the output
+# add the -h option to prevent filename prefix in the output
 $ grep -rh 'clear' backups
 alias c=clear
 
@@ -3755,12 +3756,12 @@ backups/dot_files/.bash_aliases
 
 You can further prune the files to be searched using the *include/exclude* options. Note that these options will work even if recursive search is not active.
 
-| Option               | Description    |
-| -------------------- | -------------- |
-| --include=GLOB       | search only files that match GLOB |
-| --exclude=GLOB       | skip files that match GLOB |
-| --exclude-from=FILE  | skip files that match any file pattern from FILE |
-| --exclude-dir=GLOB   | skip directories that match GLOB |
+| Option                 | Description    |
+| ---------------------- | -------------- |
+| `--include=GLOB`       | search only files that match GLOB |
+| `--exclude=GLOB`       | skip files that match GLOB |
+| `--exclude-from=FILE`  | skip files that match any file pattern from FILE |
+| `--exclude-dir=GLOB`   | skip directories that match GLOB |
 
 ```bash
 # default recursive search
@@ -3772,7 +3773,7 @@ projects/shell/hello.sh:echo "Hello, Bash!"
 $ grep -r --include='*.py' 'Hello'
 projects/python/hello.py:print("Hello, Python!")
 
-# alternatively, you can use shell globs instead of recursive+include/exclude
+# in some cases you can just use shell globs instead recursive grep
 $ shopt -s globstar
 $ grep -H 'Hello' **/*.py
 projects/python/hello.py:print("Hello, Python!")
@@ -3832,7 +3833,7 @@ Note that the command passed to `xargs` doesn't accept custom made aliases and f
 > $ grep -rlZ 'violet' | xargs -0 grep -L 'brown'
 > (standard input)
 > 
-> # using -r option avoids running the command in such cases
+> # using the -r option avoids running the command in such cases
 > $ grep -rlZ 'violet' | xargs -r0 grep -L 'brown'
 > ```
 
@@ -3840,7 +3841,7 @@ Note that the command passed to `xargs` doesn't accept custom made aliases and f
 
 ### Further Reading
 
-* My ebook [GNU GREP and RIPGREP](https://github.com/learnbyexample/learn_gnugrep_ripgrep)
+* My ebook [CLI text processing with GNU grep and ripgrep](https://github.com/learnbyexample/learn_gnugrep_ripgrep)
     * See also my blog post [GNU BRE/ERE cheatsheet](https://learnbyexample.github.io/gnu-bre-ere-cheatsheet/)
 * [Why GNU grep is fast](https://lists.freebsd.org/pipermail/freebsd-current/2010-August/019310.html)
 * [unix.stackexchange: grep -r vs find+grep](https://unix.stackexchange.com/q/131535/109046)
@@ -3851,7 +3852,7 @@ The `find` command has comprehensive features to filter files and directories ba
 
 ### Filenames
 
-By default, you'll get every entry (including hidden ones) in the current directory and sub-directories when you use `find` without any options or paths. To search within specific path(s), they should be immediately mentioned after `find`, i.e. before any options.
+By default, you'll get every entry (including hidden ones) in the current directory and sub-directories when you use `find` without any options or paths. To search within specific paths, they should be immediately mentioned after `find`, i.e. before any options.
 
 ```bash
 # change to the 'scripts' directory and source the 'find.sh' script
@@ -3878,13 +3879,13 @@ todos/TRIP.txt
 todos/wow.txt
 ```
 
->![info](./images/info.svg) Note that symbolic links won't be followed by default. You can use `-L` option for such cases.
+>![info](./images/info.svg) Note that symbolic links won't be followed by default. You can use the `-L` option for such cases.
 
-To match filenames based on a particular criteria, you can use wildcards or regular expressions. For wildcards, you can use `-name` or the case-insensitive version `-iname`. These will match only the basename, so you'll get a warning if you use `/` as part of the pattern. You can use `-path` and `-ipath` if you need to include `/` as well in the pattern. Unlike `grep`, the glob pattern is matched against the entire basename (as there are no start/end anchors in globs).
+To match filenames based on a particular criteria, you can use wildcards or regular expressions. For wildcards, you can use the `-name` option or the case-insensitive version `-iname`. These will match only the basename, so you'll get a warning if you use `/` as part of the pattern. You can use `-path` and `-ipath` if you need to include `/` as well in the pattern. Unlike `grep`, the glob pattern is matched against the entire basename (as there are no start/end anchors in globs).
 
 ```bash
 # filenames ending with '.log'
-# 'find .' indicates current working directory (CWD) as the path to search
+# 'find .' indicates the current working directory (CWD) as the path to search
 $ find . -name '*.log'
 ./report.log
 ./backups/aug.log
@@ -3899,7 +3900,7 @@ $ find -iname '*ip*'
 ./scripts
 ./ip.txt
 
-# names containing 'k' within 'backups' and 'todos' directories
+# names containing 'k' within the 'backups' and 'todos' directories
 $ find backups todos -name '*k*'
 backups
 backups/bookmarks.html
@@ -3916,7 +3917,7 @@ todos/books.txt
 todos/wow.txt
 ```
 
-You can use `-regex` and `-iregex` (case-insensitive) to match filenames based on regular expressions. In this case, the pattern will match the entire path, so use of `/` is possible without needing to use special options. The default regexp flavor is `emacs` which you can change by using the `-regextype` option.
+You can use the `-regex` and `-iregex` (case-insensitive) options to match filenames based on regular expressions. In this case, the pattern will match the entire path, so `/` can be used without requiring special options. The default regexp flavor is `emacs` which you can change by using the `-regextype` option.
 
 ```bash
 # filename containing only uppercase alphabets and file extension is '.txt'
@@ -3961,12 +3962,18 @@ $ find -type l
 ```
 
 >![info](./images/info.svg) You can use `,` to separate multiple file types. For example, `-type f,l` will match both regular files and symbolic links.
+> 
+> ```bash
+> $ find -type f,l -name '*ip*'
+> ./scripts
+> ./ip.txt
+> ```
 
 ### Depth
 
 The path being searched is considered as depth `0`, files within the search path are at depth `1`, files within a sub-directory are at depth `2` and so on. Note that these global options should be specified before other kind of options like `-type`, `-name`, etc.
 
-`-maxdepth` option restricts the search to the specified maximum depth:
+The `-maxdepth` option restricts the search to the specified maximum depth:
 
 ```bash
 # non-hidden regular files only in the current directory
@@ -3980,7 +3987,7 @@ $ find -maxdepth 1 -type f -name '[^.]*'
 ./ip.txt
 ```
 
-`-mindepth` option specifies the minimum depth:
+The `-mindepth` option specifies the minimum depth:
 
 ```bash
 # recall that path being searched is considered as depth 0
@@ -4006,7 +4013,7 @@ Consider the following file properties:
 * `c` status changed
 * `m` modified
 
-The above prefixes need to be combined with `time` (based on 24 hour periods) or `min` (based on minutes) options. For example, `-mtime` (24 hour) option checks for last modified timestamp and `-amin` (minute) checks for last accessed timestamp. These options accept a number (integer or fractional) argument, that can be further prefixed by `+` or `-` symbols. Here are some examples:
+The above prefixes need to be combined with `time` (based on 24 hour periods) or `min` (based on minutes) options. For example, the `-mtime` (24 hour) option checks for the last modified timestamp and `-amin` (minute) checks for the last accessed timestamp. These options accept a number (integer or fractional) argument, that can be further prefixed by the `+` or `-` symbols. Here are some examples:
 
 ```bash
 # modified less than 24 hours ago
@@ -4059,9 +4066,9 @@ $ find -type f -size 10c
 
 ### Acting on matched files
 
-The `-exec` option helps you to pass the matching files to another command. You can choose to execute the command once for every file (by using `\;`) or just once for all the matching files (by using `+`). However, if the number of files are too many, `find` will use more command invocations as necessary. The `;` character is escaped since it is a shell metacharacter (you can also quote it as an alternative to escaping).
+The `-exec` option helps you pass the matching files to another command. You can choose to execute the command once for every file (by using `\;`) or just once for all the matching files (by using `+`). However, if the number of files are too many, `find` will use more command invocations as necessary. The `;` character is escaped since it is a shell metacharacter (you can also quote it as an alternative to escaping).
 
-You need to use `{}` to represent the file(s) passed as argument(s) to the command being executed. Here are some examples:
+You need to use `{}` to represent the files passed as arguments to the command being executed. Here are some examples:
 
 ```bash
 # count the number of characters for each matching file
@@ -4095,7 +4102,7 @@ $ rm -r rc_files
 
 ### Multiple criteria
 
-You can specify multiple matching criteria such as `-name`, `-size`, `-mtime`, etc. You can use operators between them and group them within `\(` and `\)` to construct complex expressions.
+Filenames can be matched against multiple criteria such as `-name`, `-size`, `-mtime`, etc. You can use operators between them and group them within `\(` and `\)` to construct complex expressions.
 
 * `-a` or `-and` or absence of an operator means both expressions have to be satisfied
     * second expression won't be evaluated if the first one is false
@@ -4147,7 +4154,7 @@ Using `-not -path '*/.git/*' -prune` can be handy when dealing with Git based ve
 
 ### find and xargs
 
-Similar to `grep -Z` and `xargs -0` combination seen earlier, you can use `find -print0` and `xargs -0` combination. The `-exec` option is sufficient for most use cases, but `xargs -P` (or the [parallel](https://www.gnu.org/software/parallel/) command) can be handy if you need parallel execution for performance reasons.
+Similar to the `grep -Z` and `xargs -0` combination seen earlier, you can use the `find -print0` and `xargs -0` combination. The `-exec` option is sufficient for most use cases, but `xargs -P` (or the [parallel](https://www.gnu.org/software/parallel/) command) can be handy if you need parallel execution for performance reasons.
 
 Here's an example of passing filtered files to `sed` (**s**tream **ed**itor, will be discussed in the [Multipurpose Text Processing Tools](#multipurpose-text-processing-tools) chapter):
 
@@ -4189,7 +4196,7 @@ Here are some examples:
 
 ## Exercises
 
->![info](./images/info.svg) For `grep` exercises, use [example_files/text_files](https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files) directory for input files, unless otherwise specified.
+>![info](./images/info.svg) For `grep` exercises, use the [example_files/text_files](https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files) directory for input files, unless otherwise specified.
 
 >![info](./images/info.svg) For `find` exercises, use the `find.sh` script, unless otherwise specified.
 
@@ -4297,12 +4304,12 @@ store_2
 **11)** Extract all whole words having the same first and last word character.
 
 ```bash
-$ echo 'oreo not a _oh_ pip roar took 22' | grep # ???
+$ echo 'oreo not a _oh_ pip RoaR took 22 Pop' | grep # ???
 oreo
 a
 _oh_
 pip
-roar
+RoaR
 22
 ```
 
@@ -4325,7 +4332,7 @@ hands
 handle
 ```
 
-**14)** Input lines have three or more fields separated by a `,` delimiter. Extract second field to second last field. In other words, extract fields other than first and last.
+**14)** Input lines have three or more fields separated by a `,` delimiter. Extract from the second field to the second last field. In other words, extract fields other than the first and last.
 
 ```bash
 $ printf 'apple,fig,cherry\ncat,dog,bat\n' | grep # ???
@@ -4399,7 +4406,7 @@ backups/jan.log
 ./hello_world.py
 ```
 
-**20)** Find all regular files whose name do *not* have the lower case alphabets `g` to `l`.
+**20)** Find all regular files whose name do *not* have the lowercase letters `g` to `l`.
 
 ```bash
 # ???
@@ -4434,7 +4441,7 @@ backups/jan.log
 ./projects/.venv
 ```
 
-**24)** Find all regular files at exact depth of `2`.
+**24)** Find all regular files at the exact depth of `2`.
 
 ```bash
 # ???
@@ -4497,13 +4504,13 @@ hello_world.py  .hidden  hi.sh  ip.txt
 
 # File Properties
 
-In this chapter, you'll learn how to view file details like line and word counts, file and disk sizes, file types, extract parts of file path, etc. You'll also learn how to change file properties like timestamps and permissions.
+In this chapter, you'll learn how to view file details like line and word counts, file and disk sizes, file types, extract parts of a file path, etc. You'll also learn how to change file properties like timestamps and permissions.
 
 >![info](./images/info.svg) The [example_files](https://github.com/learnbyexample/cli-computing/tree/master/example_files) directory has the scripts and sample input files used in this chapter.
 
 ## wc
 
-The `wc` command is typically used to count the number of lines, words and characters for the given input(s). Here are some basic examples:
+The `wc` command is typically used to count the number of lines, words and characters for the given inputs. Here are some basic examples:
 
 ```bash
 # change to the 'example_files/text_files' directory
@@ -4511,7 +4518,7 @@ $ cat greeting.txt
 Hi there
 Have a nice day
 
-# by default, gives newline/word/byte count (in that order)
+# by default, wc gives the newline/word/byte count (in that order)
 $ wc greeting.txt
  2  6 25 greeting.txt
 
@@ -4570,7 +4577,7 @@ $ wc -L <greeting.txt
 15
 ```
 
-Use `-m` option instead of `-c` if the input has multibyte characters.
+Use the `-m` option instead of `-c` if the input has multibyte characters.
 
 ```bash
 $ printf 'αλεπού' | wc -c
@@ -4584,7 +4591,7 @@ $ printf 'αλεπού' | wc -m
 
 The `du` command helps you estimate the size of files and directories.
 
-By default, size is given in size in terms of 1024 bytes. All directories and sub-directories are recursively reported, but files are ignored. You can use the `-a` option if files should also be reported. `du` is one of the commands that require an explicit option (`-L` in this case) if you want symbolic links to be followed.
+By default, size is given in terms of 1024 bytes. All directories and sub-directories are recursively reported, but files are ignored. You can use the `-a` option if files should also be reported. `du` is one of the commands that require an explicit option (`-L` in this case) if you want symbolic links to be followed.
 
 ```bash
 # change to the 'scripts' directory and source the 'du.sh' script
@@ -4598,7 +4605,7 @@ $ du
 7536    .
 ```
 
-Use `-s` option to show the total directory size without descending into sub-directories. Add `-c` option to also show total size at the end.
+Use the `-s` option to show the total directory size without descending into sub-directories. Add the `-c` option to also show the total size at the end.
 
 ```bash
 $ du -s projects report.log
@@ -4611,7 +4618,7 @@ $ du -sc projects report.log
 7524    total
 ```
 
-Here are some examples to illustrate size formatting options:
+Here are some examples to illustrate the size formatting options:
 
 ```bash
 # number of bytes
@@ -4627,7 +4634,7 @@ $ du -m report.log
 8       report.log
 ```
 
-The `-h` option reports size in human readable format (uses power of 1024). Use `--si` option to get results in powers of 1000 instead. If you use `du -h`, you can pipe the output to `sort -h` for sorting purposes.
+The `-h` option reports size in human readable format (uses power of 1024). Use the `--si` option to get results in powers of 1000 instead. If you use `du -h`, you can pipe the output to `sort -h` for sorting purposes.
 
 ```bash
 $ du -sh *
@@ -4643,7 +4650,7 @@ $ du -sh * | sort -h
 
 ## df
 
-The `df` command gives you the space usage of file systems. `df` without path arguments will give information about all the currently mounted file systems. You can specify `.` to get information only for the current filesystem:
+The `df` command gives you the space usage of file systems. `df` without path arguments will give information about all the currently mounted file systems.
 
 ```bash
 $ df .
@@ -4651,7 +4658,7 @@ Filesystem     1K-blocks     Used Available Use% Mounted on
 /dev/sda1       98298500 58563816  34734748  63% /
 ```
 
-Use `-h` option for human readable sizes. The `-B` option allows you to scale sizes by the specified amount. Use `--si` for size in powers of 1000 instead of 1024.
+Use the `-h` option for human readable sizes. The `-B` option allows you to scale sizes by the specified amount. Use `--si` for size in powers of 1000 instead of 1024.
 
 ```bash
 $ df -h .
@@ -4659,7 +4666,7 @@ Filesystem      Size  Used Avail Use% Mounted on
 /dev/sda1        94G   56G   34G  63% /
 ```
 
-Use the `--output` option to report only specific fields of interest:
+Use the `--output` option to report only the specific fields of interest:
 
 ```bash
 $ df -h --output=size,used,file / /media/learnbyexample/projs
@@ -4682,16 +4689,16 @@ The `stat` command is useful to get details like file type, size, inode, permiss
 # change to the 'scripts' directory and source the 'stat.sh' script
 $ source stat.sh
 
-# %x gives last accessed timestamp
+# %x gives the last accessed timestamp
 $ stat -c '%x' ip.txt
 2022-06-01 13:25:18.693823117 +0530
 
-# %y gives last modified timestamp
+# %y gives the last modified timestamp
 $ stat -c '%y' ip.txt
 2022-05-24 14:39:41.285714934 +0530
 
-# %s gives file size in bytes
-# \n is used to get a newline
+# %s gives the file size in bytes
+# \n is used to insert a newline
 # %i gives the inode value
 # same as: stat --printf='%s\n%i\n' ip.txt
 $ stat -c $'%s\n%i' ip.txt
@@ -4699,7 +4706,7 @@ $ stat -c $'%s\n%i' ip.txt
 787224
 
 # %N gives quoted filenames
-# if input is a link, path it points to is also displayed
+# if the input is a link, the path it points to is also displayed
 $ stat -c '%N' words.txt
 'words.txt' -> '/usr/share/dict/words'
 ```
@@ -4707,20 +4714,20 @@ $ stat -c '%N' words.txt
 You can also pass multiple file arguments:
 
 ```bash
-# %s gives file size in bytes
+# %s gives the file size in bytes
 # %n gives filenames
 $ stat -c '%s %n' ip.txt hi.sh
 10 ip.txt
 21 hi.sh
 ```
 
->![info](./images/info.svg) ![warning](./images/warning.svg) The `stat` command should be preferred instead of parsing `ls -l` output for file details. See [mywiki.wooledge: avoid parsing output of ls](https://mywiki.wooledge.org/ParsingLs) and [unix.stackexchange: why not parse ls?](https://unix.stackexchange.com/q/128985/109046) for explanation and other alternatives.
+>![info](./images/info.svg) ![warning](./images/warning.svg) The `stat` command should be preferred instead of parsing the `ls -l` output for file details. See [mywiki.wooledge: avoid parsing output of ls](https://mywiki.wooledge.org/ParsingLs) and [unix.stackexchange: why not parse ls?](https://unix.stackexchange.com/q/128985/109046) for explanation and other alternatives.
 
 ## touch
 
-As mentioned earlier, the `touch` command helps you change the timestamps of files. You can do so based on current timestamp, passing an argument, copying the value from another file and so on.
+As mentioned earlier, the `touch` command helps you change the timestamps of files. You can do so based on the current timestamp, passing an argument, copying the value from another file and so on.
 
-By default, `touch` updates both access and modification timestamps to the current time. You can use `-a` to change only access timestamp and `-m` to change only modification timestamp.
+By default, `touch` updates both the access and modification timestamps to the current time. You can use the `-a` option to change only the access timestamp and `-m` to change only the modification timestamp.
 
 ```bash
 # change to the 'scripts' directory and source the 'touch.sh' script
@@ -4731,11 +4738,11 @@ $ stat -c $'%x\n%y' fruits.txt
 2017-07-19 17:06:01.523308599 +0530
 2017-07-13 13:54:03.576055933 +0530
 
-# update access and modification values to the current time
-$ touch fruits.txt 
+# update the access and modification values to the current time
+$ touch fruits.txt
 $ stat -c $'%x\n%y' fruits.txt
-2022-06-14 13:01:25.921205889 +0530
-2022-06-14 13:01:25.921205889 +0530
+2024-05-14 13:01:25.921205889 +0530
+2024-05-14 13:01:25.921205889 +0530
 ```
 
 You can use the `-r` option to copy timestamp information from one file to another. The `-d` and `-t` options will allow you to specify timestamps directly as part of the command.
@@ -4744,7 +4751,7 @@ You can use the `-r` option to copy timestamp information from one file to anoth
 $ stat -c '%y' hi.sh
 2022-06-14 13:00:46.170416890 +0530
 
-# copy modified timestamp from 'ip.txt' to 'hi.sh'
+# copy the modified timestamp from 'ip.txt' to 'hi.sh'
 $ touch -m -r ip.txt hi.sh
 $ stat -c '%y' hi.sh
 2022-05-24 14:39:41.285714934 +0530
@@ -4792,7 +4799,7 @@ $ printf 'hi\r\n' | file -
 /dev/stdin: ASCII text, with CRLF line terminators
 ```
 
-Example for image files:
+Here's an example for image files:
 
 ```bash
 # output of 'sunrise.jpg' wrapped for illustration purposes
@@ -4805,11 +4812,11 @@ moon.png:    PNG image data, 76 x 76, 8-bit colormap, non-interlaced
 You can use the `-b` option to avoid filenames in the output:
 
 ```bash
-$ file -b ip.txt 
+$ file -b ip.txt
 ASCII text
 ```
 
-Here is an example of finding particular type of files, say `image` files.
+Here's how you can find particular type of files, images for example.
 
 ```bash
 # assuming filenames do not contain ':' or newline characters
@@ -4819,7 +4826,7 @@ $ find -type f -exec file {} + | awk -F: '/\<image data\>/{print $1}'
 ./moon.png
 ```
 
->![info](./images/info.svg) See also `identify` command which "describes the format and characteristics of one or more image files".
+>![info](./images/info.svg) See also the `identify` command which "describes the format and characteristics of one or more image files".
 
 ## basename
 
@@ -4876,7 +4883,7 @@ $ dirname /home/learnbyexample/example_files/scores.csv ../report/backups/
 ../report
 ```
 
-You can use shell features like command substitution to combine the effects of `basename` and `dirname` commands.
+You can use shell features like command substitution to combine the effects of the `basename` and `dirname` commands.
 
 ```bash
 # extract the second last path component
@@ -4886,14 +4893,14 @@ example_files
 
 ## chmod
 
-You can use the `chmod` command to change file and directory permissions. Consider this example:
+You can use the `chmod` command to change permissions. Consider this example:
 
 ```bash
 $ mkdir practice_chmod
 $ cd practice_chmod
 $ echo 'learnbyexample' > ip.txt
 
-# this info can also be seen in the first column of 'ls -l' output
+# this info can also be seen in the first column of the 'ls -l' output
 $ stat -c '%A' ip.txt
 -rw-rw-r--
 ```
@@ -4933,7 +4940,7 @@ $ stat -c '%a' ip.txt
 664
 ```
 
->![info](./images/info.svg) Note that the permissions are not straightforward to understand for directories. If a directory only has the `x` permission, you can `cd` into it but you cannot read the contents (using `ls` for example). If a directory only has the `r` permission, you cannot `cd` into it, but you'll be able to read the contents (along with "cannot access" error). For this reason, `rx` permissions are almost always enabled/disabled together. The `w` permission allows you to add or remove contents, provided `x` is active.
+>![info](./images/info.svg) Note that the permissions are not straightforward to understand for directories. If a directory only has the `x` permission, you can `cd` into it but you cannot read the contents (using `ls` for example). If a directory only has the `r` permission, you cannot `cd` into it, but you'll be able to read the contents (along with "cannot access" error). For this reason, the `rx` permissions are almost always enabled/disabled together. The `w` permission allows you to add or remove contents, provided `x` is active.
 
 **Changing permissions for all three categories**
 
@@ -4985,7 +4992,7 @@ $ umask
 `umask` value of `0002` means:
 
 * read and execute permissions without `ugo` prefix affects all the three categories
-* write permissions without `ugo` prefix affects only `user` and `group` categories
+* write permissions without `ugo` prefix affects only the `user` and `group` categories
 
 Here are some examples without `ugo` prefixes:
 
@@ -5034,12 +5041,12 @@ $ chmod go-x,o-w hi.sh
 
 **Further Reading**
 
-* [Linux Permissions Primer](https://danielmiessler.com/study/unixlinux_permissions/)
+* [Linux Permissions Primer](https://web.archive.org/web/20220930214830/https://danielmiessler.com/study/unixlinux_permissions/)
 * [unix.stackexchange: why chmod +w filename not giving write permission to other](https://unix.stackexchange.com/q/429421/109046)
 
 ## Exercises
 
->![info](./images/info.svg) Use [example_files/text_files](https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files) directory for input files used in the following exercises, unless otherwise specified.
+>![info](./images/info.svg) Use the [example_files/text_files](https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files) directory for input files used in the following exercises, unless otherwise specified.
 
 >![info](./images/info.svg) Create a temporary directory for exercises that may require you to create some files and directories. You can delete such practice directories afterwards.
 
@@ -5075,9 +5082,9 @@ $ printf 'greeting.txt\0scores.csv' | wc # ???
 6 10 95 total
 ```
 
-**5)** What is the difference between `wc -c` and `wc -m` options? And which option would you use to get the longest line length?
+**5)** What is the difference between the `wc -c` and `wc -m` options? And which option would you use to get the longest line length?
 
-**6)** Find filenames ending with `.log` and report their sizes in human readable format. Use `find+du` combination for the first case and `ls` command (with appropriate shell features) for the second case.
+**6)** Find filenames ending with `.log` and report their sizes in human readable format. Use the `find+du` combination for the first case and the `ls` command (with appropriate shell features) for the second case.
 
 ```bash
 # change to the 'scripts' directory and source the 'du.sh' script
@@ -5107,7 +5114,7 @@ $ source du.sh
 
 **8)** What does the `du --apparent-size` option do?
 
-**9)** When will you use the `df` command instead of `du`? Which `df` command option will help you to report only specific fields of interest?
+**9)** When will you use the `df` command instead of `du`? Which `df` command option will help you to report only the specific fields of interest?
 
 **10)** Display the size of `scores.csv` and `timings.txt` files in the format shown below.
 
@@ -5243,7 +5250,7 @@ Here are some definitions that will be handy to know for this chapter's contents
 
 Some commands and scripts can take more than few minutes to complete, and you might still need to continue using the shell. If you are not dependent on the current shell environment, you could just open another shell instance and continue working.
 
-Another option is to push the job to the background, either at the time of command invocation itself or after the fact. Make sure to redirect standard output and error to avoid interfering with your continued interactive usage. Appending an `&` character to the command will execute it in the background.
+Another option is to push the job to the background, either at the time of command invocation itself or after the fact. Make sure to redirect standard output and error to avoid interfering with your continued interactive usage. Appending `&` to the command will execute it in the background.
 
 ```bash
 $ tkdiff ip.txt ip.txt.bkp &
@@ -5281,7 +5288,7 @@ $ sleep 30
 ^Z
 [1]+  Stopped                 sleep 30
 
-# bg puts the job considered as the current by the shell to the background 
+# bg puts the job considered as the current by the shell to the background
 $ bg
 [1]+ sleep 30 &
 
@@ -5368,14 +5375,14 @@ $ pgrep -a 'vim'
 
 ## kill
 
-Sometimes, a process might not be responding to your interaction, might be taking too long, accidentally uses too much memory, and so on. You can use the `kill` command to manage such processes.
+Sometimes, a process might not be responding to your interaction attempts, might be taking too long, accidentally uses too much memory, and so on. You can use the `kill` command to manage such processes.
 
-As mentioned at the beginning of this chapter, these examples are suggested for interactive processes initiated by you (other usage, for example in scripts, will require different strategies). Be 100% sure before you attempt to send signals to manage processes.
+As mentioned at the beginning of this chapter, these examples are suggested for interactive processes initiated by you (shell scripts, for example, will require different strategies). Be 100% sure before you attempt to send signals to manage processes.
 
-You can pass signals by name or by their associated number. Use `kill -l` to get a full list of signals. See also [unix.stackexchange: List of Signals](https://unix.stackexchange.com/q/317492/109046) and [unix.stackexchange: What causes various signals to be sent?](https://unix.stackexchange.com/q/6332/109046)
+You can pass signals by name or by their associated number. Use `kill -l` to get a full list of signals. See also [unix.stackexchange: List of Signals](https://unix.stackexchange.com/q/317492/109046) and [unix.stackexchange: What causes various signals to be sent?](https://unix.stackexchange.com/q/6332/109046).
 
 ```bash
-# first 20 signals (out of 64) listed below 
+# first 20 signals (out of 64) listed below
 $ kill -l
  1) SIGHUP       2) SIGINT       3) SIGQUIT      4) SIGILL       5) SIGTRAP
  6) SIGABRT      7) SIGBUS       8) SIGFPE       9) SIGKILL     10) SIGUSR1
@@ -5384,7 +5391,7 @@ $ kill -l
 ...
 ```
 
-You can use PID or job number to specify the process to which the signal has to be sent. By default, `SIGTERM` (`15`) is sent, which is a polite way to ask the program to terminate. Here's an example:
+You can use the PID or job number to specify the process to which the signal has to be sent. By default, `SIGTERM` (`15`) is sent, which is a polite way to ask the program to terminate. Here's an example:
 
 ```bash
 # 'sleep' is used here to emulate a long running process
@@ -5420,7 +5427,7 @@ $ kill -20 10051
 $ bg
 [1]+ sleep 100 &
 
-# -s option allows you to specify signal by its name
+# the -s option allows you to specify signal by its name
 # '-s SIGTERM' is optional here, since that is the default
 $ kill -s SIGTERM 10051
 $ 
@@ -5466,7 +5473,7 @@ Swap:         3.6Gi          0B       3.6Gi
 
 **1)** How would you invoke a command to be executed in the background? And what would you do to push a job to the background after it has already been launched? What commands can you use to track active jobs?
 
-**2)** What do `+` and `-` symbols next to job numbers indicate?
+**2)** What do the `+` and `-` symbols next to job numbers indicate?
 
 **3)** When would you use `fg %n` and `bg %n` instead of just `fg` and `bg` respectively?
 
@@ -5486,9 +5493,9 @@ Swap:         3.6Gi          0B       3.6Gi
 
 # Multipurpose Text Processing Tools
 
-Many CLI text processing tools have been in existence for about half a century. And newer tools are being written to solve ever expanding text processing problems. Just knowing that a particular tool exists or searching for a tool before attempting to write your own solution can be a time saver. Also, popular tools are likely to be optimized for speed, hardened against bugs from wide usage, discussed on forums, and so on.
+Many CLI text processing tools have been in existence for about half a century. And newer tools are being written to solve the ever expanding text processing problems. Just knowing that a particular tool exists or searching for a tool before attempting to write your own solution can be a time saver. Also, popular tools are likely to be optimized for speed, hardened against bugs due to wide usage, discussed on forums, and so on.
 
-`grep` was already covered in the [Searching Files and Filenames](#searching-files-and-filenames) chapter. In addition, `sed`, `awk` and `perl` are essential tools to solve a wide variety of text processing problems from the command line. In this chapter, you'll learn field processing, use regular expressions for search and replace requirements, perform operations based on multiple lines and files, etc.
+`grep` was already covered in the [Searching Files and Filenames](#searching-files-and-filenames) chapter. In addition, `sed`, `awk` and `perl` are essential tools to solve a wide variety of text processing problems from the command line. In this chapter you'll learn field processing, use regular expressions for search and replace requirements, perform operations based on multiple lines and files, etc.
 
 >![info](./images/info.svg) The examples presented in this chapter only cover some of the functionalities. I've written separate books to cover these tools with more detailed explanations, examples and exercises. See [https://learnbyexample.github.io/books/](https://learnbyexample.github.io/books/) for links to these books.
 
@@ -5496,11 +5503,11 @@ Many CLI text processing tools have been in existence for about half a century. 
 
 ## sed
 
-The command name `sed` is derived from **s**tream **ed**itor. Here, stream refers to data being passed via shell pipes. Thus, the command's primary functionality is to act as a text editor for **stdin** data with **stdout** as the output target. You can also edit file input and save the changes back to the same file if needed.
+The command name `sed` is derived from **s**tream **ed**itor. Here, stream refers to the data being passed via shell pipes. Thus, the command's primary functionality is to act as a text editor for **stdin** data with **stdout** as the output target. You can also edit file input and save the changes back to the same file if needed.
 
 ### Substitution
 
-`sed` has various commands to manipulate text input. The **substitute** command is most commonly used, whose syntax is `s/REGEXP/REPLACEMENT/FLAGS`. Here are some basic examples:
+`sed` has various commands to manipulate text input. The **substitute** command is the most commonly used, whose syntax is `s/REGEXP/REPLACEMENT/FLAGS`. Here are some basic examples:
 
 ```bash
 # for each input line, change only the first ',' to '-'
@@ -5536,7 +5543,7 @@ $ sed 's/day/weekend/g; s/$/./' greeting.txt
 Hi there.
 Have a nice weekend.
 
-# same thing with -e option
+# same thing with the -e option
 $ sed -e 's/day/weekend/g' -e 's/$/./' greeting.txt
 Hi there.
 Have a nice weekend.
@@ -5563,16 +5570,16 @@ green delight
 
 ### Filtering features
 
-`sed` also has features to filter the lines like `grep`. And you can apply other `sed` commands for these filtered lines as needed.
+The `sed` command also has features to filter lines based on a search pattern like `grep`. And you can apply other `sed` commands for these filtered lines as needed.
 
 ```bash
-# -n disables automatic printing
-# 'p' command prints the contents of pattern space
+# the -n option disables automatic printing
+# the 'p' command prints the contents of the pattern space
 # same as: grep 'at'
 $ printf 'sea\neat\ndrop\n' | sed -n '/at/p'
 eat
 
-# 'd' command deletes the matching lines
+# the 'd' command deletes the matching lines
 # same as: grep -v 'at'
 $ printf 'sea\neat\ndrop\n' | sed '/at/d'
 sea
@@ -5589,7 +5596,7 @@ $ printf '1,2,3,4\na,b,c,d\n' | sed '/2/! s/,/-/g'
 a-b-c-d
 ```
 
-You can use `q` and `Q` commands to quit `sed` once a matching line is found:
+You can use the `q` and `Q` commands to quit `sed` once a matching line is found:
 
 ```bash
 # quit after a line containing 'st' is found
@@ -5598,7 +5605,7 @@ apple
 sea
 east
 
-# matching line won't be printed in this case
+# the matching line won't be printed in this case
 $ printf 'apple\nsea\neast\ndust' | sed '/st/Q'
 apple
 sea
@@ -5608,7 +5615,7 @@ Apart from regexp, filtering can also be done based on line numbers, address ran
 
 ```bash
 # perform substitution only for the second line
-# use '$' instead of a number to indicate last input line
+# use '$' instead of a number to indicate the last input line
 $ printf 'gates\nnot\nused\n' | sed '2 s/t/*/g'
 gates
 no*
@@ -5651,7 +5658,7 @@ X 035 X 12 26 X
 $ echo '\[\] and \\w and \[a-zA-Z0-9\_\]' | sed -E 's/(\\?)\\/\1/g'
 [] and \w and [a-zA-Z0-9_]
 
-# remove two or more duplicate words that are separated by a space
+# remove two or more duplicate words that are separated by a space character
 # \b prevents false matches like 'the theatre', 'sand and stone' etc
 $ echo 'aa a a a 42 f_1 f_1 f_13.14' | sed -E 's/\b(\w+)( \1)+\b/\1/g'
 aa a 42 f_1 f_13.14
@@ -5681,13 +5688,13 @@ home path is: /home/learnbyexample
 
 ### Further Reading
 
-* My ebook [GNU SED](https://github.com/learnbyexample/learn_gnused)
+* My ebook [CLI text processing with GNU sed](https://github.com/learnbyexample/learn_gnused)
     * See also my blog post [GNU BRE/ERE cheatsheet](https://learnbyexample.github.io/gnu-bre-ere-cheatsheet/)
 * [unix.stackexchange: common search and replace examples with sed and other tools](https://unix.stackexchange.com/q/112023/109046)
 
 ## awk
 
-`awk` is a programming language and primarily used for field based processing. `awk` also provides filtering capabilities like those supported by `grep` and `sed` along with some more nifty features. And similar to many command line utilities, `awk` can accept input from both `stdin` and files.
+`awk` is a programming language and widely used for text processing tasks from the command line. `awk` provides filtering capabilities like those supported by the `grep` and `sed` commands, along with some more nifty features. And similar to many command line utilities, `awk` can accept input from both `stdin` and files.
 
 ### Regexp filtering
 
@@ -5705,13 +5712,17 @@ what
 # same as: grep -v 'e' and sed -n '/e/!p'
 $ printf 'gate\napple\nwhat\nkite\n' | awk '!/e/'
 what
+
+# lines containing 'e' followed by zero or more characters and then 'y'
+$ awk '/e.*y/' greeting.txt
+Have a nice day
 ```
 
 ### Awk special variables
 
 Brief description for some of the special variables are given below:
 
-* `$0` contains input record content
+* `$0` contains the input record content
 * `$1` first field
 * `$2` second field and so on
 * `FS` input field separator
@@ -5719,11 +5730,12 @@ Brief description for some of the special variables are given below:
 * `NF` number of fields
 * `RS` input record separator
 * `ORS` output record separator
-* `NR` number of records (i.e. line number)
+* `NR` number of records (i.e. line number) for entire input
+* `FNR` number of records per file
 
 ### Default field processing
 
-`awk` automatically splits input into fields based on one or more sequence of **space** or **tab** or **newline** characters. In addition, any of these three characters at the start or end of input gets trimmed and won't be part of field contents. The fields are accessible using `$N` where `N` is the field number you need. You can also pass an expression instead of numeric literal to specify the field required.
+`awk` automatically splits input into fields based on one or more sequence of **space** or **tab** or **newline** characters. In addition, any of these three characters at the start or end of input gets trimmed and won't be part of field contents. The fields are accessible using `$N` where `N` is the field number you need. You can also pass an expression instead of numeric literals to specify the field required.
 
 Here are some examples:
 
@@ -5742,14 +5754,19 @@ banana
 # print lines only if the last field is a negative number
 $ awk '$NF<0' table.txt
 blue cake mug shirt -7
+```
 
-# change 'b' to 'B' only for the first field
-# gsub() is like the sed substitution command with 'g' flag
-# use sub() when 'g' flag is not needed
-$ awk '{gsub(/b/, "B", $1)} 1' table.txt
-Brown bread mat hair 42
-Blue cake mug shirt -7
-yellow banana window shoes 3.14
+Here's an example of applying a substitution operation for a particular field.
+
+```bash
+# delete lowercase vowels only from the first field
+# gsub() is like the sed substitution command with the 'g' flag
+# use sub() if you need to change only the first match
+# 1 is a true condition, and thus prints the contents of $0
+$ awk '{gsub(/[aeiou]/, "", $1)} 1' table.txt
+brwn bread mat hair 42
+bl cake mug shirt -7
+yllw banana window shoes 3.14
 ```
 
 ### Condition and Action
@@ -5760,7 +5777,7 @@ The examples so far have used a few different ways to construct a typical `awk` 
 awk 'cond1{action1} cond2{action2} ... condN{actionN}'
 ```
 
-If a condition isn't provided, the action is always executed. Within a block, you can provide multiple statements separated by a semicolon character. If action isn't provided, then by default, contents of `$0` variable is printed if the condition evaluates to *true*. When action isn't present, you can use semicolon to terminate the condition and start another `condX{actionX}` snippet.
+If a condition isn't provided, the action is always executed. Within a block, you can provide multiple statements separated by a semicolon character. If action isn't provided, then by default, contents of `$0` variable is printed if the condition evaluates to *true*. Idiomatically, `1` is used to denote a `true` condition in one-liners as a shortcut to print the contents of `$0` (as seen in an earlier example). When action isn't present, you can use semicolon to terminate the condition and start another `condX{actionX}` snippet.
 
 You can use a `BEGIN{}` block when you need to execute something before the input is read and an `END{}` block to execute something after all of the input has been processed.
 
@@ -5774,11 +5791,12 @@ $ seq 2 | awk 'BEGIN{print "---"} 1; END{print "%%%"}'
 
 ### Regexp field processing
 
-As seen earlier, `awk` automatically splits input into fields (based on space/tab/newline characters) which are accessible using `$N` where `N` is the field number you need. You can use the `-F` option or `FS` variable to set a regexp based field separator. Use `OFS` variable to set the output field separator.
+As seen earlier, `awk` automatically splits input into fields (based on space/tab/newline characters) which are accessible using `$N` where `N` is the field number you need. You can use the `-F` option or assign the `FS` variable to set a regexp based input field separator. Use the `OFS` variable to set the output field separator.
 
 ```bash
 $ echo 'goal:amazing:whistle:kwality' | awk -F: '{print $1}'
 goal
+# one or more alphabets will be considered as the input field separator
 $ echo 'Sample123string42with777numbers' | awk -F'[a-zA-Z]+' '{print $2}'
 123
 
@@ -5788,9 +5806,16 @@ $ echo "$s" | awk -F'[0-9]+' -v OFS=, '{print $1, $(NF-1)}'
 Sample,with
 ```
 
-You can use `FPAT` to define what characters should make up the fields. `FS` splits the input record whereas `FPAT` matches the fields. The below example finds fields that are enclosed within double quotes or made up of non-comma characters.
+The `FS` variable allows you to define the input field *separator*. In contrast, `FPAT` (field pattern) allows you to define what should the fields be made up of.
 
 ```bash
+# lowercase whole words starting with 'b'
+$ awk -v FPAT='\\<b[a-z]*\\>' -v OFS=, '{$1=$1} 1' table.txt
+brown,bread
+blue
+banana
+
+# fields enclosed within double quotes or made up of non-comma characters
 $ s='eagle,"fox,42",bee,frog'
 $ echo "$s" | awk -v FPAT='"[^"]*"|[^,]*' '{print $2}'
 "fox,42"
@@ -5798,7 +5823,7 @@ $ echo "$s" | awk -v FPAT='"[^"]*"|[^,]*' '{print $2}'
 
 ### Record separators
 
-By default, newline is used as input and output record separators. You can change them using the `RS` and `ORS` variables.
+By default, newline is used as the input and output record separators. You can change them using the `RS` and `ORS` variables.
 
 ```bash
 # print records containing 'i' as well as 't'
@@ -5806,7 +5831,7 @@ $ printf 'Sample123string42with777numbers' | awk -v RS='[0-9]+' '/i/ && /t/'
 string
 with
 
-# empty RS is paragraph mode, uses two or more newlines as separator
+# empty RS is paragraph mode, uses two or more newlines as the separator
 $ printf 'apple\nbanana\nfig\n\n\n123\n456' | awk -v RS= 'NR==1'
 apple
 banana
@@ -5821,7 +5846,7 @@ $ seq 9 | awk '{ORS = NR%3 ? "-" : "\n"} 1'
 
 ### State machines
 
-The `condX{actionX}` shortcut makes it easy to code state machines concisely, which is useful to solve problems that depend on contents of multiple records.
+The `condX{actionX}` shortcut makes it easy to code state machines concisely. This is useful to solve problems that depend on the contents of multiple records.
 
 Here's an example of printing the matching line as well as `c` number of lines that follow:
 
@@ -5875,7 +5900,7 @@ c
 **end 2**
 
 # you can re-arrange and invert the conditions to create other combinations
-# for example, exclude ending match
+# for example, exclude the ending match
 $ awk '/start/{f=1} /end/{f=0} f' uniform.txt
 --start 1--
 1234
@@ -5896,12 +5921,25 @@ have a nice day
 
 ### Two files processing
 
-The *key* features used in the solution below:
+This section focuses on solving problems which depend upon the contents of two or more files. These are usually based on comparing records and fields. These two files will be used in the examples to follow:
+
+```bash
+$ paste c1.txt c2.txt
+Blue    Black
+Brown   Blue
+Orange  Green
+Purple  Orange
+Red     Pink
+Teal    Red
+White   White
+```
+
+The *key* features used to find common lines between two files:
 
 * For two files as input, `NR==FNR` will be *true* only when the first file is being processed
     * `FNR` is record number like `NR` but resets for each input file
 * `next` will skip the rest of the code and fetch the next record
-* `a[$0]` by itself is a valid statement. It will create an uninitialized element in array `a` with `$0` as the key (if the key doesn't exist yet)
+* `a[$0]` by itself is a valid statement, creates an uninitialized element in array `a` with `$0` as the key (if the key doesn't exist yet)
 * `$0 in a` checks if the given string (`$0` here) exists as a key in the array `a`
 
 ```bash
@@ -5923,7 +5961,7 @@ Pink
 
 ### Removing duplicates
 
-`awk '!a[$0]++'` is one of the most famous `awk` one-liners. It eliminates line based duplicates while retaining input order. The following example shows this feature in action along with an illustration of how the logic works.
+`awk '!a[$0]++'` is one of the most famous `awk` one-liners. It eliminates line based duplicates while retaining the input order. The following example shows this feature in action along with an illustration of how the logic works.
 
 ```bash
 $ cat purchases.txt
@@ -5946,7 +5984,7 @@ $ awk '{print +a[$0] "\t" $0; a[$0]++}' purchases.txt
 0       soap
 2       tea
 
-# only those entries with zero in first column will be retained
+# only those entries with zero in the first column will be retained
 $ awk '!a[$0]++' purchases.txt
 coffee
 tea
@@ -5957,9 +5995,10 @@ soap
 
 ### Further Reading
 
-* My ebook [GNU AWK](https://github.com/learnbyexample/learn_gnuawk)
+* My ebook [CLI text processing with GNU awk](https://github.com/learnbyexample/learn_gnuawk)
     * See also my blog post [GNU BRE/ERE cheatsheet](https://learnbyexample.github.io/gnu-bre-ere-cheatsheet/)
 * [Online gawk manual](https://www.gnu.org/software/gawk/manual/)
+* My blog post [CLI computation with GNU datamash](https://learnbyexample.github.io/cli-computation-gnu-datamash/)
 
 ## perl
 
@@ -5980,12 +6019,12 @@ $ printf 'gate\napple\nwhat\nkite\n' | perl -ne 'print if !/e/'
 what
 ```
 
-The `-e` option accepts code as a command line argument. Many shortcuts are available to reduce the amount of typing needed. In the above examples, a regular expression has been used to filter the input. When the input string isn't specified, the test is performed against special variable `$_`, which has the contents of the current input line. `$_` is also the default argument for many functions like `print` and `length`. To summarize:
+The `-e` option accepts code as a command line argument. Many shortcuts are available to reduce the amount of typing needed. In the above examples, a regular expression has been used to filter the input. When the input string isn't specified, the test is performed against the special variable `$_`, which has the contents of the current input line. `$_` is also the default argument for many functions like `print` and `length`. To summarize:
 
 * `/REGEXP/FLAGS` is a shortcut for `$_ =~ m/REGEXP/FLAGS`
 * `!/REGEXP/FLAGS` is a shortcut for `$_ !~ m/REGEXP/FLAGS`
 
-In the examples below, `-p` option is used instead of `-n` option. This helps to automatically print the value of `$_` after processing each input line.
+In the examples below, the `-p` option is used instead of `-n`. This helps to automatically print the value of `$_` after processing each input line.
 
 ```bash
 # same as: sed 's/:/-/' and awk '{sub(/:/, "-")} 1'
@@ -6005,8 +6044,8 @@ a-b-c-d
 
 Brief description for some of the special variables are given below:
 
-* `$_` contains input record content
-* `@F` array containing fields (with `-a` and `-F` options)
+* `$_` contains the input record content
+* `@F` array containing the field contents (with the `-a` and `-F` options)
     * `$F[0]` first field
     * `$F[1]` second field and so on
     * `$F[-1]` last field
@@ -6079,7 +6118,7 @@ Here are some examples showing regexp features not present in BRE/ERE:
 
 ```bash
 # reverse lowercase alphabets at the end of input lines
-# 'e' flag allows you to use Perl code in the replacement section
+# the 'e' flag allows you to use Perl code in the replacement section
 $ echo 'fig 42apples' | perl -pe 's/[a-z]+$/reverse $&/e'
 fig 42selppa
 
@@ -6122,11 +6161,11 @@ $ echo "$s" | perl -MList::Util=uniq -F, -lane 'print join ",", uniq @F'
 
 * [perldoc: Perl introduction](https://perldoc.perl.org/perlintro)
 * [perldoc: Regexp tutorial](https://perldoc.perl.org/perlretut)
-* My ebook [Perl one-liners](https://github.com/learnbyexample/learn_perl_oneliners)
+* My ebook [Perl One-Liners Guide](https://github.com/learnbyexample/learn_perl_oneliners)
 
 ## Exercises
 
->![info](./images/info.svg) Use [example_files/text_files](https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files) directory for input files used in the following exercises.
+>![info](./images/info.svg) Use the [example_files/text_files](https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files) directory for input files used in the following exercises.
 
 **1)** Replace all occurrences of `0xA0` with `0x50` and `0xFF` with `0x7F` for the given input.
 
@@ -6216,8 +6255,8 @@ hi[42]bye nice[42]1[42]3 bad42 cool_[42][42]a 42c
 **8)** Replace all whole words with `X` that start and end with the same word character.
 
 ```bash
-$ echo 'oreo not a _a2_ roar took 22' | sed # ???
-X not X X X took X
+$ echo 'oreo not a _oh_ pip RoaR took 22 Pop' | sed # ???
+X not X X X X took X Pop
 ```
 
 **9)** For the input file `anchors.txt`, convert markdown anchors to hyperlinks as shown below.
@@ -6249,6 +6288,7 @@ sample item t33m 33l
 ```bash
 $ echo 'lion,,ant,road,neon' | sed # ???
 lion,,42,road,neon
+
 $ echo ',,,' | sed # ???
 ,,42,
 ```
@@ -6295,7 +6335,7 @@ Cy:98
 Lin:83
 ```
 
-**15)** Extract and display third and first words in the format shown below.
+**15)** Extract and display the third and first words in the format shown below.
 
 ```bash
 $ echo '%whole(Hello)--{doubt}==ado==' | # ???
@@ -6305,7 +6345,7 @@ $ echo 'just,\joint*,concession_42<=nice' | # ???
 concession_42:just
 ```
 
-**16)** For the input file `scores.csv`, add another column named `GP` which is calculated out of `100` by giving `50%` weightage to `Maths` and `25%` each for `Physics` and `Chemistry`.
+**16)** For the input file `scores.csv`, add another column named **GP** which is calculated out of 100 by giving 50% weightage to Maths and 25% each for Physics and Chemistry.
 
 ```bash
 $ awk # ???
@@ -6345,14 +6385,14 @@ banana
 cherry.
 ```
 
-**19)** For the input file `sample.txt`, print a matching line containing `do` only if `you` is found two lines before. For example, if `do` is found on line number 10 and 8th line contains `you`, then 10th line should be printed.
+**19)** For the input file `sample.txt`, print a matching line containing `do` only if `you` is found two lines before. For example, if `do` is found on line number 10 and the 8th line contains `you`, then the 10th line should be printed.
 
 ```bash
 # ???
  6) Just do-it
 ```
 
-**20)** For the input file `blocks.txt`, extract contents from a line containing exactly `%=%=` until but not including the next such line. The block to be extracted is indicated by variable `n` passed via the `-v` option.
+**20)** For the input file `blocks.txt`, extract contents from a line containing exactly `%=%=` until but not including the next such line. The block to be extracted is indicated by the variable `n` passed via the `-v` option.
 
 ```bash
 $ cat blocks.txt
@@ -6516,25 +6556,25 @@ As the name implies, this command is used to sort the contents of input files. A
 
 ### Common options
 
-Commonly used options are shown below. Examples will be discussed in later sections.
+Commonly used options are shown below. Examples will be discussed in the later sections.
 
 * `-n` sort numerically
 * `-g` general numeric sort
 * `-V` version sort (aware of numbers within text)
 * `-h` sort human readable numbers (ex: 4K, 3M, 12G, etc)
 * `-k` sort via key (column sorting)
-* `-t` single byte character as field separator (default is non-blank to blank transition)
+* `-t` single byte character as the field separator (default is non-blank to blank transition)
 * `-u` sort uniquely
 * `-R` random sort
 * `-r` reverse the sort output
-* `-o` redirect sorted result to specified filename (ex: for inplace sorting)
+* `-o` redirect sorted result to a specified filename (ex: for inplace sorting)
 
 ### Default sort
 
 By default, `sort` orders the input [lexicographically](https://en.wikipedia.org/wiki/Lexicographic_order) in ascending order. You can use the `-r` option to reverse the results.
 
 ```bash
-# default sort 
+# default sort
 $ printf 'banana\ncherry\napple' | sort
 apple
 banana
@@ -6547,17 +6587,19 @@ quiet
 peace
 ```
 
->![info](./images/info.svg) Use `-f` option if you want to ignore case. See also [coreutils FAQ: Sort does not sort in normal order!](https://www.gnu.org/software/coreutils/faq/#Sort-does-not-sort-in-normal-order_0021).
+>![info](./images/info.svg) Use the `-f` option if you want to ignore case. See also [coreutils FAQ: Sort does not sort in normal order!](https://www.gnu.org/software/coreutils/faq/#Sort-does-not-sort-in-normal-order_0021).
 
 ### Numerical sort
 
-There are several ways to deal with input containing numbers:
+There are several ways to deal with input containing different kind of numbers:
 
 ```bash
-$ printf '20\n2\n3' | sort -n
+$ printf '20\n2\n-3\n111\n3.14' | sort -n
+-3
 2
-3
+3.14
 20
+111
 
 # sorting human readable numbers
 $ sort -hr file_size.txt
@@ -6590,7 +6632,7 @@ CAT
 
 ### Column sort
 
-The `-k` option allows you to sort based on specific column(s) instead of the entire input line. By default, the empty string between non-blank and blank characters is considered as the separator. This option accepts arguments in various ways. You can specify starting and ending column numbers separated by a comma. If you specify only the starting column, the last column will be used as the ending column. Usually you just want to sort by a single column, in which case the same number is specified as both the starting and ending columns. Here's an example:
+The `-k` option allows you to sort based on specific columns instead of the entire input line. By default, the empty string between non-blank and blank characters is considered as the separator. This option accepts arguments in various ways. You can specify starting and ending column numbers separated by a comma. If you specify only the starting column, the last column will be used as the ending column. Usually you just want to sort by a single column, in which case the same number is specified as both the starting and ending columns. Here's an example:
 
 ```bash
 $ cat shopping.txt
@@ -6600,7 +6642,7 @@ Pizza   2
 mango   25
 Banana  10
 
-# sort based on 2nd column numbers
+# sort based on the 2nd column numbers
 $ sort -k2,2n shopping.txt
 Pizza   2
 toys    5
@@ -6619,16 +6661,15 @@ This command helps you to identify and remove duplicates. Usually used with sort
 
 ### Common options
 
-Commonly used options are shown below. Examples will be discussed in later sections.
+Commonly used options are shown below. Examples will be discussed in the later sections.
 
 * `-u` display only the unique entries
 * `-d` display only the duplicate entries
 * `-D` display all the copies of duplicates
 * `-c` prefix count
 * `-i` ignore case while determining duplicates
-* `-f` skip first `N` fields
-    * field separation is based on one or more space/tab characters only
-* `-s` skip first `N` characters
+* `-f` skip the first `N` fields (separator is space/tab characters)
+* `-s` skip the first `N` characters
 * `-w` restricts the comparison to the first `N` characters
 
 ### Default uniq
@@ -6715,15 +6756,15 @@ $ sort purchases.txt | uniq -c | sort -nr
 `uniq` has three options to change the matching criteria to partial parts of the input line. These aren't as powerful as the `sort -k` option, but they do come in handy for some use cases.
 
 ```bash
-# compare only first 2 characters
+# compare only the first 2 characters
 $ printf '1) apple\n1) almond\n2) banana\n3) cherry\n3) cup' | uniq -w2
 1) apple
 2) banana
 3) cherry
 
-# -f1 skips first field
+# -f1 skips the first field
 # -s2 then skips two characters (including the blank character)
-# -w2 uses next two characters for comparison ('bl' and 'ch' in this example)
+# -w2 uses the next two characters for comparison ('bl' and 'ch' in this example)
 $ printf '2 @blue\n10 :black\n5 :cherry\n3 @chalk' | uniq -f1 -s2 -w2
 2 @blue
 5 :cherry
@@ -6785,7 +6826,7 @@ Pink
 
 ## join
 
-By default, `join` combines two files based on the first field content (also referred as **key**). Only the lines with common keys will be part of the output.
+By default, the `join` command combines two files based on the first field content (also referred as **key**). Only the lines with common keys will be part of the output.
 
 The key field will be displayed first in the output (this distinction will come into play if the first field isn't the key). Rest of the line will have the remaining fields from the first and second files, in that order. One or more blanks (space or tab) will be considered as the input field separator and a single space will be used as the output field separator. If present, blank characters at the start of the input lines will be ignored.
 
@@ -6820,11 +6861,11 @@ a f1_y f2_x
 a f1_y f2_y
 ```
 
->![info](./images/info.svg) There are many more features such as specifying field delimiter, selecting specific fields from each input file in a particular order, filling fields for non-matching lines and so on. See [join chapter](https://learnbyexample.github.io/cli_text_processing_coreutils/join.html) from my [Command line text processing with GNU Coreutils](https://github.com/learnbyexample/cli_text_processing_coreutils) ebook for explanations and examples.
+>![info](./images/info.svg) There are many more features such as specifying field delimiter, selecting specific fields from each input file in a particular order, filling fields for non-matching lines and so on. See the [join chapter](https://learnbyexample.github.io/cli_text_processing_coreutils/join.html) from my [CLI text processing with GNU Coreutils](https://github.com/learnbyexample/cli_text_processing_coreutils) ebook for explanations and examples.
 
 ## Exercises
 
->![info](./images/info.svg) Use [example_files/text_files](https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files) directory for input files used in the following exercises.
+>![info](./images/info.svg) Use the [example_files/text_files](https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files) directory for input files used in the following exercises.
 
 **1)** Default `sort` doesn't work for numbers. Correct the command used below:
 
@@ -6874,7 +6915,7 @@ $ printf '+120\n-1.53\n3.14e+4\n42.1e-2' | sort # ???
 3.14e+4
 ```
 
-**4)** Sort the `scores.csv` file numerically in ascending order using the contents of the second field. Header line should be preserved as the first line as shown below. *Hint*: see [Shell Features](#shell-features) chapter.
+**4)** Sort the `scores.csv` file numerically in ascending order using the contents of the second field. Header line should be preserved as the first line as shown below. *Hint*: see the [Shell Features](#shell-features) chapter.
 
 ```bash
 # ???
@@ -6901,7 +6942,7 @@ $ printf 'red\nred\nred\ngreen\nred\nblue\nblue' | uniq
 # ???
 ```
 
-**7)** Retain only unique entries based on the first two characters of the input lines. Sort the input if necessary.
+**7)** Retain only the unique entries based on the first two characters of the input lines. Sort the input if necessary.
 
 ```bash
 $ printf '3) cherry\n1) apple\n2) banana\n1) almond\n'
@@ -6954,7 +6995,7 @@ In this chapter, you'll learn how to find and report differences between the con
 
 ## cmp
 
-The `cmp` command is useful to compare text and binary files. If the two files are same, no output is displayed and exit status is `0`. If there is a difference, it prints the first difference with details like line number and byte location and the exit status will be `1`.
+The `cmp` command is useful to compare text and binary files. If the two input files have the same content, no output is displayed and exit status is `0`. If there is a difference, it prints the first difference with details like line number and byte location and the exit status will be `1`.
 
 ```bash
 $ mkdir practice_cmp
@@ -6963,7 +7004,7 @@ $ echo 'hello' > x1.txt
 $ cp x{1,2}.txt
 $ echo 'hello.' > x3.txt
 
-# files with same content
+# files with the same content
 $ cmp x1.txt x2.txt
 $ echo $?
 0
@@ -6983,14 +7024,14 @@ Useful to find differences between text files. All the differences are printed, 
 
 ### Common options
 
-Commonly used options are shown below. Examples will be discussed in later sections.
+Commonly used options are shown below. Examples will be discussed in the later sections.
 
-* `-i` ignore case while comparing
+* `-i` ignore case
 * `-w` ignore whitespaces
 * `-b` ignore changes in the amount of whitespace
 * `-B` ignore only blank lines
 * `-E` ignore changes due to tab expansion
-* `-z` ignore trailing whitespaces at the end of line
+* `-z` ignore trailing whitespaces at the end of lines
 * `-y` two column output
 * `-r` recursively compare files between the two directories specified
 * `-s` convey message when two files are same
@@ -6998,7 +7039,7 @@ Commonly used options are shown below. Examples will be discussed in later secti
 
 ### Default diff
 
-By default, the `diff` output shows lines from the first file input prefixed with `<` and lines from the second file input prefixed with `>`. A line containing `---` is used as the group separator. Each difference is prefixed by a command that indicates the differences (these commands are understood by tools like `patch`).
+By default, the `diff` output shows lines from the first input file prefixed with `<` and lines from the second file prefixed with `>`. A line containing `---` is used as the group separator. Each difference is prefixed by a command that indicates the differences (these commands are understood by tools like `patch`).
 
 ```bash
 # change to the 'example_files/text_files' directory
@@ -7063,14 +7104,16 @@ world                        |  4
 
 * `gvimdiff` edit two, three or four versions of a file with GVim and show differences
 * [GUI diff and merge tools](http://askubuntu.com/questions/2946/what-are-some-good-gui-diff-and-merge-applications-available-for-ubuntu)
+* [difftastic](https://github.com/Wilfred/difftastic) — structural diff tool that understands syntax
+* [icdiff](https://github.com/jeffkaufman/icdiff) — improved colored diff
 
 ## Exercises
 
->![info](./images/info.svg) Use [example_files/text_files](https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files) directory for input files used in the following exercises.
+>![info](./images/info.svg) Use the [example_files/text_files](https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files) directory for input files used in the following exercises.
 
 **1)** Which `cmp` option would you use if you just need the exit status reflecting whether the given inputs are same or not?
 
-**2)** Which `cmp` option would you use to skip initial bytes for comparison purposes? The below example requires you to skip the first two bytes.
+**2)** Which `cmp` option would you use to skip the initial bytes for comparison purposes? The below example requires you to skip the first two bytes.
 
 ```bash
 $ echo '1) apple' > x1.txt
@@ -7250,7 +7293,7 @@ $ shuf -n3 -i 100-200
 
 ## cut
 
-`cut` is a handy tool for many field processing use cases. The features are limited compared to `awk` and `perl` commands, but the reduced scope also leads to faster processing.
+`cut` is a handy tool for many field processing use cases. The features are limited compared to the `awk` and `perl` commands, but the reduced scope also leads to faster processing.
 
 By default, `cut` splits the input content into fields based on the tab character, which you can change using the `-d` option. The `-f` option allows you to select a desired field from each input line. To extract multiple fields, specify the selections separated by the comma character. By default, lines not containing the input delimiter will still be part of the output. You can use the `-s` option to suppress such lines.
 
@@ -7259,11 +7302,11 @@ By default, `cut` splits the input content into fields based on the tab characte
 $ printf 'apple\tbanana\tcherry\n' | cut -f2
 banana
 
-# first and third field
+# first and third fields
 $ printf 'apple\tbanana\tcherry\n' | cut -f1,3
 apple   cherry
 
-# setting -d automatically changes output delimiter as well
+# setting -d automatically changes the output delimiter as well
 $ echo 'one;two;three;four;five' | cut -d';' -f2,5
 two;five
 ```
@@ -7299,12 +7342,12 @@ one : three : four
 The `--complement` option allows you to invert the field selections.
 
 ```bash
-# except second field
+# except the second field
 $ printf 'apple ball cat\n1 2 3 4 5' | cut --complement -d' ' -f2
 apple cat
 1 3 4 5
 
-# except first and third fields
+# except the first and third fields
 $ printf 'apple ball cat\n1 2 3 4 5' | cut --complement -d' ' -f1,3
 ball
 2 4 5
@@ -7329,7 +7372,7 @@ fog
 
 ## column
 
-The `column` command is a nifty tool to align input data column wise. By default, whitespace is used as the input delimiter. Space character is used to align the output columns, so whitespace characters like tab will get converted to spaces.
+The `column` command is a nifty tool to align the input data column wise. By default, whitespace is used as the input delimiter. Space character is used to align the output columns, so whitespace characters like tab will get converted to spaces.
 
 ```bash
 $ printf 'one two three\nfour five six\nseven eight nine\n'
@@ -7410,12 +7453,12 @@ $ echo "$s" | tr -cd 'a-zA-Z.!?[:space:]'
 Hi there! How are you? All fine here.
 ```
 
-The `-s` option will squeeze consecutive repeated characters to a single copy of that character.
+The `-s` option changes consecutive repeated characters to a single copy of that character.
 
 ```bash
 # squeeze lowercase alphabets
-$ echo 'hhoowwww aaaaaareeeeee yyouuuu!!' | tr -s 'a-z'
-how are you!!
+$ echo 'HELLO... hhoowwww aaaaaareeeeee yyouuuu!!' | tr -s 'a-z'
+HELLO... how are you!!
 
 # translate and squeeze
 $ echo 'hhoowwww aaaaaareeeeee yyouuuu!!' | tr -s 'a-z' 'A-Z'
@@ -7461,7 +7504,7 @@ $ paste -d'|' <(seq 3) <(seq 4 5) <(seq 6 8)
 2|5|7
 3||8
 
-# note that the space between -d and empty string is necessary here
+# note that the space between -d and the empty string is necessary here
 $ paste -d '' <(seq 3) <(seq 6 8)
 16
 27
@@ -7520,7 +7563,7 @@ As stated in the above quote from the manual, the `pr` command is mainly used fo
 $ pr greeting.txt | head -n8
 
 
-2022-06-11 10:48                   greeting.txt                   Page 1
+2024-05-17 10:48                   greeting.txt                   Page 1
 
 
 Hi there
@@ -7544,23 +7587,29 @@ $ seq 9 | pr -3t
 3                       6                       9
 ```
 
-You can customize the separator using the `-s` option. The default is a tab character which you can change to any other string value. The `-s` option also turns off line truncation, so `-J` option isn't needed.
+You can customize the separator using the `-s` option. The default is a tab character which you can change to any other string value. The `-s` option also turns off line truncation, so the `-J` option isn't needed. Use the `-a` option to merge consecutive lines, similar to the `paste` command example seen earlier.
 
 ```bash
-# tab separator
+# tab is the default separator when no argument is passed to the -s option
 $ seq 9 | pr -3ts
 1       4       7
 2       5       8
 3       6       9
 
-# custom separator
-$ seq 9 | pr -3ts' : '
-1 : 4 : 7
-2 : 5 : 8
-3 : 6 : 9
+# multicharacter custom separator example
+$ seq 9 | pr -3ats' : '
+1 : 2 : 3
+4 : 5 : 6
+7 : 8 : 9
+
+# unlike paste, pr doesn't add separators if the last row has less columns to fill
+$ seq 10 | pr -4ats,
+1,2,3,4
+5,6,7,8
+9,10
 ```
 
-However, the default page width of `72` can still cause issues, which you can prevent by using the `-w` option. The `-w` option overrides the effect of `-s` option on line truncation, so use `-J` option as well unless you really need truncation.
+However, the default page width of `72` can still cause issues, which you can prevent by using the `-w` option. The `-w` option overrides the effect of the `-s` option on line truncation, so use the `-J` option as well unless you really need truncation.
 
 ```bash
 $ seq 6 | pr -J -w10 -3ats'::::'
@@ -7571,22 +7620,7 @@ $ seq 6 | pr -J -w11 -3ats'::::'
 4::::5::::6
 ```
 
-Use the `-a` option to merge consecutive lines, similar to the `paste` command. One advantage is that the `-s` option supports a string value, whereas with `paste` you'd need to use workarounds to get multicharacter separation.
-
-```bash
-# same as: paste -d: - - - -
-$ seq 8 | pr -4ats:
-1:2:3:4
-5:6:7:8
-
-# unlike paste, pr doesn't add separators if the last row has less columns to fill
-$ seq 10 | pr -4ats,
-1,2,3,4
-5,6,7,8
-9,10
-```
-
-Two or more input files can be merged column wise using the `-m` option. As seen before, `-t` is needed to ignore pagination features and `-s` can be used to customize the separator.
+Two or more input files can be merged column wise using the `-m` option. As seen before, the `-t` option is needed to ignore pagination features and `-s` can be used to customize the separator.
 
 ```bash
 # same as: paste -d' : ' <(seq 3) /dev/null /dev/null <(seq 4 6)
@@ -7598,7 +7632,7 @@ $ pr -mts' : ' <(seq 3) <(seq 4 6)
 
 ## rev
 
-The `rev` command reverses each input line character wise. Newline character *won't* be added to the end if it wasn't present in the input. Here are some examples:
+The `rev` command reverses each input line character wise. The newline character *won't* be added to the end if it wasn't present in the input. Here are some examples:
 
 ```bash
 $ echo 'This is a sample text' | rev
@@ -7616,7 +7650,7 @@ noon
 
 ## split
 
-The `split` command is useful to divide the input into smaller parts based on number of lines, bytes, file size, etc. You can also execute another command on the divided parts before saving the results. An example use case is sending a large file as multiple parts as a workaround for online transfer size limits.
+The `split` command is useful to divide the input into smaller parts based on the number of lines, bytes, file size, etc. You can also execute another command on the divided parts before saving the results. An example use case is sending a large file as multiple parts as a workaround for online transfer size limits.
 
 By default, the `split` command divides the input `1000` lines at a time. Newline character is the default line separator. You can pass a single file or `stdin` data as the input. Use `cat` if you need to concatenate multiple input sources. By default, the output files will be named `xaa`, `xab`, `xac` and so on (where `x` is the prefix). If the filenames are exhausted, two more letters will be appended and the pattern will continue as needed. If the number of input lines is not evenly divisible, the last file will contain less than `1000` lines.
 
@@ -7643,7 +7677,7 @@ $ head -n1 xaa xab xae xaj
 9001
 ```
 
->![info](./images/info.svg) For more examples, customization options and other details, see [split chapter](https://learnbyexample.github.io/cli_text_processing_coreutils/split.html) from my [Command line text processing with GNU Coreutils](https://github.com/learnbyexample/cli_text_processing_coreutils) ebook.
+>![info](./images/info.svg) For more examples, customization options and other details, see the [split chapter](https://learnbyexample.github.io/cli_text_processing_coreutils/split.html) from my [CLI text processing with GNU Coreutils](https://github.com/learnbyexample/cli_text_processing_coreutils) ebook.
 
 ## csplit
 
@@ -7653,7 +7687,7 @@ You can split the input into two based on a particular line number. To do so, sp
 
 ```bash
 # split input into two based on line number 2
-# -q option suppresses output showing number of bytes written for each file
+# the -q option suppresses output showing number of bytes written for each file
 $ seq 4 | csplit -q - 2
 
 # first output file will have the first line
@@ -7668,7 +7702,7 @@ $ head xx*
 4
 ```
 
-You can also split the input based on a line matching the given regular expression. The output produced will vary based on `//` or `%%` delimiters being used to surround the regexp. When `/regexp/` is used, output is similar to the line number based splitting. The first output file will have the input lines *before* the first occurrence of a line matching the given regexp and the second output file will have the rest of the contents.
+You can also split the input based on a line matching the given regular expression. The output produced will vary based on the `//` or `%%` delimiters being used to surround the regexp. When `/regexp/` is used, output is similar to the line number based splitting. The first output file will have the input lines *before* the first occurrence of a line matching the given regexp and the second output file will have the rest of the contents.
 
 Consider this sample input file:
 
@@ -7717,7 +7751,7 @@ soap
 tea
 ```
 
->![info](./images/info.svg) For more examples, customization options and other details, see [csplit chapter](https://learnbyexample.github.io/cli_text_processing_coreutils/csplit.html) from my [Command line text processing with GNU Coreutils](https://github.com/learnbyexample/cli_text_processing_coreutils) ebook.
+>![info](./images/info.svg) For more examples, customization options and other details, see the [csplit chapter](https://learnbyexample.github.io/cli_text_processing_coreutils/csplit.html) from my [CLI text processing with GNU Coreutils](https://github.com/learnbyexample/cli_text_processing_coreutils) ebook.
 
 ## xargs
 
@@ -7773,7 +7807,7 @@ dragon unicorn
 > xerox apple regex go sea
 > ```
 
-Use `-d` option to change the input delimiter from whitespace to some other single character. For example:
+You can use the `-d` option to specify a custom single character input delimiter. For example:
 
 ```bash
 $ printf '1,2,3,4,5,6' | xargs -d, -n3
@@ -7783,7 +7817,7 @@ $ printf '1,2,3,4,5,6' | xargs -d, -n3
 
 ## Exercises
 
->![info](./images/info.svg) Use [example_files/text_files](https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files) directory for input files used in the following exercises.
+>![info](./images/info.svg) Use the [example_files/text_files](https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files) directory for input files used in the following exercises.
 
 **1)** Generate the following sequence.
 
@@ -7803,7 +7837,7 @@ $ printf '1,2,3,4,5,6' | xargs -d, -n3
 01.5,02.5,03.5,04.5,05.5
 ```
 
-**3)** Display three random words from `/usr/share/dict/words` (or equivalent dictionary word file) containing `s` and `e` and `t` in any order. The output shown below is just an example.
+**3)** Display three random words from `/usr/share/dict/words` (or an equivalent dictionary word file) containing `s` and `e` and `t` in any order. The output shown below is just an example.
 
 ```bash
 # ???
@@ -7836,7 +7870,7 @@ $ echo '2,3,4,5,6,7,8' | cut # ???
 2 4 5 6 7 8
 ```
 
-**7)** Extract first three characters from the input lines as shown below. Can you also use the `head` command for this purpose? If not, why not?
+**7)** Extract the first three characters from the input lines as shown below. Can you also use the `head` command for this purpose? If not, why not?
 
 ```bash
 $ printf 'apple\nbanana\ncherry\ndates\n' | cut # ???
@@ -7876,6 +7910,7 @@ yellow  banana  window  shoes  3.14
 ```bash
 $ echo 'Hello World' | tr # ???
 Uryyb Jbeyq
+
 $ echo 'Uryyb Jbeyq' | tr # ???
 Hello World
 ```
@@ -7894,7 +7929,7 @@ $ echo '!!hhoowwww !!aaaaaareeeeee!! yyouuuu!!' | tr # ???
 how are you
 ```
 
-**13)** `paste -s` works separately for multiple input files. How would you workaround this if you needed to treat input as a single source?
+**13)** `paste -s` works separately for multiple input files. How would you workaround this if you needed to treat all the input files as a single source?
 
 ```bash
 # this works individually for each input file
@@ -7962,7 +7997,7 @@ ry
 es
 ```
 
-**18)** Go through `split` documentation and use appropriate options to get the output shown below for the input file `purchases.txt`.
+**18)** Go through the `split` documentation and use appropriate options to get the output shown below for the input file `purchases.txt`.
 
 ```bash
 # split input by 3 lines (max) at a time
@@ -7986,7 +8021,7 @@ tea
 $ rm xa?
 ```
 
-**19)** Go through `split` documentation and use appropriate options to get the output shown below.
+**19)** Go through the `split` documentation and use appropriate options to get the output shown below.
 
 ```bash
 $ echo 'apple,banana,cherry,dates' | split # ???
@@ -8028,7 +8063,7 @@ $ rm xx0?
 **21)** Write a generic solution that transposes comma delimited data. Example input/output is shown below. You can use any tool(s) presented in this book.
 
 ```bash
-$ cat scores.csv 
+$ cat scores.csv
 Name,Maths,Physics,Chemistry
 Ith,100,100,100
 Cy,97,98,95
@@ -8058,9 +8093,9 @@ window  shoes  3.14
 
 # Shell Scripting
 
-This chapter will cover basics of shell scripting with `bash`. You'll learn about declaring variables, control structures, working with arguments passed to a script, getting user input and so on.
+This chapter will cover the basics of shell scripting with `bash`. You'll learn about declaring variables, control structures, working with arguments passed to a script, getting user input and so on.
 
->![info](./images/info.svg) The [example_files](https://github.com/learnbyexample/cli-computing/tree/master/example_files) directory has all the shell scripts discussed in this chapter. However, it is recommended that you type the scripts manually using your favorite text editor and refer to the `example_files/shell_scripting` directory only if necessary.
+>![info](./images/info.svg) The [example_files](https://github.com/learnbyexample/cli-computing/tree/master/example_files) directory has all the shell scripts discussed in this chapter. However, it is recommended that you type the scripts manually using your favorite text editor and refer to the `example_files/shell_scripting` directory only when necessary.
 
 ## Need for scripting
 
@@ -8090,7 +8125,7 @@ echo 'Have a nice day'
 
 The first line in the above script has two parts:
 
-* `/bin/bash` is the path of `bash` interpreter
+* `/bin/bash` is the path of the `bash` interpreter
     * you can use `type bash` to get the path on your system
 * `#!` is known as [shebang or hashbang](https://en.wikipedia.org/wiki/Shebang_(Unix)) which directs the program loader to use the interpreter path provided
     * see also [stackoverflow: comparison between #!/usr/bin/env and #!/bin/bash?](https://stackoverflow.com/q/21612980/4082052)
@@ -8101,7 +8136,7 @@ Use `chmod` to add executable permission to the file and then run the script:
 ```bash
 $ chmod +x hello.sh
 
-$ ./hello.sh 
+$ ./hello.sh
 Hello learnbyexample
 Today is Wednesday
 Have a nice day
@@ -8171,13 +8206,14 @@ hello
 Here's a basic example of assigning a variable and accessing its value:
 
 ```bash
+# note that there cannot be any space characters around the = operator
 $ name='learnbyexample'
 
 $ echo "$name"
 learnbyexample
 ```
 
-As seen above, you need to use the `$` prefix while accessing the value stored in a variable. You can use `${variable}` syntax to distinguish between the variable and other parts of the string. Using appropriate quotes is recommended, unless otherwise necessary.
+As seen above, you need to use the `$` prefix while accessing the value stored in a variable. You can use the `${variable}` syntax to distinguish between the variable and other parts of the string. Using appropriate quotes is recommended, unless otherwise necessary.
 
 You can append to a variable by using the `+=` operator. Here's an example:
 
@@ -8259,7 +8295,7 @@ mango
 
 ## Parameter Expansion
 
-Bash provides several useful ways to extract and modify contents of parameters and variables (including arrays). Some of these features will be discussed in this section.
+Bash provides several useful ways to extract and modify the contents of parameters and variables (including arrays). Some of these features will be discussed in this section.
 
 *1)* Substring extraction using `${parameter:offset}` syntax to get all characters from the given index:
 
@@ -8302,7 +8338,7 @@ Luck
 $ echo "${city: -4:2}"
 kn
 
-# except last 2 characters
+# except the last 2 characters
 $ echo "${city::-2}"
 Luckn
 ```
@@ -8319,7 +8355,7 @@ $ echo "${#fruits[@]}"
 3
 ```
 
-*4)* `${parameter#glob}` will remove the shortest match from the start of the string. You can also use extended globs if enabled via `shopt` builtin. `${parameter##glob}` will remove the longest match from the start of the string. Here are some examples:
+*4)* `${parameter#glob}` will remove the shortest match from the start of the string. You can also use extended globs if enabled via the `shopt` builtin. `${parameter##glob}` will remove the longest match from the start of the string. Here are some examples:
 
 ```bash
 $ s='this is his life history'
@@ -8331,7 +8367,7 @@ $ echo "${s#*is}"
 $ echo "${s##*is}"
 tory
 
-# assuming extglob is enabled
+# assuming extglob is already enabled
 $ echo "${s#+([^ ])}"
 his is his life history
 $ echo "${s##+([^ ])}"
@@ -8343,7 +8379,7 @@ $ echo "${fruits[@]#*[aeiou]}"
 pple g ngo
 ```
 
-*5)* You can use `${parameter%glob}` to remove the shortest match from the end of the string. `${parameter%%glob}` will remove the longest match from the end of the string. Here are some examples:
+*5)* You can use `${parameter%glob}` to remove the shortest match from the end of the string. `${parameter%%glob}` will remove the longest match from the end of the string.
 
 ```bash
 $ s='this is his life history'
@@ -8378,10 +8414,10 @@ this is a s-ple str-g
 $ echo "${ip/is*s/ X }"
 th X tring
 
-# deletes first occurrence of 's'
+# delete the first occurrence of 's'
 $ echo "${ip/s}"
 thi is a sample string
-# deletes all occurrences of 's'
+# delete all the occurrences of 's'
 $ echo "${ip//s}"
 thi i a ample tring
 ```
@@ -8454,14 +8490,14 @@ ApplE
 ```bash
 $ fruit='aPPle'
 
-# swap case only for the first character
+# swap case only the first character
 $ echo "${fruit~}"
 APPle
-# swap case for all the characters
+# swap case all the characters
 $ echo "${fruit~~}"
 AppLE
 
-# swap case for characters matching the given character set
+# swap case characters matching the given character set
 $ echo "${fruit~~[g-zG-Z]}"
 appLe
 ```
@@ -8481,7 +8517,7 @@ echo "No. of lines in '$2' is $(wc -l < "$2")"
 
 $ seq 12 > 'test file.txt'
 
-$ bash command_line_arguments.sh hello.sh test\ file.txt 
+$ bash command_line_arguments.sh hello.sh test\ file.txt
 No. of lines in 'hello.sh' is 5
 No. of lines in 'test file.txt' is 12
 ```
@@ -8519,7 +8555,7 @@ $ [[ ! -e xyz.txt ]] ; echo $?
 0
 ```
 
-You can use `-d` and `-f` to check if the path is a valid directory and file respectively. The `-s` option checks if the file exists and its size is greater than zero. The `-x` option checks if the file exists and is executable. See `help test` and [bash manual: Conditional Expressions](https://www.gnu.org/software/bash/manual/bash.html#Bash-Conditional-Expressions) for a complete list of such options.
+You can use the `-d` and `-f` options to check if the path is a valid directory and file respectively. The `-s` option checks if the file exists and its size is greater than zero. The `-x` option checks if the file exists and is executable. See `help test` and [bash manual: Conditional Expressions](https://www.gnu.org/software/bash/manual/bash.html#Bash-Conditional-Expressions) for a complete list of such options.
 
 ### String comparisons
 
@@ -8632,7 +8668,7 @@ $ (( n1 > 30 && n2 < 12 )) && echo 'true' || echo 'false'
 false
 ```
 
->![info](images/info.svg) Note that the `$` prefix was *not* used for variables in the above example. See [bash manual: Shell Arithmetic](https://www.gnu.org/software/bash/manual/bash.html#Shell-Arithmetic) for more details.
+>![info](images/info.svg) Note that the `$` prefix was *not* used for variables in the above examples. See [bash manual: Shell Arithmetic](https://www.gnu.org/software/bash/manual/bash.html#Shell-Arithmetic) for more details.
 
 ## Accepting user input interactively
 
@@ -8708,10 +8744,10 @@ $ echo $?
 
 Sometimes you just need to know if the intended command operation was successful or not and then take an action depending on the outcome. In such cases, you can provide the command directly after the `if` keyword. Note that `stdout` and `stderr` of the command will still be active unless redirected or suppressed using appropriate options.
 
-For example, the `grep` command supports `-q` option to suppress `stdout`. Here's a script using that feature:
+For example, the `grep` command supports the `-q` option to suppress `stdout`. Here's a script using that feature:
 
 ```bash
-$ cat search.sh 
+$ cat search.sh
 read -p 'Enter a search pattern: ' search
 
 if grep -q "$search" hello.sh ; then
@@ -8757,7 +8793,7 @@ Here's a modified example of the last example that accepts user provided command
 
 ```bash
 $ cat for_loop.sh
-for file in "$@"; do 
+for file in "$@"; do
     echo mv "$file" "$file.bkp"
 done
 
@@ -8804,7 +8840,7 @@ $ bash while_loop.sh 3
 
 ## Reading a file
 
-The `while` loop combined with the `read` builtin helps you to process the content of a file. Here's an example of reading input contents line by line:
+The `while` loop in combination with the `read` builtin can be used to process the content of a file. Here's an example of reading input contents line by line:
 
 ```bash
 $ cat read_file_lines.sh
@@ -8819,7 +8855,7 @@ $ bash read_file_lines.sh files.txt
 2 greeting.sh
 ```
 
-The intention in the above script is to treat each input line literally. So, the `IFS` (input field separator) special variable is set to empty string to prevent stripping of leading and trailing whitespaces. The `-r` option to the `read` builtin allows `\` in input to be treated literally. Note that the input filename is accepted as the first command line argument and redirected as `stdin` to the `while` loop. You also need to make sure that the last line of input ends with a newline character, otherwise the last line won't be processed.
+The intention in the above script is to treat each input line literally. So, the `IFS` (input field separator) special variable is set to an empty string to prevent stripping of leading and trailing whitespaces. The `-r` option to the `read` builtin allows `\` in the input to be treated literally. Note that the input filename is accepted as the first command line argument and redirected as `stdin` to the `while` loop. You also need to make sure that the last line of the input ends with a newline character, otherwise the last line won't be processed.
 
 You can change `IFS` to split the input line into different fields and specify appropriate number of variables to the `read` builtin. Here's an example:
 
@@ -8902,7 +8938,7 @@ convert -border 10 -bordercolor red lake.png lake_border.png
 convert -border 20 -bordercolor blue sky.png sky_border.png
 ```
 
->![info](images/info.svg) Use `mogrify` instead of `convert` if you want to modify the input image inplace instead of creating a new image. These image manipulation commands are part of the [ImageMagick](https://imagemagick.org/) suite. As an exercise, modify the above function to generate error if the arguments passed do not match the expected usage. You can also accept output image name (or perhaps a different suffix) as an additional argument.
+>![info](images/info.svg) Use `mogrify` instead of `convert` if you want to modify the input image inplace instead of creating a new image. These image manipulation commands are part of the [ImageMagick](https://imagemagick.org/) suite. As an exercise, modify the above function to generate an error if the arguments passed do not match the expected usage. You can also accept an output image name (or perhaps a different suffix) as an additional argument.
 
 The shell script and user defined functions (which in turn might call itself or another function) can both have positional arguments. In such cases, the shell takes cares of restoring positional arguments to the earlier state once a function completes its tasks.
 
@@ -8915,7 +8951,7 @@ You can use the following `bash` options for debugging purposes:
 * `-x` print commands and their arguments as they are executed
 * `-v` verbose option, print shell input lines as they are read
 
-Here's an example with `bash -x` option:
+Here's an example with the `bash -x` option:
 
 ```bash
 $ bash -x search.sh
@@ -8976,7 +9012,7 @@ For more information:
 
 >![info](images/info.svg) If the script doesn't have a shebang, you can use the `-s` option (`shellcheck -s bash` for example) to specify the shell application.
 
->![info](images/info.svg) ![warning](./images/warning.svg) Note that `shellcheck` will not catch all types of issues. And suggestions should not be blindly accepted without understanding if that makes sense in the given context.
+>![info](images/info.svg) ![warning](./images/warning.svg) Note that `shellcheck` will not catch all types of issues. And suggestions should not be blindly accepted without understanding if it makes sense in the given context.
 
 ## Resource lists
 
@@ -8994,26 +9030,26 @@ Here are some more learning resources:
 * [shellcheck](https://www.shellcheck.net/) — linting tool to avoid common mistakes and improve your script
 * [Bash reference cheatsheet](https://devmanual.gentoo.org/tools-reference/bash/index.html) — nicely formatted and explained well
 * [Bash scripting cheatsheet](https://devhints.io/bash) — quick reference to getting started with Bash scripting
-* Comprehensive lists on `mywiki.wooledge.org` website:
+* Comprehensive lists on the `mywiki.wooledge.org` website:
     * [Bash FAQ](https://mywiki.wooledge.org/BashFAQ)
     * [Bash Practices](https://mywiki.wooledge.org/BashGuide/Practices)
     * [Bash Pitfalls](https://mywiki.wooledge.org/BashPitfalls)
 * [Google shell style guide](https://google.github.io/styleguide/shellguide.html)
 * Reliability and robustness
     * [safe ways to do things in bash](https://github.com/anordal/shellharden/blob/master/how_to_do_things_safely_in_bash.md)
-    * [better scripting](https://robertmuth.blogspot.in/2012/08/better-bash-scripting-in-15-minutes.html)
+    * [better scripting](https://robertmuth.blogspot.com/2012/08/better-bash-scripting-in-15-minutes.html)
     * [robust scripting](https://www.davidpashley.com/articles/writing-robust-shell-scripts/)
 
 **Specific topics**
 
-* Reading file(s)
-    * [Reading file](https://mywiki.wooledge.org/BashFAQ/001)
+* Reading files
+    * [Robust way to read files for various use cases](https://mywiki.wooledge.org/BashFAQ/001)
     * [Loop through the lines of two files in parallel](https://unix.stackexchange.com/q/82541/109046)
 * [arrays](https://mywiki.wooledge.org/BashGuide/Arrays)
 * [nameref](https://unix.stackexchange.com/q/288886/109046)
     * also see this [FAQ](https://mywiki.wooledge.org/BashFAQ/006)
 * getopts
-    * [getopts tutorial](https://wiki.bash-hackers.org/howto/getopts_tutorial)
+    * [getopts tutorial](https://web.archive.org/web/20221226035414/https://wiki.bash-hackers.org/howto/getopts_tutorial)
     * [handling command-line arguments](https://mywiki.wooledge.org/BashFAQ/035)
     * [stackoverflow: getopts example](https://stackoverflow.com/q/16483119/4082052)
 * [Sending and Trapping Signals](https://mywiki.wooledge.org/SignalTrap)
@@ -9098,18 +9134,18 @@ $ echo "${#fruits}"
 # ???
 ```
 
-**9)** For the given array, use parameter expansion to remove characters until first/last space.
+**9)** For the given array, use parameter expansion to remove characters until the first/last space.
 
 ```bash
 $ colors=('green' 'dark brown' 'deep sky blue white')
 
-# remove till first space
+# remove till the first space
 $ printf '%s\n' # ???
 green
 brown
 sky blue white
 
-# remove till last space
+# remove till the last space
 $ printf '%s\n' # ???
 green
 brown
@@ -9131,16 +9167,23 @@ apple
 **11)** Is it possible to achieve the expected outputs shown below using parameter expansion? If so, how?
 
 ```bash
-$ ip='apple:banana:cherry:dragon'
+$ ip1='apple:banana:cherry:dragon'
+$ ip2='Cradle:Mistborn:Piranesi'
 
 $ echo # ???
 apple 42 dragon
+$ echo # ???
+Cradle 42 Piranesi
 
 $ echo # ???
 fig:banana:cherry:dragon
+$ echo # ???
+fig:Mistborn:Piranesi
 
 $ echo # ???
 apple:banana:cherry:end
+$ echo # ???
+Cradle:Mistborn:end
 ```
 
 **12)** For the given input, change case as per the expected outputs shown below.
@@ -9166,7 +9209,7 @@ $ [[-f ip.txt]] && echo 'file exists'
 [[-f: command not found
 ```
 
-**14)** What is the difference between `==` and `=~` string comparison operators?
+**14)** What is the difference between the `==` and `=~` string comparison operators?
 
 **15)** Why does the conditional expression used below show `failed` both times? Modify the expressions such that the first one correctly says `matched` instead of `failed`.
 
@@ -9258,7 +9301,7 @@ number of lines in 'items_1.txt' is: 3
 number of lines in 'items_2.txt' is: 5
 ```
 
-**21)** Write a shell script named `read_file.sh` that reads a file line by line to be passed as argument to the `paste -sd,` command. Can you also write a solution using the `xargs` command instead of a script?
+**21)** Write a shell script named `read_file.sh` that reads a file line by line to be passed as an argument to the `paste -sd,` command. Can you also write a solution using the `xargs` command instead of a script?
 
 ```bash
 $ printf 'apple\nbanana\ncherry\n' > items_1.txt
@@ -9306,7 +9349,7 @@ From [wikipedia: Environment variable](https://en.wikipedia.org/wiki/Environment
 
 >An environment variable is a dynamic-named value that can affect the way running processes will behave on a computer. They are part of the environment in which a process runs. For example, a running process can query the value of the TEMP environment variable to discover a suitable location to store temporary files, or the HOME or USERPROFILE variable to find the directory structure owned by the user running the process.
 
-See [bash manual: Shell Variables](https://www.gnu.org/software/bash/manual/bash.html#Shell-Variables) for complete list of `bash` variables. Some of them are presented below and some (`HISTCONTROL` for example) will be discussed later in this chapter.
+See [bash manual: Shell Variables](https://www.gnu.org/software/bash/manual/bash.html#Shell-Variables) for the complete list of `bash` variables. Some of them are presented below and some (`HISTCONTROL` for example) will be discussed later in this chapter.
 
 * `HOME` The current user's home directory; the default for the `cd` builtin command. The value of this variable is also used by tilde expansion
 * `PS1` The primary prompt string. The default value is `\s-\v\$ `
@@ -9314,7 +9357,7 @@ See [bash manual: Shell Variables](https://www.gnu.org/software/bash/manual/bash
 * `PATH` A colon-separated list of directories in which the shell looks for commands. A zero-length (null) directory name in the value of `PATH` indicates the current directory. A null directory name may appear as two adjacent colons, or as an initial or trailing colon
 * `PWD` The current working directory as set by the `cd` builtin
 * `OLDPWD` The previous working directory as set by the `cd` builtin
-* `SHELL` This environment variable expands to the full pathname to the shell
+* `SHELL` This environment variable expands to the full pathname of the shell
 
 You can use the `printenv` command to display the name and value of all the environment variables. Providing arguments will display the values only for those variables.
 
@@ -9341,7 +9384,7 @@ $ alias p='pwd'
 $ p
 /home/learnbyexample/cli-computing
 
-# adding '--color=auto' to 'ls' invocation
+# adding '--color=auto' to 'ls' invocations
 $ type -a ls
 ls is /bin/ls
 $ alias ls='ls --color=auto'
@@ -9412,7 +9455,7 @@ shopt -s extglob
 shopt -s globstar
 ```
 
-I prefer a simple prompt `PS1='$ '` instead of fancy colors. See [bash manual: Controlling the Prompt](https://www.gnu.org/software/bash/manual/bash.html#Controlling-the-Prompt) for customization options. You can use [bashrcgenerator](https://bashrcgenerator.com/) to easily generate fancy prompts. See also [starship](https://starship.rs/) which is a minimal, blazing-fast, and infinitely customizable prompt for any shell.
+I prefer a simple prompt `PS1='$ '` instead of fancy colors. See [bash manual: Controlling the Prompt](https://www.gnu.org/software/bash/manual/bash.html#Controlling-the-Prompt) for customization options. See also [starship](https://starship.rs/) which is a minimal, blazing-fast, and infinitely customizable prompt for any shell.
 
 Some history customizations are shown below. See [bash manual: History Facilities](https://www.gnu.org/software/bash/manual/bash.html#Bash-History-Facilities) for more details. See also [unix.stackexchange: common history across sessions](https://unix.stackexchange.com/q/18212/109046).
 
@@ -9423,7 +9466,7 @@ HISTCONTROL=ignorespace:erasedups
 
 # maximum number of history lines in the current shell session
 # older entries will be overwritten if the size is exceeded
-# use negative number for unlimited size
+# use a negative number for unlimited size
 HISTSIZE=2000
 
 # maximum number of lines in the history file
@@ -9449,12 +9492,12 @@ alias la='l -A'
 
 alias grep='grep --color=auto'
 
-# save last command in history to a reference file
+# save the last command from history to a reference file
 alias sl='fc -ln -1 | sed "s/^\s*//" >> ~/.saved_cmds.txt'
 alias slg='< ~/.saved_cmds.txt grep'
 
 # case insensitive file search
-# fs foo is same as find -iname '*foo*'
+# fs search is same as find -iname '*search*'
 fs() { find -iname '*'"$1"'*' ; }
 ```
 
@@ -9471,6 +9514,8 @@ $ cat ~/.inputrc
 # use up/down arrow to match history based on starting text of the command
 "\e[A": history-search-backward
 "\e[B": history-search-forward
+# use history-substring-search-backward and history-substring-search-forward
+# if you want to match anywhere in the command line
 
 # ignore case for filename matching and completion
 set completion-ignore-case on
@@ -9488,6 +9533,7 @@ set show-all-if-ambiguous on
 * [Shell config subfiles](https://blog.sanctum.geek.nz/shell-config-subfiles/)
 * [unix.stackexchange: when to use alias, functions and scripts](https://unix.stackexchange.com/q/30925/109046)
 * [unix.stackexchange: what does rc in bashrc stand for](https://unix.stackexchange.com/q/3467/109046)
+* [sxhkd hotkey daemon](https://github.com/baskerville/sxhkd)
 
 ## Readline shortcuts
 
@@ -9495,7 +9541,7 @@ Quoting from [bash manual: Readline Interaction](https://www.gnu.org/software/ba
 
 >Often during an interactive session you type in a long line of text, only to notice that the first word on the line is misspelled. The Readline library gives you a set of commands for manipulating the text as you type it in, allowing you to just fix your typo, and not forcing you to retype the majority of the line. Using these editing commands, you move the cursor to the place that needs correction, and delete or insert the text of the corrections.
 
-By default, command line editing bindings are styled after [Emacs](https://www.gnu.org/software/emacs/) (a text editor). You can switch to Vi mode (another text editor) if you wish. This section will discuss some of the often used Emacs style key bindings.
+By default, the command line editing bindings are styled after [Emacs](https://www.gnu.org/software/emacs/) (a text editor). You can switch to Vi mode (another text editor) if you wish. This section will discuss some of the often used Emacs-style key bindings.
 
 ### Tab completion
 
@@ -9507,11 +9553,11 @@ Use `set show-all-if-ambiguous on` as seen earlier in the [.inputrc](#inputrc) s
 
 ### Searching history
 
-You can use `Ctrl+r` to search command history. After pressing this key sequence, type characters you wish to match from history, then press the `Esc` key to return to the command prompt or press `Enter` to execute the command.
+You can use `Ctrl+r` to search through the command history. After pressing this key sequence, type characters you wish to match from history, then press the `Esc` key to return to the command prompt or press `Enter` to execute the command.
 
 You can press `Ctrl+r` repeatedly to move backwards through matching entries and `Ctrl+s` to move forwards. If `Ctrl+s` is not working as expected, see [unix.stackexchange: disable ctrl-s](https://unix.stackexchange.com/q/332791/109046).
 
-As discussed in the [.inputrc](#inputrc) section, you can use custom key mappings to search based on starting characters of the command.
+As discussed in the [.inputrc](#inputrc) section, you can use custom key mappings instead of the default offerings.
 
 ### Moving the cursor
 
@@ -9519,8 +9565,8 @@ The documentation uses **Meta** (`M-` prefix) and notes that this key is labeled
 
 * `Alt+b` move the cursor to the start of the current or previous word
 * `Alt+f` move the cursor to the end of the next word
-* `Ctrl+a` or `Home` move cursor to the beginning of the command line
-* `Ctrl+e` or `End` move cursor to the end of the command line
+* `Ctrl+a` or `Home` move the cursor to the beginning of the command line
+* `Ctrl+e` or `End` move the cursor to the end of the command line
 
 >![info](./images/info.svg) One difference between `Alt` and `Esc` combinations is that you can keep pressing `b` or `f` while holding the `Alt` key down. The `Esc` combinations are two different key presses, whereas `Alt` has to be kept pressed down for the shortcut to take effect.
 
@@ -9554,6 +9600,7 @@ The documentation uses **Meta** (`M-` prefix) and notes that this key is labeled
 * [bash manual: Bindable Readline Commands](https://www.gnu.org/software/bash/manual/bash.html#Bindable-Readline-Commands)
 * [wiki.archlinux: Simpler introduction to Readline](https://wiki.archlinux.org/title/readline)
 * [Efficient command line navigation](https://cupfullofcode.com/blog/2013/07/03/efficient-command-line-navigation/index.html)
+* [Bash the interface and Bash the language](https://ratfactor.com/slackware/pkgblog/bash)
 
 ## Copy and paste
 
@@ -9563,7 +9610,7 @@ Shortcuts for copy-paste operations in the terminal are shown below. You might b
 * `Shift+Ctrl+v` paste clipboard contents
 * `Shift+Insert` paste the last highlighted portion (not necessarily the clipboard contents)
 
-You can also press middle mouse button instead of the `Shift+Insert` shortcut. This is not limited to the terminal, works in many other applications too. You can use the `xinput` command to enable/disable mouse button clicks. First, use `xinput` without any arguments and spot the number corresponding to your mouse. As an example, assuming the device number is `11`, you can use the following commands:
+You can also press the middle mouse button instead of the `Shift+Insert` shortcut. This is not limited to the terminal, works in many other applications too. You can use the `xinput` command to enable/disable mouse button clicks. First, use `xinput` without any arguments and spot the number corresponding to your mouse. As an example, assuming the device number is `11`, you can use the following commands:
 
 * `xinput set-button-map 11 1 0 3` to disable middle button click
 * `xinput set-button-map 11 1 2 3` to enable middle button click
@@ -9609,7 +9656,7 @@ $ hw
 hw: command not found
 ```
 
-**5)** Write an alias and a function to display the contents of `PATH` environment variable on separate lines by changing `:` to the newline character. Sample output is shown below.
+**5)** Write an alias and a function to display the contents of the `PATH` environment variable on separate lines by changing `:` to the newline character. Sample output is shown below.
 
 ```bash
 $ echo "$PATH"
@@ -9636,7 +9683,7 @@ $ f_p
 
 **8)** What does the binding `set completion-ignore-case on` do?
 
-**9)** Which shortcut helps you interactively search command history?
+**9)** Which shortcut helps you interactively search the command history?
 
 **10)** What do the shortcuts `Alt+b` and `Alt+f` do?
 
@@ -9646,5 +9693,5 @@ $ f_p
 
 **13)** What do the shortcuts `Alt+t` and `Ctrl+t` do?
 
-**14)** Is there any difference between `Shift+Insert` and `Shift+Ctrl+v` shortcuts?
+**14)** Is there a difference between the `Shift+Insert` and `Shift+Ctrl+v` shortcuts?
 

@@ -1,18 +1,16 @@
-# Computing from the Command Line
+# Linux Command Line Computing
 
-This book aims to teach Linux command line tools and Shell Scripting for beginner to intermediate level users. The focus is towards managing your files and performing text processing tasks. Topics like system administration and networking won't be discussed, but some details might get covered in future versions of this book. Visit https://youtu.be/PS5XEemn164 for a short video about the book.
+This book aims to teach Linux Command Line tools and Shell Scripting for beginner to intermediate level users. The focus is towards managing your files and performing text processing tasks. Topics like system administration and networking won't be discussed. Visit https://youtu.be/vedRFbWwx_c for a short video about the book.
 
-<p align="center">
-    <img src="./images/cli_computing_ls.png" width="640px" height="360px" />
-</p>
+<p align="center"><img src="./images/cli_computing_ls.png" alt="Linux Command Line Computing ebook cover image" /></p>
 
-The book also includes exercises to test your understanding, which is presented together as a single file in this repo — [exercises.md](./exercises/exercises.md)
+The book also includes exercises to test your understanding, which are presented together as a single file in this repo — [exercises.md](./exercises/exercises.md).
 
 For solutions to the exercises, see [exercise-solutions.md](./exercises/exercise-solutions.md).
 
 See [Version_changes.md](./Version_changes.md) to keep track of changes made to the book.
 
-[Click this link](https://github.com/learnbyexample/cli-computing/tree/09091253463a313ddce5a95f467857ea85c25ce6) for an earlier version of the book in this repo.
+[Click this link](https://github.com/learnbyexample/cli-computing/tree/09091253463a313ddce5a95f467857ea85c25ce6) for an older version of the book in this repo.
 
 ![info](./images/info.svg) See my curated list on [Linux CLI and Shell scripting](https://learnbyexample.github.io/curated_resources/linux_cli_scripting.html) for more learning resources.
 
@@ -20,17 +18,18 @@ See [Version_changes.md](./Version_changes.md) to keep track of changes made to 
 
 # E-book
 
-* You can purchase the book using these links:
-   * https://learnbyexample.gumroad.com/l/cli_computing
-   * https://leanpub.com/cli_computing
+* You can purchase the pdf/epub versions of the book using these links:
+    * https://learnbyexample.gumroad.com/l/cli_computing
+    * https://leanpub.com/cli_computing
 * You can also get the book as part of these bundles:
-   * **All books bundle** from https://learnbyexample.gumroad.com/l/all-books
+    * **Linux CLI Text Processing** bundle from https://learnbyexample.gumroad.com/l/linux-cli-text-processing or https://leanpub.com/b/linux-cli-text-processing
+    * **All books bundle** from https://learnbyexample.gumroad.com/l/all-books
         * Includes all my programming books
-* See https://learnbyexample.github.io/books/ for list of other books
+* See https://learnbyexample.github.io/books/ for a list of other books
 
-For a preview of the book, see [sample chapters](https://github.com/learnbyexample/cli-computing/blob/master/sample_chapters/cli_computing_sample.pdf)
+For a preview of the book, see [sample chapters](./sample_chapters/cli_computing_sample.pdf).
 
-The book can also be [viewed as a single markdown file in this repo](./cli_computing.md). See my blogpost on [generating pdf from markdown using pandoc](https://learnbyexample.github.io/customizing-pandoc/) if you are interested in the ebook creation process.
+The book can also be [viewed as a single markdown file in this repo](./cli_computing.md). See my blogpost on [generating pdfs from markdown using pandoc](https://learnbyexample.github.io/customizing-pandoc/) if you are interested in the ebook creation process.
 
 For web version of the book, visit https://learnbyexample.github.io/cli-computing/
 
@@ -48,7 +47,7 @@ For web version of the book, visit https://learnbyexample.github.io/cli-computin
 
 <br>
 
-## Feedback and Contributing
+# Feedback
 
 ⚠️ ⚠️ Please DO NOT submit pull requests. Main reason being any modification requires changes in multiple places.
 
@@ -90,7 +89,7 @@ You can reach me via:
 * [/r/commandline/](https://old.reddit.com/r/commandline), [/r/linux4noobs/](https://old.reddit.com/r/linux4noobs/), [/r/linuxquestions/](https://old.reddit.com/r/linuxquestions/) and [/r/linux/](https://old.reddit.com/r/linux/) — helpful forums
 * [canva](https://www.canva.com/) — cover image
 * [Warning](https://commons.wikimedia.org/wiki/File:Warning_icon.svg) and [Info](https://commons.wikimedia.org/wiki/File:Info_icon_002.svg) icons by [Amada44](https://commons.wikimedia.org/wiki/User:Amada44) under public domain
-* [carbon](https://carbon.now.sh/) — creating terminal screenshots with highlighted text
+* [carbon](https://carbon.now.sh/) — for creating terminal screenshots with highlighted text
 * [oxipng](https://github.com/shssoichiro/oxipng), [pngquant](https://pngquant.org/) and [svgcleaner](https://github.com/RazrFalcon/svgcleaner) — optimizing images
 * [Inkscape](https://inkscape.org/) — favicon
 * [mdBook](https://github.com/rust-lang/mdBook) — for web version of the book
@@ -101,7 +100,7 @@ You can reach me via:
 
 # License
 
-The book is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+The book is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/).
 
-The code snippets are licensed under MIT, see [LICENSE](./LICENSE) file
+The code snippets are licensed under MIT, see [LICENSE](./LICENSE) file.
 

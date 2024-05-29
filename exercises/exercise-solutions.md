@@ -99,7 +99,7 @@ column (1)           - columnate lists
 git-column (1)       - Display data in columns
 ```
 
-**12)** Are there any differences between `man` and `info` pages?
+**12)** Are there differences between the `man` and `info` pages?
 
 The Linux manual pages are usually shortened version of the full documentation. You can use the `info` command to view the complete documentation for GNU tools. `info` is also a TUI application, but with different key configuration compared to the `man` command. See [GNU Manuals Online](https://www.gnu.org/manual/manual.html) if you'd prefer to read them from a web browser. You can also download them in formats like PDF for offline usage.
 
@@ -113,7 +113,7 @@ The Linux manual pages are usually shortened version of the full documentation. 
 
 *a)* `pwd`  
 *b)* `echo "$PWD"`  
-*c)* `echo "$HOME"`  
+*c)* `echo "$HOME"`
 
 Answer: *c)* `echo "$HOME"`
 
@@ -125,7 +125,7 @@ Answer: *c)* `echo "$HOME"`
 *d)* `cd \-dash`  
 *e)* `cd '-dash'`  
 *f)* all of the above  
-*g)* only *a)* and *c)*  
+*g)* only *a)* and *c)*
 
 Answer: *g)* only *a)* and *c)*
 
@@ -570,7 +570,7 @@ $ touch report_202{0..2}.txt
 $ ls report*
 report_2020.txt  report_2021.txt  report_2022.txt
 
-# use 'cp' command here
+# use the 'cp' command here
 $ cp report_2021.txt{,.bkp}
 $ ls report*
 report_2020.txt  report_2021.txt  report_2021.txt.bkp  report_2022.txt
@@ -658,7 +658,7 @@ apple_3_banana_8
 *a)* `1>` — redirect the standard output of a command to a file  
 *b)* `2>` — redirect the standard error of a command to a file  
 *c)* `&>` — redirect both `stdout` and `stderr` (overwrites an existing file)  
-*d)* `&>>` — redirect both `stdout` and `stderr` (appends to existing file)  
+*d)* `&>>` — redirect both `stdout` and `stderr` (appends to an existing file)  
 *e)* `|&` — pipe both `stdout` and `stderr` as input to another command
 
 **21)** What will be the contents of `op.txt` if you use the following `grep` command?
@@ -784,7 +784,7 @@ The outputs are not equivalent because brace expansion creates all combinations 
 
 ## Viewing Part or Whole File Contents
 
->![info](../images/info.svg) Use [example_files/text_files](https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files) directory for input files used in the following exercises.
+>![info](../images/info.svg) Use the [example_files/text_files](https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files) directory for input files used in the following exercises.
 
 **1)** Which option(s) would you use to get the output shown below?
 
@@ -821,7 +821,7 @@ mango
 papaya
 banana
 
-$ tac fruits.txt ip.txt 
+$ tac fruits.txt ip.txt
 mango
 papaya
 banana
@@ -830,7 +830,7 @@ light orange
 deep blue
 ```
 
-No, the output are not same because `tac` reverses content separately for each input file.
+No. The outputs are different because `tac` reverses content separately for each input file.
 
 **4)** Go through the manual for the `tac` command and use appropriate options and arguments to get the output shown below.
 
@@ -860,13 +860,13 @@ banana
 >
 >use STRING as the separator instead of newline
 
-**5)** What is the difference between `less -n` and `less -N` options? Do `cat -n` and `less -n` have similar functionality?
+**5)** What is the difference between `less -n` and `less -N` options? Does `cat -n` and `less -n` have similar functionality?
 
 `less -N` enables line numbering and `less -n` disables numbering. `cat -n` enables line numbering, so it doesn't function similar to `less -n`.
 
 **6)** Which command would you use to open another file from within an existing `less` session? And which commands would you use to navigate between previous and next files?
 
-You can use `:e filename` to open another file (similar to the Vim text editor). You can use `:p` and `:n` to switch between previous and next files.
+You can use `:e filename` to open another file (similar to the Vim text editor). You can use `:p` and `:n` to switch between the previous and next files.
 
 **7)** Use appropriate commands and shell features to get the output shown below.
 
@@ -914,7 +914,7 @@ papaya
 apple
 ```
 
-**10)** Use a combination of `head` and `tail` commands to get the 11th to 14th characters from the given input.
+**10)** Use a combination of the `head` and `tail` commands to get the 11th to 14th characters from the given input.
 
 ```bash
 # can also use: tail -c +11 | head -c4
@@ -922,14 +922,14 @@ $ printf 'apple\nfig\ncarpet\njeep\nbus\n' | head -c14 | tail -c +11
 carp
 ```
 
-**11)** Extract starting six bytes from the input files `table.txt` and `fruits.txt`.
+**11)** Extract the starting six bytes from the input files `table.txt` and `fruits.txt`.
 
 ```bash
 $ head -q -c6 table.txt fruits.txt
 brown banana
 ```
 
-**12)** Extract last six bytes from the input files `fruits.txt` and `table.txt`.
+**12)** Extract the last six bytes from the input files `fruits.txt` and `table.txt`.
 
 ```bash
 $ tail -q -c6 fruits.txt table.txt
@@ -941,7 +941,7 @@ mango
 
 ## Searching Files and Filenames
 
->![info](../images/info.svg) For `grep` exercises, use [example_files/text_files](https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files) directory for input files, unless otherwise specified.
+>![info](../images/info.svg) For `grep` exercises, use the [example_files/text_files](https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files) directory for input files, unless otherwise specified.
 
 >![info](../images/info.svg) For `find` exercises, use the `find.sh` script, unless otherwise specified.
 
@@ -1060,12 +1060,12 @@ $ echo "$words" | grep -owE 's\w*(t\w*e|e\w*t)\w*'
 
 ```bash
 # can also use: grep -owE '(\w)(\w*\1)?'
-$ echo 'oreo not a _oh_ pip roar took 22' | grep -owE '\w|(\w)\w*\1'
+$ echo 'oreo not a _oh_ pip RoaR took 22 Pop' | grep -owE '\w|(\w)\w*\1'
 oreo
 a
 _oh_
 pip
-roar
+RoaR
 22
 ```
 
@@ -1088,7 +1088,7 @@ hands
 handle
 ```
 
-**14)** Input lines have three or more fields separated by a `,` delimiter. Extract second field to second last field. In other words, extract fields other than first and last.
+**14)** Input lines have three or more fields separated by a `,` delimiter. Extract from the second field to the second last field. In other words, extract fields other than the first and last.
 
 ```bash
 $ printf 'apple,fig,cherry\ncat,dog,bat\n' | grep -oP ',\K.+(?=,)'
@@ -1162,7 +1162,7 @@ $ find -type f -name '*.[psv]*'
 ./hello_world.py
 ```
 
-**20)** Find all regular files whose name do *not* have the lower case alphabets `g` to `l`.
+**20)** Find all regular files whose name do *not* have the lowercase letters `g` to `l`.
 
 ```bash
 # can also use: find -type f ! -name '*[g-l]*'
@@ -1200,7 +1200,7 @@ $ find -type d -name '.?*'
 ./projects/.venv
 ```
 
-**24)** Find all regular files at exact depth of `2`.
+**24)** Find all regular files at the exact depth of `2`.
 
 ```bash
 $ find -mindepth 2 -maxdepth 2 -type f
@@ -1296,7 +1296,7 @@ From [unix.stackexchange: pros and cons of find and locate](https://unix.stackex
 
 ## File Properties
 
->![info](../images/info.svg) Use [example_files/text_files](https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files) directory for input files used in the following exercises, unless otherwise specified.
+>![info](../images/info.svg) Use the [example_files/text_files](https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files) directory for input files used in the following exercises, unless otherwise specified.
 
 >![info](../images/info.svg) Create a temporary directory for exercises that may require you to create some files and directories. You can delete such practice directories afterwards.
 
@@ -1338,7 +1338,7 @@ $ printf 'greeting.txt\0scores.csv' | wc --files0-from=-
 >read input from the files specified by NUL-terminated names in file
 >F; If F is - then read names from standard input
 
-**5)** What is the difference between `wc -c` and `wc -m` options? And which option would you use to get the longest line length?
+**5)** What is the difference between the `wc -c` and `wc -m` options? And which option would you use to get the longest line length?
 
 >`-c, --bytes`
 >
@@ -1352,7 +1352,7 @@ $ printf 'greeting.txt\0scores.csv' | wc --files0-from=-
 >
 >print the maximum display width
 
-**6)** Find filenames ending with `.log` and report their sizes in human readable format. Use `find+du` combination for the first case and `ls` command (with appropriate shell features) for the second case.
+**6)** Find filenames ending with `.log` and report their sizes in human readable format. Use the `find+du` combination for the first case and the `ls` command (with appropriate shell features) for the second case.
 
 ```bash
 # change to the 'scripts' directory and source the 'du.sh' script
@@ -1390,7 +1390,7 @@ $ du -sc --si *
 >('sparse')  files, internal fragmentation, indirect blocks, and the
 >like
 
-**9)** When will you use the `df` command instead of `du`? Which `df` command option will help you to report only specific fields of interest?
+**9)** When will you use the `df` command instead of `du`? Which `df` command option will help you to report only the specific fields of interest?
 
 `df` gives space usage for the entire file system whereas `du` is useful to get space estimate for specific files and directories.
 
@@ -1464,7 +1464,7 @@ UTF-8 Unicode text
 
 **15)** Is the following command valid? If so, what would be the output?
 
-Yes, it is valid. Multiple slashes will be considered as a single slash.
+Yes, it is valid. Multiple slashes will be considered as a single slash. Any trailing slashes will be removed before determining the portion to be extracted.
 
 ```bash
 $ basename -s.txt ~///test.txt///
@@ -1570,7 +1570,7 @@ $ stat -c '%a %A' test_dir
 * `Ctrl+z` (suspend the current running job) followed by `bg` (push the recently suspended job to the background)
 * `jobs` or `ps` will help to track active jobs
 
-**2)** What do `+` and `-` symbols next to job numbers indicate?
+**2)** What do the `+` and `-` symbols next to job numbers indicate?
 
 From `info bash` (section *Job Control Basics*):
 
@@ -1632,7 +1632,7 @@ free (1)             - Display amount of free and used memory in the system
 
 ## Multipurpose Text Processing Tools
 
->![info](../images/info.svg) Use [example_files/text_files](https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files) directory for input files used in the following exercises.
+>![info](../images/info.svg) Use the [example_files/text_files](https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files) directory for input files used in the following exercises.
 
 **1)** Replace all occurrences of `0xA0` with `0x50` and `0xFF` with `0x7F` for the given input.
 
@@ -1744,9 +1744,9 @@ hi[42]bye nice[42]1[42]3 bad42 cool_[42][42]a 42c
 **8)** Replace all whole words with `X` that start and end with the same word character.
 
 ```bash
-# can also use: sed -E 's/\b(\w)(\w*\1)?\b/X/g'
-$ echo 'oreo not a _a2_ roar took 22' | sed -E 's/\b(\w|(\w)\w*\2)\b/X/g'
-X not X X X took X
+# can also use: sed -E 's/\b(\w|(\w)\w*\2)\b/X/g'
+$ echo 'oreo not a _oh_ pip RoaR took 22 Pop' | sed -E 's/\b(\w)(\w*\1)?\b/X/g'
+X not X X X X took X Pop
 ```
 
 **9)** For the input file `anchors.txt`, convert markdown anchors to hyperlinks as shown below.
@@ -1778,6 +1778,7 @@ sample item t33m 33l
 ```bash
 $ echo 'lion,,ant,road,neon' | sed 's/[^,]*/42/3'
 lion,,42,road,neon
+
 $ echo ',,,' | sed 's/[^,]*/42/3'
 ,,42,
 ```
@@ -1832,7 +1833,7 @@ $ perl -F, -lane 'print "$F[0]:$F[2]"' scores.csv
 $ perl -F, -lane 'print join ":", @F[0,2]' scores.csv
 ```
 
-**15)** Extract and display third and first words in the format shown below.
+**15)** Extract and display the third and first words in the format shown below.
 
 ```bash
 $ echo '%whole(Hello)--{doubt}==ado==' | awk -v FPAT='\\w+' '{print $3 ":" $1}'
@@ -1846,7 +1847,7 @@ $ echo '%whole(Hello)--{doubt}==ado==' | perl -lne '@F = /\w+/g; print "$F[2]:$F
 $ echo 'just,\joint*,concession_42<=nice' | perl -lne '@F = /\w+/g; print "$F[2]:$F[0]"'
 ```
 
-**16)** For the input file `scores.csv`, add another column named `GP` which is calculated out of `100` by giving `50%` weightage to `Maths` and `25%` each for `Physics` and `Chemistry`.
+**16)** For the input file `scores.csv`, add another column named **GP** which is calculated out of 100 by giving 50% weightage to Maths and 25% each for Physics and Chemistry.
 
 ```bash
 $ awk -F, -v OFS=, '{$(NF+1) = NR==1 ? "GP" : ($2/2 + ($3+$4)/4)} 1' scores.csv
@@ -1886,7 +1887,7 @@ banana
 cherry.
 ```
 
-**19)** For the input file `sample.txt`, print a matching line containing `do` only if `you` is found two lines before. For example, if `do` is found on line number 10 and 8th line contains `you`, then 10th line should be printed.
+**19)** For the input file `sample.txt`, print a matching line containing `do` only if `you` is found two lines before. For example, if `do` is found on line number 10 and the 8th line contains `you`, then the 10th line should be printed.
 
 ```bash
 $ awk 'p2 ~ /you/ && /do/; {p2=p1; p1=$0}' sample.txt
@@ -1896,7 +1897,7 @@ $ awk 'p2 ~ /you/ && /do/; {p2=p1; p1=$0}' sample.txt
 $ perl -ne 'print if $p2 =~ /you/ && /do/; $p2=$p1; $p1=$_' sample.txt
 ```
 
-**20)** For the input file `blocks.txt`, extract contents from a line containing exactly `%=%=` until but not including the next such line. The block to be extracted is indicated by variable `n` passed via the `-v` option.
+**20)** For the input file `blocks.txt`, extract contents from a line containing exactly `%=%=` until but not including the next such line. The block to be extracted is indicated by the variable `n` passed via the `-v` option.
 
 ```bash
 $ cat blocks.txt
@@ -2055,7 +2056,7 @@ yellow banana WINDOW shoes 3.14
 
 ## Sorting Stuff
 
->![info](../images/info.svg) Use [example_files/text_files](https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files) directory for input files used in the following exercises.
+>![info](../images/info.svg) Use the [example_files/text_files](https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files) directory for input files used in the following exercises.
 
 **1)** Default `sort` doesn't work for numbers. Correct the command used below:
 
@@ -2109,7 +2110,7 @@ $ printf '+120\n-1.53\n3.14e+4\n42.1e-2' | sort -g
 >
 >compare according to general numerical value
 
-**4)** Sort the `scores.csv` file numerically in ascending order using the contents of the second field. Header line should be preserved as the first line as shown below. *Hint*: see [Shell Features](./shell-features.md) chapter.
+**4)** Sort the `scores.csv` file numerically in ascending order using the contents of the second field. Header line should be preserved as the first line as shown below. *Hint*: see the [Shell Features](./shell-features.md) chapter.
 
 ```bash
 $ (sed -u '1q' ; sort -t, -k2,2n) < scores.csv
@@ -2122,7 +2123,7 @@ Ith,100,100,100
 **5)** Sort the contents of `duplicates.txt` by the fourth column numbers in descending order. Retain only the first copy of lines with the same number.
 
 ```bash
-$ sort -t, -k4,4nr -u duplicates.txt 
+$ sort -t, -k4,4nr -u duplicates.txt
 dark red,sky,rose,555
 blue,ruby,water,333
 dark red,ruby,rose,111
@@ -2141,7 +2142,7 @@ red
 blue
 ```
 
-**7)** Retain only unique entries based on the first two characters of the input lines. Sort the input if necessary.
+**7)** Retain only the unique entries based on the first two characters of the input lines. Sort the input if necessary.
 
 ```bash
 $ printf '3) cherry\n1) apple\n2) banana\n1) almond\n'
@@ -2193,7 +2194,7 @@ fig 5 10
 
 ## Comparing Files
 
->![info](../images/info.svg) Use [example_files/text_files](https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files) directory for input files used in the following exercises.
+>![info](../images/info.svg) Use the [example_files/text_files](https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files) directory for input files used in the following exercises.
 
 **1)** Which `cmp` option would you use if you just need the exit status reflecting whether the given inputs are same or not?
 
@@ -2201,7 +2202,7 @@ fig 5 10
 >
 >suppress all normal output
 
-**2)** Which `cmp` option would you use to skip initial bytes for comparison purposes? The below example requires you to skip the first two bytes.
+**2)** Which `cmp` option would you use to skip the initial bytes for comparison purposes? The below example requires you to skip the first two bytes.
 
 ```bash
 $ echo '1) apple' > x1.txt
@@ -2277,7 +2278,7 @@ $ rm d[12].txt
 
 ## Assorted Text Processing Tools
 
->![info](../images/info.svg) Use [example_files/text_files](https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files) directory for input files used in the following exercises.
+>![info](../images/info.svg) Use the [example_files/text_files](https://github.com/learnbyexample/cli-computing/tree/master/example_files/text_files) directory for input files used in the following exercises.
 
 **1)** Generate the following sequence.
 
@@ -2297,9 +2298,10 @@ $ seq -w -s, 01.5 6
 01.5,02.5,03.5,04.5,05.5
 ```
 
-**3)** Display three random words from `/usr/share/dict/words` (or equivalent dictionary word file) containing `s` and `e` and `t` in any order. The output shown below is just an example.
+**3)** Display three random words from `/usr/share/dict/words` (or an equivalent dictionary word file) containing `s` and `e` and `t` in any order. The output shown below is just an example.
 
 ```bash
+# can also use: grep 's' /usr/share/dict/words | grep 'e' | grep 't' | shuf -n3
 $ grep -P '^(?=.*s)(?=.*e).*t' /usr/share/dict/words | shuf -n3
 supplemental
 foresight
@@ -2347,7 +2349,7 @@ $ echo '2,3,4,5,6,7,8' | cut -d, --output-delimiter=' ' --complement -f2
 2 4 5 6 7 8
 ```
 
-**7)** Extract first three characters from the input lines as shown below. Can you also use the `head` command for this purpose? If not, why not?
+**7)** Extract the first three characters from the input lines as shown below. Can you also use the `head` command for this purpose? If not, why not?
 
 ```bash
 $ printf 'apple\nbanana\ncherry\ndates\n' | cut -c-3
@@ -2389,6 +2391,7 @@ yellow  banana  window  shoes  3.14
 ```bash
 $ echo 'Hello World' | tr 'a-zA-Z' 'n-za-mN-ZA-M'
 Uryyb Jbeyq
+
 $ echo 'Uryyb Jbeyq' | tr 'a-zA-Z' 'n-za-mN-ZA-M'
 Hello World
 ```
@@ -2407,7 +2410,7 @@ $ echo '!!hhoowwww !!aaaaaareeeeee!! yyouuuu!!' | tr -sd '!' 'a-z'
 how are you
 ```
 
-**13)** `paste -s` works separately for multiple input files. How would you workaround this if you needed to treat input as a single source?
+**13)** `paste -s` works separately for multiple input files. How would you workaround this if you needed to treat all the input files as a single source?
 
 ```bash
 # this works individually for each input file
@@ -2461,7 +2464,7 @@ $ seq -w 16 | pr -4ts,
 **16)** Use the `pr` command to join the input files `fruits.txt` and `ip.txt` as shown below.
 
 ```bash
-$ pr -mts' : ' fruits.txt ip.txt 
+$ pr -mts' : ' fruits.txt ip.txt
 banana : deep blue
 papaya : light orange
 mango : blue delight
@@ -2476,9 +2479,12 @@ le
 na
 ry
 es
+
+# alternate solutions
+$ printf 'apple\nbanana\ncherry\ndates\n' | grep -o '..$'
 ```
 
-**18)** Go through `split` documentation and use appropriate options to get the output shown below for the input file `purchases.txt`.
+**18)** Go through the `split` documentation and use appropriate options to get the output shown below for the input file `purchases.txt`.
 
 ```bash
 # split input by 3 lines (max) at a time
@@ -2506,7 +2512,7 @@ $ rm xa?
 >
 >put NUMBER lines/records per output file
 
-**19)** Go through `split` documentation and use appropriate options to get the output shown below.
+**19)** Go through the `split` documentation and use appropriate options to get the output shown below.
 
 ```bash
 $ echo 'apple,banana,cherry,dates' | split -t, -l1
@@ -2553,7 +2559,7 @@ $ rm xx0?
 **21)** Write a generic solution that transposes comma delimited data. Example input/output is shown below. You can use any tool(s) presented in this book.
 
 ```bash
-$ cat scores.csv 
+$ cat scores.csv
 Name,Maths,Physics,Chemistry
 Ith,100,100,100
 Cy,97,98,95
@@ -2568,6 +2574,8 @@ Chemistry,100,95,80
 # alternate solution if you have GNU datamash installed
 $ datamash -t, transpose <scores.csv
 ```
+
+See also my blog post [CLI computation with GNU datamash](https://learnbyexample.github.io/cli-computation-gnu-datamash/).
 
 **22)** Reshape the contents of `table.txt` to the expected output shown below.
 
@@ -2680,18 +2688,18 @@ $ echo "${#fruits}"
 5
 ```
 
-**9)** For the given array, use parameter expansion to remove characters until first/last space.
+**9)** For the given array, use parameter expansion to remove characters until the first/last space.
 
 ```bash
 $ colors=('green' 'dark brown' 'deep sky blue white')
 
-# remove till first space
+# remove till the first space
 $ printf '%s\n' "${colors[@]#* }"
 green
 brown
 sky blue white
 
-# remove till last space
+# remove till the last space
 $ printf '%s\n' "${colors[@]##* }"
 green
 brown
@@ -2715,17 +2723,24 @@ apple
 Yes it is possible. For the second and third cases, `extglob` has to be enabled.
 
 ```bash
-$ ip='apple:banana:cherry:dragon'
+$ ip1='apple:banana:cherry:dragon'
+$ ip2='Cradle:Mistborn:Piranesi'
 
-$ echo "${ip/:*:/ 42 }"
+$ echo "${ip1/:*:/ 42 }"
 apple 42 dragon
+$ echo "${ip2/:*:/ 42 }"
+Cradle 42 Piranesi
 
 $ shopt -s extglob
-$ echo "${ip/#+([^:])/fig}"
+$ echo "${ip1/#+([^:])/fig}"
 fig:banana:cherry:dragon
+$ echo "${ip2/#+([^:])/fig}"
+fig:Mistborn:Piranesi
 
-$ echo "${ip/%+([^:])/end}"
+$ echo "${ip1/%+([^:])/end}"
 apple:banana:cherry:end
+$ echo "${ip2/%+([^:])/end}"
+Cradle:Mistborn:end
 ```
 
 **12)** For the given input, change case as per the expected outputs shown below.
@@ -2755,7 +2770,7 @@ $ [[ -f ip.txt ]] && echo 'file exists'
 file exists
 ```
 
-**14)** What is the difference between `==` and `=~` string comparison operators?
+**14)** What is the difference between the `==` and `=~` string comparison operators?
 
 * `s1 = s2` or `s1 == s2` checks if two strings are equal
     * unquoted portions of `s2` will be treated as a wildcard while testing against `s1`
@@ -2847,7 +2862,7 @@ else
     fi
 fi
 
-$ chmod +x case.sh 
+$ chmod +x case.sh
 
 $ ./case.sh upper 'how are you?'
 HOW ARE YOU?
@@ -2895,7 +2910,7 @@ number of lines in 'items_1.txt' is: 3
 number of lines in 'items_2.txt' is: 5
 ```
 
-**21)** Write a shell script named `read_file.sh` that reads a file line by line to be passed as argument to the `paste -sd,` command. Can you also write a solution using the `xargs` command instead of a script?
+**21)** Write a shell script named `read_file.sh` that reads a file line by line to be passed as an argument to the `paste -sd,` command. Can you also write a solution using the `xargs` command instead of a script?
 
 ```bash
 $ printf 'apple\nbanana\ncherry\n' > items_1.txt
@@ -3011,7 +3026,7 @@ $ hw
 hw: command not found
 ```
 
-**5)** Write an alias and a function to display the contents of `PATH` environment variable on separate lines by changing `:` to the newline character. Sample output is shown below.
+**5)** Write an alias and a function to display the contents of the `PATH` environment variable on separate lines by changing `:` to the newline character. Sample output is shown below.
 
 ```bash
 $ echo "$PATH"
@@ -3063,7 +3078,7 @@ Any negative number.
 >completion in a case-insensitive fashion.  The default value
 >is `off`.
 
-**9)** Which shortcut helps you interactively search command history?
+**9)** Which shortcut helps you interactively search the command history?
 
 >To search backward in the history for a particular string, type `C-r`.  Typing `C-s` searches forward through the history.
 
@@ -3104,7 +3119,7 @@ Any negative number.
 >past that word as well.  If the insertion point is at the end of
 >the line, this transposes the last two words on the line.
 
-**14)** Is there any difference between `Shift+Insert` and `Shift+Ctrl+v` shortcuts?
+**14)** Is there a difference between the `Shift+Insert` and `Shift+Ctrl+v` shortcuts?
 
 * `Shift+Ctrl+v` pastes clipboard contents
 * `Shift+Insert` pastes the last highlighted portion (not necessarily the clipboard contents)
